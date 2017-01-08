@@ -50,7 +50,7 @@ public class Main {
     // AIzaSyB3pjdG8EsYWb-K-fzPpxCFPcnFBztm-wY //distance matrix
     public static void main(String[] args) throws SQLException, MalformedURLException, IOException, ParseException {
 
-
+        System.out.println(" Git Test");
         BuildGreedySolution buildGreedySolutionAlgorithm = new BuildGreedySolution();
         System.out.println(buildGreedySolutionAlgorithm.getListOfRequests());
     }
