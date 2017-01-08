@@ -52,6 +52,7 @@ public class Main {
 
         BuildGreedySolution buildGreedySolutionAlgorithm = new BuildGreedySolution();
         System.out.println(buildGreedySolutionAlgorithm.getListOfRequests());
+        System.out.println(buildGreedySolutionAlgorithm.getNodes());
     }
 
 }
