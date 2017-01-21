@@ -106,12 +106,15 @@ public class RequestDataAcessObject {
 
     }
 
-    public List<Request> getListOfRequestUsingNodesList(List<Node> nodes) {
+    public List<Request> getListOfRequestUsingNodesList(List<Node> nodes, String instanceName) {
         try {
 
             List<Request> listOfRequests = new ArrayList<Request>();
-            PreparedStatement statement = this.connection.prepareStatement("select * from VRPDRTSD_requests250;");
-
+            
+            String sql = "select * from " + instanceName +";";
+            PreparedStatement statement = this.connection.prepareStatement(sql);
+            //statement.setString(1, instanceName);
+            
             ResultSet resultSetForRequests = statement.executeQuery();
 
             while (resultSetForRequests.next()) {

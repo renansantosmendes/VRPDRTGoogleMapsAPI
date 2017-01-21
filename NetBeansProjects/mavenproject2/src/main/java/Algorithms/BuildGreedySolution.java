@@ -22,9 +22,9 @@ public class BuildGreedySolution implements Algorithm{
     private int numberOfNodes;
     private List<Node> nodes;
     private List<Request> listOfRequests;
-    Duration[][] duration;
-    double[][] distance;
-    String instanceName = "VRPDRTSD_requests110";
+    private Duration[][] duration;
+    private double[][] distance;
+    private String instanceName = "VRPDRTSD_requests110";
     
     public BuildGreedySolution(){
         this.readInstance();
@@ -53,6 +53,7 @@ public class BuildGreedySolution implements Algorithm{
     public String getInstanceName() {
         return instanceName;
     }
+    
     
     
     
@@ -88,7 +89,7 @@ public class BuildGreedySolution implements Algorithm{
     public void readInstance() {
         this.numberOfNodes = new NumberOfNodesDataAcessObject().getNumberOfNodes(this.instanceName);
         this.nodes = new NodeDataAcessObject().getListOfNodes();
-        this.listOfRequests = new RequestDataAcessObject().getListOfRequestUsingNodesList(nodes);
+        this.listOfRequests = new RequestDataAcessObject().getListOfRequestUsingNodesList(nodes, this.instanceName);
         this.duration = new AdjacenciesDataAcessObject().getDurationBetweenNodes(this.numberOfNodes);
         this.distance = new AdjacenciesDataAcessObject().getDistanceBetweenNodes(this.numberOfNodes);
     }

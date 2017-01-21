@@ -9,8 +9,12 @@ import Algorithms.BuildGreedySolution;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import org.json.simple.parser.ParseException;
-
 
 /**
  *
@@ -24,9 +28,35 @@ public class Main {
     public static void main(String[] args) throws SQLException, MalformedURLException, IOException, ParseException {
 
         BuildGreedySolution buildGreedySolutionAlgorithm = new BuildGreedySolution();
-        System.out.println(buildGreedySolutionAlgorithm.getListOfRequests());
-        System.out.println(buildGreedySolutionAlgorithm.getNodes());
-        System.out.println(buildGreedySolutionAlgorithm.getNumberOfNodes());
+//        System.out.println(buildGreedySolutionAlgorithm.getListOfRequests());
+//        System.out.println(buildGreedySolutionAlgorithm.getNodes());
+//        System.out.println(buildGreedySolutionAlgorithm.getNumberOfNodes());
+
+        LocalDateTime data = LocalDateTime.now();
+        String dataString = Integer.toString(data.getYear()) + Integer.toString(data.getMonth().getValue())
+                + Integer.toString(data.getDayOfMonth());
+        System.out.println("data = " + data);
+
+        List<Integer> solution = new ArrayList<>();
+        solution.add(0);
+        solution.add(-510);
+        solution.add(1);
+        solution.add(-520);
+        solution.add(2);
+        solution.add(-520);
+        solution.add(2);
+        solution.add(-520);
+        solution.add(1);
+        solution.add(-520);
+        solution.add(0);
+
+        System.out.println(solution);
+        
+        solution.removeIf(u -> u.intValue() <= 0);
+        //List<Integer> route = solution.
+        System.out.println(solution);
+        
+        System.out.println("Data do dia");
     }
 
 }

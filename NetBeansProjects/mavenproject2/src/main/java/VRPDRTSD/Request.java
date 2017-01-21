@@ -179,7 +179,7 @@ public class Request {
         return "Request: id = " + this.requestId + " Passenger Origin = " + this.passengerOrigin.getNodeId() + 
                 " Passenger Destination = " + this.passengerDestination.getNodeId()
                 + "\nTime Window Lower = " + this.deliveryTimeWindowLower
-                + "\nTime Window Upper = " + this.deliveryTimeWindowUpper;
+                + "\nTime Window Upper = " + this.deliveryTimeWindowUpper + "\n";
     }
 
 }
