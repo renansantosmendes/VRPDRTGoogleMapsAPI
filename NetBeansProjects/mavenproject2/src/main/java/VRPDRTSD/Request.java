@@ -18,6 +18,8 @@ public class Request {
     private LocalDateTime deliveryTimeWindowLower;
     private LocalDateTime deliveryTimeWindowUpper;
     private boolean feasible;
+    private double requestRankingFunction;
+    private boolean boarded;
 
     /**
      *
@@ -41,6 +43,8 @@ public class Request {
         this.deliveryTimeWindowLower = deliveryTimeWindowLower;
         this.deliveryTimeWindowUpper = deliveryTimeWindowUpper;
         this.feasible = false;
+        this.requestRankingFunction = 0.0;
+        this.boarded = false;
     }
 
     /**
@@ -71,7 +75,7 @@ public class Request {
 
     /**
      *
-     * @param deliveryTimeWindowUpper Sets the upper limit for the delivery time
+     * @param deliveryTimeWindowUpper - Sets the upper limit for the delivery time
      * window
      */
     public void setDeliveryTimeWindowUpper(LocalDateTime deliveryTimeWindowUpper) {
@@ -86,6 +90,23 @@ public class Request {
         this.feasible = feasible;
     }
 
+    /**
+     * 
+     * @param requestRankingFunction (define the parameters - not done yet)
+     */
+    public void setRequestRankingFunction(double requestRankingFunction) {
+        this.requestRankingFunction = requestRankingFunction;
+    }
+    
+    /**
+     * 
+     * @param boarded - Sets if the passenger is boarded in one vehicle
+     */
+    public void setBoarded(boolean boarded) {
+        this.boarded = boarded;
+    }
+
+    
     /**
      *
      * @return Integer - returns the request Id
@@ -155,6 +176,27 @@ public class Request {
     }
 
     /**
+     * 
+     * @return double - Returns the request evaluation value. This evaluation is 
+     * used in greedy constructive algorithm
+     */
+    public double getRequestRankingFunction() {
+        return requestRankingFunction;
+    }
+
+    /**
+     * 
+     * @return bool - returns true if the passenger boarded in the vehicle and
+     * false if the passenger didn't board - it could be used to analyse if the 
+     * passenger already leaves the vehicle
+     */
+    public boolean isBoarded() {
+        return boarded;
+    }
+    
+    
+
+    /**
      * This method analyses the feasibility of the request according to the
      * current node and current time wherein the vehicle is
      *
@@ -175,6 +217,10 @@ public class Request {
         }
     }
     
+    /**
+     * 
+     * @return String - returns a string with the request informations 
+     */
     public String toString(){
         return "Request: id = " + this.requestId + " Passenger Origin = " + this.passengerOrigin.getNodeId() + 
                 " Passenger Destination = " + this.passengerDestination.getNodeId()
