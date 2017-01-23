@@ -14,6 +14,7 @@ import VRPDRTSD.Request;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -115,6 +116,7 @@ public class RequestTest {
         //local variables for the feasibility test
         LocalDateTime currentTime = LocalDateTime.of(2017, 1, 1, 0, 0, 0);
         Node currentNode = new Node(0, 40.7143528, -74.0059731);
+        Node currentNode1 = new Node(1, 40.7143528, -74.0059731);
 
         //evaluating every request
         listOfRequests.forEach(r -> r.determineFeasibility(currentTime, currentNode, duration));
@@ -123,13 +125,21 @@ public class RequestTest {
         Map<Boolean, List<Request>> feasibleRequestsMap = listOfRequests
                 .stream().collect(Collectors.partitioningBy(Request::isFeasible));
 
-        System.out.println(feasibleRequestsMap.get(true));
-        feasibleRequestsMap.get(true).forEach(u -> {
-            int totalTime = (int) duration[0][u.getPassengerOrigin().getNodeId()].toMinutes();
-            totalTime += (int) duration[u.getPassengerOrigin().getNodeId()][u.getPassengerDestination().getNodeId()].toMinutes();
-            System.out.println(totalTime);
-        });
-        Assert.assertEquals(30, feasibleRequestsMap.get(false).size());
+        Map<Node, List<Request>> requestsWichBoardsInNode = listOfRequests.stream()
+                .collect(Collectors.groupingBy(Request::getPassengerOrigin));
+        
+        Map<Node, List<Request>> requestsWichLeavesInNode = listOfRequests.stream()
+                .collect(Collectors.groupingBy(Request::getPassengerDestination));
+        
+        System.out.println("Requests = " + requestsWichBoardsInNode.keySet().stream()
+                .sorted(Comparator.comparing(Node::getNodeId)).collect(Collectors.toCollection(ArrayList::new)));
+        
+        
+        Assert.assertEquals(3, feasibleRequestsMap.get(false).size());
+
+        //testing the requests evaluation
+        
+        
     }
 
 }
