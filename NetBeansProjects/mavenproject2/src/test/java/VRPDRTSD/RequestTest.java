@@ -127,19 +127,49 @@ public class RequestTest {
 
         Map<Node, List<Request>> requestsWichBoardsInNode = listOfRequests.stream()
                 .collect(Collectors.groupingBy(Request::getPassengerOrigin));
-        
+
         Map<Node, List<Request>> requestsWichLeavesInNode = listOfRequests.stream()
                 .collect(Collectors.groupingBy(Request::getPassengerDestination));
-        
+
         System.out.println("Requests = " + requestsWichBoardsInNode.keySet().stream()
                 .sorted(Comparator.comparing(Node::getNodeId)).collect(Collectors.toCollection(ArrayList::new)));
-        
-        
+
+        listOfRequests.forEach(r -> r.setDistanceToAttendThisRequest(currentNode, distance));
+        double maxDistance = listOfRequests.stream().mapToDouble(Request::getDistanceToAttendThisRequest).max().getAsDouble();
+        double minDistance = listOfRequests.stream().mapToDouble(Request::getDistanceToAttendThisRequest).min().getAsDouble();
+
+        listOfRequests.forEach(r -> r.setDistanceRankingFunction(maxDistance, minDistance));
+
+        System.out.println("\n TESTE (distRankingFunction): " + listOfRequests.get(10).getDistanceRankingFunction());
+        System.out.println("\n TESTE (distRankingFunction): " + listOfRequests.get(10).getDistanceToAttendThisRequest());
+
         Assert.assertEquals(3, feasibleRequestsMap.get(false).size());
 
+        int minTimeWindowLower = listOfRequests.stream().mapToInt(Request::getDeliveryTimeWindowLowerInMinutes).min().getAsInt();
+        int maxTimeWindowLower = listOfRequests.stream().mapToInt(Request::getDeliveryTimeWindowLowerInMinutes).max().getAsInt();
+        int minTimeWindowUpper = listOfRequests.stream().mapToInt(Request::getDeliveryTimeWindowUpperInMinutes).min().getAsInt();
+        int maxTimeWindowUpper = listOfRequests.stream().mapToInt(Request::getDeliveryTimeWindowUpperInMinutes).max().getAsInt();
+
+        System.out.println("Time Window = " + minTimeWindowLower);
+
+        Assert.assertEquals(25, minTimeWindowLower);
+        Assert.assertEquals(178, maxTimeWindowLower);
+        Assert.assertEquals(28, minTimeWindowUpper);
+        Assert.assertEquals(181, maxTimeWindowUpper);
+
+        listOfRequests.forEach(r -> {
+            r.setDeliveryTimeWindowLowerRankingFunction(maxTimeWindowLower, minTimeWindowLower);
+            r.setDeliveryTimeWindowUpperRankingFunction(maxTimeWindowUpper, minTimeWindowUpper);
+        });
+        
+        System.out.println("Requests boards in node = " + requestsWichLeavesInNode.get(currentNode1));
+        System.out.println("testing equals = " + currentNode.equals(nodes.get(0)));
+        System.out.println("Node(0) = " + nodes.get(0).hashCode());
+        System.out.println("Current Node = " + currentNode.hashCode());
+        
+        nodes.forEach(n -> System.out.println(n.hashCode()));
         //testing the requests evaluation
-        
-        
+
     }
 
 }
