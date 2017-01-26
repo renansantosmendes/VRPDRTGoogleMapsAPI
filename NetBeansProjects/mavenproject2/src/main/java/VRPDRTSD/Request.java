@@ -18,8 +18,14 @@ public class Request {
     private LocalDateTime deliveryTimeWindowLower;
     private LocalDateTime deliveryTimeWindowUpper;
     private boolean feasible;
-    private double requestRankingFunction;
     private boolean boarded;
+    private double requestRankingFunction;
+    private double distanceRankingFunction;
+    private double distanceToAttendThisRequest;
+    private double deliveryTimeWindowLowerRankingFunction;
+    private double deliveryTimeWindowUpperRankingFunction;
+    private double originNodeRankingFunction;
+    private double destinationNodeRankingFunction;
 
     /**
      *
@@ -43,8 +49,14 @@ public class Request {
         this.deliveryTimeWindowLower = deliveryTimeWindowLower;
         this.deliveryTimeWindowUpper = deliveryTimeWindowUpper;
         this.feasible = false;
-        this.requestRankingFunction = 0.0;
         this.boarded = false;
+        this.requestRankingFunction = 0.0;
+        this.distanceRankingFunction = 0.0;
+        this.distanceToAttendThisRequest = 0.0;
+        this.deliveryTimeWindowLowerRankingFunction = 0.0;
+        this.deliveryTimeWindowUpperRankingFunction = 0.0;
+        this.originNodeRankingFunction = 0.0;
+        this.destinationNodeRankingFunction = 0.0;
     }
 
     /**
@@ -75,8 +87,8 @@ public class Request {
 
     /**
      *
-     * @param deliveryTimeWindowUpper - Sets the upper limit for the delivery time
-     * window
+     * @param deliveryTimeWindowUpper - Sets the upper limit for the delivery
+     * time window
      */
     public void setDeliveryTimeWindowUpper(LocalDateTime deliveryTimeWindowUpper) {
         this.deliveryTimeWindowUpper = deliveryTimeWindowUpper;
@@ -91,21 +103,41 @@ public class Request {
     }
 
     /**
-     * 
-     * @param requestRankingFunction (define the parameters - not done yet)
-     */
-    public void setRequestRankingFunction(double requestRankingFunction) {
-        this.requestRankingFunction = requestRankingFunction;
-    }
-    
-    /**
-     * 
+     *
      * @param boarded - Sets if the passenger is boarded in one vehicle
      */
     public void setBoarded(boolean boarded) {
         this.boarded = boarded;
     }
 
+    /**
+     *
+     * @param requestRankingFunction (define the parameters - not done yet)
+     */
+    public void setRequestRankingFunction(LocalDateTime currentTime, Node currentNode, Duration timeMatrix[][],
+            int maxTimeWindowLower, int minTimeWindowLower, int maxTimeWindowUpper, int minTimeWindowUpper) {
+
+    }
+
+    public void setDistanceRankingFunction(double maxDistance, double minDistance) {
+        this.distanceRankingFunction
+                = (maxDistance - this.getDistanceToAttendThisRequest()) / (maxDistance - minDistance);
+    }
+
+    public void setDistanceToAttendThisRequest(Node currentNode, double distanceMatrix[][]) {
+        this.distanceToAttendThisRequest = distanceMatrix[currentNode.getNodeId()][this.getPassengerOrigin().getNodeId()]
+                + distanceMatrix[this.getPassengerOrigin().getNodeId()][this.getPassengerDestination().getNodeId()];
+    }
+
+    public void setDeliveryTimeWindowLowerRankingFunction(int maxTimeWindowLower, int minTimeWindowLower) {
+        this.deliveryTimeWindowLowerRankingFunction
+                = (maxTimeWindowLower - this.getDeliveryTimeWindowLowerInMinutes()) / (maxTimeWindowLower - minTimeWindowLower);
+    }
+
+    public void setDeliveryTimeWindowUpperRankingFunction(int maxTimeWindowUpper, int minTimeWindowUpper) {
+        this.deliveryTimeWindowUpperRankingFunction
+                = (maxTimeWindowUpper - this.getDeliveryTimeWindowLowerInMinutes()) / (maxTimeWindowUpper - minTimeWindowUpper);
+    }
     
     /**
      *
@@ -159,11 +191,29 @@ public class Request {
 
     /**
      *
+     * @return Integer - returns the lower limit for the delivery time window in
+     * minutes
+     */
+    public Integer getDeliveryTimeWindowLowerInMinutes() {
+        return deliveryTimeWindowLower.getHour() * 60 + deliveryTimeWindowLower.getMinute();
+    }
+
+    /**
+     *
      * @return LocalDateTime - returns the upper limit for the delivery time
      * window
      */
     public LocalDateTime getDeliveryTimeWindowUpper() {
         return deliveryTimeWindowUpper;
+    }
+
+    /**
+     *
+     * @return Integer - returns the lower limit for the delivery time window in
+     * minutes
+     */
+    public Integer getDeliveryTimeWindowUpperInMinutes() {
+        return deliveryTimeWindowUpper.getHour() * 60 + deliveryTimeWindowUpper.getMinute();
     }
 
     /**
@@ -176,25 +226,39 @@ public class Request {
     }
 
     /**
-     * 
-     * @return double - Returns the request evaluation value. This evaluation is 
+     *
+     * @return bool - returns true if the passenger boarded in the vehicle and
+     * false if the passenger didn't board - it could be used to analyse if the
+     * passenger already leaves the vehicle
+     */
+    public boolean isBoarded() {
+        return boarded;
+    }
+
+    /**
+     *
+     * @return double - Returns the request evaluation value. This evaluation is
      * used in greedy constructive algorithm
      */
     public double getRequestRankingFunction() {
         return requestRankingFunction;
     }
 
-    /**
-     * 
-     * @return bool - returns true if the passenger boarded in the vehicle and
-     * false if the passenger didn't board - it could be used to analyse if the 
-     * passenger already leaves the vehicle
-     */
-    public boolean isBoarded() {
-        return boarded;
+    public double getDistanceRankingFunction() {
+        return distanceRankingFunction;
+    }
+
+    public double getDistanceToAttendThisRequest() {
+        return distanceToAttendThisRequest;
     }
     
+    public double getDeliveryTimeWindowLowerRankingFunction(){
+        return deliveryTimeWindowLowerRankingFunction;
+    }
     
+    public double getDeliveryTimeWindowUpperRankingFunction(){
+        return deliveryTimeWindowLowerRankingFunction;
+    }
 
     /**
      * This method analyses the feasibility of the request according to the
@@ -216,14 +280,14 @@ public class Request {
             this.setFeasible(true);
         }
     }
-    
+
     /**
-     * 
-     * @return String - returns a string with the request informations 
+     *
+     * @return String - returns a string with the request informations
      */
-    public String toString(){
-        return "Request: id = " + this.requestId + " Passenger Origin = " + this.passengerOrigin.getNodeId() + 
-                " Passenger Destination = " + this.passengerDestination.getNodeId()
+    public String toString() {
+        return "Request: id = " + this.requestId + " Passenger Origin = " + this.passengerOrigin.getNodeId()
+                + " Passenger Destination = " + this.passengerDestination.getNodeId()
                 + "\nTime Window Lower = " + this.deliveryTimeWindowLower
                 + "\nTime Window Upper = " + this.deliveryTimeWindowUpper + "\n";
     }
