@@ -162,13 +162,21 @@ public class RequestTest {
             r.setDeliveryTimeWindowUpperRankingFunction(maxTimeWindowUpper, minTimeWindowUpper);
         });
         
-        System.out.println("Requests boards in node = " + requestsWichLeavesInNode.get(currentNode1));
-        System.out.println("testing equals = " + currentNode.equals(nodes.get(0)));
-        System.out.println("Node(0) = " + nodes.get(0).hashCode());
-        System.out.println("Current Node = " + currentNode.hashCode());
+//        System.out.println("Requests boards in node = " + requestsWichLeavesInNode.get(currentNode1));
+//        System.out.println("testing equals = " + currentNode.equals(nodes.get(0)));
+//        System.out.println("Node(0) = " + nodes.get(0).hashCode());
+//        System.out.println("Current Node = " + currentNode1.hashCode());
+//        System.out.println("Map size = " + requestsWichBoardsInNode.size());
+        nodes.forEach(n -> n.setLoadIndex(requestsWichBoardsInNode, requestsWichLeavesInNode));
+        Assert.assertEquals(14,nodes.get(1).getLoadIndex());
+        nodes.forEach(System.out::println);
         
-        nodes.forEach(n -> System.out.println(n.hashCode()));
-        //testing the requests evaluation
+        int maxLoadIndex = nodes.stream().mapToInt(Node::getLoadIndex).max().getAsInt();
+        int minLoadIndex = nodes.stream().mapToInt(Node::getLoadIndex).min().getAsInt();
+        Assert.assertEquals(-20, minLoadIndex);
+        Assert.assertEquals(22, maxLoadIndex);
+        listOfRequests.forEach(r -> r.setOriginNodeRankingFunction(maxLoadIndex, minLoadIndex));
+        listOfRequests.forEach(r -> System.out.println(r.getOriginNodeRankingFunction()));
 
     }
 

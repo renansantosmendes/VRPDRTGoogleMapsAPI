@@ -138,6 +138,13 @@ public class Request {
         this.deliveryTimeWindowUpperRankingFunction
                 = (maxTimeWindowUpper - this.getDeliveryTimeWindowLowerInMinutes()) / (maxTimeWindowUpper - minTimeWindowUpper);
     }
+
+    public void setOriginNodeRankingFunction(int maxLoadIndex, int minLoadIndex) {
+        this.originNodeRankingFunction 
+                = (double)(this.getPassengerOrigin().getLoadIndex() - minLoadIndex)/ (maxLoadIndex - minLoadIndex);
+    }
+    
+    
     
     /**
      *
@@ -260,6 +267,9 @@ public class Request {
         return deliveryTimeWindowLowerRankingFunction;
     }
 
+    public double getOriginNodeRankingFunction(){
+        return originNodeRankingFunction;
+    }
     /**
      * This method analyses the feasibility of the request according to the
      * current node and current time wherein the vehicle is
