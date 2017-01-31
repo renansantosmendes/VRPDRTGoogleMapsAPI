@@ -18,11 +18,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import junit.framework.Assert;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -161,12 +157,7 @@ public class RequestTest {
             r.setDeliveryTimeWindowLowerRankingFunction(maxTimeWindowLower, minTimeWindowLower);
             r.setDeliveryTimeWindowUpperRankingFunction(maxTimeWindowUpper, minTimeWindowUpper);
         });
-        
-//        System.out.println("Requests boards in node = " + requestsWichLeavesInNode.get(currentNode1));
-//        System.out.println("testing equals = " + currentNode.equals(nodes.get(0)));
-//        System.out.println("Node(0) = " + nodes.get(0).hashCode());
-//        System.out.println("Current Node = " + currentNode1.hashCode());
-//        System.out.println("Map size = " + requestsWichBoardsInNode.size());
+
         nodes.forEach(n -> n.setLoadIndex(requestsWichBoardsInNode, requestsWichLeavesInNode));
         Assert.assertEquals(14,nodes.get(1).getLoadIndex());
         nodes.forEach(System.out::println);

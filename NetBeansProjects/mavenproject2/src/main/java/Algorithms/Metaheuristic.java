@@ -9,15 +9,15 @@ package Algorithms;
  *
  * @author renansantos
  */
-public interface Metaheuristic {
-    Object firstImprovement();
-    Object bestImprovement();
-    Object MutiStart();
-    Object SimulatedAnnealing();
-    Object VND();
-    Object VNS();
-    Object GRASP();
-    Object ILS();
-    Object TabuSearch();
+public interface Metaheuristic extends Algorithm{
+//    Object firstImprovement();
+//    Object bestImprovement();
+//    Object MutiStart();
+//    Object SimulatedAnnealing();
+//    Object VND();
+//    Object VNS();
+//    Object GRASP();
+//    Object ILS();
+//    Object TabuSearch();
     
 }

@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Algorithms;
+package VRPDRTSD;
 
+import Algorithms.Metaheuristic;
 import VRPDRTSD.IntanceReaderWithMySQL.AdjacenciesDataAcessObject;
 import VRPDRTSD.IntanceReaderWithMySQL.NodeDataAcessObject;
 import VRPDRTSD.IntanceReaderWithMySQL.NumberOfNodesDataAcessObject;
 import VRPDRTSD.IntanceReaderWithMySQL.RequestDataAcessObject;
-import VRPDRTSD.Node;
-import VRPDRTSD.Request;
 import java.time.Duration;
 import java.util.List;
 
@@ -18,17 +17,13 @@ import java.util.List;
  *
  * @author renansantos
  */
-public class BuildGreedySolution implements Metaheuristic{
+public class Interfaces implements Metaheuristic{
     private int numberOfNodes;
     private List<Node> nodes;
     private List<Request> listOfRequests;
     private Duration[][] duration;
     private double[][] distance;
     private String instanceName = "VRPDRTSD_requests110";
-    
-//    public BuildGreedySolution(){
-//        this.readInstance();
-//    }
 
     public int getNumberOfNodes() {
         return numberOfNodes;
@@ -55,27 +50,8 @@ public class BuildGreedySolution implements Metaheuristic{
     }
     
     
-
-//    @Override
-//    public Object builRandomSoltution() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public Object reBuildSolution() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public void evaluateSolution() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public Object localSeach() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-
+    
+    
     @Override
     public void readInstance() {
         this.numberOfNodes = new NumberOfNodesDataAcessObject().getNumberOfNodes(this.instanceName);
@@ -87,7 +63,10 @@ public class BuildGreedySolution implements Metaheuristic{
 
     @Override
     public <Candidates, ProblemSolution, ProblemData> List<Candidates> InitializeCandidateElementsSet(ProblemData... data) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //listOfRequests.forEach(r -> r.determineFeasibility(currentTime, currentNode, duration));
+        
+        
+        return (List<Candidates>) this.listOfRequests;
     }
     
 }
