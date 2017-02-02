@@ -13,7 +13,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -27,7 +29,7 @@ public class Main {
     // AIzaSyB3pjdG8EsYWb-K-fzPpxCFPcnFBztm-wY //distance matrix
     public static void main(String[] args) throws SQLException, MalformedURLException, IOException, ParseException {
 
-        BuildGreedySolution buildGreedySolutionAlgorithm = new BuildGreedySolution();
+        //BuildGreedySolution buildGreedySolutionAlgorithm = new BuildGreedySolution();
 //        System.out.println(buildGreedySolutionAlgorithm.getListOfRequests());
 //        System.out.println(buildGreedySolutionAlgorithm.getNodes());
 //        System.out.println(buildGreedySolutionAlgorithm.getNumberOfNodes());
@@ -57,6 +59,16 @@ public class Main {
         System.out.println(solution);
         
         System.out.println("Data do dia");
+        
+        Interfaces interfaces = new Interfaces();
+        interfaces.readInstance();
+        interfaces.testMethod();
+        Map<Boolean, List<Request>> map = interfaces.getListOfRequests().stream()
+                .collect(Collectors.partitioningBy(Request::isFeasible));
+        //System.out.println(map);
+        
+        System.out.println("Teste com o metodo");
+        interfaces.defaultBuildGreedySolution();
     }
 
 }

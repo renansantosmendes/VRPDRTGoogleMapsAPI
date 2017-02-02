@@ -34,8 +34,12 @@ public class InterfacesTest {
      */
     @Test
     public void testInitializeCandidateElementsSet() {
-        LocalDateTime currentTime = LocalDateTime.of(2017, 1, 1, 0, 0, 0);
-        Node currentNode = new Node(0, 40.7143528, -74.0059731);
+        Interfaces interfaces = new Interfaces();
+        interfaces.readInstance();
+        List<Request> listOfRequests = interfaces.getListOfRequests();
+       
+       //interfaces.InitializeCandidateElementsSet(ProblemData);
+        Assert.assertEquals(listOfRequests.size(),110);
         
     }
     
