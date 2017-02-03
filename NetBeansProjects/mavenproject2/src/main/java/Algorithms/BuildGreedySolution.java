@@ -18,18 +18,18 @@ import java.util.List;
  *
  * @author renansantos
  */
-public class BuildGreedySolution implements Metaheuristic{
+public class BuildGreedySolution implements Algorithm {
+
     private int numberOfNodes;
     private List<Node> nodes;
     private List<Request> listOfRequests;
     private Duration[][] duration;
     private double[][] distance;
     private String instanceName = "VRPDRTSD_requests110";
-    
+
 //    public BuildGreedySolution(){
 //        this.readInstance();
 //    }
-
     public int getNumberOfNodes() {
         return numberOfNodes;
     }
@@ -53,8 +53,6 @@ public class BuildGreedySolution implements Metaheuristic{
     public String getInstanceName() {
         return instanceName;
     }
-    
-    
 
 //    @Override
 //    public Object builRandomSoltution() {
@@ -75,7 +73,6 @@ public class BuildGreedySolution implements Metaheuristic{
 //    public Object localSeach() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-
     @Override
     public void readInstance() {
         this.numberOfNodes = new NumberOfNodesDataAcessObject().getNumberOfNodes(this.instanceName);
@@ -85,9 +82,28 @@ public class BuildGreedySolution implements Metaheuristic{
         this.distance = new AdjacenciesDataAcessObject().getDistanceBetweenNodes(this.numberOfNodes);
     }
 
+//    @Override
+//    public <Candidates, ProblemSolution, ProblemData> List<Candidates> InitializeCandidateElementsSet(ProblemData... data) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
     @Override
-    public <Candidates, ProblemSolution, ProblemData> List<Candidates> InitializeCandidateElementsSet(ProblemData... data) {
+    public Object initializeCandidatesElementsSet() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    public Object actualizeCandidatesElementsSet() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object findBestCandidate() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addCandidateIntoSolution(Object solution, Object candidate) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

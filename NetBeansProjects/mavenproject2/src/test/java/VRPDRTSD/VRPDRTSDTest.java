@@ -16,15 +16,14 @@ import static org.junit.Assert.*;
  *
  * @author renansantos
  */
-public class InterfacesTest {
-    
-    
+public class VRPDRTSDTest {
+
     /**
      * Test of readInstance method, of class Interfaces.
      */
     @Test
     public void testReadInstance() {
-        Interfaces interfaceTest = new Interfaces();
+        VRPDRTSD interfaceTest = new VRPDRTSD();
         interfaceTest.readInstance();
         Assert.assertEquals(110, interfaceTest.getListOfRequests().size());
     }
@@ -34,13 +33,13 @@ public class InterfacesTest {
      */
     @Test
     public void testInitializeCandidateElementsSet() {
-        Interfaces interfaces = new Interfaces();
-        interfaces.readInstance();
-        List<Request> listOfRequests = interfaces.getListOfRequests();
-       
-       //interfaces.InitializeCandidateElementsSet(ProblemData);
-        Assert.assertEquals(listOfRequests.size(),110);
-        
+        VRPDRTSD vrpdrtsd = new VRPDRTSD();
+        vrpdrtsd.readInstance();
+        List<Request> listOfRequests = vrpdrtsd.getListOfRequests();
+        Assert.assertEquals(listOfRequests.size(), 110);
+        vrpdrtsd.buildGreedySolution();
+        //interfaces.InitializeCandidateElementsSet(ProblemData);
+
     }
-    
+
 }

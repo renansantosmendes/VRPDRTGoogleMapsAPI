@@ -14,21 +14,24 @@ import VRPDRTSD.IntanceReaderWithMySQL.RequestDataAcessObject;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
  *
  * @author renansantos
  */
-public class Interfaces implements Algorithm <Solution, Duration, List<Request>>{
+public class VRPDRTSD implements Algorithm<Solution, Duration, List<Request>, Request> {
+
     private int numberOfNodes;
     private List<Node> nodes;
     private List<Request> listOfRequests;
     private Duration[][] duration;
     private double[][] distance;
     private String instanceName = "VRPDRTSD_requests110";
-    LocalDateTime currentTime = LocalDateTime.of(2017, 1, 1, 0, 0, 0);
-    Node currentNode = new Node(0, 40.7143528, -74.0059731);
+    private LocalDateTime currentTime = LocalDateTime.of(2017, 1, 1, 0, 0, 0);
+    private Node currentNode = new Node(0, 40.7143528, -74.0059731);
+    private Request lastPassengerAddedToRoute;
 
     public int getNumberOfNodes() {
         return numberOfNodes;
@@ -53,10 +56,7 @@ public class Interfaces implements Algorithm <Solution, Duration, List<Request>>
     public String getInstanceName() {
         return instanceName;
     }
-    
-    
-    
-    
+
     @Override
     public void readInstance() {
         this.numberOfNodes = new NumberOfNodesDataAcessObject().getNumberOfNodes(this.instanceName);
@@ -66,43 +66,9 @@ public class Interfaces implements Algorithm <Solution, Duration, List<Request>>
         this.distance = new AdjacenciesDataAcessObject().getDistanceBetweenNodes(this.numberOfNodes);
     }
 
-
-
-        @Override
-    public <Candidates, ProblemSolution, ProblemData> List<Candidates> InitializeCandidateElementsSet(ProblemData[] data) {
-//        List<Request> listOfRequests = new ArrayList<>();
-//        Duration[][] duration = new Duration[this.numberOfNodes][];
-//        for(Object object: data){
-//            if(object instanceof Request){
-//                listOfRequests = (List<Request>) object;
-//            }else if(object instanceof Duration[][]){
-//                duration = (Duration[][]) object;
-//            }
-//        }
-        LocalDateTime currentTime = LocalDateTime.of(2017, 1, 1, 0, 0, 0);
-        Node currentNode = new Node(0, 40.7143528, -74.0059731);
-        for(Request request: this.listOfRequests){
-            request.determineFeasibility(currentTime, currentNode, this.duration);
-        }
-        return (List<Candidates>) this.listOfRequests;
-    }
-
-    
-    
-    @Override
-    public <ProblemData> void testMethod() {
-        LocalDateTime currentTime = LocalDateTime.of(2017, 1, 1, 0, 0, 0);
-        Node currentNode = new Node(0, 40.7143528, -74.0059731);
-        for(Request request: this.listOfRequests){
-            request.determineFeasibility(currentTime, currentNode, this.duration);
-        }
-        
-    }
-
     @Override
     public <Candidates> Candidates initializeCandidatesElementsSet() {
-        
-        for(Request request: this.listOfRequests){
+        for (Request request : this.listOfRequests) {
             request.determineFeasibility(currentTime, currentNode, this.duration);
         }
         return (Candidates) this.listOfRequests;
@@ -110,7 +76,21 @@ public class Interfaces implements Algorithm <Solution, Duration, List<Request>>
 
     @Override
     public <Candidates> Candidates actualizeCandidatesElementsSet() {
-        return (Candidates) this.listOfRequests.subList(0, this.listOfRequests.size()/2);
+        this.lastPassengerAddedToRoute = this.listOfRequests.get(0);
+        this.listOfRequests.remove(0);
+        this.currentNode = this.lastPassengerAddedToRoute.getPassengerOrigin();
+        return (Candidates) this.listOfRequests;
     }
-    
+
+    @Override
+    public <Candidate> Candidate findBestCandidate() {
+        this.listOfRequests.sort(Comparator.comparing(Request::getRequestRankingFunction).reversed());
+        return (Candidate) this.listOfRequests.get(0);
+    }
+
+    @Override
+    public <Candidate, ProblemSolution> void addCandidateIntoSolution(ProblemSolution solution, Candidate candidate) {
+
+    }
+
 }

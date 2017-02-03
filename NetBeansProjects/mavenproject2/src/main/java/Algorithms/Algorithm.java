@@ -11,47 +11,34 @@ import java.util.List;
  *
  * @author renansantos
  */
-public interface Algorithm <ProblemSolution, ProblemData, Candidates> {
-    
+public interface Algorithm<ProblemSolution, ProblemData, Candidates, Candidate> {
+
     void readInstance();
-    
-    
-    default <ProblemSolution, ProblemData, Candidates> void buildGreedySolution(ProblemSolution solution, ProblemData[] data){
-        List<Candidates> candidates = InitializeCandidateElementsSet(data);
-        int cursor = 0;
-        while(!candidates.isEmpty()){
-            System.out.println(candidates.get(cursor));
-            candidates.remove(cursor);
-            cursor++;
-        }
-    }
-    
-    public <Candidates, ProblemSolution, ProblemData> List<Candidates> InitializeCandidateElementsSet(ProblemData[] data);
-    
-    public <ProblemData> void testMethod();
-    
+
     public <Candidates> Candidates initializeCandidatesElementsSet();
-    
+
     public <Candidates> Candidates actualizeCandidatesElementsSet();
-    
-    default <Candidates, ProblemSolution> void defaultBuildGreedySolution(){
+
+    public <Candidate> Candidate findBestCandidate();
+
+    public <Candidate, ProblemSolution> void addCandidateIntoSolution(ProblemSolution solution, Candidate candidate);
+
+    default <Candidates, Candidate, ProblemSolution> void buildGreedySolution() {
         ProblemSolution solution = null;
         List<Candidates> candidatesList = initializeCandidatesElementsSet();
-        while(!candidatesList.isEmpty()){
+        while (!candidatesList.isEmpty()) {
+            Candidate candidate = findBestCandidate();
+            //Insert candidate into solution - the method will be implemented
+            addCandidateIntoSolution(solution, candidate);
             candidatesList = actualizeCandidatesElementsSet();
-            System.out.println(candidatesList.size());
         }
     }
-    
+
 //    Object builRandomSoltution();
 //    
 //    Object reBuildSolution();
 //    
 //    void evaluateSolution();
 //    
-//    Object localSeach();
-//    
-
-  
-    
+//    Object localSeach();   
 }

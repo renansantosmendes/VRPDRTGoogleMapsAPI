@@ -136,8 +136,8 @@ public class RequestTest {
 
         listOfRequests.forEach(r -> r.setDistanceRankingFunction(maxDistance, minDistance));
 
-        System.out.println("\n TESTE (distRankingFunction): " + listOfRequests.get(10).getDistanceRankingFunction());
-        System.out.println("\n TESTE (distRankingFunction): " + listOfRequests.get(10).getDistanceToAttendThisRequest());
+//        System.out.println("\n TESTE (distRankingFunction): " + listOfRequests.get(10).getDistanceRankingFunction());
+//        System.out.println("\n TESTE (distRankingFunction): " + listOfRequests.get(10).getDistanceToAttendThisRequest());
 
         Assert.assertEquals(3, feasibleRequestsMap.get(false).size());
 
@@ -146,7 +146,7 @@ public class RequestTest {
         int minTimeWindowUpper = listOfRequests.stream().mapToInt(Request::getDeliveryTimeWindowUpperInMinutes).min().getAsInt();
         int maxTimeWindowUpper = listOfRequests.stream().mapToInt(Request::getDeliveryTimeWindowUpperInMinutes).max().getAsInt();
 
-        System.out.println("Time Window = " + minTimeWindowLower);
+//        System.out.println("Time Window = " + minTimeWindowLower);
 
         Assert.assertEquals(25, minTimeWindowLower);
         Assert.assertEquals(178, maxTimeWindowLower);
@@ -160,14 +160,14 @@ public class RequestTest {
 
         nodes.forEach(n -> n.setLoadIndex(requestsWichBoardsInNode, requestsWichLeavesInNode));
         Assert.assertEquals(14,nodes.get(1).getLoadIndex());
-        nodes.forEach(System.out::println);
+        //nodes.forEach(System.out::println);
         
         int maxLoadIndex = nodes.stream().mapToInt(Node::getLoadIndex).max().getAsInt();
         int minLoadIndex = nodes.stream().mapToInt(Node::getLoadIndex).min().getAsInt();
         Assert.assertEquals(-20, minLoadIndex);
         Assert.assertEquals(22, maxLoadIndex);
         listOfRequests.forEach(r -> r.setOriginNodeRankingFunction(maxLoadIndex, minLoadIndex));
-        listOfRequests.forEach(r -> System.out.println(r.getOriginNodeRankingFunction()));
+        //listOfRequests.forEach(r -> System.out.println(r.getOriginNodeRankingFunction()));
 
     }
 

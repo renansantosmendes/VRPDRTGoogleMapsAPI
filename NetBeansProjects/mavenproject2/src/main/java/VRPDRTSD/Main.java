@@ -60,15 +60,8 @@ public class Main {
         
         System.out.println("Data do dia");
         
-        Interfaces interfaces = new Interfaces();
-        interfaces.readInstance();
-        interfaces.testMethod();
-        Map<Boolean, List<Request>> map = interfaces.getListOfRequests().stream()
-                .collect(Collectors.partitioningBy(Request::isFeasible));
-        //System.out.println(map);
+        VRPDRTSD problemInstance = new VRPDRTSD();
         
-        System.out.println("Teste com o metodo");
-        interfaces.defaultBuildGreedySolution();
     }
 
 }
