@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -57,6 +59,10 @@ public class VRPDRTSD implements Algorithm<Solution, Duration, List<Request>, Re
         return instanceName;
     }
 
+    public Node getCurrentNode() {
+        return currentNode;
+    }
+
     @Override
     public void readInstance() {
         this.numberOfNodes = new NumberOfNodesDataAcessObject().getNumberOfNodes(this.instanceName);
@@ -71,7 +77,45 @@ public class VRPDRTSD implements Algorithm<Solution, Duration, List<Request>, Re
         for (Request request : this.listOfRequests) {
             request.determineFeasibility(currentTime, currentNode, this.duration);
         }
-        return (Candidates) this.listOfRequests;
+
+        listOfRequests.forEach(r -> r.setDistanceToAttendThisRequest(currentNode, distance));
+        double maxDistance = listOfRequests.stream()
+                .mapToDouble(Request::getDistanceToAttendThisRequest).max().getAsDouble();
+        double minDistance = listOfRequests.stream()
+                .mapToDouble(Request::getDistanceToAttendThisRequest).min().getAsDouble();
+
+        int minTimeWindowLower = listOfRequests.stream()
+                .mapToInt(Request::getDeliveryTimeWindowLowerInMinutes).min().getAsInt();
+        int maxTimeWindowLower = listOfRequests.stream()
+                .mapToInt(Request::getDeliveryTimeWindowLowerInMinutes).max().getAsInt();
+        int minTimeWindowUpper = listOfRequests.stream()
+                .mapToInt(Request::getDeliveryTimeWindowUpperInMinutes).min().getAsInt();
+        int maxTimeWindowUpper = listOfRequests.stream()
+                .mapToInt(Request::getDeliveryTimeWindowUpperInMinutes).max().getAsInt();
+
+        Map<Node, List<Request>> requestsWichBoardsInNode = listOfRequests.stream()
+                .collect(Collectors.groupingBy(Request::getPassengerOrigin));
+
+        Map<Node, List<Request>> requestsWichLeavesInNode = listOfRequests.stream()
+                .collect(Collectors.groupingBy(Request::getPassengerDestination));
+
+        nodes.forEach(n -> n.setLoadIndex(requestsWichBoardsInNode, requestsWichLeavesInNode));
+        int maxLoadIndex = nodes.stream().mapToInt(Node::getLoadIndex).max().getAsInt();
+        int minLoadIndex = nodes.stream().mapToInt(Node::getLoadIndex).min().getAsInt();
+
+        for (Request request : this.listOfRequests) {
+            request.setDistanceRankingFunction(maxDistance, minDistance);
+            request.setDeliveryTimeWindowLowerRankingFunction(maxTimeWindowLower, minTimeWindowLower);
+            request.setDeliveryTimeWindowUpperRankingFunction(maxTimeWindowUpper, minTimeWindowUpper);
+            request.setOriginNodeRankingFunction(maxLoadIndex, minLoadIndex);
+            request.setDestinationNodeRankingFunction(maxLoadIndex, minLoadIndex);
+            request.setRequestRankingFunction(0.2, 0.2, 0.2, 0.2, 0.2);
+        }
+
+        return (Candidates) this.listOfRequests
+                .stream()
+                .filter(Request::isFeasible)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override

@@ -7,6 +7,7 @@ package VRPDRTSD;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
@@ -37,7 +38,13 @@ public class VRPDRTSDTest {
         vrpdrtsd.readInstance();
         List<Request> listOfRequests = vrpdrtsd.getListOfRequests();
         Assert.assertEquals(listOfRequests.size(), 110);
-        vrpdrtsd.buildGreedySolution();
+        List<Request> feasibleRequests = vrpdrtsd.initializeCandidatesElementsSet();
+        //System.out.println(feasibleRequests);
+        feasibleRequests.sort(Comparator.comparing(Request::getRequestRankingFunction).reversed());
+        feasibleRequests.forEach(System.out::println);
+        Assert.assertEquals(feasibleRequests.size(), 107);
+        
+        
         //interfaces.InitializeCandidateElementsSet(ProblemData);
 
     }

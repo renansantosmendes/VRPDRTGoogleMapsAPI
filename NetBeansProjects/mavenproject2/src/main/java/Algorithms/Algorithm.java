@@ -28,7 +28,6 @@ public interface Algorithm<ProblemSolution, ProblemData, Candidates, Candidate> 
         List<Candidates> candidatesList = initializeCandidatesElementsSet();
         while (!candidatesList.isEmpty()) {
             Candidate candidate = findBestCandidate();
-            //Insert candidate into solution - the method will be implemented
             addCandidateIntoSolution(solution, candidate);
             candidatesList = actualizeCandidatesElementsSet();
         }

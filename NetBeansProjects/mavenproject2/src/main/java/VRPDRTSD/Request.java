@@ -1,7 +1,9 @@
 package VRPDRTSD;
 
+import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  *
@@ -50,7 +52,7 @@ public class Request {
         this.deliveryTimeWindowUpper = deliveryTimeWindowUpper;
         this.feasible = false;
         this.boarded = false;
-        this.requestRankingFunction = 0.0;
+        this.requestRankingFunction = -1.0;
         this.distanceRankingFunction = 0.0;
         this.distanceToAttendThisRequest = 0.0;
         this.deliveryTimeWindowLowerRankingFunction = 0.0;
@@ -114,9 +116,14 @@ public class Request {
      *
      * @param requestRankingFunction (define the parameters - not done yet)
      */
-    public void setRequestRankingFunction(LocalDateTime currentTime, Node currentNode, Duration timeMatrix[][],
-            int maxTimeWindowLower, int minTimeWindowLower, int maxTimeWindowUpper, int minTimeWindowUpper) {
+    public void setRequestRankingFunction(double distanceCoeficient, double deliveryTimeWindowLowerCoeficient,
+            double deliveryTimeWindowUpperCoeficient, double originNodeCoeficient, double destinationNodeCoeficient) {
 
+        this.requestRankingFunction = distanceCoeficient * this.distanceRankingFunction
+                + deliveryTimeWindowLowerCoeficient * this.deliveryTimeWindowLowerRankingFunction
+                + deliveryTimeWindowUpperCoeficient * this.deliveryTimeWindowUpperRankingFunction
+                + originNodeCoeficient * this.originNodeRankingFunction
+                + destinationNodeCoeficient * this.destinationNodeRankingFunction;
     }
 
     public void setDistanceRankingFunction(double maxDistance, double minDistance) {
@@ -140,12 +147,15 @@ public class Request {
     }
 
     public void setOriginNodeRankingFunction(int maxLoadIndex, int minLoadIndex) {
-        this.originNodeRankingFunction 
-                = (double)(this.getPassengerOrigin().getLoadIndex() - minLoadIndex)/ (maxLoadIndex - minLoadIndex);
+        this.originNodeRankingFunction
+                = (double) (this.getPassengerOrigin().getLoadIndex() - minLoadIndex) / (maxLoadIndex - minLoadIndex);
     }
-    
-    
-    
+
+    public void setDestinationNodeRankingFunction(int maxLoadIndex, int minLoadIndex) {
+        this.destinationNodeRankingFunction
+                = (double) (this.getPassengerDestination().getLoadIndex() - minLoadIndex) / (maxLoadIndex - minLoadIndex);;
+    }
+
     /**
      *
      * @return Integer - returns the request Id
@@ -258,18 +268,23 @@ public class Request {
     public double getDistanceToAttendThisRequest() {
         return distanceToAttendThisRequest;
     }
-    
-    public double getDeliveryTimeWindowLowerRankingFunction(){
-        return deliveryTimeWindowLowerRankingFunction;
-    }
-    
-    public double getDeliveryTimeWindowUpperRankingFunction(){
+
+    public double getDeliveryTimeWindowLowerRankingFunction() {
         return deliveryTimeWindowLowerRankingFunction;
     }
 
-    public double getOriginNodeRankingFunction(){
+    public double getDeliveryTimeWindowUpperRankingFunction() {
+        return deliveryTimeWindowLowerRankingFunction;
+    }
+
+    public double getOriginNodeRankingFunction() {
         return originNodeRankingFunction;
     }
+
+    public double getDestinationNodeRankingFunction() {
+        return destinationNodeRankingFunction;
+    }
+
     /**
      * This method analyses the feasibility of the request according to the
      * current node and current time wherein the vehicle is
@@ -296,10 +311,15 @@ public class Request {
      * @return String - returns a string with the request informations
      */
     public String toString() {
+
+//        double RRF = this.requestRankingFunction;
+//        DecimalFormat formato = new DecimalFormat("#.####");
+//        RRF = Double.valueOf(formato.format(RRF));
+
         return "Request: id = " + this.requestId + " Passenger Origin = " + this.passengerOrigin.getNodeId()
                 + " Passenger Destination = " + this.passengerDestination.getNodeId()
                 + "\nTime Window Lower = " + this.deliveryTimeWindowLower
-                + "\nTime Window Upper = " + this.deliveryTimeWindowUpper + "\n";
+                + "\nTime Window Upper = " + this.deliveryTimeWindowUpper + "\nRRF = " + this.requestRankingFunction + "\n";
     }
 
 }

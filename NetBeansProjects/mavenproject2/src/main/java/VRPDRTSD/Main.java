@@ -29,11 +29,6 @@ public class Main {
     // AIzaSyB3pjdG8EsYWb-K-fzPpxCFPcnFBztm-wY //distance matrix
     public static void main(String[] args) throws SQLException, MalformedURLException, IOException, ParseException {
 
-        //BuildGreedySolution buildGreedySolutionAlgorithm = new BuildGreedySolution();
-//        System.out.println(buildGreedySolutionAlgorithm.getListOfRequests());
-//        System.out.println(buildGreedySolutionAlgorithm.getNodes());
-//        System.out.println(buildGreedySolutionAlgorithm.getNumberOfNodes());
-
         LocalDateTime data = LocalDateTime.now();
         String dataString = Integer.toString(data.getYear()) + Integer.toString(data.getMonth().getValue())
                 + Integer.toString(data.getDayOfMonth());
