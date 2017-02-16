@@ -84,8 +84,6 @@ public class Node {
             color = "blue";
             label = "S";
         }
-
-        //return "&markers=color:blue|label:" + this.nodeId + "|" + this.longitude + "," + this.latitude;
         return "&markers=color:" + color + "|label:" + label + "|" + this.longitude + "," + this.latitude;
     }
 

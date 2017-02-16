@@ -46,9 +46,9 @@ public class StaticGoogleMap {
         JFrame frame = new JFrame("Google Maps");
 
         try {
-            //String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center=Belo+Horizonte,Minas+Gerais,Brasil&zoom=12&size=1000x1000&maptype=roadmap&markers=color:blue|label:1|-19.938286,-43.9993067&key=AIzaSyBpval3mOcQgQ5PlCX8tV7Cm5k-E00_98A&format=jpg";
-            //String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center=Belo+Horizonte,Minas+Gerais,Brasil&zoom=12&size=1000x1000&maptype=roadmap&markers=color:blue|label:1|-19.938286,-43.9993067&key=AIzaSyBpval3mOcQgQ5PlCX8tV7Cm5k-E00_98A&format=jpg";
-            String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + city + "," + state + "," + country + "&zoom=12&scale=2&size=1000x1000&maptype=roadmap" + stringOfNodes.toString() + "&key=" + key + "&format=jpg";
+            String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" 
+                    + city + "," + state + "," + country + "&zoom=12&scale=2&size=1000x1000&maptype=roadmap" 
+                    + stringOfNodes.toString() + "&key=" + key + "&format=jpg";
             System.out.println("URL");
             System.out.println(imageUrl);
 
@@ -72,13 +72,11 @@ public class StaticGoogleMap {
             System.exit(1);
         }
 
-        frame.add(new JLabel(new ImageIcon((new ImageIcon("map_from_google.jpg")).getImage().getScaledInstance(630, 600, java.awt.Image.SCALE_SMOOTH))));
-        //frame.setLocationRelativeTo(null);
+        frame.add(new JLabel(new ImageIcon((new ImageIcon("map_from_google.jpg"))
+                .getImage().getScaledInstance(630, 600, java.awt.Image.SCALE_SMOOTH))));
         frame.setVisible(true);
         frame.pack();
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //frame.setResizable(false);
-
     }
 
 }
