@@ -79,7 +79,8 @@ public class NodeDataAcessObject {
         try {
 
             List<Node> listOfNodes = new ArrayList<>();
-            PreparedStatement stmt = this.connection.prepareStatement("select * from Nodes");
+            PreparedStatement stmt = this.connection.prepareStatement("select * from bh_nodes");
+            //PreparedStatement stmt = this.connection.prepareStatement("select * from Nodes");
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {

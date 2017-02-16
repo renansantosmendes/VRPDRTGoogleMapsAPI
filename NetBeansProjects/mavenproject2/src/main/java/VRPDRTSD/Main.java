@@ -56,7 +56,12 @@ public class Main {
         System.out.println("Data do dia");
         
         VRPDRTSD problemInstance = new VRPDRTSD();
+        problemInstance.readInstance();
+        List<Node> listOfNodes = problemInstance.getNodes();
         
+        listOfNodes.forEach(n -> System.out.println(n.toStringForMapQuery()));
+        new StaticGoogleMap(listOfNodes).buildMapInWindow();
+        //System.out.println(new StaticGoogleMap(listOfNodes).getStringOfNodes().toString());
     }
 
 }

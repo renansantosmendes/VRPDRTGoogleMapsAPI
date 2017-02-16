@@ -63,20 +63,34 @@ public class Node {
     }
 
     public void setLoadIndex(Map<Node, List<Request>> requestsWichBoardsInNode, Map<Node, List<Request>> requestsWichLeavesInNode) {
-        if(requestsWichBoardsInNode.get(this) != null && requestsWichLeavesInNode.get(this) != null){
+        if (requestsWichBoardsInNode.get(this) != null && requestsWichLeavesInNode.get(this) != null) {
             this.loadIndex = requestsWichBoardsInNode.get(this).size() - requestsWichLeavesInNode.get(this).size();
         }
     }
 
     @Override
     public String toString() {
-        return "Node(" + this.nodeId + ") " + "Lat = " + this.latitude + " Long = " 
-                + this.longitude + " LoadIndex = " + this.loadIndex ;
+        return "Node(" + this.nodeId + ") " + "Lat = " + this.latitude + " Long = "
+                + this.longitude + " LoadIndex = " + this.loadIndex;
+    }
+
+    public String toStringForMapQuery() {
+        String color;
+        String label;
+        if (this.nodeId == 0) {
+            color = "red";
+            label = "O";
+        } else {
+            color = "blue";
+            label = "S";
+        }
+
+        //return "&markers=color:blue|label:" + this.nodeId + "|" + this.longitude + "," + this.latitude;
+        return "&markers=color:" + color + "|label:" + label + "|" + this.longitude + "," + this.latitude;
     }
 
     @Override
     public boolean equals(Object obj) {
-//       return obj instanceof Node && equals((Node) obj);
         if (obj == null) {
             return false;
         }
