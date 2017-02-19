@@ -13,6 +13,7 @@ public class Node {
     private final Integer nodeId;
     private final Double longitude;
     private final Double latitude;
+    private final String adress;
     private int loadIndex;
 
     /**
@@ -21,10 +22,11 @@ public class Node {
      * @param longitude - longitude value
      * @param latitude - latitude value
      */
-    public Node(Integer nodeId, Double longitude, Double latitude) {
+    public Node(Integer nodeId, Double longitude, Double latitude, String adress) {
         this.nodeId = nodeId;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.adress = adress;
         this.loadIndex = 0;
     }
 
@@ -53,6 +55,16 @@ public class Node {
     }
 
     /**
+     * 
+     * @return String - return the adress of the node 
+     */
+    
+    public String getAdress() {
+        return adress;
+    }
+    
+
+    /**
      *
      * @return int - returns the node load index: number of passenger which
      * boards in this node minus the number of passenger which leaves the
@@ -71,7 +83,7 @@ public class Node {
     @Override
     public String toString() {
         return "Node(" + this.nodeId + ") " + "Lat = " + this.latitude + " Long = "
-                + this.longitude + " LoadIndex = " + this.loadIndex;
+                + this.longitude + " LoadIndex = " + this.loadIndex + " Adress = " + this.adress;
     }
 
     public String toStringForMapQuery() {

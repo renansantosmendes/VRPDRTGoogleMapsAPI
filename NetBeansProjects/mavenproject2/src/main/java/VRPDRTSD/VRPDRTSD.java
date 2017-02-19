@@ -31,8 +31,9 @@ public class VRPDRTSD implements Algorithm<Solution, Duration, List<Request>, Re
     private Duration[][] duration;
     private double[][] distance;
     private String instanceName = "VRPDRTSD_requests110";
+    private String nodesInstanceName = "bh_nodes_2";
     private LocalDateTime currentTime = LocalDateTime.of(2017, 1, 1, 0, 0, 0);
-    private Node currentNode = new Node(0, 40.7143528, -74.0059731);
+    private Node currentNode = new Node(0, 40.7143528, -74.0059731,"Av. do Contorno, 340 - Santa Efigênia, Belo Horizonte - MG, 30110-017");
     private Request lastPassengerAddedToRoute;
 
     public int getNumberOfNodes() {
@@ -65,7 +66,7 @@ public class VRPDRTSD implements Algorithm<Solution, Duration, List<Request>, Re
 
     @Override
     public void readInstance() {
-        this.numberOfNodes = new NumberOfNodesDataAcessObject().getNumberOfNodes(this.instanceName);
+        this.numberOfNodes = new NumberOfNodesDataAcessObject().getNumberOfNodes(this.nodesInstanceName);
         this.nodes = new NodeDataAcessObject().getListOfNodes();
         this.listOfRequests = new RequestDataAcessObject().getListOfRequestUsingNodesList(nodes, this.instanceName);
         this.duration = new AdjacenciesDataAcessObject().getDurationBetweenNodes(this.numberOfNodes);

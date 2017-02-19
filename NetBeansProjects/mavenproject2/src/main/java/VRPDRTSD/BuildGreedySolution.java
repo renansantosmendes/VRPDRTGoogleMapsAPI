@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Algorithms;
+package VRPDRTSD;
 
+import Algorithms.Algorithm;
 import VRPDRTSD.IntanceReaderWithMySQL.AdjacenciesDataAcessObject;
 import VRPDRTSD.IntanceReaderWithMySQL.NodeDataAcessObject;
 import VRPDRTSD.IntanceReaderWithMySQL.NumberOfNodesDataAcessObject;

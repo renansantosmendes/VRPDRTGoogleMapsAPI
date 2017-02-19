@@ -1,0 +1,253 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJbfevC_6ZpgAR_R-g4-MuUFk",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJ5UV9sm6XpgARhAtZCj-WxfY",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9125408,
+               "lng" : -43.94112760000001
+            },
+            "southwest" : {
+               "lat" : -19.9293722,
+               "lng" : -43.9574862
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "3.2 km",
+                  "value" : 3225
+               },
+               "duration" : {
+                  "text" : "8 mins",
+                  "value" : 481
+               },
+               "end_address" : "Av. do Contorno, 8902 - Santo Agostinho, Belo Horizonte - MG, 30110-062, Brazil",
+               "end_location" : {
+                  "lat" : -19.9284861,
+                  "lng" : -43.9574862
+               },
+               "start_address" : "Av. do Contorno, 340 - Santa Efigênia, Belo Horizonte - MG, 30110-017, Brazil",
+               "start_location" : {
+                  "lat" : -19.9137587,
+                  "lng" : -43.94271699999999
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 192
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 28
+                     },
+                     "end_location" : {
+                        "lat" : -19.9128865,
+                        "lng" : -43.94112760000001
+                     },
+                     "html_instructions" : "Head \u003cb\u003enortheast\u003c/b\u003e on \u003cb\u003eAv. do Contorno\u003c/b\u003e toward \u003cb\u003eAv. Oiapoque\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "~kpxB~pekG_@{@s@aB_@w@c@_ACGGK?AIQ"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9137587,
+                        "lng" : -43.94271699999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "41 m",
+                        "value" : 41
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 24
+                     },
+                     "end_location" : {
+                        "lat" : -19.9125408,
+                        "lng" : -43.9412506
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e at the 1st cross street at \u003cb\u003eAv. Oiapoque\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "pfpxB`gekGg@L]H"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9128865,
+                        "lng" : -43.94112760000001
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.9 km",
+                        "value" : 869
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 76
+                     },
+                     "end_location" : {
+                        "lat" : -19.9177365,
+                        "lng" : -43.9472884
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. do Contorno\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "jdpxBxgekG~EbKn@dBHPR\\V`@VXLNTRFFj@b@t@h@lAdAl@f@nAbAtA`Ah@b@h@`@`Ar@RNNPHHHJV^Z`@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9125408,
+                        "lng" : -43.9412506
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 327
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 33
+                     },
+                     "end_location" : {
+                        "lat" : -19.9176175,
+                        "lng" : -43.9504072
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e to stay on \u003cb\u003eAv. do Contorno\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "zdqxBpmfkGDr@@P@P?l@?PCn@?TGdCKxCIpB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9177365,
+                        "lng" : -43.9472884
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.8 km",
+                        "value" : 831
+                     },
+                     "duration" : {
+                        "text" : "3 mins",
+                        "value" : 160
+                     },
+                     "end_location" : {
+                        "lat" : -19.9247379,
+                        "lng" : -43.95257489999999
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eRua Paracatú\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "bdqxB`agkGZn@`BT`BXzB`@zBb@pB^pB`@LBJBpBZrB\\zB`@|B`@tBd@H@`@J`@HTB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9176175,
+                        "lng" : -43.9504072
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 206
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 50
+                     },
+                     "end_location" : {
+                        "lat" : -19.9263743,
+                        "lng" : -43.9517696
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Barbacena\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "rprxBpngkGt@DRM`By@HGxBkAJEHC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9247379,
+                        "lng" : -43.95257489999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.7 km",
+                        "value" : 655
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 86
+                     },
+                     "end_location" : {
+                        "lat" : -19.9293722,
+                        "lng" : -43.95716119999999
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Amazonas\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "xzrxBpigkGFHDJbCdF`@`AdClF^~@N`@~@tBhAdCFNl@fAVd@Tl@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9263743,
+                        "lng" : -43.9517696
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 104
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 24
+                     },
+                     "end_location" : {
+                        "lat" : -19.9284861,
+                        "lng" : -43.9574862
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. do Contorno\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "pmsxBfkhkGiCp@e@N"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9293722,
+                        "lng" : -43.95716119999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "~kpxB~pekGmD}HeAV~EbKn@dB\\n@n@z@b@b@r@j@`GzEjFzDv@v@r@`AFdA@~@C`A]fLZn@`BT|Ez@lJhBlJ~ArFfAj@Lv@Lt@DRMjBaAdCqAHCFHhCpFfDnHn@`BhCzFt@vAl@rAoD`A"
+         },
+         "summary" : "Rua Paracatú and Av. do Contorno",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

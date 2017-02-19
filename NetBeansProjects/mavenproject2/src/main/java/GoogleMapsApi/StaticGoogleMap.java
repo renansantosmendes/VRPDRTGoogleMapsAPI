@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package VRPDRTSD;
+package GoogleMapsApi;
 
+import VRPDRTSD.Node;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +24,7 @@ import javax.swing.JLabel;
  */
 public class StaticGoogleMap {
 
+    //Google Maps Directions API Key =  AIzaSyC--KVvuj7xGnkRBoLrUIaXLx5lGfedlBI  
     private List<Node> nodesList;
     private String key = "AIzaSyBpval3mOcQgQ5PlCX8tV7Cm5k-E00_98A";
     private StringBuilder stringOfNodes = new StringBuilder();
@@ -46,8 +48,8 @@ public class StaticGoogleMap {
         JFrame frame = new JFrame("Google Maps");
 
         try {
-            String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" 
-                    + city + "," + state + "," + country + "&zoom=12&scale=2&size=1000x1000&maptype=roadmap" 
+            String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center="
+                    + city + "," + state + "," + country + "&zoom=12&scale=2&size=1000x1000&maptype=roadmap"
                     + stringOfNodes.toString() + "&key=" + key + "&format=jpg";
             System.out.println("URL");
             System.out.println(imageUrl);
@@ -64,7 +66,6 @@ public class StaticGoogleMap {
             while ((length = is.read(b)) != -1) {
                 os.write(b, 0, length);
             }
-
             is.close();
             os.close();
         } catch (IOException e) {
@@ -78,5 +79,7 @@ public class StaticGoogleMap {
         frame.pack();
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+
+  
 
 }

@@ -79,12 +79,12 @@ public class NodeDataAcessObject {
         try {
 
             List<Node> listOfNodes = new ArrayList<>();
-            PreparedStatement stmt = this.connection.prepareStatement("select * from bh_nodes");
+            PreparedStatement stmt = this.connection.prepareStatement("select * from bh_nodes_2");
             //PreparedStatement stmt = this.connection.prepareStatement("select * from Nodes");
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-               Node node = new Node(rs.getInt("nodeId"), rs.getDouble("latitude"), rs.getDouble("longitude"));               
+               Node node = new Node(rs.getInt("nodeId"), rs.getDouble("latitude"), rs.getDouble("longitude"), rs.getString("adress"));               
                listOfNodes.add(node);
             }
             rs.close();
@@ -105,7 +105,7 @@ public class NodeDataAcessObject {
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-               Node node = new Node(rs.getInt("originNodeId"), rs.getDouble("originLatitude"), rs.getDouble("originLongiture"));               
+               Node node = new Node(rs.getInt("originNodeId"), rs.getDouble("originLatitude"), rs.getDouble("originLongitude"),null);               
                listOfNodes.add(node);
             }
             rs.close();
@@ -125,7 +125,7 @@ public class NodeDataAcessObject {
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-               Node node = new Node(rs.getInt("destinationNodeId"), rs.getDouble("destinationLatitude"), rs.getDouble("destinationLongiture"));               
+               Node node = new Node(rs.getInt("destinationNodeId"), rs.getDouble("destinationLatitude"), rs.getDouble("destinationLongitude"),null);               
                listOfNodes.add(node);
             }
             rs.close();

@@ -111,8 +111,8 @@ public class RequestTest {
 
         //local variables for the feasibility test
         LocalDateTime currentTime = LocalDateTime.of(2017, 1, 1, 0, 0, 0);
-        Node currentNode = new Node(0, 40.7143528, -74.0059731);
-        Node currentNode1 = new Node(1, 40.7143528, -74.0059731);
+        Node currentNode = new Node(0, 40.7143528, -74.0059731,null);
+        Node currentNode1 = new Node(1, 40.7143528, -74.0059731,null);
 
         //evaluating every request
         listOfRequests.forEach(r -> r.determineFeasibility(currentTime, currentNode, duration));

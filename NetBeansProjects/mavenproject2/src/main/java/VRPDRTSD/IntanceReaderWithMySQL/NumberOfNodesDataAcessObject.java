@@ -20,26 +20,46 @@ import java.util.List;
 public class NumberOfNodesDataAcessObject {
 
     private Connection connection;
-    private String instanceName;
+    //private String nodesInstanceName;
 
     public NumberOfNodesDataAcessObject() {
         this.connection = new ConnectionFactory().getConnection();
     }
 
-    public int getNumberOfNodes(String instanceName) {
+//    public int getNumberOfNodes(String instanceName) {
+//        try {
+//
+//            List<Node> listOfNodes = new ArrayList<>();
+//            PreparedStatement stmt = this.connection.prepareStatement("select * from NumberOfNodes");
+//            int numberOfNodes = 0;
+//            ResultSet resultSet = stmt.executeQuery();
+//            while (resultSet.next()) {
+//                String name = resultSet.getString("instanceName");
+//                int nodes = resultSet.getInt("numberOfNodes");
+//                
+//                if(instanceName.equals(name)){
+//                    numberOfNodes = nodes;
+//                }
+//            }
+//            resultSet.close();
+//            stmt.close();
+//            return numberOfNodes;
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
+    public int getNumberOfNodes(String nodesInstanceName) {
         try {
 
             List<Node> listOfNodes = new ArrayList<>();
-            PreparedStatement stmt = this.connection.prepareStatement("select * from NumberOfNodes");
+            PreparedStatement stmt = this.connection.prepareStatement("select count(*) from " + nodesInstanceName);
             int numberOfNodes = 0;
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
-                String name = resultSet.getString("instanceName");
-                int nodes = resultSet.getInt("numberOfNodes");
-                
-                if(instanceName.equals(name)){
-                    numberOfNodes = nodes;
-                }
+                //String name = resultSet.getString("instanceName");
+                numberOfNodes = resultSet.getInt("count(*)");
+
             }
             resultSet.close();
             stmt.close();
