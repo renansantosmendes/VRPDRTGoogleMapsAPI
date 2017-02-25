@@ -10,24 +10,24 @@ package GoogleMapsApi;
  * @author renansantos
  */
 class GeocodedWayPoint {
-    private String geocoder_status;
-    private String place_id;
+    private String geocoderStatus;
+    private String placeId;
     private String types;
 
-    public String getGeocoder_status() {
-        return geocoder_status;
+    public String getGeocoderStatus() {
+        return geocoderStatus;
     }
 
-    public void setGeocoder_status(String geocoder_status) {
-        this.geocoder_status = geocoder_status;
+    public void setGeocoderStatus(String geocoderStatus) {
+        this.geocoderStatus = geocoderStatus;
     }
 
-    public String getPlace_id() {
-        return place_id;
+    public String getPlaceId() {
+        return placeId;
     }
 
-    public void setPlace_id(String place_id) {
-        this.place_id = place_id;
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
     }
 
     public String getTypes() {
@@ -37,6 +37,8 @@ class GeocodedWayPoint {
     public void setTypes(String types) {
         this.types = types;
     }
+
+   
     
     
 }

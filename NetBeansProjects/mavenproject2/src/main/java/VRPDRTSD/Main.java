@@ -9,6 +9,7 @@ import static GoogleMapsApi.GoogleMapsRoute.FileExtension.json;
 import static GoogleMapsApi.GoogleMapsRoute.TravelMode.driving;
 import GoogleMapsApi.GoogleMapsRoute;
 import static GoogleMapsApi.GoogleMapsRoute.FileExtension.xml;
+import GoogleMapsApi.StaticGoogleMap;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.Connection;
@@ -68,16 +69,17 @@ public class Main {
         problemInstance.readInstance();
         List<Node> listOfNodes = problemInstance.getNodes();
 
+        // new StaticGoogleMap(listOfNodes).buildMapInWindow();
         GoogleMapsRoute route = new GoogleMapsRoute(json, "teste", driving);
         route.setOrigin("Av. do Contorno, 340 - Santa Efigênia, Belo Horizonte - MG, 30110-017");
         route.setDestination("Av. do Contorno, 8902 - Santo Agostinho, Belo Horizonte - MG, 30110-062");
+//
+        System.out.println(route.buildURL());
+        //route.downloadDataFile();
 
-        //System.out.println(route.buildURL());
-        route.downloadDataFile();
-        
-        route.getDataFromFile2();
+//        
+        route.getDataFromFile();
 
-        
     }
 
 }
