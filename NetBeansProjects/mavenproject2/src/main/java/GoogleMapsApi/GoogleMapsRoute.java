@@ -38,9 +38,8 @@ public class GoogleMapsRoute {
     private List<String> listOfIdWaypoints = new ArrayList<>();
     private List<DateTime> listOfTravelTime = new ArrayList<>();
     private List<Double> listOfDistances = new ArrayList<>();
-
+    private List<GoogleStep> listOfSteps = new ArrayList<>();
     
-
     public enum FileExtension {
         xml, json
     }
@@ -64,6 +63,56 @@ public class GoogleMapsRoute {
         this.destination = destination;
     }
 
+    public String getURLRoot() {
+        return URLRoot;
+    }
+
+    public String getDirectionsApiKey() {
+        return directionsApiKey;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public String getTransitMode() {
+        return transitMode;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public List<String> getPolilines() {
+        return polilines;
+    }
+
+    public List<String> getListOfIdWaypoints() {
+        return listOfIdWaypoints;
+    }
+
+    public List<DateTime> getListOfTravelTime() {
+        return listOfTravelTime;
+    }
+
+    public List<Double> getListOfDistances() {
+        return listOfDistances;
+    }
+
+    public List<GoogleStep> getListOfSteps() {
+        return listOfSteps;
+    }
+
+    
+    
     public URL buildURL() throws MalformedURLException {
         String formatedOrigin = this.origin.replace(' ', '+');
         String formatedDestination = this.destination.replace(' ', '+');
@@ -91,30 +140,20 @@ public class GoogleMapsRoute {
 
     public void getDataFromFile() throws MalformedURLException {
         //URL url = buildURL();
-        JSONObject jsonObject;        
-        
-        List<String> overviewPolyline;
+        JSONObject jsonObject;
         JSONArray array;
         try {
             JSONTokener tokener = new JSONTokener(new FileReader(this.fileName + "." + this.fileType));
             jsonObject = new JSONObject(tokener);
             array = jsonObject.getJSONArray("routes");
-            
+
             JSONObject objectLegs = array.getJSONObject(0);
             JSONArray arrayOfLegs = objectLegs.getJSONArray("legs");
             JSONObject objectSteps = arrayOfLegs.getJSONObject(0);
             JSONArray arrayOfSteps = objectSteps.getJSONArray("steps");
-            //System.out.println("objectLegs: " + objectLegs.get("distance"));
-            
-            System.out.println("Distance" + objectLegs.get("overview_polyline"));
-            //objectLegs.keys().forEachRemaining(System.out::println);
-            
-            
-            
-            //objectSteps.keys().forEachRemaining(System.out::println);
-            //System.out.println(arrayOfSteps.length());
-            //buildGoogleRoute(arrayOfLegs,objectSteps);
-            buildGoogleRoute(objectLegs,objectSteps);
+
+            //System.out.println("Distance" + objectLegs.get("overview_polyline"));
+            buildGoogleRoute(objectLegs, objectSteps);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -123,19 +162,49 @@ public class GoogleMapsRoute {
 
     }
 
-    
     private void buildGoogleRoute(JSONObject objectLegs, JSONObject objectSteps) {
-        objectSteps.keys().forEachRemaining(System.out::println);
+        
         JSONObject objectDuration = (JSONObject) objectSteps.get("duration");
         JSONObject objectDistance = (JSONObject) objectSteps.get("distance");
-//        JSONObject objectStartAdress = (JSONObject) objectSteps.get("start_address");
-        
-        //System.out.println("Imprimindo do objeto json = " + objectDuration.getInt("value"));
+        JSONObject objectStartLocation = (JSONObject) objectSteps.get("start_location");
+        JSONObject objectEndLocation = (JSONObject) objectSteps.get("end_location");
+        JSONArray arrayOfSteps = (JSONArray) objectSteps.get("steps");
+
         int totalTravelTime = objectDuration.getInt("value");
         int totalDistance = objectDistance.getInt("value");
         String startAddress = objectSteps.get("start_address").toString();
-        //int totalDistance = Integer.parseInt((String) objectSteps.("duration").);
-        System.out.println(startAddress);
+        String endAddress = objectSteps.get("end_address").toString();
+        GoogleLocation startLocation = new GoogleLocation(objectStartLocation.getDouble("lat"),
+                objectStartLocation.getDouble("lng"));
+        GoogleLocation endLocation = new GoogleLocation(objectEndLocation.getDouble("lat"),
+                objectEndLocation.getDouble("lng"));
+
+        for (int i = 0; i < arrayOfSteps.length(); i++) {
+            JSONObject objectStep = (JSONObject) arrayOfSteps.get(i);
+            JSONObject objectStepDuration = (JSONObject) objectStep.get("duration");
+            JSONObject objectStepDistance = (JSONObject) objectStep.get("distance");
+            JSONObject objectStepStartLocation = (JSONObject) objectStep.get("start_location");
+            JSONObject objectStepEndLocation = (JSONObject) objectStep.get("end_location");
+            JSONObject objectStepPolyline = (JSONObject) objectStep.get("polyline");
+
+            String htmlInstructions = objectStep.get("html_instructions").toString();
+            String polylineString = objectStepPolyline.get("points").toString();
+            String travelMode = objectStep.get("travel_mode").toString();
+
+            GoogleLocation stepStartLocation = new GoogleLocation(objectStepStartLocation.getDouble("lat"),
+                    objectStepStartLocation.getDouble("lng"));
+
+            GoogleLocation stepEndLocation = new GoogleLocation(objectStepEndLocation.getDouble("lat"),
+                    objectStepEndLocation.getDouble("lng"));
+            int stepDuration = objectStepDuration.getInt("value");
+            int stepDistance = objectStepDistance.getInt("value");
+
+            GoogleStep step = new GoogleStep(stepDistance, stepDuration, stepStartLocation, stepEndLocation,
+                    htmlInstructions, polylineString, travelMode);
+            
+            listOfSteps.add(step);
+        }
+        
+        
     }
 }
- 

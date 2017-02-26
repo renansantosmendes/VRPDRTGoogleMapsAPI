@@ -12,6 +12,7 @@ import java.util.List;
  * @author renansantos
  */
 public class GoogleLegs {
+
     private double distance;
     private int duration;
     private String endAddress;
@@ -19,4 +20,45 @@ public class GoogleLegs {
     private GoogleLocation endLocation;
     private GoogleLocation startLocation;
     private List<GoogleStep> steps;
+
+    public GoogleLegs(double distance, int duration, String endAddress, String startAdress, GoogleLocation endLocation,
+            GoogleLocation startLocation, List<GoogleStep> steps) {
+        this.distance = distance;
+        this.duration = duration;
+        this.endAddress = endAddress;
+        this.startAdress = startAdress;
+        this.endLocation = endLocation;
+        this.startLocation = startLocation;
+        this.steps = steps;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public String getEndAddress() {
+        return endAddress;
+    }
+
+    public String getStartAdress() {
+        return startAdress;
+    }
+
+    public GoogleLocation getEndLocation() {
+        return endLocation;
+    }
+
+    public GoogleLocation getStartLocation() {
+        return startLocation;
+    }
+
+    public List<GoogleStep> getSteps() {
+        return steps;
+    }
+    
+    
 }

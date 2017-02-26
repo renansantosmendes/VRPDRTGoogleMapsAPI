@@ -10,20 +10,21 @@ package GoogleMapsApi;
  * @author renansantos
  */
 class GoogleStep {
+
     private double distance;
     private int duration;
-    private GoogleLocation endLocation;
     private GoogleLocation startLocation;
+    private GoogleLocation endLocation;
     private String htmlInstructions;
     private String polyline;
     private String travelMode;
 
-    public GoogleStep(double distance, int duration, GoogleLocation endLocation, GoogleLocation startLocation, 
+    public GoogleStep(double distance, int duration, GoogleLocation startLocation, GoogleLocation endLocation,
             String htmlInstructions, String polyline, String travelMode) {
         this.distance = distance;
         this.duration = duration;
-        this.endLocation = endLocation;
         this.startLocation = startLocation;
+        this.endLocation = endLocation;
         this.htmlInstructions = htmlInstructions;
         this.polyline = polyline;
         this.travelMode = travelMode;
@@ -55,6 +56,12 @@ class GoogleStep {
 
     public String getTravelMode() {
         return travelMode;
-    }  
+    }
     
+    @Override
+    public String toString(){
+        return "Step\n " + "start_location: "+ this.startLocation + "\n end_location: " + this.endLocation
+                + "\n duration: " + this.duration + "\tdistance: " + this.distance + "\n polyline: " + this.polyline;
+    }
+
 }

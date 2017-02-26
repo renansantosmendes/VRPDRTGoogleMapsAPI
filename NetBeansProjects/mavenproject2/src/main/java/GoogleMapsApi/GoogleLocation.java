@@ -34,5 +34,8 @@ class GoogleLocation {
         this.longitude = longitude;
     }
     
-    
+    @Override
+    public String toString(){
+        return "lat: " + latitude + " lng: " + longitude;
+    }
 }
