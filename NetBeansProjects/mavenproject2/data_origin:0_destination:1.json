@@ -84,7 +84,7 @@
                      "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e at the 1st cross street at \u003cb\u003eAv. Oiapoque\u003c/b\u003e",
                      "maneuver" : "turn-left",
                      "polyline" : {
-                        "points" : "pfpxB`gekGg@L]H	"
+                        "points" : "pfpxB`gekGg@L]H"
                      },
                      "start_location" : {
                         "lat" : -19.9128865,

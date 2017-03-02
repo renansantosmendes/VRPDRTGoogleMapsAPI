@@ -69,17 +69,21 @@ public class Main {
         problemInstance.readInstance();
         List<Node> listOfNodes = problemInstance.getNodes();
 
-        // new StaticGoogleMap(listOfNodes).buildMapInWindow();
-        GoogleMapsRoute route = new GoogleMapsRoute(json, "teste", driving);
-        route.setOrigin("Av. do Contorno, 340 - Santa Efigênia, Belo Horizonte - MG, 30110-017");
-        route.setDestination("Av. do Contorno, 8902 - Santo Agostinho, Belo Horizonte - MG, 30110-062");
+        new StaticGoogleMap(listOfNodes).buildMapInWindow();
+        System.out.println(new StaticGoogleMap(listOfNodes).buildURL());
+//        GoogleMapsRoute route = new GoogleMapsRoute(json, "teste", driving);
+//        route.setOrigin("Av. do Contorno, 340 - Santa Efigênia, Belo Horizonte - MG, 30110-017");
+//        route.setDestination("Av. do Contorno, 8902 - Santo Agostinho, Belo Horizonte - MG, 30110-062");
 //
-        System.out.println(route.buildURL());
+//        System.out.println(route.buildURL());
         //route.downloadDataFile();
 
 //        
-        route.getDataFromFile();
-
+//        route.getDataFromFile();
+        
+        
+        
+        
     }
 
 }

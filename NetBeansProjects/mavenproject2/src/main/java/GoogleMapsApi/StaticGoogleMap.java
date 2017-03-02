@@ -5,11 +5,14 @@
  */
 package GoogleMapsApi;
 
+import static GoogleMapsApi.GoogleMapsRoute.FileExtension.json;
+import static GoogleMapsApi.GoogleMapsRoute.TravelMode.driving;
 import VRPDRTSD.Node;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +29,20 @@ public class StaticGoogleMap {
 
     //Google Maps Directions API Key =  AIzaSyC--KVvuj7xGnkRBoLrUIaXLx5lGfedlBI  
     private List<Node> nodesList;
-    private String key = "AIzaSyBpval3mOcQgQ5PlCX8tV7Cm5k-E00_98A";
+    private final String URLRoot = "https://maps.googleapis.com/maps/api/staticmap?center=";
+    private final String directionsApiKey = "AIzaSyCgaZr9fRAUs3_8lftkt026_MfZ3yZVN4E";
+    private final String staticMapKey = "AIzaSyBpval3mOcQgQ5PlCX8tV7Cm5k-E00_98A";
     private StringBuilder stringOfNodes = new StringBuilder();
+    private StringBuilder polylines = new StringBuilder();
     private String city = "Belo+Horizonte";
     private String state = "Minas+Gerais";
     private String country = "Brasil";
+    private int zoom = 14;
+    private int scale = 2;
+    private int width = 1000;
+    private int height = 1000;
+    private String mapType = "roadmap";
+    private String color = "red";
 
     public StaticGoogleMap(List<Node> nodesList) {
         this.nodesList = nodesList;
@@ -44,13 +56,30 @@ public class StaticGoogleMap {
         return stringOfNodes;
     }
 
-    public void buildMapInWindow() {
+    public URL buildURL() throws MalformedURLException, IOException {
+        
+        Node origin = nodesList.get(2);
+        Node destination = nodesList.get(3);
+        
+        GoogleMapsRoute route = new GoogleMapsRoute(json, "data_origin:" + origin.getNodeId() 
+                + "_destination:" + destination.getNodeId(), driving);
+        route.setOrigin(origin.getAdress());
+        route.setDestination(destination.getAdress());
+        route.downloadDataFile();
+        route.getDataFromFile();
+        String enc = route.getStringOfPolylines().toString();
+        
+        URL url = new URL(URLRoot + city + "," + state + "," + country + "&zoom=" + zoom + "&scale=" + scale
+                + "&size=" + width + "x" + height + "&maptype=" + mapType + stringOfNodes.toString()+
+                "&path=weight:3|color:"+color +"|enc:"+ route.getOverviewPolyline() + "&key="+ staticMapKey + "&format=jpg");
+        return url;
+    }
+
+    public void buildMapInWindow() throws IOException {
         JFrame frame = new JFrame("Google Maps");
 
         try {
-            String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center="
-                    + city + "," + state + "," + country + "&zoom=12&scale=2&size=1000x1000&maptype=roadmap"
-                    + stringOfNodes.toString() + "&key=" + key + "&format=jpg";
+            String imageUrl = buildURL().toString();
             System.out.println("URL");
             System.out.println(imageUrl);
 
@@ -79,7 +108,5 @@ public class StaticGoogleMap {
         frame.pack();
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
-  
 
 }

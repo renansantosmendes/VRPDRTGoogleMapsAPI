@@ -18,6 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.joda.time.DateTime;
 import org.json.*;
 
@@ -34,12 +35,15 @@ public class GoogleMapsRoute {
     private final String transitMode;
     private String origin;
     private String destination;
-    private List<String> polilines = new ArrayList<>();
+    private StringBuilder stringOfPolylines = new StringBuilder();
+    private int totalRouteTimeInSeconds;
+    private List<String> listOfPolylines = new ArrayList<>();
     private List<String> listOfIdWaypoints = new ArrayList<>();
-    private List<DateTime> listOfTravelTime = new ArrayList<>();
+    private List<Integer> listOfTravelTimeInSeconds = new ArrayList<>();
     private List<Double> listOfDistances = new ArrayList<>();
     private List<GoogleStep> listOfSteps = new ArrayList<>();
-    
+    private String overviewPolyline;
+
     public enum FileExtension {
         xml, json
     }
@@ -63,6 +67,10 @@ public class GoogleMapsRoute {
         this.destination = destination;
     }
 
+    public StringBuilder getStringOfPolylines() {
+        return stringOfPolylines;
+    }
+    
     public String getURLRoot() {
         return URLRoot;
     }
@@ -91,16 +99,20 @@ public class GoogleMapsRoute {
         return destination;
     }
 
-    public List<String> getPolilines() {
-        return polilines;
+    public int getTotalRouteTimeInSeconds(){
+        return totalRouteTimeInSeconds;
+    }
+    
+    public List<String> getListOfPolylines() {
+        return listOfPolylines;
     }
 
     public List<String> getListOfIdWaypoints() {
         return listOfIdWaypoints;
     }
 
-    public List<DateTime> getListOfTravelTime() {
-        return listOfTravelTime;
+    public List<Integer> getListOfTravelTimeInSeconds() {
+        return listOfTravelTimeInSeconds;
     }
 
     public List<Double> getListOfDistances() {
@@ -111,7 +123,9 @@ public class GoogleMapsRoute {
         return listOfSteps;
     }
 
-    
+    public String getOverviewPolyline() {
+        return overviewPolyline;
+    }
     
     public URL buildURL() throws MalformedURLException {
         String formatedOrigin = this.origin.replace(' ', '+');
@@ -148,12 +162,16 @@ public class GoogleMapsRoute {
             array = jsonObject.getJSONArray("routes");
 
             JSONObject objectLegs = array.getJSONObject(0);
+            JSONObject objectOverviewPolyline = (JSONObject) objectLegs.get("overview_polyline");
+            this.overviewPolyline = objectOverviewPolyline.get("points").toString();
+            
+            //this.overviewPolyline = strOverviewPolyline.replace("\\\\", "\\");
             JSONArray arrayOfLegs = objectLegs.getJSONArray("legs");
             JSONObject objectSteps = arrayOfLegs.getJSONObject(0);
             JSONArray arrayOfSteps = objectSteps.getJSONArray("steps");
 
-            //System.out.println("Distance" + objectLegs.get("overview_polyline"));
             buildGoogleRoute(objectLegs, objectSteps);
+            extractRouteInformationFromData();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -163,7 +181,7 @@ public class GoogleMapsRoute {
     }
 
     private void buildGoogleRoute(JSONObject objectLegs, JSONObject objectSteps) {
-        
+
         JSONObject objectDuration = (JSONObject) objectSteps.get("duration");
         JSONObject objectDistance = (JSONObject) objectSteps.get("distance");
         JSONObject objectStartLocation = (JSONObject) objectSteps.get("start_location");
@@ -201,10 +219,30 @@ public class GoogleMapsRoute {
 
             GoogleStep step = new GoogleStep(stepDistance, stepDuration, stepStartLocation, stepEndLocation,
                     htmlInstructions, polylineString, travelMode);
-            
+
             listOfSteps.add(step);
         }
+
+    }
+
+    private void extractRouteInformationFromData() {
+        this.listOfPolylines.clear();
+        this.listOfPolylines.addAll(this.listOfSteps.stream().map(GoogleStep::getPolyline)
+                .collect(Collectors.toCollection(ArrayList::new)));
+
+        this.listOfDistances.clear();
+        this.listOfDistances.addAll(this.listOfSteps.stream().map(GoogleStep::getDistance)
+                .collect(Collectors.toCollection(ArrayList::new)));
+
+        this.listOfTravelTimeInSeconds.clear();
+        this.listOfTravelTimeInSeconds.addAll(this.listOfSteps.stream().map(GoogleStep::getDuration)
+                .collect(Collectors.toCollection(ArrayList::new)));
+        
+        this.totalRouteTimeInSeconds = this.getListOfTravelTimeInSeconds().stream().reduce(0, (a, b) -> a + b);
         
         
+        for(String polyline: listOfPolylines){
+            stringOfPolylines.append("|enc:"+polyline);
+        }
     }
 }
