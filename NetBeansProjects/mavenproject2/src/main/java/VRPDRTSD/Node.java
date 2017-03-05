@@ -55,14 +55,12 @@ public class Node {
     }
 
     /**
-     * 
-     * @return String - return the adress of the node 
+     *
+     * @return String - return the adress of the node
      */
-    
     public String getAdress() {
         return adress;
     }
-    
 
     /**
      *
@@ -87,14 +85,42 @@ public class Node {
     }
 
     public String toStringForMapQuery() {
+//        String color;
+//        String label;
+//        if (this.nodeId == 0) {
+//            color = "red";
+//            label = "O";
+//        } else {
+//            color = "blue";
+//            label = "S";
+//        }
+//        return "&markers=color:" + color + "|label:" + label + "|" + this.longitude + "," + this.latitude;
         String color;
-        String label;
+        String label = null;
+        if(this.nodeId > 9){
+            if(this.nodeId == 10){
+                label = "A";
+            }else if(this.nodeId == 11){
+                label = "B";
+            }else if(this.nodeId == 12){
+                label = "C";
+            }else if(this.nodeId == 13){
+                label = "D";
+            }else if(this.nodeId == 14){
+                label = "E";
+            }else if(this.nodeId == 15){
+                label = "F";
+            }
+        }else{
+            label = this.nodeId.toString();
+        }
+        
         if (this.nodeId == 0) {
             color = "red";
-            label = "O";
+            //label = "O";
         } else {
             color = "blue";
-            label = "S";
+            //label = "S";
         }
         return "&markers=color:" + color + "|label:" + label + "|" + this.longitude + "," + this.latitude;
     }

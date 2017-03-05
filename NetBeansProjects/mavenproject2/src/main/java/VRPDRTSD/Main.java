@@ -17,6 +17,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -69,21 +70,48 @@ public class Main {
         problemInstance.readInstance();
         List<Node> listOfNodes = problemInstance.getNodes();
 
-        new StaticGoogleMap(listOfNodes).buildMapInWindow();
-        System.out.println(new StaticGoogleMap(listOfNodes).buildURL());
-//        GoogleMapsRoute route = new GoogleMapsRoute(json, "teste", driving);
-//        route.setOrigin("Av. do Contorno, 340 - Santa Efigênia, Belo Horizonte - MG, 30110-017");
-//        route.setDestination("Av. do Contorno, 8902 - Santo Agostinho, Belo Horizonte - MG, 30110-062");
-//
-//        System.out.println(route.buildURL());
-        //route.downloadDataFile();
+        List<Integer> visitationList1 = new ArrayList<>();
+        List<Integer> visitationList2 = new ArrayList<>();
+        List<Integer> visitationList3 = new ArrayList<>();
+        List<Integer> visitationList4 = new ArrayList<>();
+        
+        visitationList1.add(0);
+        visitationList1.add(1);
+        visitationList1.add(3);
+        visitationList1.add(0);
+        
+        visitationList2.add(0);
+        visitationList2.add(3);
+        visitationList2.add(6);
+        visitationList2.add(10);
+        visitationList2.add(0);
+        
+        visitationList3.add(0);
+        visitationList3.add(6);
+        visitationList3.add(4);
+        visitationList3.add(1);
+        visitationList3.add(3);
+        visitationList3.add(6);
+        visitationList3.add(10);
+        visitationList3.add(0);
+        
+        visitationList4.add(0);
+        visitationList4.add(10);
+        visitationList4.add(1);
+        visitationList4.add(3);
+        visitationList4.add(6);
+        visitationList4.add(0);
+        
+        
+        Set<List<Integer>> setOfVisitationRoutes = new HashSet<>();
+        setOfVisitationRoutes.add(visitationList1);
+        setOfVisitationRoutes.add(visitationList2);
+        setOfVisitationRoutes.add(visitationList3);
+        setOfVisitationRoutes.add(visitationList4);
 
-//        
-//        route.getDataFromFile();
-        
-        
-        
-        
+        new StaticGoogleMap(listOfNodes, setOfVisitationRoutes).buildMapInWindow();
+        System.out.println(new StaticGoogleMap(listOfNodes, setOfVisitationRoutes).buildURL());
+
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package GoogleMapsApi;
 
+import VRPDRTSD.Node;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.File;
@@ -43,6 +44,11 @@ public class GoogleMapsRoute {
     private List<Double> listOfDistances = new ArrayList<>();
     private List<GoogleStep> listOfSteps = new ArrayList<>();
     private String overviewPolyline;
+    private List<Integer> visitationList;
+    private List<Node> nodesList;
+    private StringBuilder waypoints = new StringBuilder();
+    private String color;
+    private int weight = 5;
 
     public enum FileExtension {
         xml, json
@@ -52,10 +58,24 @@ public class GoogleMapsRoute {
         driving, walking, bicycling, transit
     }
 
-    public GoogleMapsRoute(FileExtension fileExtension, String fileName, TravelMode travelMode) {
+    public GoogleMapsRoute(FileExtension fileExtension, String fileName, TravelMode travelMode,
+            List<Integer> visitationList, List<Node> nodesList) {
         this.fileType = fileExtension.toString();
         this.fileName = fileName;
         this.transitMode = travelMode.toString();
+        this.visitationList = visitationList;
+        this.nodesList = nodesList;
+        
+        int startNode = visitationList.get(0);
+        int endNode = visitationList.get(visitationList.size() - 1);
+        if (this.nodesList.size() >= 2) {
+            this.origin = this.nodesList.get(startNode).getLongitude() + "," + this.nodesList.get(startNode).getLatitude();
+            this.destination = this.nodesList.get(endNode).getLongitude() + "," + this.nodesList.get(endNode).getLatitude();
+        } else {
+            throw new IllegalArgumentException("Route size is not enough, should be greater then one!");
+        }
+        builStringOfWayPoints();
+
     }
 
     //add set and get methods here
@@ -70,7 +90,7 @@ public class GoogleMapsRoute {
     public StringBuilder getStringOfPolylines() {
         return stringOfPolylines;
     }
-    
+
     public String getURLRoot() {
         return URLRoot;
     }
@@ -99,10 +119,10 @@ public class GoogleMapsRoute {
         return destination;
     }
 
-    public int getTotalRouteTimeInSeconds(){
+    public int getTotalRouteTimeInSeconds() {
         return totalRouteTimeInSeconds;
     }
-    
+
     public List<String> getListOfPolylines() {
         return listOfPolylines;
     }
@@ -126,18 +146,26 @@ public class GoogleMapsRoute {
     public String getOverviewPolyline() {
         return overviewPolyline;
     }
-    
+
+    public void builStringOfWayPoints() {
+        this.visitationList.remove(0);
+        this.visitationList.remove(this.visitationList.size() - 1);
+
+        for (Integer visitationPoint : visitationList) {
+            this.waypoints.append(nodesList.get(visitationPoint).getLongitude() + ","
+                    + nodesList.get(visitationPoint).getLatitude() + "|");
+        }
+    }
+
     public URL buildURL() throws MalformedURLException {
-        String formatedOrigin = this.origin.replace(' ', '+');
-        String formatedDestination = this.destination.replace(' ', '+');
-        URL url = new URL(this.URLRoot + this.fileType + "?origin=" + formatedOrigin + "&destination=" + formatedDestination
-                + "&transit_mode=" + this.transitMode + "&key=" + this.directionsApiKey);
+        URL url = new URL(this.URLRoot + this.fileType + "?origin=" + origin + "&destination=" + destination
+                + "&transit_mode=" + this.transitMode + "&waypoints=" + this.waypoints + "&key=" + this.directionsApiKey);
         return url;
     }
 
     public void downloadDataFile() throws MalformedURLException, IOException {
         URL url = buildURL();
-
+        System.out.println(url.toString());
         try {
             PrintStream data = new PrintStream(this.fileName + "." + this.fileType);
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -153,7 +181,7 @@ public class GoogleMapsRoute {
     }
 
     public void getDataFromFile() throws MalformedURLException {
-        //URL url = buildURL();
+        
         JSONObject jsonObject;
         JSONArray array;
         try {
@@ -164,8 +192,7 @@ public class GoogleMapsRoute {
             JSONObject objectLegs = array.getJSONObject(0);
             JSONObject objectOverviewPolyline = (JSONObject) objectLegs.get("overview_polyline");
             this.overviewPolyline = objectOverviewPolyline.get("points").toString();
-            
-            //this.overviewPolyline = strOverviewPolyline.replace("\\\\", "\\");
+
             JSONArray arrayOfLegs = objectLegs.getJSONArray("legs");
             JSONObject objectSteps = arrayOfLegs.getJSONObject(0);
             JSONArray arrayOfSteps = objectSteps.getJSONArray("steps");
@@ -237,12 +264,17 @@ public class GoogleMapsRoute {
         this.listOfTravelTimeInSeconds.clear();
         this.listOfTravelTimeInSeconds.addAll(this.listOfSteps.stream().map(GoogleStep::getDuration)
                 .collect(Collectors.toCollection(ArrayList::new)));
-        
+
         this.totalRouteTimeInSeconds = this.getListOfTravelTimeInSeconds().stream().reduce(0, (a, b) -> a + b);
-        
-        
-        for(String polyline: listOfPolylines){
-            stringOfPolylines.append("|enc:"+polyline);
+
+        for (String polyline : listOfPolylines) {
+            stringOfPolylines.append("|enc:" + polyline);
         }
+    }
+    
+    public String getPathForGoogleMap(){
+        //"&path=weight:" + weight + "|color:" + color + "|enc:" + enc +
+        color = new ColorGenerator().generatesColor();
+        return "&path=weight:" + weight+ "|color:" + color + "|enc:" + this.overviewPolyline;
     }
 }
