@@ -1,0 +1,205 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EldBdi4gTm9zc2EgU3JhLiBkZSBGw6F0aW1hLCAyNDY4LTI0ODAgLSBMYWdvaW5oYSwgQmVsbyBIb3Jpem9udGUgLSBNRywgMzA3MTAtNjUwLCBCcmFzaWw",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJgQBmWfuZpgAR30cD4lINtkI",
+         "types" : [ "establishment", "point_of_interest", "premise" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9149724,
+               "lng" : -43.9386673
+            },
+            "southwest" : {
+               "lat" : -19.9234361,
+               "lng" : -43.9538052
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "2.3 km",
+                  "value" : 2330
+               },
+               "duration" : {
+                  "text" : "7 mins",
+                  "value" : 441
+               },
+               "end_address" : "Obelisco Praça Sete - Av. Afonso Pena - Centro, Belo Horizonte - MG, 31840-190, Brazil",
+               "end_location" : {
+                  "lat" : -19.9192793,
+                  "lng" : -43.9386673
+               },
+               "start_address" : "Av. Nossa Sra. de Fátima, 2468-2480 - Lagoinha, Belo Horizonte - MG, 30710-650, Brazil",
+               "start_location" : {
+                  "lat" : -19.9149724,
+                  "lng" : -43.9537416
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 192
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 20
+                     },
+                     "end_location" : {
+                        "lat" : -19.9162186,
+                        "lng" : -43.9527158
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouthwest\u003c/b\u003e on \u003cb\u003eElevado Dona Helena Greco\u003c/b\u003e/\u003cb\u003eViaduto Dona Helena Greco\u003c/b\u003e toward \u003cb\u003eAv. Nossa Sra. de Fátima\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "pspxBzugkGLDFBD@D@BAB?LCPGPILGLIJIn@w@n@w@DGBGBOFU"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9149724,
+                        "lng" : -43.9537416
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.7 km",
+                        "value" : 746
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 58
+                     },
+                     "end_location" : {
+                        "lat" : -19.9196143,
+                        "lng" : -43.9471601
+                     },
+                     "html_instructions" : "Continue straight onto \u003cb\u003eAlameda Vereador Geraldo Silva de Oliveira\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "j{pxBnogkGN_@HUHWJi@n@gFt@wGF]Fe@Lg@Pe@NYFKLOHKNOLKZQVONIr@_@FCb@Uf@Uf@UtAq@fAk@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9162186,
+                        "lng" : -43.9527158
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 317
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 75
+                     },
+                     "end_location" : {
+                        "lat" : -19.9220903,
+                        "lng" : -43.9456585
+                     },
+                     "html_instructions" : "Merge onto \u003cb\u003eAv. Bias Fortes\u003c/b\u003e",
+                     "maneuver" : "merge",
+                     "polyline" : {
+                        "points" : "ppqxBvlfkGZMb@WhB_AfB}@j@[\\SdAk@lAk@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9196143,
+                        "lng" : -43.9471601
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 130
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 46
+                     },
+                     "end_location" : {
+                        "lat" : -19.9231144,
+                        "lng" : -43.9459322
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003ePraça Raul Soares\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "``rxBjcfkGDFFJHJFHHFRJPDRDJ?L?J?LALALCJEJE"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9220903,
+                        "lng" : -43.9456585
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 233
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 80
+                     },
+                     "end_location" : {
+                        "lat" : -19.9226034,
+                        "lng" : -43.9444358
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eleft\u003c/b\u003e to stay on \u003cb\u003ePraça Raul Soares\u003c/b\u003e (signs for \u003cb\u003ePraça Sete\u003c/b\u003e/\u003cb\u003ePça. Estação\u003c/b\u003e/\u003cb\u003eSerr. S. Pinto\u003c/b\u003e)",
+                     "maneuver" : "turn-slight-left",
+                     "polyline" : {
+                        "points" : "lfrxB`efkGBA@?BA@ABA@ABA@A?I?I@GBIBEDGBGBIBGBIDQ@K@O?MAOAMCMCMGKEKIKGKKGIGMGKEKCGAG?G?G?G?G@G@G@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9231144,
+                        "lng" : -43.9459322
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.7 km",
+                        "value" : 712
+                     },
+                     "duration" : {
+                        "text" : "3 mins",
+                        "value" : 162
+                     },
+                     "end_location" : {
+                        "lat" : -19.9192793,
+                        "lng" : -43.9386673
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Amazonas\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "fcrxBv{ekGICKECCGEY[MW{@gBM]OYYo@OYISKSGMIUYi@Ui@Wi@CICKu@}AqBkEWa@eC{FKg@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9226034,
+                        "lng" : -43.9444358
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "pspxBzugkG`@Lf@Mx@e@~AoBHOJe@Xu@TaAdB_ONcA^mAVe@V[\\[r@a@nBcAnAk@|C}ApGcDhAo@rCwA^h@\\Rd@Jr@AZEVKJEJG?SDQP_@FQF]@]C]G[MWQWUOYMSE_@?OBQAOIa@a@iA_C]w@_AqBaAwBuA}CiCmFeC{FKg@"
+         },
+         "summary" : "Alameda Vereador Geraldo Silva de Oliveira and Av. Amazonas",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

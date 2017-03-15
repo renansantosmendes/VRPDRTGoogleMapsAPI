@@ -6,10 +6,10 @@
 package VRPDRTSD;
 
 import Algorithms.Algorithm;
-import VRPDRTSD.IntanceReaderWithMySQL.AdjacenciesDataAcessObject;
-import VRPDRTSD.IntanceReaderWithMySQL.NodeDataAcessObject;
-import VRPDRTSD.IntanceReaderWithMySQL.NumberOfNodesDataAcessObject;
-import VRPDRTSD.IntanceReaderWithMySQL.RequestDataAcessObject;
+import VRPDRTSD.IntanceReaderWithMySQL.AdjacenciesDAO;
+import VRPDRTSD.IntanceReaderWithMySQL.NodeDAO;
+import VRPDRTSD.IntanceReaderWithMySQL.NumberOfNodesDAO;
+import VRPDRTSD.IntanceReaderWithMySQL.RequestDAO;
 import VRPDRTSD.Node;
 import VRPDRTSD.Request;
 import java.time.Duration;
@@ -76,11 +76,11 @@ public class BuildGreedySolution implements Algorithm {
 //    }
     @Override
     public void readInstance() {
-        this.numberOfNodes = new NumberOfNodesDataAcessObject().getNumberOfNodes(this.instanceName);
-        this.nodes = new NodeDataAcessObject().getListOfNodes();
-        this.listOfRequests = new RequestDataAcessObject().getListOfRequestUsingNodesList(nodes, this.instanceName);
-        this.duration = new AdjacenciesDataAcessObject().getDurationBetweenNodes(this.numberOfNodes);
-        this.distance = new AdjacenciesDataAcessObject().getDistanceBetweenNodes(this.numberOfNodes);
+        this.numberOfNodes = new NumberOfNodesDAO().getNumberOfNodes(this.instanceName);
+        this.nodes = new NodeDAO().getListOfNodes();
+        this.listOfRequests = new RequestDAO().getListOfRequestUsingNodesList(nodes, this.instanceName);
+        this.duration = new AdjacenciesDAO().getDurationBetweenNodes(this.numberOfNodes);
+        this.distance = new AdjacenciesDAO().getDistanceBetweenNodes(this.numberOfNodes);
     }
 
 //    @Override

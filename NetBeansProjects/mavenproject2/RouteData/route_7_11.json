@@ -1,0 +1,347 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJX15RIvePpgARLKQNmvg0Z8M",
+         "types" : [ "premise" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EldBdi4gTm9zc2EgU3JhLiBkZSBGw6F0aW1hLCAyNDY4LTI0ODAgLSBMYWdvaW5oYSwgQmVsbyBIb3Jpem9udGUgLSBNRywgMzA3MTAtNjUwLCBCcmFzaWw",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.8183578,
+               "lng" : -43.941285
+            },
+            "southwest" : {
+               "lat" : -19.9149724,
+               "lng" : -43.9680779
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "13.8 km",
+                  "value" : 13774
+               },
+               "duration" : {
+                  "text" : "22 mins",
+                  "value" : 1324
+               },
+               "end_address" : "Av. Nossa Sra. de Fátima, 2468-2480 - Lagoinha, Belo Horizonte - MG, 30710-650, Brazil",
+               "end_location" : {
+                  "lat" : -19.9149724,
+                  "lng" : -43.9537416
+               },
+               "start_address" : "Av. Cristiano Machado, 11833 - Vila Cloris, Belo Horizonte - MG, Brazil",
+               "start_location" : {
+                  "lat" : -19.821654,
+                  "lng" : -43.9467585
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 273
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 30
+                     },
+                     "end_location" : {
+                        "lat" : -19.8208126,
+                        "lng" : -43.94920870000001
+                     },
+                     "html_instructions" : "Head \u003cb\u003ewest\u003c/b\u003e on \u003cb\u003eAv. Vilarinho\u003c/b\u003e toward \u003cb\u003eRua Malibu\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "hl~wBfjfkGw@`Di@fCYlAENQr@?BCJGNGL"
+                     },
+                     "start_location" : {
+                        "lat" : -19.821654,
+                        "lng" : -43.9467585
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 265
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 43
+                     },
+                     "end_location" : {
+                        "lat" : -19.8187441,
+                        "lng" : -43.95018229999999
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Ameixeiras\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "`g~wBpyfkGSJMFg@`@e@\\QXW^YRQHK@WBUA]A_@DQDQDI?q@@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8208126,
+                        "lng" : -43.94920870000001
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "29 m",
+                        "value" : 29
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 6
+                     },
+                     "end_location" : {
+                        "lat" : -19.8184977,
+                        "lng" : -43.950131
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Dom Pedro I\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "bz}wBr_gkGWMWB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8187441,
+                        "lng" : -43.95018229999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "14 m",
+                        "value" : 14
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 3
+                     },
+                     "end_location" : {
+                        "lat" : -19.8183792,
+                        "lng" : -43.9501644
+                     },
+                     "html_instructions" : "Continue straight",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "rx}wBh_gkGWD"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8184977,
+                        "lng" : -43.950131
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "23 m",
+                        "value" : 23
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 5
+                     },
+                     "end_location" : {
+                        "lat" : -19.8183586,
+                        "lng" : -43.95037629999999
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e toward \u003cb\u003eAv. Dom Pedro I\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "zw}wBn_gkGCJ?D?F?P"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8183792,
+                        "lng" : -43.9501644
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "3.6 km",
+                        "value" : 3646
+                     },
+                     "duration" : {
+                        "text" : "6 mins",
+                        "value" : 337
+                     },
+                     "end_location" : {
+                        "lat" : -19.8449708,
+                        "lng" : -43.9670949
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Dom Pedro I\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "vw}wBz`gkGp@h@b@ZrBxAv@j@r@d@TPTRh@h@j@j@f@`@|AtAvPbMtAbAnBxAnA~@ZXNNZXX^f@t@pB`Fn@fBP`@bAvB`AfBJRLRNVNZLRRTZf@RZJP^`@h@l@l@j@ZZVRPP`@XFDdBhAx@^lB|@dDbA~G|Bp@VpBv@bDnA`Bj@zAh@D@NFlDrArChAZLrDnAtDnAvBx@XLf@Tn@b@NNrBnAVLJ@NB^AVEbB_@hAo@z@c@fBWvBSdBUv@G"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8183586,
+                        "lng" : -43.95037629999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 366
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 25
+                     },
+                     "end_location" : {
+                        "lat" : -19.8482337,
+                        "lng" : -43.9667114
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eAv. Pres. Antônio Carlos\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "`~bxBhijkGbBMlOaAXB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8449708,
+                        "lng" : -43.9670949
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "7.4 km",
+                        "value" : 7393
+                     },
+                     "duration" : {
+                        "text" : "11 mins",
+                        "value" : 681
+                     },
+                     "end_location" : {
+                        "lat" : -19.9088358,
+                        "lng" : -43.9428325
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e to stay on \u003cb\u003eAv. Pres. Antônio Carlos\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "lrcxB|fjkGVMLGNGHELIHEd@UHGJKPSxO{RlAqAx@k@LIf@]TMRMf@Q^MLEvEoAd@KtCu@dBe@dGaBTGrGiBj@Ox@YNEFAPGNCtG_BNGjHoBbBk@`@MVEfEgAnEoAnFyA`EgAhI}BtCy@fD}@xAa@z@STINENGn@S~FyA~@Y`AYlBk@nBk@pBg@rBi@NENE|Aa@rA]HCXIXIXIXKzA[dAWLCNEFCjAWVGVGl@K|Aa@jHoBzA_@lA]DAb@M@?NEVG^Gh@Cf@A`@@`@D\\Hb@Fb@HzA\\|A\\XDp@JNBz@Lh@HX@^Br@AVCpAQZKHCb@U^UdEmCRIPKVKTKTGRGTEREXC|@I\\?VAP@h@DLBvDj@x@Lz@JdABVATAj@ANALA\\Eb@It@QnBe@dDw@xCw@fAYp@Qh@UXQr@e@bCuBNSDERSb@[XS`@YnA}@fAu@`@]PKLI|@g@LGLGLGJEdAg@~@c@fD}An@[XQd@WTMHETIJENCNEREVCr@I~AO`@GxBWXCZCPCLCJCRGNGRGPKz@q@JK`@WVMPIPGPEPCZErDi@RCz@Md@I`@KJAFCFELGDC^Sf@[ZU"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8482337,
+                        "lng" : -43.9667114
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 154
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 12
+                     },
+                     "end_location" : {
+                        "lat" : -19.9099504,
+                        "lng" : -43.9419557
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eright\u003c/b\u003e to stay on \u003cb\u003eAv. Pres. Antônio Carlos\u003c/b\u003e",
+                     "maneuver" : "keep-right",
+                     "polyline" : {
+                        "points" : "fmoxBtqekGt@i@t@k@DEhAu@`@["
+                     },
+                     "start_location" : {
+                        "lat" : -19.9088358,
+                        "lng" : -43.9428325
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 238
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 21
+                     },
+                     "end_location" : {
+                        "lat" : -19.9118264,
+                        "lng" : -43.9414627
+                     },
+                     "html_instructions" : "Take the ramp on the \u003cb\u003eleft\u003c/b\u003e to \u003cb\u003eBarro Preto\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "dtoxBflekGLUBENMRKVKRG\\CZCr@B\\?HALGNIHGHGJIDEDCB?DAD@B@BB\\Z"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9099504,
+                        "lng" : -43.9419557
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 366
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 31
+                     },
+                     "end_location" : {
+                        "lat" : -19.9135609,
+                        "lng" : -43.9443818
+                     },
+                     "html_instructions" : "Merge onto \u003cb\u003eAv. Nossa Sra. de Fátima\u003c/b\u003e",
+                     "maneuver" : "merge",
+                     "polyline" : {
+                        "points" : "|_pxBbiekGFTDLBLRp@JXFNJPJPPPNTZPTXBB@@PZLTXp@HXHZJTJPNTLNLRHXPd@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9118264,
+                        "lng" : -43.9414627
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.0 km",
+                        "value" : 1007
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 130
+                     },
+                     "end_location" : {
+                        "lat" : -19.9149724,
+                        "lng" : -43.9537416
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eAv. Nossa Sra. de Fátima\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "vjpxBj{ekGDN@HBN@NA|AGz@?BWxAGf@G|@Cb@Aj@Cn@Bh@TpBD^XnATnABRBPL|@J|@Jl@Jt@Ln@Jp@Jv@Lx@Lv@Hj@F^Ff@PrABPF\\Nl@R|@Lv@BHLb@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9135609,
+                        "lng" : -43.9443818
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "hl~wBfjfkGaCfK]rAGLSJu@h@e@\\QXW^YR]Jm@@]A_@Dc@J{@@WMWBWDCJ?L?Pp@h@vCtB`CbB~@|@rAlA|AtAvPbMdE|CjBxAj@h@`AtApB`Fn@fBtAxClAzBz@zAnAjBhAnAhAfArAdAdBhAx@^lB|@dDbA~G|Bp@VtGfCrE~A`I|CnE|AlHhC`Ab@~@r@jC|AZDv@GbB_@hAo@z@c@fBW|Ei@zCUlOaAXBd@Up@]n@]\\_@xO{RlAqAfAu@|@k@z@_@l@S|F{AvOeEhKyC~HmBzHwBdCy@~EmA~LiDhY}HzDeA~@[~HsBnDeA`FsApFwApCu@r@U`Ds@pBe@n@OjCm@zMoDlA[hAKhA?fC`@xDz@jAPjAPbAJ^Br@AhBUd@ObAk@xEwCh@Wj@Sh@Ml@IzAIh@?v@HpFx@z@JdABl@Cz@Cj@GxA[tG}A`FqAp@Qh@UlAw@bCuBNSXYnDgChCiBxAw@~CyAvEyB~@i@`Ac@jASnHy@tAObA[lA}@l@c@h@Wb@MtFw@nCe@b@UfAo@pA_Az@q@jBqAP[b@Yj@Sx@GpABVIn@c@JIHAHB`@^d@bBRh@Vb@`@f@ZPTXDD^p@b@jATp@v@jAb@xAD^A|AGz@W|AOdBEnACn@Bh@ZpCn@~C`@`Dp@dEp@tEd@lDx@`EPl@"
+         },
+         "summary" : "Av. Dom Pedro I and Av. Pres. Antônio Carlos",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

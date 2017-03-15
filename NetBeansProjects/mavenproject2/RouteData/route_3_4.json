@@ -1,0 +1,178 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJgQBmWfuZpgAR30cD4lINtkI",
+         "types" : [ "establishment", "point_of_interest", "premise" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EkpBdi4gZG9zIEJhbmRlaXJhbnRlcywgMTc5Mi0xODAwIC0gTWFuZ2FiZWlyYXMsIEJlbG8gSG9yaXpvbnRlIC0gTUcsIEJyYXNpbA",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9192793,
+               "lng" : -43.9202465
+            },
+            "southwest" : {
+               "lat" : -19.9492043,
+               "lng" : -43.9386673
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "3.9 km",
+                  "value" : 3857
+               },
+               "duration" : {
+                  "text" : "11 mins",
+                  "value" : 635
+               },
+               "end_address" : "Av. dos Bandeirantes, 1792-1800 - Mangabeiras, Belo Horizonte - MG, Brazil",
+               "end_location" : {
+                  "lat" : -19.9492043,
+                  "lng" : -43.920299
+               },
+               "start_address" : "Obelisco Praça Sete - Av. Afonso Pena - Centro, Belo Horizonte - MG, 31840-190, Brazil",
+               "start_location" : {
+                  "lat" : -19.9192793,
+                  "lng" : -43.9386673
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "1.4 km",
+                        "value" : 1371
+                     },
+                     "duration" : {
+                        "text" : "4 mins",
+                        "value" : 236
+                     },
+                     "end_location" : {
+                        "lat" : -19.9299113,
+                        "lng" : -43.93203279999999
+                     },
+                     "html_instructions" : "Head \u003cb\u003esoutheast\u003c/b\u003e on \u003cb\u003eAv. Afonso Pena\u003c/b\u003e toward \u003cb\u003eR. Rio de Janeiro\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "nnqxBtwdkGPMtDuBfAm@^Wl@Wx@e@`@U`Ae@f@Wz@c@XO|KaGHEHEhDkBn@_@VKfAk@bAg@ZQZQNIPKZOdB_AhCsAd@YzBiAxBkA`@W"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9192793,
+                        "lng" : -43.9386673
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.2 km",
+                        "value" : 1164
+                     },
+                     "duration" : {
+                        "text" : "3 mins",
+                        "value" : 196
+                     },
+                     "end_location" : {
+                        "lat" : -19.9389344,
+                        "lng" : -43.9263878
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eAv. Afonso Pena\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "|psxBdnckGRIj@YpBgArAs@XOLI`@U~@g@|DyBVM`@SlBeAjBeAXOXMJGLIVKVMdAm@h@[nAs@ZOZMPIz@e@fBaAfBaAJGLEDEFCh@YNIv@c@dB_AHGJE"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9299113,
+                        "lng" : -43.93203279999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 118
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 17
+                     },
+                     "end_location" : {
+                        "lat" : -19.9398491,
+                        "lng" : -43.9258077
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003ePraça Milton Campos\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "hiuxB|jbkGJEJE|@g@|@g@b@W"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9389344,
+                        "lng" : -43.9263878
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.1 km",
+                        "value" : 1149
+                     },
+                     "duration" : {
+                        "text" : "3 mins",
+                        "value" : 172
+                     },
+                     "end_location" : {
+                        "lat" : -19.9487539,
+                        "lng" : -43.9202465
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eAv. Afonso Pena\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "`ouxBhgbkGtAs@HGt@a@`@QFEFE`E{Bd@UZQ^Sz@a@~@i@XMRMZSZSf@Y`B}@HE~A{@z@g@lAm@d@S\\QNGz@i@~@g@t@_@t@_@v@e@v@a@d@YFE~@g@v@_@p@_@b@S"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9398491,
+                        "lng" : -43.9258077
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "55 m",
+                        "value" : 55
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 14
+                     },
+                     "end_location" : {
+                        "lat" : -19.9492043,
+                        "lng" : -43.920299
+                     },
+                     "html_instructions" : "Enter \u003cb\u003ePraça da Bandeira\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "tfwxBpdakGFDDBJDHBJ@H?RCFCBC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9487539,
+                        "lng" : -43.9202465
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "nnqxBtwdkGnHiEjEyBzOmIlFwCxGiDpKwFzCcB~@c@lFuCvHeEtGoDjAk@vEkCdCmApH_EfImElLoG|C}AhCyAbAm@jBcAzCcBlAm@d@Sl@YzBqAjB_AnBgAdDgBtAs@LHTHT@ZGBC"
+         },
+         "summary" : "Av. Afonso Pena",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

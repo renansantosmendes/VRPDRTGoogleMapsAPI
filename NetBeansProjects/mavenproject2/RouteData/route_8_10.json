@@ -1,0 +1,300 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJX6f9sgKYpgAR17lfXPRZECQ",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJR8XdnMSZpgARmu_lSytI0zY",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9354275,
+               "lng" : -43.93068969999999
+            },
+            "southwest" : {
+               "lat" : -19.9746206,
+               "lng" : -43.9462725
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "6.2 km",
+                  "value" : 6203
+               },
+               "duration" : {
+                  "text" : "13 mins",
+                  "value" : 794
+               },
+               "end_address" : "R. Rio Grande do Norte, 1204 - Funcionários, Belo Horizonte - MG, 30130-131, Brazil",
+               "end_location" : {
+                  "lat" : -19.9362369,
+                  "lng" : -43.9322733
+               },
+               "start_address" : "MG-030, 729 - Belvedere, Belo Horizonte - MG, Brazil",
+               "start_location" : {
+                  "lat" : -19.9742521,
+                  "lng" : -43.9434627
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.6 km",
+                        "value" : 563
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 144
+                     },
+                     "end_location" : {
+                        "lat" : -19.9736508,
+                        "lng" : -43.945986
+                     },
+                     "html_instructions" : "Head \u003cb\u003enorth\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "`f|xBruekGI?Q@a@F_@JYHOHKDSNQRIJEJIPEPCL?L?NBT\\nA\\nAL\\FPDNDHFHDDHF@?|@ThBd@@?@@?D?FEDCBG@G@SBgA[kA["
+                     },
+                     "start_location" : {
+                        "lat" : -19.9742521,
+                        "lng" : -43.9434627
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 171
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 19
+                     },
+                     "end_location" : {
+                        "lat" : -19.9722008,
+                        "lng" : -43.9454308
+                     },
+                     "html_instructions" : "Continue straight",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "hb|xBlefkGs@SgBi@eCq@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9736508,
+                        "lng" : -43.945986
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 180
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 13
+                     },
+                     "end_location" : {
+                        "lat" : -19.9706831,
+                        "lng" : -43.9449052
+                     },
+                     "html_instructions" : "Continue straight",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "fy{xB|afkGgBi@{Aa@SKSGQGWCGAI@GB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9722008,
+                        "lng" : -43.9454308
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.9 km",
+                        "value" : 1908
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 112
+                     },
+                     "end_location" : {
+                        "lat" : -19.9601284,
+                        "lng" : -43.9442302
+                     },
+                     "html_instructions" : "Merge onto \u003cb\u003eBR-356\u003c/b\u003e",
+                     "maneuver" : "merge",
+                     "polyline" : {
+                        "points" : "vo{xBt~ekG[K]Kw@Uk@Sm@QeA[c@OyBk@kA[uAc@iA]OEQIOIIGWUQUMQGMEQM_@EUe@sBq@_De@kBG]]uAMa@Oa@OWSYQSWSUQ[M]MUEWE[CQA[@c@D]FOBKBYLUPQLWZSVMRKTMZELI`@ETE^QnCMdBO`CKzBIfAEb@E\\ITITMVWXUV_@Vc@TMDODQDWBe@@S?WASCMAOEOEQGOIUOi@_@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9706831,
+                        "lng" : -43.9449052
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 279
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 34
+                     },
+                     "end_location" : {
+                        "lat" : -19.9582235,
+                        "lng" : -43.9424936
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eAv. Sra. do Carmo\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "xmyxBlzekGaDwCm@i@aA{@c@_@gA}@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9601284,
+                        "lng" : -43.9442302
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.3 km",
+                        "value" : 1274
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 132
+                     },
+                     "end_location" : {
+                        "lat" : -19.9487028,
+                        "lng" : -43.9357372
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eAv. Sra. do Carmo\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "zayxBpoekG[Y}@y@g@_@KOuAeA_@WiBoAIEeBiAk@a@u@a@q@_@k@]m@]eBcAgBeAqDyBs@a@{@i@a@Wk@[YO_Ai@eAq@eAq@u@c@u@c@m@]GEWQ{A{@iAs@IEUM"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9582235,
+                        "lng" : -43.9424936
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.0 km",
+                        "value" : 1029
+                     },
+                     "duration" : {
+                        "text" : "3 mins",
+                        "value" : 163
+                     },
+                     "end_location" : {
+                        "lat" : -19.9398987,
+                        "lng" : -43.9329383
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e to stay on \u003cb\u003eAv. Sra. do Carmo\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "jfwxBjedkGGQEE]UYQ[MMGIGMEg@S_@MSCu@Mg@Ku@MuAYm@KmB[{Ba@gDo@kAUOE_@MaEo@iEs@_AMcB]c@IaCe@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9487028,
+                        "lng" : -43.9357372
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 115
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 28
+                     },
+                     "end_location" : {
+                        "lat" : -19.9397942,
+                        "lng" : -43.9318436
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. do Contorno\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "jouxBzsckGAQGwAKqB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9398987,
+                        "lng" : -43.9329383
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 490
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 96
+                     },
+                     "end_location" : {
+                        "lat" : -19.9355194,
+                        "lng" : -43.93068969999999
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eRua Professor Moraes\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "tnuxB~lckGWEqB[KC_@GmAS]Gc@Gu@OyBa@{Ba@iB]GAqB_@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9397942,
+                        "lng" : -43.9318436
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 194
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 53
+                     },
+                     "end_location" : {
+                        "lat" : -19.9362369,
+                        "lng" : -43.9322733
+                     },
+                     "html_instructions" : "Sharp \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Getúlio Vargas\u003c/b\u003e",
+                     "maneuver" : "turn-sharp-left",
+                     "polyline" : {
+                        "points" : "~stxBxeckGQRnArCpArC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9355194,
+                        "lng" : -43.93068969999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "`f|xBruekG[@aARi@R_@T[^O\\I^?\\`@dBj@lBL`@LRNL~@TjBd@@FELKD[DsCw@iKyCoBm@e@O_@EQD}CaAqGiB{FcBa@Sa@]_@g@M_@kBiIyAaG_@y@e@m@m@e@y@[m@Km@E_AFm@Je@Pg@^k@r@Yh@Sh@Ov@u@vKUbEK`ASj@e@p@UV_@Vq@Za@J}@Dk@Aa@E_@Ka@Q_Ao@oEaEiEsDeByAKOuAeAiCgBoBoAaBcA}A}@mLaH}D_CyAy@kCcByCeBeEgC_@SMWw@g@i@U_Bo@gDk@mJcBsFeAo@SkKcBcDk@eDo@IiBKqBWE}B_@oDk@uKqByBa@QRnArCpArC"
+         },
+         "summary" : "BR-356 and Av. Sra. do Carmo",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

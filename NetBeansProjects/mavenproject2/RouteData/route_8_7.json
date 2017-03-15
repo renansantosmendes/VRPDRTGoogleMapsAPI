@@ -1,0 +1,463 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJX6f9sgKYpgAR17lfXPRZECQ",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJX15RIvePpgARLKQNmvg0Z8M",
+         "types" : [ "premise" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.821654,
+               "lng" : -43.92862849999999
+            },
+            "southwest" : {
+               "lat" : -19.9943879,
+               "lng" : -44.00847530000001
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "31.4 km",
+                  "value" : 31353
+               },
+               "duration" : {
+                  "text" : "33 mins",
+                  "value" : 1986
+               },
+               "end_address" : "Av. Cristiano Machado, 11833 - Vila Cloris, Belo Horizonte - MG, Brazil",
+               "end_location" : {
+                  "lat" : -19.821654,
+                  "lng" : -43.9467585
+               },
+               "start_address" : "MG-030, 729 - Belvedere, Belo Horizonte - MG, Brazil",
+               "start_location" : {
+                  "lat" : -19.9742521,
+                  "lng" : -43.9434627
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.6 km",
+                        "value" : 563
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 144
+                     },
+                     "end_location" : {
+                        "lat" : -19.9736508,
+                        "lng" : -43.945986
+                     },
+                     "html_instructions" : "Head \u003cb\u003enorth\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "`f|xBruekGI?Q@a@F_@JYHOHKDSNQRIJEJIPEPCL?L?NBT\\nA\\nAL\\FPDNDHFHDDHF@?|@ThBd@@?@@?D?FEDCBG@G@SBgA[kA["
+                     },
+                     "start_location" : {
+                        "lat" : -19.9742521,
+                        "lng" : -43.9434627
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 171
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 19
+                     },
+                     "end_location" : {
+                        "lat" : -19.9722008,
+                        "lng" : -43.9454308
+                     },
+                     "html_instructions" : "Continue straight",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "hb|xBlefkGs@SgBi@eCq@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9736508,
+                        "lng" : -43.945986
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 170
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 21
+                     },
+                     "end_location" : {
+                        "lat" : -19.9725961,
+                        "lng" : -43.9451451
+                     },
+                     "html_instructions" : "Take the ramp to \u003cb\u003eAv. Raja Gabaglia\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "fy{xB|afkGYYMMCGAECK?M?IBGBIDEJKFGFANCL?PBF@FDBB@DFHBFBN@Z"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9722008,
+                        "lng" : -43.9454308
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 104
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 13
+                     },
+                     "end_location" : {
+                        "lat" : -19.9722609,
+                        "lng" : -43.9460771
+                     },
+                     "html_instructions" : "Merge onto \u003cb\u003eEstr. p/ Nova Lima\u003c/b\u003e",
+                     "maneuver" : "merge",
+                     "polyline" : {
+                        "points" : "v{{xBd`fkGYdACLA@EPCJYdA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9725961,
+                        "lng" : -43.9451451
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 234
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 36
+                     },
+                     "end_location" : {
+                        "lat" : -19.9728073,
+                        "lng" : -43.94594439999999
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e onto the ramp to \u003cb\u003eRio de Janeiro\u003c/b\u003e/\u003cb\u003eOuro Preto\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "ry{xB~efkGWRKDG@I@G?IAGAECKIEGEIAIAM@K@KFIBGFEJEHCPCbAZJBB@jA\\"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9722609,
+                        "lng" : -43.9460771
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 228
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 17
+                     },
+                     "end_location" : {
+                        "lat" : -19.9747089,
+                        "lng" : -43.9467636
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eleft\u003c/b\u003e at the fork to continue toward \u003cb\u003eBR-356\u003c/b\u003e",
+                     "maneuver" : "fork-left",
+                     "polyline" : {
+                        "points" : "`}{xBbefkGhE~AfCr@h@N"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9728073,
+                        "lng" : -43.94594439999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 200
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 14
+                     },
+                     "end_location" : {
+                        "lat" : -19.9764347,
+                        "lng" : -43.947241
+                     },
+                     "html_instructions" : "Take the ramp on the \u003cb\u003eleft\u003c/b\u003e to \u003cb\u003eNova Lima\u003c/b\u003e/\u003cb\u003eBH Shopping\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "|h|xBfjfkGb@LjAZpAZD@XF\\BRDZDVBD?B?DC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9747089,
+                        "lng" : -43.9467636
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "2.1 km",
+                        "value" : 2138
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 116
+                     },
+                     "end_location" : {
+                        "lat" : -19.9921352,
+                        "lng" : -43.9586876
+                     },
+                     "html_instructions" : "Merge onto \u003cb\u003eBR-356\u003c/b\u003e",
+                     "maneuver" : "merge",
+                     "polyline" : {
+                        "points" : "ts|xBfmfkGpA^nD~@fAZ~@VhCt@hCv@f@Px@XdBr@j@XbB|@f@XTNlAx@ZPbAx@nD~ClDlC`I|G`HlGHJrIvHf@b@|AtAl@h@n@j@~@x@r@l@`@X~AlA~AbAHD"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9764347,
+                        "lng" : -43.947241
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 407
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 33
+                     },
+                     "end_location" : {
+                        "lat" : -19.9938436,
+                        "lng" : -43.9609499
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e onto the ramp to \u003cb\u003eSão Paulo\u003c/b\u003e/\u003cb\u003eBrasília\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "zu_yBxthkG?D@BBDBDDBDBLHr@d@p@`@f@Vp@\\hCvAr@b@DBBDDDBDBD@FBD?F@F?D?F?FAFADAFCDCDCDEDA?[LIBSFYH"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9921352,
+                        "lng" : -43.9586876
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "7.5 km",
+                        "value" : 7525
+                     },
+                     "duration" : {
+                        "text" : "7 mins",
+                        "value" : 391
+                     },
+                     "end_location" : {
+                        "lat" : -19.9493879,
+                        "lng" : -44.0083911
+                     },
+                     "html_instructions" : "Merge onto \u003cb\u003eBR-040\u003c/b\u003e",
+                     "maneuver" : "merge",
+                     "polyline" : {
+                        "points" : "n``yB|bikGy@TuA`@eDnA_Ab@g@Xq@n@a@d@m@bAUf@K^GTCPGd@CX?NA`@?Z@^J~BJvBLfCX`IJtD?b@?XCf@Ej@Ib@G`@Wt@Yn@MRKPa@f@YVm@`@mAp@s@^a@ReAl@g@^g@b@_@b@Yf@KTKRyCnHaAfCuBbGcAjCg@rAUn@uBtFiApC_CbGg@pAe@pAc@`AQXMPMN]^YTIFMHIF[NQJODSH]LWFaBd@cAVq@R}@VeAZ_@Lk@RYNUL]TOJQNa@b@o@dAg@xAaAfDc@`Bo@~B_@z@Wb@]f@c@`@[VWPUJc@Pa@N_@JUDi@JaBTsDd@aAN]FYD}@T[LUH_@PULWNoBlAcEhCgC|AkAv@g@^g@`@URg@b@i@d@_@`@]\\c@f@IHILEFKLMRa@l@QVSXaArA_ArAqAjBkDbFq@`AaAnAi@j@g@h@QPIF[Xe@`@qBvAw@d@{@d@iAl@kAh@uCtAmHfDsBbAu@^o@`@mBbAYNsAp@aChAyDhBs@\\GBoAh@A@}Aj@MDGBq@TMFgBz@EBw@d@IDCBy@v@[^c@l@a@p@q@lAs@xAaAvBMTKPGLIPIJGHIJMLcA~@iF`EiA|@KFQJULQFODODg@H[BQ?K?UAOAw@Eu@G"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9938436,
+                        "lng" : -43.9609499
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "2.0 km",
+                        "value" : 2008
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 103
+                     },
+                     "end_location" : {
+                        "lat" : -19.9313693,
+                        "lng" : -44.007323
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eleft\u003c/b\u003e to stay on \u003cb\u003eBR-040\u003c/b\u003e",
+                     "maneuver" : "keep-left",
+                     "polyline" : {
+                        "points" : "tjwxBlkrkGcBQ{AQu@GUAUAMAKASCE?WCUA]CK?SAMAOAgBG_AE_AA{@Eu@?sEIgBGkAA]Am@Ao@AgBCaBAyDGuCEwBEqCEuDGaEGkBC{@?{OYe@Ae@?k@Ak@AuDG[A"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9493879,
+                        "lng" : -44.0083911
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "11.2 km",
+                        "value" : 11220
+                     },
+                     "duration" : {
+                        "text" : "9 mins",
+                        "value" : 554
+                     },
+                     "end_location" : {
+                        "lat" : -19.86728,
+                        "lng" : -43.9339111
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eBR-262\u003c/b\u003e/\u003cb\u003eBR-381\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "`zsxBvdrkG_BCy@E]C]A_@E]EWEg@I]Gs@O]IYGaDw@u@QiCm@uAYq@O_AQqA[oA[[I]M]MSI_@OSK[QQI_@WWSUOUSWUSUWY]k@gC{DgBwCuLoQcBaCaBeCeAaB}@wAg@w@c@i@i@o@y@y@mBcBqAkAgBcBwAmAqAgAIIq@g@MGa@QkAWSG_@E[CS?Y@a@BWB]FMBKBYHk@PkD|@o@L}@HcA?i@Am@Eo@Ki@M]Kk@We@Yc@[OOq@s@SWS[aBeCuCaFuCyEgJuOaA{AaA{Au@kAkBcDc@s@}@yAm@_Am@y@a@e@_@a@{@y@g@c@c@[WOu@c@e@Wo@[yCuAqAi@i@Wc@S]OwCqAkAi@kAi@qEqBaCgAaAe@a@Q[O{@a@gAi@c@Wa@Wo@g@}@y@i@g@[_@o@{@U[[g@Sa@w@eBq@yA_AyB]y@o@{Am@qAm@mAg@w@]k@oEsGQYc@m@yAsBe@o@e@q@a@m@c@m@SYSWQWQWa@m@c@m@EEwAqBAAMSY_@m@y@MSQUSY[a@[e@w@eAU[uAmBc@u@c@o@GKYg@cAeCUw@Qm@]sAgGmXuBqJGUe@oBeCuK]cB[mAQk@IWKUMSKQS[QUQSQQSSGEGGeCqBy@q@i@e@g@_@e@]sByAcCaBmBuAcCiB}@k@o@So@Qy@OeASgAU_@Ic@Ma@Kg@Qa@Qu@]a@USOmE}Bo@]a@[]UYQYYQUW]Ug@Um@EQESG[CQCWCUAYA[Ai@AeAAiA?WEaBScCSwAQaAyAwHCMIa@ACKg@Mu@[}A[gBo@eDi@yCMs@a@kB[cB[oBWuA[_BqAkG"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9313693,
+                        "lng" : -44.007323
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 325
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 22
+                     },
+                     "end_location" : {
+                        "lat" : -19.8667445,
+                        "lng" : -43.9308827
+                     },
+                     "html_instructions" : "Take the exit toward \u003cb\u003eAv. Crist. Machado\u003c/b\u003e/\u003cb\u003eAerop. Confins\u003c/b\u003e/\u003cb\u003eCentro\u003c/b\u003e/\u003cb\u003eCidade Nova\u003c/b\u003e",
+                     "maneuver" : "ramp-right",
+                     "polyline" : {
+                        "points" : "nigxB|yckG@C@E@E@I?Y?q@E[CSSaBCQAMAKACAM?AAKWcBMu@Mu@SiA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.86728,
+                        "lng" : -43.9339111
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 210
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 17
+                     },
+                     "end_location" : {
+                        "lat" : -19.8659667,
+                        "lng" : -43.9290702
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eSaída Roda Br Duzentos e Sessenta e Dois Anel Rodoviário\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "bfgxB~fckGKq@Gi@e@wA[s@Yu@Yi@Oa@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8667445,
+                        "lng" : -43.9308827
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 175
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 20
+                     },
+                     "end_location" : {
+                        "lat" : -19.8665867,
+                        "lng" : -43.92935079999999
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eright\u003c/b\u003e, follow signs for \u003cb\u003eAv. Cristiano Machado\u003c/b\u003e/\u003cb\u003eVenda Nova\u003c/b\u003e/\u003cb\u003eLagoa Santa\u003c/b\u003e/\u003cb\u003eAerop. Internacional\u003c/b\u003e",
+                     "maneuver" : "keep-right",
+                     "polyline" : {
+                        "points" : "hagxBt{bkG@[@I@KDIFGHGJETEHAH@L@HBDBD@DDDDBDBD@B@B@H?D@D?D?BAHAFAHCHADABIR"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8659667,
+                        "lng" : -43.9290702
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "5.0 km",
+                        "value" : 4988
+                     },
+                     "duration" : {
+                        "text" : "7 mins",
+                        "value" : 423
+                     },
+                     "end_location" : {
+                        "lat" : -19.8265573,
+                        "lng" : -43.9431333
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eAv. Cristiano Machado\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "degxBl}bkGmBtAWPOJw@p@uBzAwA`AeBnAGBiAz@_Al@MJKDULg@Xs@\\iA^uA`@{@TkC`Am@R[LSFg@Tg@Ry@VWH_@JeBf@MDu@XeATu@Ts@VYHYHq@Pq@PiANcANE@e@F[DmAL[Bg@@_@?]?c@?m@Ce@Cs@G}@Me@G}@Q[Iu@SOEk@SgAc@yBeAu@_@yCuAm@YmAe@]M]MC?e@OcAWs@Kw@MWCSCCAk@GaAEi@ASAo@@u@?kAB{@D_@Ba@D]D}@Ni@Ly@RYFg@PWHa@NSJm@V]LQJs@^IFg@Xs@h@ULaAp@SNYT}@v@i@d@a@XGFe@ZA@eAl@_Ad@}@d@a@TeAl@[PuA~@YTw@|@[`@Y\\Y`@}A`C_ArAc@r@c@n@STYZe@\\[R]RYJ_@Ne@JYFg@Dg@Ds@Fm@DK@[Bs@Du@FqCR}@FaBNi@Hg@H]Fm@NUFsA`@YJcEzA_FhBg@PWJiDrAsBp@i@Tk@To@TQHQD"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8665867,
+                        "lng" : -43.92935079999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.7 km",
+                        "value" : 687
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 43
+                     },
+                     "end_location" : {
+                        "lat" : -19.821654,
+                        "lng" : -43.9467585
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Vilarinho\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the left\u003c/div\u003e",
+                     "maneuver" : "turn-slight-left",
+                     "polyline" : {
+                        "points" : "~j_xBpsekGGJCBC@EBKB_@LYJWJwAh@sBz@iDnACBcDlA]N]PYPYV_@\\_@`@SVe@r@EDS^OXMZOf@Qp@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8265573,
+                        "lng" : -43.9431333
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "`f|xBruekG[@aARi@R_@Tk@|@I^?\\`@dBj@lBZt@NL~@TjBd@@FELKD[DsCw@{C}@eCq@YYQUEQ?WFQPQNI\\CXDTXFV@ZYdAENI\\YdAWRSFc@AQMKQCWBWJQRKZGnA^nA^hE~AfCr@lA\\|Cv@pAR|@HDCpA^vFzAzJvC~ClAnCvAfDtBrFxElDlC`I|GjHxGzJzIzFdFtDtChBhA@HRRrBpAvGpDRTHZ@\\IZOPsAb@oCv@eFrBg@Xq@n@oAhBa@fAKf@K~@Ap@XrHf@hMJxEC`AOnA_@vAg@bAm@x@gAx@iFrCoAbAy@jAWh@{EvLwFrOgJ|UiArC_@j@k@n@c@\\eAl@yAd@uGhBeBh@eAb@uA~@a@b@o@dAiB`GsA`Fw@~AaAhAs@h@y@\\aAZuIlA_BVwAZgBv@sMdIsBvA}@t@oChC}@fAuHtK}EdHkBzB_B|AwCxBsBjAuCvAcM|FiDbB}CdBiLtFmClAeDjAuBbA}@h@MHuAvAeA~AeBfDcBlDe@r@qAlAsH~FeAh@_@JcALcACmBM_Ec@oBM}@IyESwSc@gHIyQYsd@q@}IOuCQ{B]mGyAgIiBqCm@kBe@oBu@aB_A{AmAk@o@eDgFgBwCuLoQeEgGcCyDkAaBcBiB_EoD_EqD{AqAq@g@o@Y_B_@{@Im@@y@FqAXwEnAmBVmBA}AQgAYqAq@s@k@eAkAuBaDkH{LiLqRwBgD{FqJoA_B{A{AkA_AmAs@aIsDoV{K{DiBkBaAqA_AgBaBkA{Aq@cAkAgC_EiJ{A_DeAcB_JoMqC}DoFuHgDuE_EuFiByCcAeCUw@o@aCkLeh@cDyNm@yBUm@Ye@e@q@c@e@iDsCqDuCwF{DqF_E}@k@o@SiBa@qEaAiA]wAo@sHaE_Aq@s@k@i@s@k@uAWsAKcBEqEEaBScCe@yCiBkJqAcHiC_NkBiKoAoGBK@c@EmA]uCE_@u@{E_@{BGi@e@wAu@iBi@kABe@FUPO`@KR?VDVPJRBZE^Qf@mEdD_NlJ}@f@}B|@qCv@yDtAwAj@yC`AoF|A}C`AcBb@mC^uC\\aCDqACyAK}Dq@eAYsBw@wJuEmCaAiBg@kBY{AQkBGcA?aCB{AH_AJgB\\sCv@aC`AwBlA_DxBcDlCuBrAeFnCqBpAqArAu@~@wBbD{ClE_Ax@y@f@y@Z_ARqDXqCRoEZkCXiCh@mBl@cLdE}IbDwCjAQDGJGDkA`@mK`EgDpA{@`@s@h@_A~@sApB]t@a@xA"
+         },
+         "summary" : "BR-040 and BR-262/BR-381",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

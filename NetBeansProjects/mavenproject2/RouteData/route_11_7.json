@@ -1,0 +1,417 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EldBdi4gTm9zc2EgU3JhLiBkZSBGw6F0aW1hLCAyNDY4LTI0ODAgLSBMYWdvaW5oYSwgQmVsbyBIb3Jpem9udGUgLSBNRywgMzA3MTAtNjUwLCBCcmFzaWw",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJX15RIvePpgARLKQNmvg0Z8M",
+         "types" : [ "premise" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.821654,
+               "lng" : -43.9272466
+            },
+            "southwest" : {
+               "lat" : -19.920909,
+               "lng" : -43.9538052
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "14.2 km",
+                  "value" : 14223
+               },
+               "duration" : {
+                  "text" : "21 mins",
+                  "value" : 1277
+               },
+               "end_address" : "Av. Cristiano Machado, 11833 - Vila Cloris, Belo Horizonte - MG, Brazil",
+               "end_location" : {
+                  "lat" : -19.821654,
+                  "lng" : -43.9467585
+               },
+               "start_address" : "Av. Nossa Sra. de Fátima, 2468-2480 - Lagoinha, Belo Horizonte - MG, 30710-650, Brazil",
+               "start_location" : {
+                  "lat" : -19.9149724,
+                  "lng" : -43.9537416
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 192
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 20
+                     },
+                     "end_location" : {
+                        "lat" : -19.9162186,
+                        "lng" : -43.9527158
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouthwest\u003c/b\u003e on \u003cb\u003eElevado Dona Helena Greco\u003c/b\u003e/\u003cb\u003eViaduto Dona Helena Greco\u003c/b\u003e toward \u003cb\u003eAv. Nossa Sra. de Fátima\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "pspxBzugkGLDFBD@D@BAB?LCPGPILGLIJIn@w@n@w@DGBGBOFU"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9149724,
+                        "lng" : -43.9537416
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.7 km",
+                        "value" : 746
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 58
+                     },
+                     "end_location" : {
+                        "lat" : -19.9196143,
+                        "lng" : -43.9471601
+                     },
+                     "html_instructions" : "Continue straight onto \u003cb\u003eAlameda Vereador Geraldo Silva de Oliveira\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "j{pxBnogkGN_@HUHWJi@n@gFt@wGF]Fe@Lg@Pe@NYFKLOHKNOLKZQVONIr@_@FCb@Uf@Uf@UtAq@fAk@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9162186,
+                        "lng" : -43.9527158
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "17 m",
+                        "value" : 17
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 5
+                     },
+                     "end_location" : {
+                        "lat" : -19.9197526,
+                        "lng" : -43.9470899
+                     },
+                     "html_instructions" : "Merge onto \u003cb\u003eAv. Bias Fortes\u003c/b\u003e",
+                     "maneuver" : "merge",
+                     "polyline" : {
+                        "points" : "ppqxBvlfkGZM"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9196143,
+                        "lng" : -43.9471601
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 133
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 42
+                     },
+                     "end_location" : {
+                        "lat" : -19.920909,
+                        "lng" : -43.9473991
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Mato Grosso\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "lqqxBhlfkGrB^rB\\"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9197526,
+                        "lng" : -43.9470899
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 135
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 47
+                     },
+                     "end_location" : {
+                        "lat" : -19.9206037,
+                        "lng" : -43.9486446
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e at the 1st cross street onto \u003cb\u003eRua dos Goitacazes\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "txqxBfnfkG]zB_@zB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.920909,
+                        "lng" : -43.9473991
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 310
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 93
+                     },
+                     "end_location" : {
+                        "lat" : -19.9179708,
+                        "lng" : -43.9477711
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e at the 1st cross street onto \u003cb\u003eR. Araguari\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "vvqxB~ufkGyB_@{Ba@iBYiB[MIIIUOUQ"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9206037,
+                        "lng" : -43.9486446
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "37 m",
+                        "value" : 37
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 9
+                     },
+                     "end_location" : {
+                        "lat" : -19.9179597,
+                        "lng" : -43.9474192
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. do Contorno\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "hfqxBppfkGAeA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9179708,
+                        "lng" : -43.9477711
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.3 km",
+                        "value" : 1285
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 95
+                     },
+                     "end_location" : {
+                        "lat" : -19.9107334,
+                        "lng" : -43.9387148
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Nossa Sra. de Fátima\u003c/b\u003e",
+                     "maneuver" : "turn-slight-left",
+                     "polyline" : {
+                        "points" : "ffqxBjnfkGYy@]u@MWSWYSOI]Qu@q@{BkBuAiAc@c@IEYYSMSKSGQEQCUCM?a@@]@S@W?]CSGWIOIMMKIEIGQOi@Um@aAwBg@{@m@q@MMIKSQKMOQOUOa@Wu@IWCKOi@WeAWaAKWGWOi@GSSs@W_AEKK[K[IQIOQWOWIM"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9179597,
+                        "lng" : -43.9474192
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 494
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 27
+                     },
+                     "end_location" : {
+                        "lat" : -19.9066111,
+                        "lng" : -43.9375807
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eTúnel Pres. Tancredo Neves\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "`yoxB|wdkGY[Y]QS[YsAq@WKa@OMEOCQEQCg@Gw@IgAE]CK?K?O@Q?U@U@}@BQ?Y@K?O?E@G?KAUCc@C"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9107334,
+                        "lng" : -43.9387148
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.8 km",
+                        "value" : 1846
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 124
+                     },
+                     "end_location" : {
+                        "lat" : -19.8955887,
+                        "lng" : -43.9272466
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eAv. Cristiano Machado\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "h_oxBzpdkGWCUEa@MUIWOSMm@i@SSa@k@a@{@K]KYKc@c@aB?AKg@U{@EM{@sD_AsDUcAEKKc@ACMe@UiAWkAEUCUAGESAEEUMg@Kg@S_AOm@CKCKU}@AIOi@Sc@MWKQY]OQIGOMWQSKMGUKOG[K_@GUE]GGA}@KWASCE?iBQcBQ}@KmAM{AO_D]kFe@eAKgBO"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9066111,
+                        "lng" : -43.9375807
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "3.1 km",
+                        "value" : 3097
+                     },
+                     "duration" : {
+                        "text" : "5 mins",
+                        "value" : 274
+                     },
+                     "end_location" : {
+                        "lat" : -19.8685563,
+                        "lng" : -43.9281008
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eleft\u003c/b\u003e to stay on \u003cb\u003eAv. Cristiano Machado\u003c/b\u003e",
+                     "maneuver" : "keep-left",
+                     "polyline" : {
+                        "points" : "lzlxBhpbkGs@A{@ByALeBl@gCn@yAZyAZ_GjAsAXu@P}@NyA\\{Cl@o@HgADc@?]?gDIO?y@@i@?[AgA?w@Aw@AU@W?OBg@Di@Hs@Jq@NiAXy@Ta@La@J[H]H_@Hc@F_@Dk@DY@a@AeAE_@Ea@GoASuA[[I_BYkFeAwAYkAUYEu@Qa@GwBc@wA]aAUgAUwDy@kBYwB_@w@OsASkAOq@CMAO@W?g@@m@@o@He@Fk@F_Bd@_Bf@E@C?A@A?A@QBs@Ps@JeABe@@UA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8955887,
+                        "lng" : -43.9272466
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 171
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 12
+                     },
+                     "end_location" : {
+                        "lat" : -19.8672039,
+                        "lng" : -43.9288654
+                     },
+                     "html_instructions" : "Take the ramp on the \u003cb\u003eleft\u003c/b\u003e to \u003cb\u003eVenda Nova\u003c/b\u003e/\u003cb\u003eAerop. Internacional\u003c/b\u003e/\u003cb\u003eLagoa Santa\u003c/b\u003e/\u003cb\u003eSão Bernardo\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "nqgxBrubkGm@N]LwB`Ac@Zg@\\"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8685563,
+                        "lng" : -43.9281008
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "85 m",
+                        "value" : 85
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 6
+                     },
+                     "end_location" : {
+                        "lat" : -19.8665867,
+                        "lng" : -43.92935079999999
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eleft\u003c/b\u003e to continue toward \u003cb\u003eAv. Cristiano Machado\u003c/b\u003e",
+                     "maneuver" : "keep-left",
+                     "polyline" : {
+                        "points" : "~hgxBlzbkGq@h@gAt@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8672039,
+                        "lng" : -43.9288654
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "5.0 km",
+                        "value" : 4988
+                     },
+                     "duration" : {
+                        "text" : "7 mins",
+                        "value" : 422
+                     },
+                     "end_location" : {
+                        "lat" : -19.8265573,
+                        "lng" : -43.9431333
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eAv. Cristiano Machado\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "degxBl}bkGmBtAWPOJw@p@uBzAwA`AeBnAGBiAz@_Al@MJKDULg@Xs@\\iA^uA`@{@TkC`Am@R[LSFg@Tg@Ry@VWH_@JeBf@MDu@XeATu@Ts@VYHYHq@Pq@PiANcANE@e@F[DmAL[Bg@@_@?]?c@?m@Ce@Cs@G}@Me@G}@Q[Iu@SOEk@SgAc@yBeAu@_@yCuAm@YmAe@]M]MC?e@OcAWs@Kw@MWCSCCAk@GaAEi@ASAo@@u@?kAB{@D_@Ba@D]D}@Ni@Ly@RYFg@PWHa@NSJm@V]LQJs@^IFg@Xs@h@ULaAp@SNYT}@v@i@d@a@XGFe@ZA@eAl@_Ad@}@d@a@TeAl@[PuA~@YTw@|@[`@Y\\Y`@}A`C_ArAc@r@c@n@STYZe@\\[R]RYJ_@Ne@JYFg@Dg@Ds@Fm@DK@[Bs@Du@FqCR}@FaBNi@Hg@H]Fm@NUFsA`@YJcEzA_FhBg@PWJiDrAsBp@i@Tk@To@TQHQD"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8665867,
+                        "lng" : -43.92935079999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.7 km",
+                        "value" : 687
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 43
+                     },
+                     "end_location" : {
+                        "lat" : -19.821654,
+                        "lng" : -43.9467585
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Vilarinho\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the left\u003c/div\u003e",
+                     "maneuver" : "turn-slight-left",
+                     "polyline" : {
+                        "points" : "~j_xBpsekGGJCBC@EBKB_@LYJWJwAh@sBz@iDnACBcDlA]N]PYPYV_@\\_@`@SVe@r@EDS^OXMZOf@Qp@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8265573,
+                        "lng" : -43.9431333
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "pspxBzugkG`@Lf@Mx@e@~AoBHOJe@Xu@TaAdB_ONcA^mAVe@V[\\[r@a@nBcAnAk@|C}AZMrB^rB\\]zB_@zByB_@eF{@iB[MI_@YUQAeAw@oBa@o@i@]]Qu@q@qEuD{AqAg@Sc@Ic@C_ABk@@q@Kg@SYWM[e@wAiBsD{@_Ay@}@_@w@a@mAcA}Dk@mB}@{CUm@[g@Ye@s@y@m@m@kB}@qA_@y@K_COeAA{BFgA@o@C{@Gw@Sm@YaAw@u@_Am@yA{@aDkEmQ}@_EKs@oAyFk@}Ba@{@e@o@aAy@gAg@{@Ss@MqBSgYqCmD[oB@yALeBl@aFjAyIfBiCj@wCl@{Cl@o@HkBDeEIoC?mEAg@BqANeBZcCn@}Bl@cAPkAJ{@?eBKqB[qBe@oNoCiFcAyKcCcFy@kCc@kAOq@C]?_A@}AJqAN_ElAMBSDgB\\kBDUAm@NuCnAkAx@_GfEgA|@mE|CwF|DwAx@s@\\iA^qCv@uEbB{@\\aBj@kDbAu@XeATiBl@wCv@yDh@iBRcADoCCyAKcBUyA[eAYsBw@oDeBgEoBkBs@a@MiBg@wCa@o@IkBGeEB{AH_AJgB\\sAZ_AZu@ZkAd@eAj@{BxAuA`AwAlAkA~@m@b@eEzBgBbAqBpAYTw@|@u@~@{EjHw@dA_Ax@y@f@y@Z_ARoAJiCRyHh@kCXeAPcAVmBl@cNbFiDrAsBp@uAj@aA^QDGJGDQFiDnAsBz@iDnAgDpA{@`@s@h@_A~@y@jAYd@]t@a@xA"
+         },
+         "summary" : "Av. Cristiano Machado",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

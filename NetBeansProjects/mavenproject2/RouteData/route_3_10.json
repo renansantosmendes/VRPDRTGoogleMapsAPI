@@ -1,0 +1,133 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJgQBmWfuZpgAR30cD4lINtkI",
+         "types" : [ "establishment", "point_of_interest", "premise" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJR8XdnMSZpgARmu_lSytI0zY",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9192793,
+               "lng" : -43.93099220000001
+            },
+            "southwest" : {
+               "lat" : -19.9362369,
+               "lng" : -43.9386673
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "2.1 km",
+                  "value" : 2121
+               },
+               "duration" : {
+                  "text" : "6 mins",
+                  "value" : 361
+               },
+               "end_address" : "R. Rio Grande do Norte, 1204 - Funcionários, Belo Horizonte - MG, 30130-131, Brazil",
+               "end_location" : {
+                  "lat" : -19.9362369,
+                  "lng" : -43.9322733
+               },
+               "start_address" : "Obelisco Praça Sete - Av. Afonso Pena - Centro, Belo Horizonte - MG, 31840-190, Brazil",
+               "start_location" : {
+                  "lat" : -19.9192793,
+                  "lng" : -43.9386673
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "1.4 km",
+                        "value" : 1371
+                     },
+                     "duration" : {
+                        "text" : "4 mins",
+                        "value" : 236
+                     },
+                     "end_location" : {
+                        "lat" : -19.9299113,
+                        "lng" : -43.93203279999999
+                     },
+                     "html_instructions" : "Head \u003cb\u003esoutheast\u003c/b\u003e on \u003cb\u003eAv. Afonso Pena\u003c/b\u003e toward \u003cb\u003eR. Rio de Janeiro\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "nnqxBtwdkGPMtDuBfAm@^Wl@Wx@e@`@U`Ae@f@Wz@c@XO|KaGHEHEhDkBn@_@VKfAk@bAg@ZQZQNIPKZOdB_AhCsAd@YzBiAxBkA`@W"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9192793,
+                        "lng" : -43.9386673
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 216
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 32
+                     },
+                     "end_location" : {
+                        "lat" : -19.93159,
+                        "lng" : -43.93099220000001
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eAv. Afonso Pena\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "|psxBdnckGRIj@YpBgArAs@XOLI`@U"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9299113,
+                        "lng" : -43.93203279999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 534
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 93
+                     },
+                     "end_location" : {
+                        "lat" : -19.9362369,
+                        "lng" : -43.9322733
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Rio Grande do Norte\u003c/b\u003e (signs for \u003cb\u003eSavassi\u003c/b\u003e/\u003cb\u003eSion\u003c/b\u003e/\u003cb\u003eOuro Preto\u003c/b\u003e/\u003cb\u003eRio de Janeiro\u003c/b\u003e)",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "l{sxBtgckGl@HlDj@r@N|@P`Cd@nFbA`F|@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.93159,
+                        "lng" : -43.93099220000001
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "nnqxBtwdkGnHiEjEyBzOmIlFwCxGiDpKwFzCcB~@c@lFuC`@Ul@H`Fz@pSxD"
+         },
+         "summary" : "Av. Afonso Pena and R. Rio Grande do Norte",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

@@ -71,6 +71,10 @@ public class Node {
     public int getLoadIndex() {
         return loadIndex;
     }
+    
+    public String getGeocodedInformationForRoutes(){
+        return this.getLongitude() + "," +  this.getLatitude();
+    }
 
     public void setLoadIndex(Map<Node, List<Request>> requestsWichBoardsInNode, Map<Node, List<Request>> requestsWichLeavesInNode) {
         if (requestsWichBoardsInNode.get(this) != null && requestsWichLeavesInNode.get(this) != null) {

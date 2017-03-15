@@ -1,0 +1,251 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJ-1WIx9iXpgAREkwhYLlrhGI",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJX6f9sgKYpgAR17lfXPRZECQ",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9687289,
+               "lng" : -43.9433533
+            },
+            "southwest" : {
+               "lat" : -19.9757336,
+               "lng" : -43.9683195
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "3.9 km",
+                  "value" : 3949
+               },
+               "duration" : {
+                  "text" : "8 mins",
+                  "value" : 498
+               },
+               "end_address" : "MG-030, 729 - Belvedere, Belo Horizonte - MG, Brazil",
+               "end_location" : {
+                  "lat" : -19.9744415,
+                  "lng" : -43.94348369999999
+               },
+               "start_address" : "Rua Cônsul Walter, 16 - Buritis, Belo Horizonte - MG, 30575-140, Brazil",
+               "start_location" : {
+                  "lat" : -19.9756066,
+                  "lng" : -43.9683195
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "6 m",
+                        "value" : 6
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 1
+                     },
+                     "end_location" : {
+                        "lat" : -19.9756566,
+                        "lng" : -43.9683065
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eRua Cônsul Walter\u003c/b\u003e toward \u003cb\u003eAv. Professor Mário Werneck\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "pn|xB~pjkGHA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9756066,
+                        "lng" : -43.9683195
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.8 km",
+                        "value" : 848
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 149
+                     },
+                     "end_location" : {
+                        "lat" : -19.9696288,
+                        "lng" : -43.9645506
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e at the 1st cross street onto \u003cb\u003eAv. Professor Mário Werneck\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "zn|xB|pjkGLQU]QQSMMISKKCICICMCIAI?G?I?C?E?K?K@K?OBkANSDUBg@FK@G?I?I@A?UCQEKGKGCACC[Yk@q@q@o@OO_A_AeAoAcAqAo@o@q@q@EEQUW[[[OOWSWMMGMEMCAAKAYCC?CAE?CAE?CASM"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9756566,
+                        "lng" : -43.9683065
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.2 km",
+                        "value" : 1235
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 146
+                     },
+                     "end_location" : {
+                        "lat" : -19.9689182,
+                        "lng" : -43.95448
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eR. José Rodrigues Pereira\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "di{xBlyikGGECACCACACAC?CAI?CAA?CACAC?AACCECu@?_@?uA@aC?i@AQ?MAa@C{CC_BAg@AUCSCGAEKUKOGIKMOOIKKMIOIQGUCMASAO?M@M@I@G@IDILUDGHEHIJEHAFAJCHAn@GRC^I\\MXQTSPWJUHUF]@U?[CSEOIWKSOQq@_Aq@eAIQMYGYE[Gu@CMCOGOKWWm@Y{@IUKm@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9696288,
+                        "lng" : -43.9645506
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 140
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 14
+                     },
+                     "end_location" : {
+                        "lat" : -19.9701252,
+                        "lng" : -43.95415759999999
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Raja Gabáglia\u003c/b\u003e (signs for \u003cb\u003eNova Lima\u003c/b\u003e/\u003cb\u003eRio De Janeiro\u003c/b\u003e)",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "vd{xBnzgkGr@G^ClAOFATGVIXO"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9689182,
+                        "lng" : -43.95448
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 526
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 36
+                     },
+                     "end_location" : {
+                        "lat" : -19.97191,
+                        "lng" : -43.9495947
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eleft\u003c/b\u003e to stay on \u003cb\u003eAv. Raja Gabáglia\u003c/b\u003e",
+                     "maneuver" : "turn-slight-left",
+                     "polyline" : {
+                        "points" : "hl{xBnxgkGPWZWZ[NUJQPYJYHWJ]DYFa@J_AL}@Ls@ZmAPm@`@uAPi@XyAJm@JaA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9701252,
+                        "lng" : -43.95415759999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 346
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 24
+                     },
+                     "end_location" : {
+                        "lat" : -19.9722748,
+                        "lng" : -43.9463136
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eleft\u003c/b\u003e to stay on \u003cb\u003eAv. Raja Gabáglia\u003c/b\u003e",
+                     "maneuver" : "keep-left",
+                     "polyline" : {
+                        "points" : "lw{xB|{fkGD_@FcADcAV{GBg@B_@Ba@@KLuA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.97191,
+                        "lng" : -43.9495947
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.6 km",
+                        "value" : 625
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 63
+                     },
+                     "end_location" : {
+                        "lat" : -19.9755178,
+                        "lng" : -43.9446667
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eEstr. p/ Nova Lima\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "ty{xBlgfkGH[F[Ty@BKBK@EBKVaAz@qDFYL]FONWNSXULITMJEl@QNCLA^?^@ZFVFLFHD\\RXNFD\\ZLPFLJZJ^Nv@BL"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9722748,
+                        "lng" : -43.9463136
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 223
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 65
+                     },
+                     "end_location" : {
+                        "lat" : -19.9744415,
+                        "lng" : -43.94348369999999
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "~m|xBd}ekGEXCFADC@A?A?A?AAAAAAAAAAAA?CA[AI?KEUEQIYM_@GMGMCES[_@[IGa@KYE"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9755178,
+                        "lng" : -43.9446667
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "pn|xB~pjkGHALQg@o@a@W_@Ok@M_@?i@@eC\\eAHK@g@I_@UgAkAaA_A_A_AeAoAcAqAo@o@w@w@i@q@k@k@o@a@k@SaAKc@YEOIa@G{@?uB@kDA_@KeIEi@EMk@}@Y[U]Qg@Ea@@u@BQR_@NMTOf@IbAK|@Wn@e@\\m@Ps@@q@Ic@Uk@aAqA{@wAUs@MqAG]Sg@q@iBUcAhD]l@QXOPWv@s@Zg@\\s@Tu@L{@X}Bh@aCr@cCj@cCVoBLcB\\_JLuBVqB\\uALi@rAsFTw@Vg@h@i@b@Wx@W\\E~@@r@NVLv@b@d@`@T^Vz@RdAI`@EFC?GEEICe@Ea@Ok@Um@KSS[_@[k@SYE"
+         },
+         "summary" : "R. José Rodrigues Pereira and Av. Raja Gabáglia",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

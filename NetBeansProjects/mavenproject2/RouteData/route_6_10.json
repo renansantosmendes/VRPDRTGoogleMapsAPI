@@ -1,0 +1,301 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EkdBdi4gUHJvZi4gQWxmcmVkbyBCYWxlbmEsIDQxNC00MzAgLSBDZW50cm8sIEJlbG8gSG9yaXpvbnRlIC0gTUcsIEJyYXNpbA",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJR8XdnMSZpgARmu_lSytI0zY",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.924845,
+               "lng" : -43.9293954
+            },
+            "southwest" : {
+               "lat" : -19.9362369,
+               "lng" : -43.9338487
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "1.8 km",
+                  "value" : 1785
+               },
+               "duration" : {
+                  "text" : "7 mins",
+                  "value" : 413
+               },
+               "end_address" : "R. Rio Grande do Norte, 1204 - Funcionários, Belo Horizonte - MG, 30130-131, Brazil",
+               "end_location" : {
+                  "lat" : -19.9362369,
+                  "lng" : -43.9322733
+               },
+               "start_address" : "Av. Prof. Alfredo Balena, 414-430 - Centro, Belo Horizonte - MG, Brazil",
+               "start_location" : {
+                  "lat" : -19.9252454,
+                  "lng" : -43.9296483
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "34 m",
+                        "value" : 34
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 8
+                     },
+                     "end_location" : {
+                        "lat" : -19.9250537,
+                        "lng" : -43.9293954
+                     },
+                     "html_instructions" : "Head \u003cb\u003enortheast\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "xsrxBh_ckGUa@CEEEGC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9252454,
+                        "lng" : -43.9296483
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "41 m",
+                        "value" : 41
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 14
+                     },
+                     "end_location" : {
+                        "lat" : -19.924845,
+                        "lng" : -43.9297109
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e toward \u003cb\u003eAv. Prof. Alfredo Balena\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "prrxBv}bkGIXOPOP"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9250537,
+                        "lng" : -43.9293954
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "94 m",
+                        "value" : 94
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 24
+                     },
+                     "end_location" : {
+                        "lat" : -19.9252807,
+                        "lng" : -43.9304821
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e toward \u003cb\u003eAv. Prof. Alfredo Balena\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "fqrxBt_ckGvAxC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.924845,
+                        "lng" : -43.9297109
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "55 m",
+                        "value" : 55
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 22
+                     },
+                     "end_location" : {
+                        "lat" : -19.9257197,
+                        "lng" : -43.9302311
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e toward \u003cb\u003eAv. Prof. Alfredo Balena\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "~srxBndckGvAq@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9252807,
+                        "lng" : -43.9304821
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 276
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 106
+                     },
+                     "end_location" : {
+                        "lat" : -19.926994,
+                        "lng" : -43.9324916
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Prof. Alfredo Balena\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "vvrxB|bckGPZFNHPDHJRLZN\\P^Xp@DFFLRb@Pb@P^R`@JNJPJX"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9257197,
+                        "lng" : -43.9302311
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "23 m",
+                        "value" : 23
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 8
+                     },
+                     "end_location" : {
+                        "lat" : -19.927099,
+                        "lng" : -43.9326835
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eleft\u003c/b\u003e to stay on \u003cb\u003eAv. Prof. Alfredo Balena\u003c/b\u003e",
+                     "maneuver" : "keep-left",
+                     "polyline" : {
+                        "points" : "t~rxB`qckGTd@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.926994,
+                        "lng" : -43.9324916
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 108
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 39
+                     },
+                     "end_location" : {
+                        "lat" : -19.926891,
+                        "lng" : -43.9336771
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e at \u003cb\u003eAv. Carandaí\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "j_sxBfrckGDH?@ABa@jC?@Kh@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.927099,
+                        "lng" : -43.9326835
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 404
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 67
+                     },
+                     "end_location" : {
+                        "lat" : -19.9299113,
+                        "lng" : -43.93203279999999
+                     },
+                     "html_instructions" : "Sharp \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Afonso Pena\u003c/b\u003e",
+                     "maneuver" : "turn-sharp-left",
+                     "polyline" : {
+                        "points" : "`~rxBnxckGERDB@B@@B@H@ZOdB_AhCsAd@YzBiAxBkA`@W"
+                     },
+                     "start_location" : {
+                        "lat" : -19.926891,
+                        "lng" : -43.9336771
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 216
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 32
+                     },
+                     "end_location" : {
+                        "lat" : -19.93159,
+                        "lng" : -43.93099220000001
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eAv. Afonso Pena\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "|psxBdnckGRIj@YpBgArAs@XOLI`@U"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9299113,
+                        "lng" : -43.93203279999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 534
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 93
+                     },
+                     "end_location" : {
+                        "lat" : -19.9362369,
+                        "lng" : -43.9322733
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Rio Grande do Norte\u003c/b\u003e (signs for \u003cb\u003eSavassi\u003c/b\u003e/\u003cb\u003eSion\u003c/b\u003e/\u003cb\u003eOuro Preto\u003c/b\u003e/\u003cb\u003eRio de Janeiro\u003c/b\u003e)",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "l{sxBtgckGl@HlDj@r@N|@P`Cd@nFbA`F|@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.93159,
+                        "lng" : -43.93099220000001
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "xsrxBh_ckGYg@MIIXOPOPvAxCvAq@PZP`@n@vAdCpFV`@`@~@DJABs@jELJH@ZOnFsC|HgE~@c@dE{Bf@Y`@Ul@H`Fz@~Dv@pM`C"
+         },
+         "summary" : "Av. Afonso Pena and R. Rio Grande do Norte",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

@@ -10,6 +10,7 @@ import static GoogleMapsApi.GoogleMapsRoute.TravelMode.driving;
 import GoogleMapsApi.GoogleMapsRoute;
 import static GoogleMapsApi.GoogleMapsRoute.FileExtension.xml;
 import GoogleMapsApi.StaticGoogleMap;
+import VRPDRTSD.IntanceReaderWithMySQL.DataUpdaterDAO;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.Connection;
@@ -78,26 +79,31 @@ public class Main {
         visitationList1.add(0);
         visitationList1.add(1);
         visitationList1.add(3);
+        visitationList1.add(6);
+        visitationList1.add(4);       
         visitationList1.add(0);
         
-        visitationList2.add(0);
-        visitationList2.add(3);
-        visitationList2.add(6);
-        visitationList2.add(10);
-        visitationList2.add(0);
-        
-        visitationList3.add(0);
-        visitationList3.add(6);
-        visitationList3.add(4);
-        visitationList3.add(1);
-        visitationList3.add(3);
-        visitationList3.add(6);
-        visitationList3.add(10);
-        visitationList3.add(0);
-        
+//        visitationList2.add(0);
+//        visitationList2.add(3);
+//        visitationList2.add(6);
+//        visitationList2.add(10);
+//        visitationList2.add(0);
+//        
+//        visitationList3.add(0);
+//        visitationList3.add(6);
+//        visitationList3.add(4);
+//        visitationList3.add(1);
+//        visitationList3.add(3);
+//        //visitationList3.add(6);
+//        //visitationList3.add(1);
+//        visitationList3.add(0);
+//        
         visitationList4.add(0);
-        visitationList4.add(10);
+        visitationList4.add(11);
         visitationList4.add(1);
+        visitationList4.add(3);
+        visitationList4.add(6);
+        visitationList4.add(4);
         visitationList4.add(3);
         visitationList4.add(6);
         visitationList4.add(0);
@@ -105,12 +111,14 @@ public class Main {
         
         Set<List<Integer>> setOfVisitationRoutes = new HashSet<>();
         setOfVisitationRoutes.add(visitationList1);
-        setOfVisitationRoutes.add(visitationList2);
-        setOfVisitationRoutes.add(visitationList3);
+//        setOfVisitationRoutes.add(visitationList2);
+//        setOfVisitationRoutes.add(visitationList3);
         setOfVisitationRoutes.add(visitationList4);
 
-        new StaticGoogleMap(listOfNodes, setOfVisitationRoutes).buildMapInWindow();
-        System.out.println(new StaticGoogleMap(listOfNodes, setOfVisitationRoutes).buildURL());
+        //new StaticGoogleMap(listOfNodes, setOfVisitationRoutes).buildMapInWindow();
+        //System.out.println(new StaticGoogleMap(listOfNodes, setOfVisitationRoutes).buildURL());
+        
+        //new DataUpdaterDAO().updateAdjacenciesData(listOfNodes);
 
     }
 

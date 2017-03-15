@@ -1,0 +1,272 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EkpBdi4gZG9zIEJhbmRlaXJhbnRlcywgMTc5Mi0xODAwIC0gTWFuZ2FiZWlyYXMsIEJlbG8gSG9yaXpvbnRlIC0gTUcsIEJyYXNpbA",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EldBdi4gTm9zc2EgU3JhLiBkZSBGw6F0aW1hLCAyNDY4LTI0ODAgLSBMYWdvaW5oYSwgQmVsbyBIb3Jpem9udGUgLSBNRywgMzA3MTAtNjUwLCBCcmFzaWw",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9100619,
+               "lng" : -43.9196778
+            },
+            "southwest" : {
+               "lat" : -19.9493381,
+               "lng" : -43.9537416
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "6.7 km",
+                  "value" : 6668
+               },
+               "duration" : {
+                  "text" : "18 mins",
+                  "value" : 1065
+               },
+               "end_address" : "Av. Nossa Sra. de Fátima, 2468-2480 - Lagoinha, Belo Horizonte - MG, 30710-650, Brazil",
+               "end_location" : {
+                  "lat" : -19.9149724,
+                  "lng" : -43.9537416
+               },
+               "start_address" : "Av. dos Bandeirantes, 1792-1800 - Mangabeiras, Belo Horizonte - MG, Brazil",
+               "start_location" : {
+                  "lat" : -19.9492043,
+                  "lng" : -43.920299
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 104
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 17
+                     },
+                     "end_location" : {
+                        "lat" : -19.948892,
+                        "lng" : -43.9197
+                     },
+                     "html_instructions" : "Head \u003cb\u003esoutheast\u003c/b\u003e on \u003cb\u003ePraça da Bandeira\u003c/b\u003e toward \u003cb\u003eAv. Agulhas Negras\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "niwxBzdakGFEDGDEBG@G@I?GAMAEAEAIEGGGIGIEGAIAK?G@I@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9492043,
+                        "lng" : -43.920299
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "3.7 km",
+                        "value" : 3685
+                     },
+                     "duration" : {
+                        "text" : "11 mins",
+                        "value" : 655
+                     },
+                     "end_location" : {
+                        "lat" : -19.9205475,
+                        "lng" : -43.9376498
+                     },
+                     "html_instructions" : "Exit the roundabout onto \u003cb\u003eAv. Afonso Pena\u003c/b\u003e heading to \u003cb\u003eCentro\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "pgwxBbaakGE@GDEDGDCDCHCJAF?H?HBLYP{Av@aAf@{@d@GDmBdAcB|@iCrAeB~@aEtBMHe@X{Ax@c@TkB~@kBbA_@RcB|@iAl@YPiAn@kB~@m@ZGBmAn@iB`AKDKDKDKDaB`AaAd@e@TSHKDGFEFcAf@sAp@u@`@eAj@OJOHm@^eAh@m@Zo@\\WLWLYNMFMFWNYLoAp@yAv@mAn@QHOHgE`Cq@Za@TaCnAoBdAOHEBGDGDSJa@P}BjAgB`ASJk@ZcDhBULgAh@KDIFIDm@\\mKlFIFIDYPgKxFSLYNg@VOJYHaAh@{@d@a@Xe@X[N"
+                     },
+                     "start_location" : {
+                        "lat" : -19.948892,
+                        "lng" : -43.9197
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.6 km",
+                        "value" : 582
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 126
+                     },
+                     "end_location" : {
+                        "lat" : -19.9160326,
+                        "lng" : -43.9404529
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eAv. Afonso Pena\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "lvqxBhqdkGaAh@uDfBYPi@VYR_ChAoAr@i@XWNGDy@f@]RgCnAw@d@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9205475,
+                        "lng" : -43.9376498
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 162
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 34
+                     },
+                     "end_location" : {
+                        "lat" : -19.91462,
+                        "lng" : -43.9401986
+                     },
+                     "html_instructions" : "\u003cb\u003eAv. Afonso Pena\u003c/b\u003e turns slightly \u003cb\u003eright\u003c/b\u003e and becomes \u003cb\u003ePraça Rio Branco\u003c/b\u003e/\u003cb\u003eR. Curitiba\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eContinue to follow R. Curitiba\u003c/div\u003e",
+                     "polyline" : {
+                        "points" : "dzpxBxbekGMDG@E@C?E?SCWEgAOKAMAiAU[G"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9160326,
+                        "lng" : -43.9404529
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 387
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 35
+                     },
+                     "end_location" : {
+                        "lat" : -19.9115066,
+                        "lng" : -43.9416445
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto the ramp to \u003cb\u003eAv. Pedro II\u003c/b\u003e/\u003cb\u003eRua Pe. Eustáquio\u003c/b\u003e/\u003cb\u003eAv. Antônio\u003c/b\u003e/\u003cb\u003eCarlos\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "jqpxBfaekGGAM@G@E@EBIDOLKFOJcAn@kAt@]XKFMHOHOFIDGBg@Ra@NKDMBUFOBm@FS?gA?"
+                     },
+                     "start_location" : {
+                        "lat" : -19.91462,
+                        "lng" : -43.9401986
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 143
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 13
+                     },
+                     "end_location" : {
+                        "lat" : -19.9104382,
+                        "lng" : -43.9423521
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eleft\u003c/b\u003e at the fork, follow signs for \u003cb\u003eAv. Pedro II\u003c/b\u003e/\u003cb\u003eLagoinha\u003c/b\u003e",
+                     "maneuver" : "fork-left",
+                     "polyline" : {
+                        "points" : "|}oxBfjekGc@J[JYLOJE@WPQNMHEBEFCBCHKHMH"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9115066,
+                        "lng" : -43.9416445
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 223
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 24
+                     },
+                     "end_location" : {
+                        "lat" : -19.9113604,
+                        "lng" : -43.941843
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e to merge onto \u003cb\u003eAv. Pres. Antônio Carlos\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "fwoxBtnekGQCAAC?K?EAEAEAECECACCGCG?I@I@G@EDGHILGLGHGBABG^E^Ad@@TBRF^JND"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9104382,
+                        "lng" : -43.9423521
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 375
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 31
+                     },
+                     "end_location" : {
+                        "lat" : -19.9135609,
+                        "lng" : -43.9443818
+                     },
+                     "html_instructions" : "Take the ramp on the \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Nossa Sra. de Fátima\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "~|oxBnkekGL?J@FBHDPLRPRRNJJJPLJHJHJFXJZPTXBB@@PZLTXp@HXHZJTJPNTLNLRHXPd@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9113604,
+                        "lng" : -43.941843
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.0 km",
+                        "value" : 1007
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 130
+                     },
+                     "end_location" : {
+                        "lat" : -19.9149724,
+                        "lng" : -43.9537416
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eAv. Nossa Sra. de Fátima\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "vjpxBj{ekGDN@HBN@NA|AGz@?BWxAGf@G|@Cb@Aj@Cn@Bh@TpBD^XnATnABRBPL|@J|@Jl@Jt@Ln@Jp@Jv@Lx@Lv@Hj@F^Ff@PrABPF\\Nl@R|@Lv@BHLb@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9135609,
+                        "lng" : -43.9443818
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "niwxBzdakGLMHMBQAUCKGQQOQGUAQB[RGNER?RBLYP}C~AcAj@aMvGqIrE{GlDqGlDoFnCmCrAmBfAgBz@_@NMNsGfDsC~AmCtA_JvEa@RgE`Cq@ZcDdB_CnAi@Z_D|A{BlAoEdC}Av@mAp@{LlG}MnHi@T}BnAgAr@}Ax@oExBcAj@_ChAoAr@aAh@aAl@eDbBw@d@MDMBu@IsAQwAWc@IUBKDYRkDxBi@`@]RiAd@m@Tc@J}@J{A?_AVi@X}@l@KJGLYRSE[CKEGGGO@SBMNQh@YBG^EdA?h@Jn@PX@PHhA~@t@l@d@RZPTXDD^p@b@jATp@v@jAb@xAD^A|AGz@W|AOdBEnACn@Bh@ZpCn@~C`@`Dp@dEp@tEd@lDx@`EPl@"
+         },
+         "summary" : "Av. Afonso Pena",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

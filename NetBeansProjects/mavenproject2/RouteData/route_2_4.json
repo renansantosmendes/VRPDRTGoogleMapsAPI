@@ -1,0 +1,251 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJf_fL_vuWpgAREnvcQcwaINI",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EkpBdi4gZG9zIEJhbmRlaXJhbnRlcywgMTc5Mi0xODAwIC0gTWFuZ2FiZWlyYXMsIEJlbG8gSG9yaXpvbnRlIC0gTUcsIEJyYXNpbA",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9278262,
+               "lng" : -43.9202465
+            },
+            "southwest" : {
+               "lat" : -19.9492043,
+               "lng" : -43.9881097
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "8.6 km",
+                  "value" : 8617
+               },
+               "duration" : {
+                  "text" : "22 mins",
+                  "value" : 1329
+               },
+               "end_address" : "Av. dos Bandeirantes, 1792-1800 - Mangabeiras, Belo Horizonte - MG, Brazil",
+               "end_location" : {
+                  "lat" : -19.9492043,
+                  "lng" : -43.920299
+               },
+               "start_address" : "R. Raimundo Rodrigues de Paula, 31 - Gameleira, Belo Horizonte - MG, 30535-590, Brazil",
+               "start_location" : {
+                  "lat" : -19.9282433,
+                  "lng" : -43.9881097
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 198
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 73
+                     },
+                     "end_location" : {
+                        "lat" : -19.9283164,
+                        "lng" : -43.9865739
+                     },
+                     "html_instructions" : "Head \u003cb\u003enortheast\u003c/b\u003e on \u003cb\u003eR. Craveiro Lopes\u003c/b\u003e/\u003cb\u003eR. Raimundo Rodrigues de Paula\u003c/b\u003e toward \u003cb\u003eRua Conde Pereira Carneiro\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "nfsxBtlnkGm@oA]s@CIAIAG?E?IBMDMDKFGHG\\KHEFMHQFY"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9282433,
+                        "lng" : -43.9881097
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 356
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 73
+                     },
+                     "end_location" : {
+                        "lat" : -19.9313595,
+                        "lng" : -43.9855385
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eRua Conde Pereira Carneiro\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "~fsxB`cnkGb@MJAJEDAFGZIp@OlAUhBa@f@Mz@SjDy@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9283164,
+                        "lng" : -43.9865739
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "3.0 km",
+                        "value" : 3042
+                     },
+                     "duration" : {
+                        "text" : "7 mins",
+                        "value" : 397
+                     },
+                     "end_location" : {
+                        "lat" : -19.9295311,
+                        "lng" : -43.95722019999999
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Amazonas\u003c/b\u003e (signs for \u003cb\u003eNova Suiça\u003c/b\u003e/\u003cb\u003eCentro\u003c/b\u003e)",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "~ysxBr|mkGVKa@oCKy@CQCQG_@UgBGc@ESCSCOCMCUEUc@aDSoAQwA_@{BIs@SuAQsAm@kEIo@Ik@MaAEWIk@Gi@EWAOAMAOC_@C}@Ay@DcBFo@Da@Fe@l@mCZwA\\uABSDU^gB`@gB`@iBPw@DQDQLi@F_@Jw@@k@F_BRgLDgCFoC@aBAg@A_@Ee@Cc@EYa@}C]uCg@cEa@aDo@}EWsBw@aGWqBUqBIg@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9313595,
+                        "lng" : -43.9855385
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 544
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 76
+                     },
+                     "end_location" : {
+                        "lat" : -19.9333478,
+                        "lng" : -43.9540477
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. do Contorno\u003c/b\u003e (signs for \u003cb\u003eMangabeiras\u003c/b\u003e)",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "pnsxBrkhkGfAYv@SLELGBCDADEDEDErAoAzBwBpEeEvBqBh@e@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9295311,
+                        "lng" : -43.95722019999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "3.2 km",
+                        "value" : 3169
+                     },
+                     "duration" : {
+                        "text" : "8 mins",
+                        "value" : 505
+                     },
+                     "end_location" : {
+                        "lat" : -19.9390465,
+                        "lng" : -43.9263252
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eleft\u003c/b\u003e to stay on \u003cb\u003eAv. do Contorno\u003c/b\u003e",
+                     "maneuver" : "keep-left",
+                     "polyline" : {
+                        "points" : "lftxBxwgkG\\c@LOHMFKBIDKBOt@wDDUDUFYP}@RkAj@gDNk@L}@XiBXiBViB@C@E?E@CZyBZwB@G@GBSDQBSLy@RiADSDODIDGFG`Ai@PIpAo@zAy@RMxAw@`B{@lAm@FEDCDEZYHGBIDW@Mf@uDF[f@eDPmA\\cC@I\\{BNaALo@BMDYHc@Lw@BONaAh@cD@M?KIcBGy@IaCGqAEsAMqB?yACsAAKAKI_AAUC_@Ce@AQGwAKqBI_BAQGmACi@Ek@IaBCk@OoCMsCMqCCk@Eq@AOCUKg@Oc@Oc@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9333478,
+                        "lng" : -43.9540477
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 104
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 19
+                     },
+                     "end_location" : {
+                        "lat" : -19.9398491,
+                        "lng" : -43.9258077
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003ePraça Milton Campos\u003c/b\u003e (signs for \u003cb\u003eSerra\u003c/b\u003e/\u003cb\u003eCruzeiro\u003c/b\u003e/\u003cb\u003eMangabeiras\u003c/b\u003e)",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "`juxBpjbkG|@g@|@g@b@W"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9390465,
+                        "lng" : -43.9263252
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.1 km",
+                        "value" : 1149
+                     },
+                     "duration" : {
+                        "text" : "3 mins",
+                        "value" : 172
+                     },
+                     "end_location" : {
+                        "lat" : -19.9487539,
+                        "lng" : -43.9202465
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eAv. Afonso Pena\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "`ouxBhgbkGtAs@HGt@a@`@QFEFE`E{Bd@UZQ^Sz@a@~@i@XMRMZSZSf@Y`B}@HE~A{@z@g@lAm@d@S\\QNGz@i@~@g@t@_@t@_@v@e@v@a@d@YFE~@g@v@_@p@_@b@S"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9398491,
+                        "lng" : -43.9258077
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "55 m",
+                        "value" : 55
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 14
+                     },
+                     "end_location" : {
+                        "lat" : -19.9492043,
+                        "lng" : -43.920299
+                     },
+                     "html_instructions" : "Enter \u003cb\u003ePraça da Bandeira\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "tfwxBpdakGFDDBJDHBJ@H?RCFCBC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9487539,
+                        "lng" : -43.9202465
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "nfsxBtlnkGkAcCES@e@JYPOf@QP_@FYb@MVGLIlAYvDw@bBa@bEeAm@iEe@kDU{Aq@{EoAwIeCwQQ_BEo@EwBLsCLgAjBoItCuMRwAHkCXoPHqFCgAIiAmBqOaDuVm@cFIg@fAYdAYPKVSxO_OfAiAV]Tq@hA}F`B}IxA{J`AuGZsBX}AJYLOrAs@zGoD|DsB`@_@LQv@wFxAaK`BaKx@eF@Yc@qJSeE?yACsACWKuAQoD_@qHgAeUGaAO}@_@gAzBoAxDuBrFyC|C}AhCyAbAm@jBcAzCcBlAm@d@Sl@YzBqAjB_AnBgAdDgBtAs@LHTHT@ZGBC"
+         },
+         "summary" : "Av. Amazonas and Av. do Contorno",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

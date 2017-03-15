@@ -1,0 +1,325 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EkdBdi4gUHJvZi4gQWxmcmVkbyBCYWxlbmEsIDQxNC00MzAgLSBDZW50cm8sIEJlbG8gSG9yaXpvbnRlIC0gTUcsIEJyYXNpbA",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJgQBmWfuZpgAR30cD4lINtkI",
+         "types" : [ "establishment", "point_of_interest", "premise" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9161368,
+               "lng" : -43.9293954
+            },
+            "southwest" : {
+               "lat" : -19.927035,
+               "lng" : -43.9402576
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "2.5 km",
+                  "value" : 2468
+               },
+               "duration" : {
+                  "text" : "10 mins",
+                  "value" : 628
+               },
+               "end_address" : "Obelisco Praça Sete - Av. Afonso Pena - Centro, Belo Horizonte - MG, 31840-190, Brazil",
+               "end_location" : {
+                  "lat" : -19.9192793,
+                  "lng" : -43.9386673
+               },
+               "start_address" : "Av. Prof. Alfredo Balena, 414-430 - Centro, Belo Horizonte - MG, Brazil",
+               "start_location" : {
+                  "lat" : -19.9252454,
+                  "lng" : -43.9296483
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "34 m",
+                        "value" : 34
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 8
+                     },
+                     "end_location" : {
+                        "lat" : -19.9250537,
+                        "lng" : -43.9293954
+                     },
+                     "html_instructions" : "Head \u003cb\u003enortheast\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "xsrxBh_ckGUa@CEEEGC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9252454,
+                        "lng" : -43.9296483
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "41 m",
+                        "value" : 41
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 14
+                     },
+                     "end_location" : {
+                        "lat" : -19.924845,
+                        "lng" : -43.9297109
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e toward \u003cb\u003eAv. Prof. Alfredo Balena\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "prrxBv}bkGIXOPOP"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9250537,
+                        "lng" : -43.9293954
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "94 m",
+                        "value" : 94
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 24
+                     },
+                     "end_location" : {
+                        "lat" : -19.9252807,
+                        "lng" : -43.9304821
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e toward \u003cb\u003eAv. Prof. Alfredo Balena\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "fqrxBt_ckGvAxC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.924845,
+                        "lng" : -43.9297109
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "55 m",
+                        "value" : 55
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 22
+                     },
+                     "end_location" : {
+                        "lat" : -19.9257197,
+                        "lng" : -43.9302311
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e toward \u003cb\u003eAv. Prof. Alfredo Balena\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "~srxBndckGvAq@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9252807,
+                        "lng" : -43.9304821
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 276
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 106
+                     },
+                     "end_location" : {
+                        "lat" : -19.926994,
+                        "lng" : -43.9324916
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Prof. Alfredo Balena\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "vvrxB|bckGPZFNHPDHJRLZN\\P^Xp@DFFLRb@Pb@P^R`@JNJPJX"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9257197,
+                        "lng" : -43.9302311
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 141
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 25
+                     },
+                     "end_location" : {
+                        "lat" : -19.9267334,
+                        "lng" : -43.9337844
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Carandaí\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "t~rxB`qckGHV?H?DAHAFEV_@lBS`A"
+                     },
+                     "start_location" : {
+                        "lat" : -19.926994,
+                        "lng" : -43.9324916
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.8 km",
+                        "value" : 798
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 138
+                     },
+                     "end_location" : {
+                        "lat" : -19.9205475,
+                        "lng" : -43.9376498
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Afonso Pena\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "`}rxBbyckGm@\\mKlFIFIDYPgKxFSLYNg@VOJYHaAh@{@d@a@Xe@X[N"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9267334,
+                        "lng" : -43.9337844
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 544
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 112
+                     },
+                     "end_location" : {
+                        "lat" : -19.9163133,
+                        "lng" : -43.9402576
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eAv. Afonso Pena\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "lvqxBhqdkGaAh@uDfBYPi@VYR_ChAoAr@i@XWNGDy@f@]RgCnA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9205475,
+                        "lng" : -43.9376498
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 119
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 60
+                     },
+                     "end_location" : {
+                        "lat" : -19.9163364,
+                        "lng" : -43.939253
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eRua dos Caetés\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "|{pxBraekGMEE?AAAAA?AA?CAAAC?C?EAQN_AVwA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9163133,
+                        "lng" : -43.9402576
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 126
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 55
+                     },
+                     "end_location" : {
+                        "lat" : -19.9174328,
+                        "lng" : -43.9395599
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e at the 1st cross street onto \u003cb\u003eR. São Paulo\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "b|pxBh{dkGPDr@LpATJBt@N"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9163364,
+                        "lng" : -43.939253
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 240
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 64
+                     },
+                     "end_location" : {
+                        "lat" : -19.9192793,
+                        "lng" : -43.9386673
+                     },
+                     "html_instructions" : "Continue straight onto \u003cb\u003eAv. Afonso Pena\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "|bqxBf}dkGTZFELIv@_@`Am@dCcA\\Qf@Y"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9174328,
+                        "lng" : -43.9395599
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "xsrxBh_ckGYg@MIIXOPOPvAxCvAq@PZP`@n@vAdCpFV`@Tp@C`@e@dCS`Am@\\wKtFc@V}MnHi@T}BnAgAr@}Ax@oExBcAj@_ChAoAr@aAh@aAl@eDbBWIEGC_@f@wCdAR|AXt@NTZTOxBmAbDuAf@Y"
+         },
+         "summary" : "Av. Afonso Pena",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,252 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJX6f9sgKYpgAR17lfXPRZECQ",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJs9Dnx9iXpgAR0McD3jzLOUM",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9661903,
+               "lng" : -43.9434627
+            },
+            "southwest" : {
+               "lat" : -19.9756318,
+               "lng" : -43.9682432
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "4.7 km",
+                  "value" : 4749
+               },
+               "duration" : {
+                  "text" : "12 mins",
+                  "value" : 716
+               },
+               "end_address" : "Av. Professor Mário Werneck, 2274 - Buritis, Belo Horizonte - MG, 30575-180, Brazil",
+               "end_location" : {
+                  "lat" : -19.9756318,
+                  "lng" : -43.9682432
+               },
+               "start_address" : "MG-030, 729 - Belvedere, Belo Horizonte - MG, Brazil",
+               "start_location" : {
+                  "lat" : -19.9742521,
+                  "lng" : -43.9434627
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.6 km",
+                        "value" : 563
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 144
+                     },
+                     "end_location" : {
+                        "lat" : -19.9736508,
+                        "lng" : -43.945986
+                     },
+                     "html_instructions" : "Head \u003cb\u003enorth\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "`f|xBruekGI?Q@a@F_@JYHOHKDSNQRIJEJIPEPCL?L?NBT\\nA\\nAL\\FPDNDHFHDDHF@?|@ThBd@@?@@?D?FEDCBG@G@SBgA[kA["
+                     },
+                     "start_location" : {
+                        "lat" : -19.9742521,
+                        "lng" : -43.9434627
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 171
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 19
+                     },
+                     "end_location" : {
+                        "lat" : -19.9722008,
+                        "lng" : -43.9454308
+                     },
+                     "html_instructions" : "Continue straight",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "hb|xBlefkGs@SgBi@eCq@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9736508,
+                        "lng" : -43.945986
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 170
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 21
+                     },
+                     "end_location" : {
+                        "lat" : -19.9725961,
+                        "lng" : -43.9451451
+                     },
+                     "html_instructions" : "Take the ramp to \u003cb\u003eAv. Raja Gabaglia\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "fy{xB|afkGYYMMCGAECK?M?IBGBIDEJKFGFANCL?PBF@FDBB@DFHBFBN@Z"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9722008,
+                        "lng" : -43.9454308
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 104
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 13
+                     },
+                     "end_location" : {
+                        "lat" : -19.9722609,
+                        "lng" : -43.9460771
+                     },
+                     "html_instructions" : "Merge onto \u003cb\u003eEstr. p/ Nova Lima\u003c/b\u003e",
+                     "maneuver" : "merge",
+                     "polyline" : {
+                        "points" : "v{{xBd`fkGYdACLA@EPCJYdA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9725961,
+                        "lng" : -43.9451451
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "81 m",
+                        "value" : 81
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 7
+                     },
+                     "end_location" : {
+                        "lat" : -19.9720975,
+                        "lng" : -43.946833
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eEstr. p/ Nova Lima\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "ry{xB~efkGQdAIp@C\\"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9722609,
+                        "lng" : -43.9460771
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.9 km",
+                        "value" : 948
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 103
+                     },
+                     "end_location" : {
+                        "lat" : -19.968595,
+                        "lng" : -43.9543786
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eleft\u003c/b\u003e to continue on \u003cb\u003eAv. Raja Gabáglia\u003c/b\u003e",
+                     "maneuver" : "keep-left",
+                     "polyline" : {
+                        "points" : "rx{xBtjfkGC^O~BIrBAJMjCEr@Ej@MhAQjAOv@_@rAa@pA_@rAi@nBc@vAe@pASb@U`@UXa@b@MLYFYRSJWLOFWF]Hk@Ho@HI@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9720975,
+                        "lng" : -43.946833
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 273
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 41
+                     },
+                     "end_location" : {
+                        "lat" : -19.9662188,
+                        "lng" : -43.9548982
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Barão Homem de Melo\u003c/b\u003e (signs for \u003cb\u003eExpominas\u003c/b\u003e/\u003cb\u003eSão Paulo\u003c/b\u003e)",
+                     "maneuver" : "turn-slight-left",
+                     "polyline" : {
+                        "points" : "vb{xBzygkGe@TODKBSD]@Y?O?Y@[DwBRm@Ji@FKAI@C?E@G@IDA@CB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.968595,
+                        "lng" : -43.9543786
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "2.4 km",
+                        "value" : 2439
+                     },
+                     "duration" : {
+                        "text" : "6 mins",
+                        "value" : 368
+                     },
+                     "end_location" : {
+                        "lat" : -19.9756318,
+                        "lng" : -43.9682432
+                     },
+                     "html_instructions" : "At the roundabout, take the \u003cb\u003e1st\u003c/b\u003e exit onto \u003cb\u003eAv. Professor Mário Werneck\u003c/b\u003e heading to \u003cb\u003eBuritis\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "maneuver" : "roundabout-right",
+                     "polyline" : {
+                        "points" : "zszxBb}gkGA@A@?@?@A??@?@?@?@?@?@?@?@@@?@?@@??@@@B@@@B?@@B?B?@@B?BBB@H@ZDv@HnAPtAPVDx@Jp@FPBPDRLPLLLLLLRLb@VjAJf@Lh@Lh@FR@P?NCNCHEHEDEFGFKFIBO@O?M?cACe@Ek@?W?O@OBSB]JKFKFWTMPINIRSj@Oj@Qr@Mr@Ih@E`@Er@?p@@b@@X@T?FDXFb@DRJ\\J^Pf@BF@FTn@Tn@p@pBp@rBLRFJDJFNJHXv@FRBFBDFNJNLPX\\RNNHRH\\Hb@@`@D`@@^?n@BNBNDXJ`@T`@VJLJNZ\\XZl@n@l@n@dAnAdAnA`A|@`A~@Zb@^b@NLRLXFFBF@NBP?XCLC\\Ef@I`AO`@GTAF?J?H?RBH@LBJDRHLFFFFDNNFHFHBH"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9662188,
+                        "lng" : -43.9548982
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "`f|xBruekG[@aARi@R_@T[^O\\I^?\\`@dBj@lBL`@LRNL~@TjBd@@FELKD[DsCw@{C}@eCq@YYQUEQ?WFQPQNI\\CXDJHHNFV@ZYdAENI\\YdAQdAMnA_@~GS~DStBa@bCaAdDiAbEiAhDi@dAw@|@MLYFYRk@Xg@NcC^e@TOD_@HaBBsCXwAR_@@WLEH?JBHPFLD`BRvFt@bAJd@R^ZZ`@~@`ET|@@`@GXKNMNUJ_@@qACqAEg@@c@Fi@Rc@\\W`@]~@a@~AW|AKtA@tABn@RxAl@lB~AxEp@rBLRLVRX`@jAZl@f@n@b@Xp@Rb@@`@D`A@~@Fh@PbAl@lAvAzA~AjC~CbC|Bz@fAb@Z`@JVDj@CtCc@v@IR?t@Ht@^VTNRBH"
+         },
+         "summary" : "Av. Professor Mário Werneck",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

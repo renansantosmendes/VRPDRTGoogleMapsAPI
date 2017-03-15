@@ -1,0 +1,372 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJs9Dnx9iXpgAR0McD3jzLOUM",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJf_fL_vuWpgAREnvcQcwaINI",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9267028,
+               "lng" : -43.9682432
+            },
+            "southwest" : {
+               "lat" : -19.9858469,
+               "lng" : -44.0084793
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "12.2 km",
+                  "value" : 12208
+               },
+               "duration" : {
+                  "text" : "16 mins",
+                  "value" : 966
+               },
+               "end_address" : "R. Raimundo Rodrigues de Paula, 31 - Gameleira, Belo Horizonte - MG, 30535-590, Brazil",
+               "end_location" : {
+                  "lat" : -19.9282433,
+                  "lng" : -43.9881097
+               },
+               "start_address" : "Av. Professor Mário Werneck, 2274 - Buritis, Belo Horizonte - MG, 30575-180, Brazil",
+               "start_location" : {
+                  "lat" : -19.9756318,
+                  "lng" : -43.9682432
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.6 km",
+                        "value" : 636
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 86
+                     },
+                     "end_location" : {
+                        "lat" : -19.976442,
+                        "lng" : -43.9742468
+                     },
+                     "html_instructions" : "Head \u003cb\u003ewest\u003c/b\u003e on \u003cb\u003eAv. Professor Mário Werneck\u003c/b\u003e toward \u003cb\u003eRua Cônsul Walter\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "tn|xBnpjkGDLT|@?B@BDZ@PPpBDh@BXF`ABRBPTnCDd@BZBXBZNzADj@BP?J@H@V@P?J@J?J?X@\\BrE"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9756318,
+                        "lng" : -43.9682432
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.0 km",
+                        "value" : 1011
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 101
+                     },
+                     "end_location" : {
+                        "lat" : -19.9852256,
+                        "lng" : -43.9735941
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Deputado Cristovam Chiaradia\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "vs|xB`vkkGNB^g@HKDEDEFEFEHCDCDADCDAF?JAJ?N@J@P@^H~EbAl@LVFNBJ@^Dh@Al@A`GO\\Af@Ct@?TAL?HAJAJAPCx@Kd@ItBYbEm@l@GbBEz@M"
+                     },
+                     "start_location" : {
+                        "lat" : -19.976442,
+                        "lng" : -43.9742468
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 434
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 47
+                     },
+                     "end_location" : {
+                        "lat" : -19.9858366,
+                        "lng" : -43.9773822
+                     },
+                     "html_instructions" : "At the roundabout, take the \u003cb\u003e1st\u003c/b\u003e exit onto \u003cb\u003eRua Moisés Kalil\u003c/b\u003e",
+                     "maneuver" : "roundabout-right",
+                     "polyline" : {
+                        "points" : "tj~xB|qkkG?@@??@@?@??@@?@?@??A@?RP?@@?@?H@FHX`@HLHPDPFR@J@L@L@L?NAPARAROlBKtAMtAAL?H@F?HBL@FBF@FDF?B?@?B@@@BBF@DJP@D@B@D?B?B?B?BAP?N?@?@@@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9852256,
+                        "lng" : -43.9735941
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "5.4 km",
+                        "value" : 5407
+                     },
+                     "duration" : {
+                        "text" : "5 mins",
+                        "value" : 280
+                     },
+                     "end_location" : {
+                        "lat" : -19.9493879,
+                        "lng" : -44.0083911
+                     },
+                     "html_instructions" : "Merge onto \u003cb\u003eBR-040\u003c/b\u003e",
+                     "maneuver" : "merge",
+                     "polyline" : {
+                        "points" : "nn~xBrilkGuBtFiApC_CbGg@pAe@pAc@`AQXMPMN]^YTIFMHIF[NQJODSH]LWFaBd@cAVq@R}@VeAZ_@Lk@RYNUL]TOJQNa@b@o@dAg@xAaAfDc@`Bo@~B_@z@Wb@]f@c@`@[VWPUJc@Pa@N_@JUDi@JaBTsDd@aAN]FYD}@T[LUH_@PULWNoBlAcEhCgC|AkAv@g@^g@`@URg@b@i@d@_@`@]\\c@f@IHILEFKLMRa@l@QVSXaArA_ArAqAjBkDbFq@`AaAnAi@j@g@h@QPIF[Xe@`@qBvAw@d@{@d@iAl@kAh@uCtAmHfDsBbAu@^o@`@mBbAYNsAp@aChAyDhBs@\\GBoAh@A@}Aj@MDGBq@TMFgBz@EBw@d@IDCBy@v@[^c@l@a@p@q@lAs@xAaAvBMTKPGLIPIJGHIJMLcA~@iF`EiA|@KFQJULQFODODg@H[BQ?K?UAOAw@Eu@G"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9858366,
+                        "lng" : -43.9773822
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.5 km",
+                        "value" : 1500
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 80
+                     },
+                     "end_location" : {
+                        "lat" : -19.935936,
+                        "lng" : -44.0075266
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eleft\u003c/b\u003e to stay on \u003cb\u003eBR-040\u003c/b\u003e",
+                     "maneuver" : "keep-left",
+                     "polyline" : {
+                        "points" : "tjwxBlkrkGcBQ{AQu@GUAUAMAKASCE?WCUA]CK?SAMAOAgBG_AE_AA{@Eu@?sEIgBGkAA]Am@Ao@AgBCaBAyDGuCEwBEqCEuDGaEGkBC{@?"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9493879,
+                        "lng" : -44.0083911
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "55 m",
+                        "value" : 55
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 5
+                     },
+                     "end_location" : {
+                        "lat" : -19.9354756,
+                        "lng" : -44.0073443
+                     },
+                     "html_instructions" : "Take the exit toward \u003cb\u003eSete Lagoas\u003c/b\u003e/\u003cb\u003eBrasília\u003c/b\u003e",
+                     "maneuver" : "ramp-right",
+                     "polyline" : {
+                        "points" : "rvtxB`frkGUMCAA?EAg@GAAC?KI"
+                     },
+                     "start_location" : {
+                        "lat" : -19.935936,
+                        "lng" : -44.0075266
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 178
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 15
+                     },
+                     "end_location" : {
+                        "lat" : -19.9338741,
+                        "lng" : -44.0072595
+                     },
+                     "html_instructions" : "Merge onto \u003cb\u003eRua A\u003c/b\u003e",
+                     "maneuver" : "merge",
+                     "polyline" : {
+                        "points" : "vstxBzdrkGw@?KAiAAcCGo@C"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9354756,
+                        "lng" : -44.0073443
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 408
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 46
+                     },
+                     "end_location" : {
+                        "lat" : -19.9354659,
+                        "lng" : -44.0040754
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Gov. Benedito Valadares\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "titxBjdrkGCc@Mq@EUAKCK?IAM?Q?O@IBMDMFULUPU~@cAjFqG"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9338741,
+                        "lng" : -44.0072595
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.6 km",
+                        "value" : 1564
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 148
+                     },
+                     "end_location" : {
+                        "lat" : -19.9306854,
+                        "lng" : -43.9918747
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e to stay on \u003cb\u003eAv. Gov. Benedito Valadares\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "tstxBnpqkG?U?OBO@G@GP]LQl@sAf@qAd@gBRaAH_@D_@Jy@Dg@Bi@DqACuACcAEo@Gu@KcAIi@ScAUy@]eAQc@o@qAc@s@g@s@w@_Aw@w@wA{AyAeBY]a@e@Y]kAgB_@i@]]a@a@_@[aAo@GEEEeCgBcCgB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9354659,
+                        "lng" : -44.0040754
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.7 km",
+                        "value" : 670
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 75
+                     },
+                     "end_location" : {
+                        "lat" : -19.9266937,
+                        "lng" : -43.9873243
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eAv. Eugênio Ricaldoni\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "xusxBddokGi@]g@]s@k@kAu@}@q@c@g@g@o@o@yAiAeCUm@_@{@]o@[s@_@o@Uc@OYGEk@a@WKOG_@IA?UC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9306854,
+                        "lng" : -43.9918747
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 163
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 30
+                     },
+                     "end_location" : {
+                        "lat" : -19.928018,
+                        "lng" : -43.9867025
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eRua Conde Pereira Carneiro\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "x|rxBvgnkG@ALO\\WzEqA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9266937,
+                        "lng" : -43.9873243
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "24 m",
+                        "value" : 24
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 16
+                     },
+                     "end_location" : {
+                        "lat" : -19.9281374,
+                        "lng" : -43.9868938
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Craveiro Lopes\u003c/b\u003e/\u003cb\u003eR. Raimundo Rodrigues de Paula\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "besxBzcnkGJRJP"
+                     },
+                     "start_location" : {
+                        "lat" : -19.928018,
+                        "lng" : -43.9867025
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 158
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 37
+                     },
+                     "end_location" : {
+                        "lat" : -19.9282433,
+                        "lng" : -43.9881097
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e to stay on \u003cb\u003eR. Craveiro Lopes\u003c/b\u003e/\u003cb\u003eR. Raimundo Rodrigues de Paula\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "zesxB`enkG]JIFGFEJELCL?H?D@F@HBH\\r@l@nA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9281374,
+                        "lng" : -43.9868938
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "tn|xBnpjkG\\rA^hEv@lJ\\tDD~@@|@DpFNB^g@NQLK\\O^Gx@DdIbBZD^Dh@AnHQdAEbBCbBSzCc@pFu@bBEz@M?@@?@@B@@?VNB@H@FHb@n@Nb@H^Dx@UfD[bEFf@JZBJRd@BPAh@?BsBvFwGxPu@zA[`@w@t@WPgAh@kDdAyF~AkA`@o@\\m@`@s@r@o@dAg@xAeBhGo@~B_@z@u@jA_Ax@m@\\eA`@u@PaKvAw@LyAb@cBx@gOlJoA`A}@v@iAfAaAdAe@l@uArB_KvNsBpCqAtA}AtAiD|BeCrAcSjJmFtCcMbGwDzAuAf@mB~@aAj@}@z@_AlAsA~BuBpEk@fAi@n@cA~@iF`EuAdAg@Xa@Lw@Nm@BiBIyCYqCYeAGq@GyGY{BGiGI_GMsLOuQYmHK{@?UMEAm@IEAKIw@?uACsDKYwBEu@@YH[Tk@pAyAjFqG?UB_@BO^o@tAeDx@iDN_APaBH{BGyCMeBUmBi@}Bo@iBsAeC_BsBoCsCsBcC{@cAkBqC_A_AaBkAwG{EqA{@_CaB}@q@c@g@g@o@o@yA_BsD}@kB{@cBe@}@s@g@g@Sa@ISELO\\WzEqAJRJP]JQNKXCVF`@jAbC"
+         },
+         "summary" : "BR-040",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

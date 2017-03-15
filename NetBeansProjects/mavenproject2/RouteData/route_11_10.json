@@ -1,0 +1,324 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EldBdi4gTm9zc2EgU3JhLiBkZSBGw6F0aW1hLCAyNDY4LTI0ODAgLSBMYWdvaW5oYSwgQmVsbyBIb3Jpem9udGUgLSBNRywgMzA3MTAtNjUwLCBCcmFzaWw",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJR8XdnMSZpgARmu_lSytI0zY",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9149724,
+               "lng" : -43.9316212
+            },
+            "southwest" : {
+               "lat" : -19.9362369,
+               "lng" : -43.9538052
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "3.8 km",
+                  "value" : 3805
+               },
+               "duration" : {
+                  "text" : "12 mins",
+                  "value" : 718
+               },
+               "end_address" : "R. Rio Grande do Norte, 1204 - Funcionários, Belo Horizonte - MG, 30130-131, Brazil",
+               "end_location" : {
+                  "lat" : -19.9362369,
+                  "lng" : -43.9322733
+               },
+               "start_address" : "Av. Nossa Sra. de Fátima, 2468-2480 - Lagoinha, Belo Horizonte - MG, 30710-650, Brazil",
+               "start_location" : {
+                  "lat" : -19.9149724,
+                  "lng" : -43.9537416
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 192
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 20
+                     },
+                     "end_location" : {
+                        "lat" : -19.9162186,
+                        "lng" : -43.9527158
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouthwest\u003c/b\u003e on \u003cb\u003eElevado Dona Helena Greco\u003c/b\u003e/\u003cb\u003eViaduto Dona Helena Greco\u003c/b\u003e toward \u003cb\u003eAv. Nossa Sra. de Fátima\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "pspxBzugkGLDFBD@D@BAB?LCPGPILGLIJIn@w@n@w@DGBGBOFU"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9149724,
+                        "lng" : -43.9537416
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.7 km",
+                        "value" : 746
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 58
+                     },
+                     "end_location" : {
+                        "lat" : -19.9196143,
+                        "lng" : -43.9471601
+                     },
+                     "html_instructions" : "Continue straight onto \u003cb\u003eAlameda Vereador Geraldo Silva de Oliveira\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "j{pxBnogkGN_@HUHWJi@n@gFt@wGF]Fe@Lg@Pe@NYFKLOHKNOLKZQVONIr@_@FCb@Uf@Uf@UtAq@fAk@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9162186,
+                        "lng" : -43.9527158
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 317
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 75
+                     },
+                     "end_location" : {
+                        "lat" : -19.9220903,
+                        "lng" : -43.9456585
+                     },
+                     "html_instructions" : "Merge onto \u003cb\u003eAv. Bias Fortes\u003c/b\u003e",
+                     "maneuver" : "merge",
+                     "polyline" : {
+                        "points" : "ppqxBvlfkGZMb@WhB_AfB}@j@[\\SdAk@lAk@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9196143,
+                        "lng" : -43.9471601
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 130
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 46
+                     },
+                     "end_location" : {
+                        "lat" : -19.9231144,
+                        "lng" : -43.9459322
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003ePraça Raul Soares\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "``rxBjcfkGDFFJHJFHHFRJPDRDJ?L?J?LALALCJEJE"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9220903,
+                        "lng" : -43.9456585
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 137
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 39
+                     },
+                     "end_location" : {
+                        "lat" : -19.9234899,
+                        "lng" : -43.9448123
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003ePraça Raul Soares\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "lfrxB`efkGBA@?BA@ABA@ABA@AHIFGFIFIDIDKDKBKDQ@M?M@MAMAMAMCMCI"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9231144,
+                        "lng" : -43.9459322
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "1.2 km",
+                        "value" : 1221
+                     },
+                     "duration" : {
+                        "text" : "4 mins",
+                        "value" : 230
+                     },
+                     "end_location" : {
+                        "lat" : -19.9329215,
+                        "lng" : -43.938857
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Bias Fortes\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "xhrxB`~ekGtAw@p@c@b@UHGjCwAjCuAJIJIhCuA~A{@\\URKNGbAi@bAg@XQhAk@VI`@YBAJGj@Wx@e@j@Yt@a@vA}@LGHEl@Y~A{@x@_@z@c@ZQJGJGnCyAJIHI"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9234899,
+                        "lng" : -43.9448123
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "83 m",
+                        "value" : 83
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 15
+                     },
+                     "end_location" : {
+                        "lat" : -19.9331583,
+                        "lng" : -43.9381121
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003ePraça da Liberdade\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "vctxBzxdkGDIJQD_@Hk@Lm@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9329215,
+                        "lng" : -43.938857
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 156
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 35
+                     },
+                     "end_location" : {
+                        "lat" : -19.932699,
+                        "lng" : -43.9367546
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Brasil\u003c/b\u003e",
+                     "maneuver" : "turn-slight-left",
+                     "polyline" : {
+                        "points" : "fetxBdtdkGCMBYBQ?SCIM_@Se@EKSc@Wm@GS"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9331583,
+                        "lng" : -43.9381121
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "11 m",
+                        "value" : 11
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 2
+                     },
+                     "end_location" : {
+                        "lat" : -19.9326633,
+                        "lng" : -43.9366598
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eright\u003c/b\u003e to stay on \u003cb\u003eAv. Brasil\u003c/b\u003e",
+                     "maneuver" : "keep-right",
+                     "polyline" : {
+                        "points" : "jbtxBtkdkGGQ"
+                     },
+                     "start_location" : {
+                        "lat" : -19.932699,
+                        "lng" : -43.9367546
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 545
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 142
+                     },
+                     "end_location" : {
+                        "lat" : -19.9339148,
+                        "lng" : -43.9316212
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Cláudio Manoel\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "bbtxBbkdkGNq@DY`@yCN_ARoATiAHm@p@gELw@f@eDLu@Fe@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9326633,
+                        "lng" : -43.9366598
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 267
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 56
+                     },
+                     "end_location" : {
+                        "lat" : -19.9362369,
+                        "lng" : -43.9322733
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Rio Grande do Norte\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "|itxBrkckGnFbA`F|@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9339148,
+                        "lng" : -43.9316212
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "pspxBzugkG`@Lf@Mx@e@~AoBHOJe@Xu@TaAdB_ONcA^mAVe@V[\\[r@a@nBcAnAk@|C}ApGcDhAo@rCwA^h@\\Rd@Jr@AZEVKJEJG`@e@Tm@F_@@[Iw@CItAw@tAy@lH_ErGqDjDeBbB}@VI`@YNIdB}@`B{@dBeAv@_@xC{AnBeAzCcBNSJQD_@VyACMBYBe@Qi@Yq@k@qAOe@TkAp@yEh@yCz@uFjAyHpM`C"
+         },
+         "summary" : "Av. Bias Fortes",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

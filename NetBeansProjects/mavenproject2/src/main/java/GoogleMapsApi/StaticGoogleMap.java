@@ -8,6 +8,7 @@ package GoogleMapsApi;
 import static GoogleMapsApi.GoogleMapsRoute.FileExtension.json;
 import static GoogleMapsApi.GoogleMapsRoute.TravelMode.driving;
 import VRPDRTSD.Node;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,14 +60,18 @@ public class StaticGoogleMap {
         }
 
         int routeNumber = 0;
+        String folder;
+        folder = "RouteDataForStaticMap";
+
+        boolean success = (new File(folder)).mkdirs();
+
         for (List<Integer> route : routes) {
-            for (int i = 1; i < route.size() - 1; i++) {
-                GoogleMapsRoute googleMapsRoute = new GoogleMapsRoute(json, "Test_route_" + routeNumber, driving, route, nodesList);
-                googleMapsRoute.downloadDataFile();
-                googleMapsRoute.getDataFromFile();
-                listOfGoogleMapsRoutes.add(googleMapsRoute);
-                pathGeneratedForAllRoutes.append(googleMapsRoute.getPathForGoogleMap());
-            }
+            GoogleMapsRoute googleMapsRoute = new GoogleMapsRoute(json, folder + "/route_data_" + routeNumber, driving, 
+                    route, nodesList);
+            googleMapsRoute.downloadDataFile();
+            googleMapsRoute.getDataFromFile();
+            listOfGoogleMapsRoutes.add(googleMapsRoute);
+            pathGeneratedForAllRoutes.append(googleMapsRoute.getPathForGoogleMap());
             routeNumber++;
         }
     }
@@ -76,22 +81,11 @@ public class StaticGoogleMap {
     }
 
     public URL buildURL() throws MalformedURLException, IOException {
-
-//        List<Integer> visitationList = new ArrayList<>();
-//        visitationList.add(0);
-//        visitationList.add(1);
-//        visitationList.add(3);
-//        visitationList.add(10);
-//        visitationList.add(0);
-//        GoogleMapsRoute route = new GoogleMapsRoute(json, "TestWithImplementation", driving, visitationList, nodesList);
-//
-//        route.downloadDataFile();
-//        route.getDataFromFile();
-//        String enc = route.getOverviewPolyline();
-
         URL url = new URL(URLRoot + city + "," + state + "," + country + "&zoom=" + zoom + "&scale=" + scale
                 + "&size=" + width + "x" + height + "&maptype=" + mapType + stringOfNodes.toString()
                 + pathGeneratedForAllRoutes + "&key=" + staticMapKey + "&format=jpg");
+//        URL url = new URL(URLRoot + city + "," + state + "," + country + "&zoom=" + zoom + "&scale=" + scale
+//                + "&size=" + width + "x" + height + "&maptype=" + mapType + pathGeneratedForAllRoutes + "&key=" + staticMapKey + "&format=jpg");
         return url;
     }
 

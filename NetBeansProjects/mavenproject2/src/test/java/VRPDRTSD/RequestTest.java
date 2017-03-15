@@ -5,10 +5,10 @@
  */
 package VRPDRTSD;
 
-import VRPDRTSD.IntanceReaderWithMySQL.AdjacenciesDataAcessObject;
-import VRPDRTSD.IntanceReaderWithMySQL.NodeDataAcessObject;
-import VRPDRTSD.IntanceReaderWithMySQL.NumberOfNodesDataAcessObject;
-import VRPDRTSD.IntanceReaderWithMySQL.RequestDataAcessObject;
+import VRPDRTSD.IntanceReaderWithMySQL.AdjacenciesDAO;
+import VRPDRTSD.IntanceReaderWithMySQL.NodeDAO;
+import VRPDRTSD.IntanceReaderWithMySQL.NumberOfNodesDAO;
+import VRPDRTSD.IntanceReaderWithMySQL.RequestDAO;
 import VRPDRTSD.Node;
 import VRPDRTSD.Request;
 import java.time.Duration;
@@ -103,11 +103,11 @@ public class RequestTest {
         double[][] distance;
         String instanceName = "VRPDRTSD_requests110";
 
-        numberOfNodes = new NumberOfNodesDataAcessObject().getNumberOfNodes(instanceName);
-        nodes = new NodeDataAcessObject().getListOfNodes();
-        listOfRequests = new RequestDataAcessObject().getListOfRequestUsingNodesList(nodes, instanceName);
-        duration = new AdjacenciesDataAcessObject().getDurationBetweenNodes(numberOfNodes);
-        distance = new AdjacenciesDataAcessObject().getDistanceBetweenNodes(numberOfNodes);
+        numberOfNodes = new NumberOfNodesDAO().getNumberOfNodes(instanceName);
+        nodes = new NodeDAO().getListOfNodes();
+        listOfRequests = new RequestDAO().getListOfRequestUsingNodesList(nodes, instanceName);
+        duration = new AdjacenciesDAO().getDurationBetweenNodes(numberOfNodes);
+        distance = new AdjacenciesDAO().getDistanceBetweenNodes(numberOfNodes);
 
         //local variables for the feasibility test
         LocalDateTime currentTime = LocalDateTime.of(2017, 1, 1, 0, 0, 0);

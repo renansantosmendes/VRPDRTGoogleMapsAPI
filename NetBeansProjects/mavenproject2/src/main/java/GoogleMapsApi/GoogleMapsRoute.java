@@ -38,6 +38,7 @@ public class GoogleMapsRoute {
     private String destination;
     private StringBuilder stringOfPolylines = new StringBuilder();
     private int totalRouteTimeInSeconds;
+    private double totalRouteDistanceInMeters;
     private List<String> listOfPolylines = new ArrayList<>();
     private List<String> listOfIdWaypoints = new ArrayList<>();
     private List<Integer> listOfTravelTimeInSeconds = new ArrayList<>();
@@ -59,18 +60,29 @@ public class GoogleMapsRoute {
     }
 
     public GoogleMapsRoute(FileExtension fileExtension, String fileName, TravelMode travelMode,
+            Node origin, Node destination, List<Node> nodesList) {
+        this.fileType = fileExtension.toString();
+        this.fileName = fileName;
+        this.transitMode = travelMode.toString();
+        this.visitationList = visitationList;
+        this.nodesList = nodesList;
+        this.origin = origin.getGeocodedInformationForRoutes();
+        this.destination = destination.getGeocodedInformationForRoutes();
+    }
+
+    public GoogleMapsRoute(FileExtension fileExtension, String fileName, TravelMode travelMode,
             List<Integer> visitationList, List<Node> nodesList) {
         this.fileType = fileExtension.toString();
         this.fileName = fileName;
         this.transitMode = travelMode.toString();
         this.visitationList = visitationList;
         this.nodesList = nodesList;
-        
+
         int startNode = visitationList.get(0);
         int endNode = visitationList.get(visitationList.size() - 1);
         if (this.nodesList.size() >= 2) {
-            this.origin = this.nodesList.get(startNode).getLongitude() + "," + this.nodesList.get(startNode).getLatitude();
-            this.destination = this.nodesList.get(endNode).getLongitude() + "," + this.nodesList.get(endNode).getLatitude();
+            this.origin = this.nodesList.get(startNode).getGeocodedInformationForRoutes();
+            this.destination = this.nodesList.get(endNode).getGeocodedInformationForRoutes();
         } else {
             throw new IllegalArgumentException("Route size is not enough, should be greater then one!");
         }
@@ -122,6 +134,10 @@ public class GoogleMapsRoute {
     public int getTotalRouteTimeInSeconds() {
         return totalRouteTimeInSeconds;
     }
+    
+    public double getTotalRouteDistanceInMeters(){
+        return this.totalRouteDistanceInMeters;
+    }
 
     public List<String> getListOfPolylines() {
         return listOfPolylines;
@@ -165,7 +181,7 @@ public class GoogleMapsRoute {
 
     public void downloadDataFile() throws MalformedURLException, IOException {
         URL url = buildURL();
-        System.out.println(url.toString());
+
         try {
             PrintStream data = new PrintStream(this.fileName + "." + this.fileType);
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -181,7 +197,7 @@ public class GoogleMapsRoute {
     }
 
     public void getDataFromFile() throws MalformedURLException {
-        
+
         JSONObject jsonObject;
         JSONArray array;
         try {
@@ -265,16 +281,16 @@ public class GoogleMapsRoute {
         this.listOfTravelTimeInSeconds.addAll(this.listOfSteps.stream().map(GoogleStep::getDuration)
                 .collect(Collectors.toCollection(ArrayList::new)));
 
-        this.totalRouteTimeInSeconds = this.getListOfTravelTimeInSeconds().stream().reduce(0, (a, b) -> a + b);
+        this.totalRouteTimeInSeconds = this.getListOfTravelTimeInSeconds().stream().mapToInt(Integer::valueOf).sum();
+        this.totalRouteDistanceInMeters = this.getListOfDistances().stream().mapToDouble(Double::valueOf).sum();
 
         for (String polyline : listOfPolylines) {
             stringOfPolylines.append("|enc:" + polyline);
         }
     }
-    
-    public String getPathForGoogleMap(){
-        //"&path=weight:" + weight + "|color:" + color + "|enc:" + enc +
+
+    public String getPathForGoogleMap() {
         color = new ColorGenerator().generatesColor();
-        return "&path=weight:" + weight+ "|color:" + color + "|enc:" + this.overviewPolyline;
+        return "&path=weight:" + weight + "|color:" + color + "|enc:" + this.overviewPolyline;
     }
 }

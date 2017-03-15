@@ -1,0 +1,442 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJwxBmo26XpgARw_V5qLsrxsE",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJz_qYCvSQpgAR-8FRQRZ-hbc",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.8691459,
+               "lng" : -43.9549988
+            },
+            "southwest" : {
+               "lat" : -19.9291051,
+               "lng" : -43.9766087
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "9.6 km",
+                  "value" : 9568
+               },
+               "duration" : {
+                  "text" : "22 mins",
+                  "value" : 1329
+               },
+               "end_address" : "Av. Pres. Antônio Carlos, 6627, Belo Horizonte - MG, Brazil",
+               "end_location" : {
+                  "lat" : -19.8691459,
+                  "lng" : -43.96614
+               },
+               "start_address" : "Av. do Contorno, 9073 - Prado, Belo Horizonte - MG, 30110-063, Brazil",
+               "start_location" : {
+                  "lat" : -19.9291051,
+                  "lng" : -43.9572583
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "1.2 km",
+                        "value" : 1199
+                     },
+                     "duration" : {
+                        "text" : "4 mins",
+                        "value" : 232
+                     },
+                     "end_location" : {
+                        "lat" : -19.9187333,
+                        "lng" : -43.9564426
+                     },
+                     "html_instructions" : "Head \u003cb\u003enorth\u003c/b\u003e on \u003cb\u003eAv. do Contorno\u003c/b\u003e toward \u003cb\u003ePraça Sílvio Ferreira Sobrinho\u003c/b\u003e/\u003cb\u003eR. Cuiabá\u003c/b\u003e/\u003cb\u003eR. Uberaba\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "|ksxBzkhkGuA\\cCp@s@Rs@RmGdBI@C?Q?QA_F{@mCe@s@My@OsBa@sBa@mAWaDi@sB_@}AYWGKAKC}AW_AOm@IWA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9291051,
+                        "lng" : -43.9572583
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "11 m",
+                        "value" : 11
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 2
+                     },
+                     "end_location" : {
+                        "lat" : -19.9186917,
+                        "lng" : -43.9563446
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e to stay on \u003cb\u003eAv. do Contorno\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "`kqxBvfhkGGS"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9187333,
+                        "lng" : -43.9564426
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 130
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 20
+                     },
+                     "end_location" : {
+                        "lat" : -19.9189775,
+                        "lng" : -43.9551427
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eRua dos Goitacazes\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "xjqxBbfhkGF[Fe@Ju@\\wB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9186917,
+                        "lng" : -43.9563446
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 101
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 30
+                     },
+                     "end_location" : {
+                        "lat" : -19.9180857,
+                        "lng" : -43.9550208
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eR. Uberaba\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "rlqxBr~gkGwASs@EOAG?MB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9189775,
+                        "lng" : -43.9551427
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 174
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 43
+                     },
+                     "end_location" : {
+                        "lat" : -19.918409,
+                        "lng" : -43.9564586
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e at the 1st cross street onto \u003cb\u003eAv. do Contorno\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "`gqxBz}gkGSHQJTv@FRRp@r@jC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9180857,
+                        "lng" : -43.9550208
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 155
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 13
+                     },
+                     "end_location" : {
+                        "lat" : -19.9190521,
+                        "lng" : -43.9577696
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eAv. Pres. Juscelino Kubitschek\u003c/b\u003e/\u003cb\u003eAv. Teresa Cristina\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "`iqxBzfhkGNd@P`@f@pAb@`APh@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.918409,
+                        "lng" : -43.9564586
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 409
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 46
+                     },
+                     "end_location" : {
+                        "lat" : -19.9176805,
+                        "lng" : -43.96116749999999
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e to stay on \u003cb\u003eAv. Pres. Juscelino Kubitschek\u003c/b\u003e/\u003cb\u003eAv. Teresa Cristina\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "`mqxB`ohkGAR?R?R?VGt@KhAUzC?@E`@CPCJ?@ILGLIHKHWLS`@MTEHA@KVEFORA@UTSNMFQL"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9190521,
+                        "lng" : -43.9577696
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 536
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 88
+                     },
+                     "end_location" : {
+                        "lat" : -19.9136435,
+                        "lng" : -43.9583674
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Corumbá\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "ndqxBhdikGiBiAiBgA{@i@}@i@k@_@aEeCuBqAuBqA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9176805,
+                        "lng" : -43.96116749999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 411
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 66
+                     },
+                     "end_location" : {
+                        "lat" : -19.9115697,
+                        "lng" : -43.9616191
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eR. Padre Eustáquio\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "fkpxBxrhkGQZQZq@jAg@~@}@~A]l@w@rAg@`AKPU^S\\W`@IREJEN"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9136435,
+                        "lng" : -43.9583674
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 412
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 116
+                     },
+                     "end_location" : {
+                        "lat" : -19.9080128,
+                        "lng" : -43.9605053
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Itamarandiba\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "h~oxBbgikG[Ku@QsAY{A[aASKCy@QeASeAUgAUs@Ou@O"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9115697,
+                        "lng" : -43.9616191
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 220
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 46
+                     },
+                     "end_location" : {
+                        "lat" : -19.9082928,
+                        "lng" : -43.9624505
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Dom Pedro II\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "`hoxBd`ikGOC?v@?TBh@Dj@D^Ff@Jf@b@rB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9080128,
+                        "lng" : -43.9605053
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "4.2 km",
+                        "value" : 4178
+                     },
+                     "duration" : {
+                        "text" : "6 mins",
+                        "value" : 385
+                     },
+                     "end_location" : {
+                        "lat" : -19.8771625,
+                        "lng" : -43.97661160000001
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Presidente Carlos Luz\u003c/b\u003e (signs for \u003cb\u003ePampulha\u003c/b\u003e/\u003cb\u003eUFMG\u003c/b\u003e/\u003cb\u003eMineirão\u003c/b\u003e/\u003cb\u003eVitória\u003c/b\u003e/\u003cb\u003eShopping del Rey\u003c/b\u003e)",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "xioxBhlikGw@b@w@d@_B|@u@b@sAt@cAh@_Bz@{Av@m@Z}A|@qAt@iE~BiAl@i@ZIDSLULA@C@m@`@KHMFSFQDKBODQBWBS?E?O?OAa@CaCe@WE}@O}B]eDk@gAQWCSC]CUA[AGAuBG{ACc@AUAUASCWEWGSIu@a@e@]u@k@_Ao@_@WSM}@_@WGQAKAM?U?UBMBOB]HQD]Fa@Ha@H[DODYHSJSNUPOPOXS`@[l@MZGLc@r@Yd@MJQNMHKDOHKFODm@RmA^eA\\a@Rc@Rs@b@_An@_@\\YVMPMLML{@r@uAlAKLGFURMLSRYVyAnA[\\SRc@b@e@f@a@`@WXKPQZ]p@OZQh@Qn@m@pCiAvE[hAWp@c@v@i@n@i@d@q@`@e@Pa@LYFOBc@HiARi@Hk@HwATkBZeAPYBUDwK`Ba@He@FsAVI@C?"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9082928,
+                        "lng" : -43.9624505
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 374
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 43
+                     },
+                     "end_location" : {
+                        "lat" : -19.8745035,
+                        "lng" : -43.974598
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Quatorze\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "fgixBxdlkGY[OUcDeEQQQQm@[]KUGa@KyBk@c@M"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8771625,
+                        "lng" : -43.97661160000001
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.9 km",
+                        "value" : 894
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 110
+                     },
+                     "end_location" : {
+                        "lat" : -19.8698543,
+                        "lng" : -43.9681881
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eR. Prof. Moacir Gomes de Freitas\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "rvhxBfxkkGiA]c@Kq@]KISSQW}@kAg@m@CECCCECACAA?EAY[W]MQGKCECEAEACAC?EAG@KVaD?G?EAGCEoAoB]g@e@q@oD}EmAaBwB_D"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8745035,
+                        "lng" : -43.974598
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 256
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 41
+                     },
+                     "end_location" : {
+                        "lat" : -19.8699848,
+                        "lng" : -43.9657541
+                     },
+                     "html_instructions" : "\u003cb\u003eR. Prof. Moacir Gomes de Freitas\u003c/b\u003e turns slightly \u003cb\u003eright\u003c/b\u003e and becomes \u003cb\u003eRua Professor Giorgio Schereiber\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "pygxBdpjkGC]E[?]?]?MJgBHqBLiC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8698543,
+                        "lng" : -43.9681881
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 108
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 48
+                     },
+                     "end_location" : {
+                        "lat" : -19.8691459,
+                        "lng" : -43.96614
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "jzgxB|`jkGy@p@C@A?E?C?EAE?CAC?EAE?E?E?E?E@IBYX"
+                     },
+                     "start_location" : {
+                        "lat" : -19.8699848,
+                        "lng" : -43.9657541
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "|ksxBzkhkGaIvBwGfBU?qF}@aEs@oJkBkKkBuDm@eAKGSF[R{A\\wBwAScAGUBe@T\\jAfA|D`@fAjArCPh@AR?f@GlAg@hGG\\INQVc@Vi@bAQ^QTi@d@_@TmIeFyMiI}BbE{DbHmApBO^EN[KiCk@}Co@qE_AaEy@?lAHtALfAn@zCeGjDsIrEyPlJiAr@YPe@LeAPy@Aa@CaCe@uAUcK_BcBK}FOk@Ck@Ik@Q{A_AuB{As@e@}@_@WG]Cc@?c@F}AZoB^m@Ti@`@_@j@o@nAUh@}@xAy@j@[P}@XsC|@eAf@sBrAy@t@[^iA`A_CvBuChCyB|By@z@]l@m@lAc@xAwBhJ[hAWp@c@v@i@n@i@d@q@`@gA^i@JcEp@yW`E}AX][sD{Ec@c@m@[]Kw@SkGcB}@g@e@k@mBcCMIEAY[e@o@Q]EUXmD?MEMmBwCuEoGeEaGIy@?{@b@qJ}@r@G?SCUA[DYX"
+         },
+         "summary" : "Av. Presidente Carlos Luz",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}
