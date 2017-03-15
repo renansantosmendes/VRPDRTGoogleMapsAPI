@@ -6,10 +6,10 @@
 package VRPDRTSD;
 
 import Algorithms.Algorithm;
-import VRPDRTSD.IntanceReaderWithMySQL.AdjacenciesDAO;
-import VRPDRTSD.IntanceReaderWithMySQL.NodeDAO;
-import VRPDRTSD.IntanceReaderWithMySQL.NumberOfNodesDAO;
-import VRPDRTSD.IntanceReaderWithMySQL.RequestDAO;
+import VRPDRTSD.InstanceReaderWithMySQL.AdjacenciesDAO;
+import VRPDRTSD.InstanceReaderWithMySQL.NodeDAO;
+import VRPDRTSD.InstanceReaderWithMySQL.NumberOfNodesDAO;
+import VRPDRTSD.InstanceReaderWithMySQL.RequestDAO;
 import VRPDRTSD.Node;
 import VRPDRTSD.Request;
 import java.time.Duration;

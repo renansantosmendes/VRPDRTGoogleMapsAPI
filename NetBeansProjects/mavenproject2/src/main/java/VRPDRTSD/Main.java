@@ -10,7 +10,7 @@ import static GoogleMapsApi.GoogleMapsRoute.TravelMode.driving;
 import GoogleMapsApi.GoogleMapsRoute;
 import static GoogleMapsApi.GoogleMapsRoute.FileExtension.xml;
 import GoogleMapsApi.StaticGoogleMap;
-import VRPDRTSD.IntanceReaderWithMySQL.DataUpdaterDAO;
+import VRPDRTSD.InstanceReaderWithMySQL.DataUpdaterDAO;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.Connection;
@@ -115,7 +115,7 @@ public class Main {
 //        setOfVisitationRoutes.add(visitationList3);
         setOfVisitationRoutes.add(visitationList4);
 
-        //new StaticGoogleMap(listOfNodes, setOfVisitationRoutes).buildMapInWindow();
+        new StaticGoogleMap(listOfNodes, setOfVisitationRoutes).buildMapInWindow();
         //System.out.println(new StaticGoogleMap(listOfNodes, setOfVisitationRoutes).buildURL());
         
         //new DataUpdaterDAO().updateAdjacenciesData(listOfNodes);

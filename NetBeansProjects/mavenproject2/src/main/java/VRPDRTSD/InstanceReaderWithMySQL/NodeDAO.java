@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package VRPDRTSD.IntanceReaderWithMySQL;
+package VRPDRTSD.InstanceReaderWithMySQL;
 
-import VRPDRTSD.IntanceReaderWithMySQL.ConnectionFactory;
+import VRPDRTSD.InstanceReaderWithMySQL.ConnectionFactory;
 import VRPDRTSD.Node;
 import VRPDRTSD.Node;
 import VRPDRTSD.Node;
