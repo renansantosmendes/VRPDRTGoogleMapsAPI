@@ -102,12 +102,13 @@ public class RequestTest {
         Duration[][] duration;
         double[][] distance;
         String instanceName = "VRPDRTSD_requests110";
+        String adjacenciesTable = "Adjacencies_bh_nodes";
 
         numberOfNodes = new NumberOfNodesDAO().getNumberOfNodes(instanceName);
         nodes = new NodeDAO().getListOfNodes();
-        listOfRequests = new RequestDAO().getListOfRequestUsingNodesList(nodes, instanceName);
-        duration = new AdjacenciesDAO().getDurationBetweenNodes(numberOfNodes);
-        distance = new AdjacenciesDAO().getDistanceBetweenNodes(numberOfNodes);
+        listOfRequests = new RequestDAO(instanceName).getListOfRequestUsingNodesList(nodes);
+        duration = new AdjacenciesDAO(adjacenciesTable).getDurationBetweenNodes(numberOfNodes);
+        distance = new AdjacenciesDAO(adjacenciesTable).getDistanceBetweenNodes(numberOfNodes);
 
         //local variables for the feasibility test
         LocalDateTime currentTime = LocalDateTime.of(2017, 1, 1, 0, 0, 0);

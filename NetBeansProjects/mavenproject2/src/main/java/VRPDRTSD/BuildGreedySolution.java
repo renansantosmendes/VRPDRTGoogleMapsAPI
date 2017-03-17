@@ -27,10 +27,8 @@ public class BuildGreedySolution implements Algorithm {
     private Duration[][] duration;
     private double[][] distance;
     private String instanceName = "VRPDRTSD_requests110";
+    private String adjacenciesTable = "Adjacencies_bh_nodes";
 
-//    public BuildGreedySolution(){
-//        this.readInstance();
-//    }
     public int getNumberOfNodes() {
         return numberOfNodes;
     }
@@ -78,15 +76,11 @@ public class BuildGreedySolution implements Algorithm {
     public void readInstance() {
         this.numberOfNodes = new NumberOfNodesDAO().getNumberOfNodes(this.instanceName);
         this.nodes = new NodeDAO().getListOfNodes();
-        this.listOfRequests = new RequestDAO().getListOfRequestUsingNodesList(nodes, this.instanceName);
-        this.duration = new AdjacenciesDAO().getDurationBetweenNodes(this.numberOfNodes);
-        this.distance = new AdjacenciesDAO().getDistanceBetweenNodes(this.numberOfNodes);
+        this.listOfRequests = new RequestDAO(this.instanceName).getListOfRequestUsingNodesList(nodes);
+        this.duration = new AdjacenciesDAO(this.adjacenciesTable).getDurationBetweenNodes(this.numberOfNodes);
+        this.distance = new AdjacenciesDAO(this.adjacenciesTable).getDistanceBetweenNodes(this.numberOfNodes);
     }
 
-//    @Override
-//    public <Candidates, ProblemSolution, ProblemData> List<Candidates> InitializeCandidateElementsSet(ProblemData... data) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
     @Override
     public Object initializeCandidatesElementsSet() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

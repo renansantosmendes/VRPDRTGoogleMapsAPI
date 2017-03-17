@@ -20,10 +20,11 @@ import java.util.List;
 public class AdjacenciesDAO {
 
     private Connection connection;
-    private String tableInDataBase = "Adjacencies_bh_nodes";
+    private String tableInDataBase;
 
-    public AdjacenciesDAO() {
+    public AdjacenciesDAO(String tableInDataBase) {
         this.connection = new ConnectionFactory().getConnection();
+        this.tableInDataBase = tableInDataBase;
     }
 
     public Duration[][] getDurationBetweenNodes(int numberOfNodes) {

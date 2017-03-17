@@ -32,6 +32,7 @@ public class VRPDRTSD implements Algorithm<Solution, Duration, List<Request>, Re
     private double[][] distance;
     private String instanceName = "VRPDRTSD_requests110";
     private String nodesInstanceName = "bh_nodes_2";
+    private String adjacenciesInstanceName = "Adjacencies_bh_nodes";
     private LocalDateTime currentTime = LocalDateTime.of(2017, 1, 1, 0, 0, 0);
     private Node currentNode = new Node(0, 40.7143528, -74.0059731,"Av. do Contorno, 340 - Santa Efigênia, Belo Horizonte - MG, 30110-017");
     private Request lastPassengerAddedToRoute;
@@ -68,9 +69,9 @@ public class VRPDRTSD implements Algorithm<Solution, Duration, List<Request>, Re
     public void readInstance() {
         this.numberOfNodes = new NumberOfNodesDAO().getNumberOfNodes(this.nodesInstanceName);
         this.nodes = new NodeDAO().getListOfNodes();
-        this.listOfRequests = new RequestDAO().getListOfRequestUsingNodesList(nodes, this.instanceName);
-        this.duration = new AdjacenciesDAO().getDurationBetweenNodes(this.numberOfNodes);
-        this.distance = new AdjacenciesDAO().getDistanceBetweenNodes(this.numberOfNodes);
+        this.listOfRequests = new RequestDAO(this.instanceName).getListOfRequestUsingNodesList(nodes);
+        this.duration = new AdjacenciesDAO(this.adjacenciesInstanceName).getDurationBetweenNodes(this.numberOfNodes);
+        this.distance = new AdjacenciesDAO(this.adjacenciesInstanceName).getDistanceBetweenNodes(this.numberOfNodes);
     }
 
     @Override

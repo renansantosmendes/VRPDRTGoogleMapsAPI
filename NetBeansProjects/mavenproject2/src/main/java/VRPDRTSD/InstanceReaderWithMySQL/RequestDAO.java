@@ -29,16 +29,14 @@ import java.util.stream.Collectors;
 public class RequestDAO {
 
     private Connection connection;
+    private String instanceName;
 
-    public RequestDAO() {
+    public RequestDAO(String instanceName) {
         this.connection = new ConnectionFactory().getConnection();
+        this.instanceName = instanceName;
     }
 
     public void addRequestIntoDataBase(Request request) {
-//        String sql = "insert into requests "
-//                + "(id, passengerOrigin, passengerDestination, requestDay, pickUpTime, "
-//                + "deliveryTimeWindowLower, deliveryTimeWindowUpper)"
-//                + " values (?,?,?,?,?,?,?)";
         String sql = "insert into requests "
                 + "(id, passengerOrigin, passengerDestination, requestDay, pickUpTime, "
                 + "deliveryTimeWindowLower, deliveryTimeWindowUpper)"
@@ -105,7 +103,7 @@ public class RequestDAO {
 
     }
 
-    public List<Request> getListOfRequestUsingNodesList(List<Node> nodes, String instanceName) {
+    public List<Request> getListOfRequestUsingNodesList(List<Node> nodes) {
         try {
 
             List<Request> listOfRequests = new ArrayList<Request>();
