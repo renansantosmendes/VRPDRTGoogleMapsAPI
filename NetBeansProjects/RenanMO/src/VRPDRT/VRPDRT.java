@@ -60,7 +60,7 @@ public class VRPDRT {
     static Map<Integer, List<Request>> requestsWichBoardsInNode = new HashMap<>();
     static Map<Integer, List<Request>> requestsWichLeavesInNode = new HashMap<>();
     static List<Integer> loadIndexList = new LinkedList<>();
-    static Integer numberOfVehicles = 5;
+    static Integer numberOfVehicles = 50;
     static Set<Integer> setOfVehicles = new HashSet<>();
     static Integer vehicleCapacity = 10;
     static List<Request> listOfNonAttendedRequests = new ArrayList<>();
@@ -84,13 +84,23 @@ public class VRPDRT {
             setOfVehicles.add(i);
         }
 
-        Solution s = greedyConstructive(0.25, 0.25, 0.25, 0.25, listOfRequests.subList(0, 8), requestsWichBoardsInNode, requestsWichLeavesInNode,
+        Solution s = greedyConstructive(0.2, 0.15, 0.55, 0.10, listOfRequests.subList(0, 50), requestsWichBoardsInNode, requestsWichLeavesInNode,
                 numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes,
                 distanceBetweenNodes, TimeWindows, currentTime, lastNode);
     
         System.out.println(s.getConjRotas());
+        System.out.println(s);
         
-        new StaticGoogleMap(new NodeDAO("bh_nodes_2").getListOfNodes(),s.getRoutesForMap()).buildMapInWindow();
+        //listOfRequests.forEach(System.out::println);
+        Set<List<Integer>> setTest = new HashSet<>();
+        for(List<Integer> route : s.getRoutesForMap() ){
+            setTest.add(route);
+            new StaticGoogleMap(new NodeDAO("bh_nodes_2").getListOfNodes(),setTest).buildMapInWindow();
+            setTest.clear();
+        }
+        
+        
+        //new StaticGoogleMap(new NodeDAO("bh_nodes_2").getListOfNodes(),s.getRoutesForMap()).buildMapInWindow();
 
     }
 }   

@@ -436,8 +436,8 @@ public class Solution implements Comparable<Solution> {
         //String s = fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+listaNaoAtendimento.size() + "\t" + conjRotas.size() + ";\t";
         //String s = fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + ";\t";
         //String s = funcaoObjetivo + "\t"+ F1 + "\t"+ F2 + "\t" + fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + "\t" + fObjetivo6 + "\t" + fObjetivo7 + "\t";
-        //String s = funcaoObjetivo + "\t"+fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + "\t" + fObjetivo6 + "\t" + fObjetivo7 + "\t"+ fObjetivo8 + "\t" + fObjetivo9 + "\t";
-        String s = funcaoObjetivo +"\t"+ fitness + "\t" + fObjetivo1 + "\t" + fObjetivo4 + "\t" + fObjetivo8 + "\t" + fObjetivo9 + "\t";
+        String s = funcaoObjetivo + "\t"+fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + "\t" + fObjetivo6 + "\t" + fObjetivo7 + "\t"+ fObjetivo8 + "\t" + fObjetivo9 + "\t";
+        //String s = funcaoObjetivo + "\t" + fObjetivo1 + "\t" + fObjetivo4 + "\t" + fObjetivo8 + "\t" + fObjetivo9 + "\t";
         //String s = fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + "\t" + fObjetivo6 + "\t" + fObjetivo7 + "\t";
         //String s = "F1 = "+ F1 + "\tF2 = "+ F2 + "\tFit = " + fitness +"\tf1 = " + fObjetivo1 + "\tf2 = " + fObjetivo2 + "\tf3 = " +  fObjetivo3 +"\tf4 = "+fObjetivo4 + "\tf5 = " + fObjetivo5 + ";\t";
         //String s = F1 + "\t"+ F2 + "\t"+ F1n + "\t"+ F2n + "\t" + eDom +"\t" + fitness +"\t" + fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + ";\t";

@@ -40,7 +40,7 @@ public class StaticGoogleMap {
     private String city = "Belo+Horizonte";
     private String state = "Minas+Gerais";
     private String country = "Brasil";
-    private int zoom = 12;
+    private int zoom = 13;
     private int scale = 2;
     private int width = 1000;
     private int height = 1000;
@@ -51,8 +51,13 @@ public class StaticGoogleMap {
     private StringBuilder encodedPolylines = new StringBuilder();
     private List<GoogleMapsRoute> listOfGoogleMapsRoutes = new ArrayList<>();
     private StringBuilder pathGeneratedForAllRoutes = new StringBuilder();
+    private static int totalOfRoutes = 0;
+    private String staticMapsFolder = "StaticMaps";
+                   
 
     public StaticGoogleMap(List<Node> nodesList, Set<List<Integer>> routes) throws IOException {
+        totalOfRoutes++;
+        
         this.nodesList = nodesList;
 
         for (int i = 0; i < this.nodesList.size(); i++) {
@@ -63,8 +68,9 @@ public class StaticGoogleMap {
         String folder;
         folder = "RouteDataForStaticMap";
 
-        boolean success = (new File(folder)).mkdirs();
-
+        boolean successForCreateDataFolder = (new File(folder)).mkdirs();
+        boolean successForCreateStaticMapsFolder = (new File(staticMapsFolder)).mkdirs();
+        
         for (List<Integer> route : routes) {
             GoogleMapsRoute googleMapsRoute = new GoogleMapsRoute(json, folder + "/route_data_" + routeNumber, driving, 
                     route, nodesList);
@@ -97,7 +103,7 @@ public class StaticGoogleMap {
             System.out.println("URL");
             System.out.println(imageUrl);
 
-            String destinationFile = "map_from_google.jpg";
+            String destinationFile = staticMapsFolder+"/Route_"+ totalOfRoutes + "_Static_Map.jpg";
             String str = destinationFile;
             URL url = new URL(imageUrl);
             InputStream is = url.openStream();
@@ -116,7 +122,7 @@ public class StaticGoogleMap {
             System.exit(1);
         }
 
-        frame.add(new JLabel(new ImageIcon((new ImageIcon("map_from_google.jpg"))
+        frame.add(new JLabel(new ImageIcon((new ImageIcon(staticMapsFolder+"/Route_"+ totalOfRoutes + "_Static_Map.jpg"))
                 .getImage().getScaledInstance(630, 600, java.awt.Image.SCALE_SMOOTH))));
         frame.setVisible(true);
         frame.pack();
