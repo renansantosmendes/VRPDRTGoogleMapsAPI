@@ -1,7 +1,7 @@
-package Algoritmos;
+package Algorithms;
 
-import static Algoritmos.Funcoes.AdicionaNo;
-import static Algoritmos.Funcoes.AnaliseSolicitacoesViaveisEmU;
+import static Algorithms.Methods.AdicionaNo;
+import static Algorithms.Methods.AnaliseSolicitacoesViaveisEmU;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,31 +14,29 @@ import java.util.Map;
 //import static principal.PrincipalRenan.buscaLocal;
 //import static principal.PrincipalRenan.buscaTabu;
 
-import representacao.Request;
-import representacao.Rota;
-import representacao.Solucao;
-import static Algoritmos.Funcoes.SeparaOrigemDestino;
-import static Algoritmos.Funcoes.CalculaCRL;
-import static Algoritmos.Funcoes.CalculaDRL;
-import static Algoritmos.Funcoes.CalculaListaSemNosViaveis;
-import static Algoritmos.Funcoes.CalculaNRF;
-import static Algoritmos.Funcoes.CalculaNRL;
-import static Algoritmos.Funcoes.CalculaTRL;
-import static Algoritmos.Funcoes.CopiaMelhorSolucao;
-import static Algoritmos.Funcoes.Cruzamento;
-import static Algoritmos.Funcoes.Cruzamento2Pontos;
-import static Algoritmos.Funcoes.Desembarca;
-import static Algoritmos.Funcoes.Embarca;
-import static Algoritmos.Funcoes.EmbarcaRelaxacao;
-import static Algoritmos.Funcoes.EncontraNosViaveis;
-import static Algoritmos.Funcoes.FinalizaRota;
-import static Algoritmos.Funcoes.Fitness;
-import static Algoritmos.Funcoes.ImprimePopulacao;
-
-import static Algoritmos.Funcoes.ProcuraSolicitacaoParaAtender;
-import static Algoritmos.Funcoes.RetiraSolicitacaoNaoSeraAtendida;
-import static Algoritmos.Funcoes.RetiraSolicitacoesInviaveis;
-import static Algoritmos.Inicializacao.CarregaSolucao;
+import ProblemRepresentation.Request;
+import ProblemRepresentation.Route;
+import ProblemRepresentation.Solution;
+import static Algorithms.Methods.SeparaOrigemDestino;
+import static Algorithms.Methods.CalculaCRL;
+import static Algorithms.Methods.CalculaDRL;
+import static Algorithms.Methods.CalculaListaSemNosViaveis;
+import static Algorithms.Methods.CalculaNRF;
+import static Algorithms.Methods.CalculaNRL;
+import static Algorithms.Methods.CalculaTRL;
+import static Algorithms.Methods.CopiaMelhorSolucao;
+import static Algorithms.Methods.Cruzamento;
+import static Algorithms.Methods.Cruzamento2Pontos;
+import static Algorithms.Methods.Desembarca;
+import static Algorithms.Methods.Embarca;
+import static Algorithms.Methods.EmbarcaRelaxacao;
+import static Algorithms.Methods.EncontraNosViaveis;
+import static Algorithms.Methods.FinalizaRota;
+import static Algorithms.Methods.Fitness;
+import static Algorithms.Methods.ImprimePopulacao;
+import static Algorithms.Methods.ProcuraSolicitacaoParaAtender;
+import static Algorithms.Methods.RetiraSolicitacaoNaoSeraAtendida;
+import static Algorithms.Methods.RetiraSolicitacoesInviaveis;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,28 +45,28 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Objects;
 import java.util.Random;
-import static Algoritmos.Funcoes.InicializaPopulacao;
-import static Algoritmos.Funcoes.InicializaPopulacaoPerturbacao;
-import static Algoritmos.Funcoes.InsereMelhorIndividuo;
-import static Algoritmos.Funcoes.Mutacao;
-import static Algoritmos.Funcoes.Mutacao2Opt;
-import static Algoritmos.Funcoes.Mutacao2Shuffle;
-import static Algoritmos.Funcoes.MutacaoILS;
-import static Algoritmos.Funcoes.MutacaoShuffle;
-import static Algoritmos.Funcoes.NewFitness;
-import static Algoritmos.Funcoes.OrdenaPopulacao;
-import static Algoritmos.Funcoes.Selecao;
-import static Algoritmos.Funcoes.buscaTabu;
-import static Algoritmos.Funcoes.melhorVizinho;
-import static Algoritmos.Funcoes.primeiroMelhorVizinho;
-import static Algoritmos.Funcoes.primeiroMelhorVizinhoAleatorio;
-import static Algoritmos.Funcoes.vizinhoAleatorio;
+import static Algorithms.Methods.InicializaPopulacao;
+import static Algorithms.Methods.InicializaPopulacaoPerturbacao;
+import static Algorithms.Methods.InsereMelhorIndividuo;
+import static Algorithms.Methods.Mutacao;
+import static Algorithms.Methods.Mutacao2Opt;
+import static Algorithms.Methods.Mutacao2Shuffle;
+import static Algorithms.Methods.MutacaoILS;
+import static Algorithms.Methods.MutacaoShuffle;
+import static Algorithms.Methods.NewFitness;
+import static Algorithms.Methods.OrdenaPopulacao;
+import static Algorithms.Methods.Selecao;
+import static Algorithms.Methods.buscaTabu;
+import static Algorithms.Methods.melhorVizinho;
+import static Algorithms.Methods.primeiroMelhorVizinho;
+import static Algorithms.Methods.primeiroMelhorVizinhoAleatorio;
+import static Algorithms.Methods.vizinhoAleatorio;
 import java.time.Clock;
 import java.util.Comparator;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-public class Algoritmos {
+public class Algorithms {
 
     public static void floydWarshall(List<List<Integer>> c, List<List<Integer>> d, Integer n) {
         for (int k = 0; k < n; k++) {
@@ -83,7 +81,7 @@ public class Algoritmos {
         }
     }
 
-    public static double FuncaoDeAvaliacao(Solucao S, List<Request> listOfRequests, List<List<Integer>> c) {
+    public static double FuncaoDeAvaliacao(Solution S, List<Request> listOfRequests, List<List<Integer>> c) {
         double avalicao = 0;
         double V = 12;
         //double alfa = S.getListaNaoAtendimento().size();
@@ -97,13 +95,13 @@ public class Algoritmos {
     }
 
     //Função Objetivo
-    public static int FO(Solucao S, List<List<Integer>> c) {
+    public static int FO(Solution S, List<List<Integer>> c) {
         int totalCost = 0;
 
         int W = 1000,
                 costU = 800;//200;
 
-        for (Rota r : S.getConjRotas()) {
+        for (Route r : S.getConjRotas()) {
             totalCost += W;
             for (int i = 0, j = r.getListaVisitacao().size(); i < j - 1; i++) {
                 totalCost += c.get(r.getListaVisitacao().get(i)).get(r.getListaVisitacao().get(i + 1));
@@ -115,14 +113,14 @@ public class Algoritmos {
         return totalCost;
     }
 
-    public static int FOp(Solucao S, List<List<Integer>> c) {
+    public static int FOp(Solution S, List<List<Integer>> c) {
         int totalCost = 0;
         int tempoMaximo = 3;
         int PENALIDADE = 2000;
         int W = 1000,
                 costU = 10000;//200;//800
 
-        for (Rota r : S.getConjRotas()) {
+        for (Route r : S.getConjRotas()) {
             totalCost += W;
             for (int i = 0, j = r.getListaVisitacao().size(); i < j - 1; i++) {
                 totalCost += c.get(r.getListaVisitacao().get(i)).get(r.getListaVisitacao().get(i + 1));
@@ -132,7 +130,7 @@ public class Algoritmos {
         totalCost += S.getListaNaoAtendimento().size() * costU;
 
         int somaTotal = 0;
-        for (Rota r : S.getConjRotas()) {
+        for (Route r : S.getConjRotas()) {
             int soma = 0;
 
             for (Request request : r.getListaAtendimento()) {
@@ -154,13 +152,13 @@ public class Algoritmos {
         return totalCost;
     }
 
-    public static int FO1(Solucao S, List<List<Integer>> c) {
+    public static int FO1(Solution S, List<List<Integer>> c) {
         int totalCost = 0;
         //o custo do veiculo é de 1000
         int W = 1000,//1000,
                 costU = 0;//800;//200;
 
-        for (Rota r : S.getConjRotas()) {
+        for (Route r : S.getConjRotas()) {
             totalCost += W;
             for (int i = 0, j = r.getListaVisitacao().size(); i < j - 1; i++) {
                 totalCost += c.get(r.getListaVisitacao().get(i)).get(r.getListaVisitacao().get(i + 1));
@@ -172,10 +170,10 @@ public class Algoritmos {
         return totalCost;
     }
 
-    public static int FO2(Solucao S, List<List<Integer>> c) {
+    public static int FO2(Solution S, List<List<Integer>> c) {
         int somaTotal = 0;
 
-        for (Rota r : S.getConjRotas()) {
+        for (Route r : S.getConjRotas()) {
             int soma = 0;
 
             for (Request request : r.getListaAtendimento()) {
@@ -196,10 +194,10 @@ public class Algoritmos {
         return somaTotal;
     }
 
-    public static int FO3(Solucao S) {
+    public static int FO3(Solution S) {
         int diferenca;
-        Rota maiorRota = new Rota(Collections.max(S.getConjRotas()));
-        Rota menorRota = new Rota(Collections.min(S.getConjRotas()));
+        Route maiorRota = new Route(Collections.max(S.getConjRotas()));
+        Route menorRota = new Route(Collections.min(S.getConjRotas()));
         diferenca = maiorRota.getListaAtendimento().size() - menorRota.getListaAtendimento().size();
 
         return diferenca;
@@ -207,19 +205,19 @@ public class Algoritmos {
 
     }
 
-    public static int FO4(Solucao S) {
+    public static int FO4(Solution S) {
         return S.getListaNaoAtendimento().size();
     }
 
-    public static int FO5(Solucao S) {
+    public static int FO5(Solution S) {
         return S.getConjRotas().size();
     }
 
-    public static int FO6(Solucao S) {
-        Set<Rota> rotas = new HashSet<>();
+    public static int FO6(Solution S) {
+        Set<Route> rotas = new HashSet<>();
         rotas.addAll(S.getConjRotas());
         int soma = 0;
-        for (Rota r : rotas) {
+        for (Route r : rotas) {
             for (Request request : r.getListaAtendimento()) {
                 soma += request.getDeliveryTime() - request.getPickupTime();
             }
@@ -227,11 +225,11 @@ public class Algoritmos {
         return soma;
     }
 
-    public static int FO7(Solucao S) {
-        Set<Rota> rotas = new HashSet<>();
+    public static int FO7(Solution S) {
+        Set<Route> rotas = new HashSet<>();
         rotas.addAll(S.getConjRotas());
         int soma = 0;
-        for (Rota r : rotas) {
+        for (Route r : rotas) {
             for (Request request : r.getListaAtendimento()) {
                 soma += request.getPickupTime() - request.getPickupE();
             }
@@ -239,11 +237,11 @@ public class Algoritmos {
         return soma;
     }
 
-    public static int FO8(Solucao S) {
-        Set<Rota> rotas = new HashSet<>();
+    public static int FO8(Solution S) {
+        Set<Route> rotas = new HashSet<>();
         rotas.addAll(S.getConjRotas());
         int soma = 0;
-        for (Rota r : rotas) {
+        for (Route r : rotas) {
             for (Request request : r.getListaAtendimento()) {
                 soma += Math.abs(Math.max(request.getDeliveryE() - request.getDeliveryTime(), 0));
             }
@@ -251,11 +249,11 @@ public class Algoritmos {
         return soma;
     }
 
-    public static int FO9(Solucao S) {
-        Set<Rota> rotas = new HashSet<>();
+    public static int FO9(Solution S) {
+        Set<Route> rotas = new HashSet<>();
         rotas.addAll(S.getConjRotas());
         int soma = 0;
-        for (Rota r : rotas) {
+        for (Route r : rotas) {
             for (Request request : r.getListaAtendimento()) {
                 soma += Math.max(request.getDeliveryTime() - request.getDeliveryL(), 0);
             }
@@ -263,7 +261,7 @@ public class Algoritmos {
         return soma;
     }
 
-    public static void FOagregados(Solucao S, double alfa, double beta, double gama, double delta, double epslon) {
+    public static void FOagregados(Solution S, double alfa, double beta, double gama, double delta, double epslon) {
         //Agregações feitas (combinações lineares) com base na Análise de Componentes Principais
 //        S.setF1(0.0066222948*S.getfObjetivo1() + 0.6240729533*S.getfObjetivo2() + 0.0005134346*S.getfObjetivo3() + 0.0001470923*S.getfObjetivo4() 
 //                - 0.0005010187*S.getfObjetivo5() + 0.7813356030*S.getfObjetivo6() + 0.0017981648*S.getfObjetivo7());
@@ -280,7 +278,7 @@ public class Algoritmos {
     }
 
     // Algoritmo Construtivo Guloso
-    public static Solucao greedyConstructive(Double alphaD, Double alphaP, Double alphaV, Double alphaT, List<Request> listRequests,
+    public static Solution greedyConstructive(Double alphaD, Double alphaP, Double alphaV, Double alphaT, List<Request> listRequests,
             Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K,
             List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d, List<List<Integer>> c,
             Integer TimeWindows, Integer currentTime, Integer lastNode) {
@@ -290,7 +288,7 @@ public class Algoritmos {
         P.addAll(listRequests);
 
         //Step 1
-        Solucao S = new Solucao();
+        Solution S = new Solution();
         String log = "";
 
         int currentK;
@@ -307,7 +305,7 @@ public class Algoritmos {
             SeparaOrigemDestino(U, Pin, Pout, n, P);
 
             //Step 2
-            Rota R = new Rota();
+            Route R = new Route();
             currentK = itK.next();
             log += "\tGROTA " + (currentK + 1) + " ";
 
@@ -413,14 +411,14 @@ public class Algoritmos {
      * Avalia Vizinho
      *
      */
-    public static Solucao avaliaSolucao(List<Integer> vizinho, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U,
+    public static Solution avaliaSolucao(List<Integer> vizinho, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U,
             Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c,
             Integer n, Integer Qmax, Integer TimeWindows) {
         P.clear();
         P.addAll(listRequests);
 
         //Step 1
-        Solucao S = new Solucao();
+        Solution S = new Solution();
         S.setRotaConcatenada(vizinho);
         String log = "";
 
@@ -469,7 +467,7 @@ public class Algoritmos {
             }
             //----------------------------------------------------------------------------------------------------------
             //Step 2
-            Rota R = new Rota();
+            Route R = new Route();
             currentK = itK.next();
             log += "\tROTA " + (currentK + 1) + " ";
 
@@ -721,7 +719,7 @@ public class Algoritmos {
                 if (P.isEmpty()) {
                     R.addVisitacao(0);
                     //log += R.toString()+"\n";
-                    //System.out.println("Rota "+R+" - "+currentTime);
+                    //System.out.println("Route "+R+" - "+currentTime);
                     currentTime += d.get(lastNode).get(0);
                     S.getConjRotas().add(R);
                 }
@@ -764,7 +762,7 @@ public class Algoritmos {
         return S;
     }
 
-    public static void GeneticAlgorithm(List<Solucao> Pop, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests,
+    public static void GeneticAlgorithm(List<Solution> Pop, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests,
             Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K,
             List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d, List<List<Integer>> c,
             Integer TimeWindows, Integer currentTime, Integer lastNode) {
@@ -778,7 +776,7 @@ public class Algoritmos {
 
             //System.out.println("População Inicial");
             //ImprimePopulacao(Pop);
-            Solucao SBest = new Solucao();
+            Solution SBest = new Solution();
             SBest.setFuncaoObjetivo(1000000000);
             SBest.setfObjetivo1(1000000000);
             SBest.setfObjetivo2(1000000000);
@@ -804,14 +802,14 @@ public class Algoritmos {
                 InicializaPopulacaoPerturbacao(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                 
                 
-                Pop.sort(Comparator.comparingDouble(Solucao::getFuncaoObjetivo));
+                Pop.sort(Comparator.comparingDouble(Solution::getFuncaoObjetivo));
                 NewFitness(Pop);
                 //OrdenaPopulacao(Pop);
                 
 
                 //CarregaSolucao(Pop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
 //                double x, y, z, w;
-//                Solucao S = new Solucao();
+//                Solution S = new Solution();
 //                x = 0.5402697457767974;
 //                y = 0.12127711977568245;
 //                z = 0.17712922815436938;
@@ -860,7 +858,7 @@ public class Algoritmos {
                     //BuscaLocal
                     //System.out.println("GerAtual = " + GerAtual);
 //                    if ((GerAtual % 150 == 0) && (GerAtual != 0)) {
-//                        Solucao s = new Solucao(SBest);
+//                        Solution s = new Solution(SBest);
 //                        SBest.setSolucao(ILS(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
 //                    }
                     System.out.println("Geração = " + GerAtual + "\tMelhorFO = " + SBest.getFuncaoObjetivo());
@@ -879,13 +877,13 @@ public class Algoritmos {
         ImprimePopulacao(Pop);
     }
 
-    public static void InicializaSolucaoArquivo(List<Solucao> Pop, String NomeArquivo, List<Request> listRequests, List<Request> P, Set<Integer> K,
+    public static void InicializaSolucaoArquivo(List<Solution> Pop, String NomeArquivo, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
 
         List<Integer> lista = new ArrayList<>();
 
-        Solucao S = new Solucao();
+        Solution S = new Solution();
         //S.setSolucao(avaliaSolucao(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
         //Pop.get(i).setSolucao(S);
 
@@ -936,15 +934,15 @@ public class Algoritmos {
 
     }
 
-    public static Solucao VND(Solucao s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
+    public static Solution VND(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
             Integer Qmax, Integer TimeWindows) {
 
         Random rnd = new Random();
-        Solucao melhor = new Solucao(s_0);
-        Solucao s_linha = new Solucao();
-        Solucao s = new Solucao();
+        Solution melhor = new Solution(s_0);
+        Solution s_linha = new Solution();
+        Solution s = new Solution();
         int cont1 = 0;
-        //Solucao aux = new Solucao();
+        //Solucao aux = new Solution();
         int k, r;
         //r = 4;
         r = 6;
@@ -975,11 +973,11 @@ public class Algoritmos {
         return melhor;
     }
 
-    public static Solucao RVND(Solucao s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
+    public static Solution RVND(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
             Integer Qmax, Integer TimeWindows) {
 
-        Solucao melhor = new Solucao(s_0);
-        Solucao s = new Solucao();
+        Solution melhor = new Solution(s_0);
+        Solution s = new Solution();
         List<Integer> vizinhanca = new ArrayList<>();
         int k, r;
         r = 6;
@@ -1010,13 +1008,13 @@ public class Algoritmos {
         return melhor;
     }
 
-    public static Solucao VNS(Solucao s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
+    public static Solution VNS(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
             Integer Qmax, Integer TimeWindows) {
 
-        Solucao melhor = new Solucao(s_0);
-        Solucao s_linha = new Solucao();
-        Solucao s_2linha = new Solucao();
-        Solucao s = new Solucao();
+        Solution melhor = new Solution(s_0);
+        Solution s_linha = new Solution();
+        Solution s_2linha = new Solution();
+        Solution s = new Solution();
         int cont = 0;
         int MAXCONT = 5;
 
@@ -1044,7 +1042,7 @@ public class Algoritmos {
         return melhor;
     }
 
-    public static Solucao Perturbacao(Solucao s, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+    public static Solution Perturbacao(Solution s, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
             List<Integer> m, List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows) {
         Random rnd = new Random();
@@ -1065,7 +1063,7 @@ public class Algoritmos {
         //Collections.shuffle(original);
         original.add(posicao1, original.remove(posicao2));
         //}
-        Solucao S = new Solucao();
+        Solution S = new Solution();
         S.setSolucao(avaliaSolucao(original, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
         s.setSolucao(S);
 
@@ -1073,7 +1071,7 @@ public class Algoritmos {
     }
     
     
-    public static Solucao PerturbacaoSemente(Solucao s, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+    public static Solution PerturbacaoSemente(Solution s, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
             List<Integer> m, List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows) {
         Random rnd = new Random(19700621);
@@ -1094,21 +1092,21 @@ public class Algoritmos {
         //Collections.shuffle(original);
         original.add(posicao1, original.remove(posicao2));
         //}
-        Solucao S = new Solucao();
+        Solution S = new Solution();
         S.setSolucao(avaliaSolucao(original, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
         s.setSolucao(S);
 
         return s;
     }
 
-    public static Solucao ILS(Solucao s_0, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
+    public static Solution ILS(Solution s_0, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
             List<List<Integer>> c, Integer TimeWindows) {
         //Solução inicial já é gerada pelo GA
-        Solucao s = new Solucao(s_0);
-        Solucao s_linha = new Solucao();
-        Solucao s_2linha = new Solucao();
-        List<Solucao> historico = new ArrayList<>();
+        Solution s = new Solution(s_0);
+        Solution s_linha = new Solution();
+        Solution s_2linha = new Solution();
+        List<Solution> historico = new ArrayList<>();
         int MAXITER = 2;
 
         //BuscaLocal
@@ -1151,11 +1149,11 @@ public class Algoritmos {
         return s_0;
     }
 
-    public static Solucao geraPesos(Integer semente, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
+    public static Solution geraPesos(Integer semente, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
             List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
         //for (int i = 0; i < 1; i++) {
-        Solucao S = new Solucao();
+        Solution S = new Solution();
         Random rnd = new Random(semente);
         //Random rnd = new Random();
         double x, y, z, w;
@@ -1175,12 +1173,12 @@ public class Algoritmos {
         //}
     }
 
-    public static void LeituraPesosArquivo(List<Solucao> Pop, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
+    public static void LeituraPesosArquivo(List<Solution> Pop, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
             List<List<Integer>> c, Integer TimeWindows) {
         List<Integer> lista = new ArrayList<>();
 
-        Solucao S = new Solucao();
+        Solution S = new Solution();
         //S.setSolucao(avaliaSolucao(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
         //Pop.get(i).setSolucao(S);
 
@@ -1206,10 +1204,10 @@ public class Algoritmos {
         System.out.println();
     }
 
-    public static void GeraPopGulosa(List<Solucao> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
+    public static void GeraPopGulosa(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
             List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
-        Solucao s = new Solucao();
+        Solution s = new Solution();
         //Pop.clear();
         InicializaPopulacao(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
 
@@ -1227,14 +1225,14 @@ public class Algoritmos {
     }
 
     // Algoritmo GRASP_reativo 
-    public static Solucao GRASP_reativo(Integer MAX_ITERATIONS, Double alphaD, Double alphaP, Double alphaV, Double alphaT, int tipoBusca,
+    public static Solution GRASP_reativo(Integer MAX_ITERATIONS, Double alphaD, Double alphaP, Double alphaV, Double alphaT, int tipoBusca,
             int tipoEstrategia, int tipoMovimento, List<Request> listRequests, PrintStream saida, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m,
             List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows) {
 
-        Solucao SStar = new Solucao();
-        Solucao original = new Solucao();
-        Solucao originalFinal = new Solucao();
+        Solution SStar = new Solution();
+        Solution original = new Solution();
+        Solution originalFinal = new Solution();
 
         SStar.setfObjetivo1(9999999);
         SStar.setfObjetivo2(9999999);
@@ -1246,7 +1244,7 @@ public class Algoritmos {
          solutionCost,
          SStarUsize = 0;*/
 
-        Solucao S = new Solucao();
+        Solution S = new Solution();
         String log;
 
         Integer num_iterations = 0;
@@ -1375,7 +1373,7 @@ public class Algoritmos {
                 }
 
                 //Step 2
-                Rota R = new Rota();
+                Route R = new Route();
                 currentK = itK.next();
                 log += "\tGROTA " + (currentK + 1) + " ";
 
@@ -1803,11 +1801,11 @@ public class Algoritmos {
                 if (P.isEmpty()) {
                     R.addVisitacao(0);
                     //log += R.toString()+"\n";
-                    //System.out.println("Rota "+R+" - "+currentTime);
+                    //System.out.println("Route "+R+" - "+currentTime);
                     //solutionCost += currentTime;
                     currentTime += d.get(lastNode).get(0);
                     S.getConjRotas().add(R);
-                    //System.out.println("Solucao S = "+S);
+                    //System.out.println("Solution S = "+S);
                 }
 
                 //Step 9
@@ -1855,17 +1853,17 @@ public class Algoritmos {
              * Operacao: 1 - Troca, 2 - Insercao, 3 - Movimento, 4 - Aleatoria
              *
              */
-            Solucao busca;
+            Solution busca;
             switch (tipoBusca) {
                 case 1:
-                    busca = new Solucao(buscaLocal(S, tipoEstrategia, tipoMovimento, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    busca = new Solution(buscaLocal(S, tipoEstrategia, tipoMovimento, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     break;
                 case 2:
-                    //busca = new Solucao( buscaTabu(S, tipoEstrategia, tipoMovimento, listRequests) );
-                    busca = new Solucao(buscaTabu(S, tipoEstrategia, tipoMovimento, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    //busca = new Solution( buscaTabu(S, tipoEstrategia, tipoMovimento, listRequests) );
+                    busca = new Solution(buscaTabu(S, tipoEstrategia, tipoMovimento, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     break;
                 default:
-                    busca = new Solucao();
+                    busca = new Solution();
             }
 
             tempoFim = (System.nanoTime() * 0.000001);
@@ -1945,11 +1943,11 @@ public class Algoritmos {
      * Busca Local
      *
      */
-    public static Solucao buscaLocal(Solucao inicial, int tipoEstrategia, int tipoMovimento, List<Request> listRequests, List<Request> P,
+    public static Solution buscaLocal(Solution inicial, int tipoEstrategia, int tipoMovimento, List<Request> listRequests, List<Request> P,
             Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
-        Solucao melhor = new Solucao();
-        Solucao s = new Solucao(inicial);
+        Solution melhor = new Solution();
+        Solution s = new Solution(inicial);
 
         /**
          * Tipo Estrategia: 1 - melhorVizinho, 2 - primeiroMelhorVizinho Tipo

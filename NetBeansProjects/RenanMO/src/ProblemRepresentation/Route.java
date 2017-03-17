@@ -1,9 +1,9 @@
-package representacao;
+package ProblemRepresentation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rota implements Comparable<Rota>{
+public class Route implements Comparable<Route>{
 	//rota - sequencia de visita��o
 	private List<Integer> listaVisitacao;
 	
@@ -18,14 +18,14 @@ public class Rota implements Comparable<Rota>{
         
         private Integer tempoExtra;
 	
-	public Rota(){
+	public Route(){
 		listaVisitacao = new ArrayList<Integer>();
 		Qik = new ArrayList<Integer>();
 		Tempoik = new ArrayList<Integer>();	
 		listaAtendimento = new ArrayList<Request>();
 	}
 	
-	public Rota(Rota rota2){
+	public Route(Route rota2){
 		listaVisitacao = new ArrayList<Integer>(rota2.getListaVisitacao());
 		Qik = new ArrayList<Integer>(rota2.getQik());
 		Tempoik = new ArrayList<Integer>(rota2.getTempoik());
@@ -165,10 +165,10 @@ public class Rota implements Comparable<Rota>{
 	
 	@Override
 	public boolean equals(Object obj){
-		return obj instanceof Rota && equals((Rota)obj);
+		return obj instanceof Route && equals((Route)obj);
 	}
 
-	public boolean equals (Rota rota2){
+	public boolean equals (Route rota2){
 		if(this == rota2)
 			return true;
 		
@@ -205,7 +205,7 @@ public class Rota implements Comparable<Rota>{
 	}
         
         @Override
-        public int compareTo(Rota r){
+        public int compareTo(Route r){
             if(this.getListaAtendimento().size() > r.getListaAtendimento().size()){
                 return 1;
             }

@@ -1,4 +1,4 @@
-package representacao;
+package ProblemRepresentation;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -9,9 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class Solucao implements Comparable<Solucao> {
+public class Solution implements Comparable<Solution> {
 
-    private Set<Rota> conjRotas;
+    private Set<Route> conjRotas;
     private double funcaoObjetivo;
     private int fObjetivo1;//f1: custo
     private int fObjetivo2;//f2: atraso
@@ -35,7 +35,7 @@ public class Solucao implements Comparable<Solucao> {
     private int S;
     private int R;
     /**
-     * *****	Foi anexado a classe Rota	******* private List<Request>
+     * ******	Foi anexado a classe Route	******* private List<Request>
      * listaAtendimento;
 	**
      */
@@ -44,8 +44,8 @@ public class Solucao implements Comparable<Solucao> {
     private String logger;
     private int tempoExtraTotal;
 
-    public Solucao() {
-        conjRotas = new HashSet<Rota>();
+    public Solution() {
+        conjRotas = new HashSet<Route>();
         L = new ArrayList<>();
         funcaoObjetivo = -1;
         fObjetivo1 = -1;
@@ -77,8 +77,8 @@ public class Solucao implements Comparable<Solucao> {
         logger = "";
     }
 
-    public Solucao(Solucao solucao2) {
-        conjRotas = new HashSet<Rota>(solucao2.getConjRotas());
+    public Solution(Solution solucao2) {
+        conjRotas = new HashSet<Route>(solucao2.getConjRotas());
         L = new ArrayList<>(solucao2.getL());
         funcaoObjetivo = solucao2.getFuncaoObjetivo();
         fObjetivo1 = solucao2.getfObjetivo1();
@@ -106,7 +106,7 @@ public class Solucao implements Comparable<Solucao> {
         logger = new String(solucao2.getLogger());
     }
 
-    public void setSolucao(Solucao solucao) {
+    public void setSolucao(Solution solucao) {
         setConjRotas(solucao.getConjRotas());
         setL(solucao.getL());
         setFuncaoObjetivo(solucao.getFuncaoObjetivo());
@@ -160,10 +160,18 @@ public class Solucao implements Comparable<Solucao> {
         logger = "";
     }
 
-    public Set<Rota> getConjRotas() {
+    public Set<Route> getConjRotas() {
         return conjRotas;
     }
 
+    public Set<List<Integer>> getRoutesForMap(){
+        Set<List<Integer>> routes = new HashSet<>();
+        for(Route route: this.getConjRotas()){
+            routes.add(route.getListaVisitacao());
+        }
+        return routes;
+    }
+    
     public List<Integer> getL() {
         return this.L;
     }
@@ -184,9 +192,9 @@ public class Solucao implements Comparable<Solucao> {
         this.S = S;
     }
 
-    public void setConjRotas(Set<Rota> conjRotas) {
+    public void setConjRotas(Set<Route> conjRotas) {
         this.conjRotas.clear();
-        this.conjRotas.addAll(new HashSet<Rota>(conjRotas));
+        this.conjRotas.addAll(new HashSet<Route>(conjRotas));
     }
 
     public void setL(List<Integer> L) {
@@ -355,9 +363,9 @@ public class Solucao implements Comparable<Solucao> {
     }
 
     /**
-     * *****	Foi anexado a classe Rota	*******
-     *
-     * public void setListaAtendimento(List<Request> listaAtendimento) {
+     * ******	Foi anexado a classe Route	*******
+
+ public void setListaAtendimento(List<Request> listaAtendimento) {
      * this.listaAtendimento.clear(); this.listaAtendimento.addAll(new
      * LinkedList<Request>(listaAtendimento)); }
      *
@@ -396,19 +404,19 @@ public class Solucao implements Comparable<Solucao> {
     }
 
     public void concatenarRota() {
-        for (Rota r : conjRotas) {
+        for (Route r : conjRotas) {
             rotaConcatenada.addAll(r.getListaVisitacao().subList(1, r.getListaVisitacao().size() - 1));
         }
     }
 
     /**
-     * *****	Foi anexado a classe Rota	*******
-     *
-     * public void addAtendimento(Request request){
-     * listaAtendimento.add(request); }
-     *
-     * public void removeAtendimento(Request request){
-     * listaAtendimento.remove(request); }
+     * ******	Foi anexado a classe Route	*******
+
+ public void addAtendimento(Request request){
+ listaAtendimento.add(request); }
+
+ public void removeAtendimento(Request request){
+ listaAtendimento.remove(request); }
 	**
      */
     public void addNaoAtendimento(Request request) {
@@ -442,7 +450,7 @@ public class Solucao implements Comparable<Solucao> {
         //String s = df.format(F1n) + "\t"+ df.format(F2n)+";\t";
         int indice = 1;
         String listaAtendimento = " ";
-        for (Rota r : conjRotas) {
+        for (Route r : conjRotas) {
             s += "R" + indice + ": " + r + " ";
             listaAtendimento += "R" + indice++ + ": ";
             for (Request req : r.getListaAtendimento()) {
@@ -465,10 +473,10 @@ public class Solucao implements Comparable<Solucao> {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Solucao && equals((Solucao) obj);
+        return obj instanceof Solution && equals((Solution) obj);
     }
 
-    public boolean equals(Solucao solucao2) {
+    public boolean equals(Solution solucao2) {
         if (this == solucao2) {
             return true;
         }
@@ -482,7 +490,7 @@ public class Solucao implements Comparable<Solucao> {
         }
 
         // deve olhar se as listas de rotas sao iguais
-        for (Iterator<Rota> i = conjRotas.iterator(); i.hasNext();) {
+        for (Iterator<Route> i = conjRotas.iterator(); i.hasNext();) {
             if (!solucao2.getConjRotas().contains(i.next())) {
                 return false;
             }
@@ -500,7 +508,7 @@ public class Solucao implements Comparable<Solucao> {
 
         int hash = 0;
 
-        for (Rota i : conjRotas) {
+        for (Route i : conjRotas) {
             hash += i.hashCode();
         }
 
@@ -510,7 +518,7 @@ public class Solucao implements Comparable<Solucao> {
     }
 
     @Override
-    public int compareTo(Solucao solucao) {
+    public int compareTo(Solution solucao) {
         if (this.getFitness() > solucao.getFitness()) {
             return 1;
         }

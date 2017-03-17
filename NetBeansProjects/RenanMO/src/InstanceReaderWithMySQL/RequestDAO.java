@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package VRPDRTSD.IntanceReaderWithMySQL;
+package InstanceReaderWithMySQL;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -19,18 +19,20 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import representacao.Request;
+import ProblemRepresentation.Request;
 
 /**
  *
  * @author renansantos
  */
-public class RequestDataAcessObject {
+public class RequestDAO {
 
     private Connection connection;
+    private String instanceName;
 
-    public RequestDataAcessObject() {
+    public RequestDAO(String instanceName) {
         this.connection = new ConnectionFactory().getConnection();
+        this.instanceName = instanceName;
     }
 
     public void addRequestIntoDataBase(Request request) {
@@ -49,13 +51,13 @@ public class RequestDataAcessObject {
             LocalDateTime pickUpTime = null;
             LocalDateTime requestDay = null;
             //pickUpTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getPickupE()/60, (int) request.getPickupE()%60);
-            pickUpTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getPickupE() / 60, 
+            pickUpTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getPickupE() / 60,
                     (int) request.getPickupE() % 60);
-            pickUpTimeWindowUpper = LocalDateTime.of(2017, 1, 1, (int) request.getPickupL() / 60, 
+            pickUpTimeWindowUpper = LocalDateTime.of(2017, 1, 1, (int) request.getPickupL() / 60,
                     (int) request.getPickupL() % 60);
-            deliveryTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getDeliveryE() / 60, 
+            deliveryTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getDeliveryE() / 60,
                     (int) request.getDeliveryE() % 60);
-            deliveryTimeWindowUpper = LocalDateTime.of(2017, 1, 1, (int) request.getDeliveryL() / 60, 
+            deliveryTimeWindowUpper = LocalDateTime.of(2017, 1, 1, (int) request.getDeliveryL() / 60,
                     (int) request.getDeliveryL() % 60);
 
             statement.setString(4, pickUpTimeWindowLower.toLocalTime().toString());
@@ -74,7 +76,7 @@ public class RequestDataAcessObject {
             throw new RuntimeException(e);
         }
     }
-    
+
     public void addRequestIntoDataBaseVRPDRTSD(Request request) {
         String sql = "insert into VRPDRTSD_requests250 "
                 + "(id, passengerOrigin, passengerDestination, requestDay, pickUpTime, "
@@ -91,13 +93,13 @@ public class RequestDataAcessObject {
             LocalDateTime pickUpTime = LocalDateTime.of(2017, 1, 1, 0, 0);
             LocalDateTime requestDay = LocalDateTime.of(2017, 1, 1, 0, 0);
             //pickUpTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getPickupE()/60, (int) request.getPickupE()%60);
-            pickUpTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getPickupE() / 60, 
+            pickUpTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getPickupE() / 60,
                     (int) request.getPickupE() % 60);
-            pickUpTimeWindowUpper = LocalDateTime.of(2017, 1, 1, (int) request.getPickupL() / 60, 
+            pickUpTimeWindowUpper = LocalDateTime.of(2017, 1, 1, (int) request.getPickupL() / 60,
                     (int) request.getPickupL() % 60);
-            deliveryTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getDeliveryE() / 60, 
+            deliveryTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getDeliveryE() / 60,
                     (int) request.getDeliveryE() % 60);
-            deliveryTimeWindowUpper = LocalDateTime.of(2017, 1, 1, (int) request.getDeliveryL() / 60, 
+            deliveryTimeWindowUpper = LocalDateTime.of(2017, 1, 1, (int) request.getDeliveryL() / 60,
                     (int) request.getDeliveryL() % 60);
 
             statement.setString(4, requestDay.toString());
@@ -117,47 +119,46 @@ public class RequestDataAcessObject {
         }
     }
 
-    public List<Request> getListOfRequest() {
-        try {
-
-            List<Request> listOfRequests = new ArrayList<Request>();
-            PreparedStatement statement = this.connection.prepareStatement("select * from requests inner join originNodes on "
-                    + "requests.passengerOrigin = originNodes.originNodeId inner join destinationNodes on "
-                    + "requests.passengerDestination = destinationNodes.destinationNodeId;");
-
-            ResultSet resultSetForRequests = statement.executeQuery();
-
-            while (resultSetForRequests.next()) {
-
-                int requestId = resultSetForRequests.getInt("requestId");
-                int passengerOriginId = resultSetForRequests.getInt("originNodeId");
-                double originLatitude = resultSetForRequests.getDouble("originLatitude");
-                double originLongitude = resultSetForRequests.getDouble("originLongitude");
-                int passengerDestinationId = resultSetForRequests.getInt("destinationNodeId");
-                double destinationLatitude = resultSetForRequests.getDouble("destinationLatitude");
-                double destinationLongitude = resultSetForRequests.getDouble("destinationLongitude");
-
-                //Node passengerOrigin = new Node(passengerOriginId, originLatitude, originLongitude);
-                //Node passengerDestination = new Node(passengerDestinationId, destinationLatitude, destinationLongitude);
-                LocalDate requestDay = resultSetForRequests.getDate("requestDay").toLocalDate();
-
-                LocalDateTime requestDayConverted = LocalDateTime.of(requestDay, LocalTime.MIN);
-                LocalDateTime pickUpTime = LocalDateTime.of(requestDay, resultSetForRequests.getTime("pickUpTime").toLocalTime());
-                LocalDateTime deliveryTimeWindowLower = LocalDateTime.of(requestDay, resultSetForRequests.getTime("deliveryTimeWindowLower").toLocalTime());
-                LocalDateTime deliveryTimeWindowUpper = LocalDateTime.of(requestDay, resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime());
-
-                //Request request = new Request(requestId, passengerOrigin, passengerDestination, requestDayConverted, pickUpTime, deliveryTimeWindowLower, deliveryTimeWindowUpper);
-                //listOfRequests.add(request);
-            }
-            resultSetForRequests.close();
-            statement.close();
-            return listOfRequests;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
+//    public List<Request> getListOfRequest() {
+//        try {
+//
+//            List<Request> listOfRequests = new ArrayList<Request>();
+//            PreparedStatement statement = this.connection.prepareStatement("select * from requests inner join originNodes on "
+//                    + "requests.passengerOrigin = originNodes.originNodeId inner join destinationNodes on "
+//                    + "requests.passengerDestination = destinationNodes.destinationNodeId;");
+//
+//            ResultSet resultSetForRequests = statement.executeQuery();
+//
+//            while (resultSetForRequests.next()) {
+//
+//                int requestId = resultSetForRequests.getInt("requestId");
+//                int passengerOriginId = resultSetForRequests.getInt("originNodeId");
+//                double originLatitude = resultSetForRequests.getDouble("originLatitude");
+//                double originLongitude = resultSetForRequests.getDouble("originLongitude");
+//                int passengerDestinationId = resultSetForRequests.getInt("destinationNodeId");
+//                double destinationLatitude = resultSetForRequests.getDouble("destinationLatitude");
+//                double destinationLongitude = resultSetForRequests.getDouble("destinationLongitude");
+//
+//                //Node passengerOrigin = new Node(passengerOriginId, originLatitude, originLongitude);
+//                //Node passengerDestination = new Node(passengerDestinationId, destinationLatitude, destinationLongitude);
+//                LocalDate requestDay = resultSetForRequests.getDate("requestDay").toLocalDate();
+//
+//                LocalDateTime requestDayConverted = LocalDateTime.of(requestDay, LocalTime.MIN);
+//                LocalDateTime pickUpTime = LocalDateTime.of(requestDay, resultSetForRequests.getTime("pickUpTime").toLocalTime());
+//                LocalDateTime deliveryTimeWindowLower = LocalDateTime.of(requestDay, resultSetForRequests.getTime("deliveryTimeWindowLower").toLocalTime());
+//                LocalDateTime deliveryTimeWindowUpper = LocalDateTime.of(requestDay, resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime());
+//
+//                //Request request = new Request(requestId, passengerOrigin, passengerDestination, requestDayConverted, pickUpTime, deliveryTimeWindowLower, deliveryTimeWindowUpper);
+//                //listOfRequests.add(request);
+//            }
+//            resultSetForRequests.close();
+//            statement.close();
+//            return listOfRequests;
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
 //    public List<Request> getListOfRequestUsingNodesList(List<Node> nodes) {
 //        try {
 //
@@ -191,4 +192,40 @@ public class RequestDataAcessObject {
 //            throw new RuntimeException(e);
 //        }
 //    }
+    public List<Request> getListOfRequest() {
+        try {
+            String sql = "select * from " + this.instanceName;
+            List<Request> listOfRequests = new ArrayList<Request>();
+            PreparedStatement statement = this.connection.prepareStatement(sql);
+
+            ResultSet resultSetForRequests = statement.executeQuery();
+
+            while (resultSetForRequests.next()) {
+
+                Integer requestId = resultSetForRequests.getInt("id");
+                Integer passengerOrigin = resultSetForRequests.getInt("passengerOrigin");
+                Integer passengerDestination = resultSetForRequests.getInt("passengerDestination");
+                Integer pickUpTimeWindowLower = 60*(resultSetForRequests.getTime("pickUpTimeWindowLower").toLocalTime().getHour()
+                        + resultSetForRequests.getTime("pickUpTimeWindowLower").toLocalTime().getMinute());
+
+                Integer pickUpTimeWindowUpper = 60*(resultSetForRequests.getTime("pickUpTimeWindowUpper").toLocalTime().getHour()
+                        + resultSetForRequests.getTime("pickUpTimeWindowUpper").toLocalTime().getMinute());
+
+                Integer deliveryTimeWindowLower = 60*(resultSetForRequests.getTime("deliveryTimeWindowLower").toLocalTime().getHour()
+                        + resultSetForRequests.getTime("deliveryTimeWindowLower").toLocalTime().getMinute());
+
+                Integer deliveryTimeWindowUpper = 60*(resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime().getHour()
+                        + resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime().getMinute());
+                Request request = new Request(requestId, passengerOrigin, passengerDestination, pickUpTimeWindowLower,
+                        pickUpTimeWindowUpper,deliveryTimeWindowLower ,deliveryTimeWindowUpper);
+                listOfRequests.add(request);
+            }
+            resultSetForRequests.close();
+            statement.close();
+            return listOfRequests;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

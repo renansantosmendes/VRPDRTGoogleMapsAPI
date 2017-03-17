@@ -3,30 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Algoritmos;
+package Algorithms;
 
-import static Algoritmos.Algoritmos.ILS;
-import static Algoritmos.Algoritmos.Perturbacao;
-import static Algoritmos.Algoritmos.RVND;
-import static Algoritmos.Algoritmos.avaliaSolucao;
-import static Algoritmos.Algoritmos.geraPesos;
-import static Algoritmos.Funcoes.CopiaMelhorSolucao;
-import static Algoritmos.Funcoes.Cruzamento;
-import static Algoritmos.Funcoes.Cruzamento2Pontos;
-import static Algoritmos.Funcoes.Fitness;
-import static Algoritmos.Funcoes.ImprimePopulacao;
-import static Algoritmos.Funcoes.InicializaPopulacao;
-import static Algoritmos.Funcoes.InsereMelhorIndividuo;
-import static Algoritmos.Funcoes.Mutacao;
-import static Algoritmos.Funcoes.Mutacao2Opt;
-import static Algoritmos.Funcoes.Mutacao2Shuffle;
-import static Algoritmos.Funcoes.MutacaoShuffle;
-import static Algoritmos.Funcoes.OrdenaPopulacao;
-import static Algoritmos.Funcoes.Selecao;
-import static Algoritmos.Funcoes.melhorVizinho;
-import static Algoritmos.Funcoes.primeiroMelhorVizinho;
-import static Algoritmos.Funcoes.vizinhoAleatorio;
-import static Algoritmos.Inicializacao.CarregaSolucao;
+import static Algorithms.Algorithms.ILS;
+import static Algorithms.Algorithms.Perturbacao;
+import static Algorithms.Algorithms.RVND;
+import static Algorithms.Algorithms.avaliaSolucao;
+import static Algorithms.Algorithms.geraPesos;
+import static Algorithms.Methods.CopiaMelhorSolucao;
+import static Algorithms.Methods.Cruzamento;
+import static Algorithms.Methods.Cruzamento2Pontos;
+import static Algorithms.Methods.Fitness;
+import static Algorithms.Methods.ImprimePopulacao;
+import static Algorithms.Methods.InicializaPopulacao;
+import static Algorithms.Methods.InsereMelhorIndividuo;
+import static Algorithms.Methods.Mutacao;
+import static Algorithms.Methods.Mutacao2Opt;
+import static Algorithms.Methods.Mutacao2Shuffle;
+import static Algorithms.Methods.MutacaoShuffle;
+import static Algorithms.Methods.OrdenaPopulacao;
+import static Algorithms.Methods.Selecao;
+import static Algorithms.Methods.melhorVizinho;
+import static Algorithms.Methods.primeiroMelhorVizinho;
+import static Algorithms.Methods.vizinhoAleatorio;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -38,14 +37,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import representacao.Request;
-import representacao.Solucao;
+import ProblemRepresentation.Request;
+import ProblemRepresentation.Solution;
 
 /**
  *
  * @author Renan
  */
-public class AlgoritmosMO {
+public class AlgorithmsForMultiObjectiveOptimization {
 
 //    public static void MOGA(List<Solucao> Pop, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests,Map<Integer, List<Request>> Pin,
 //                            Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, 
@@ -139,7 +138,7 @@ public class AlgoritmosMO {
 //        }
 //
 //    }
-    public static void MOGA(List<Solucao> Pop, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+    public static void MOGA(List<Solution> Pop, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m,
             List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
         String diretorio, nomeArquivo;
@@ -166,8 +165,8 @@ public class AlgoritmosMO {
             //----------------------------------------------------------------------------------------------------
             for (int cont = 0; cont < 1; cont++) {
                 //--------------- Inicializa com a mesma população inicial ------------------
-                List<Solucao> naoDominados = new ArrayList();
-                List<Solucao> arquivo = new ArrayList();
+                List<Solution> naoDominados = new ArrayList();
+                List<Solution> arquivo = new ArrayList();
                 double dist[][] = new double[TamPop][TamPop];
                 double sigmaSH = Math.sqrt(2) / 60;// 0.05;//deixado para o algoritmo calcular o raio do nicho
                 double sigma = 1;
@@ -177,7 +176,7 @@ public class AlgoritmosMO {
                 //CarregaSolucao(Pop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                 Inicializa(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                 for (int i = 0; i < TamPop; i++) {
-                    Solucao s = new Solucao();
+                    Solution s = new Solution();
                     s.setSolucao(vizinhoAleatorio(Pop.get(i), i, i + 1, 1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     Pop.get(i).setSolucao(s);
                 }
@@ -240,7 +239,7 @@ public class AlgoritmosMO {
                     GerAtual++;
                     //ImprimePopulacao(Pop);
                 }
-                List<Solucao> melhores = new ArrayList<>();
+                List<Solution> melhores = new ArrayList<>();
                 Dominancia(arquivo, melhores);
                 Normalizacao2(melhores);
                 //melhores.addAll(naoDominados);
@@ -285,7 +284,7 @@ public class AlgoritmosMO {
 //            for (int cont = 0; cont < 1; cont++) {//laço para fazer os experimentos estatísticos, alterar para cont < 30
 //                String numero;
 //                numero = Integer.toString(cont);
-//                PrintStream saida = new PrintStream(diretorio + "\\" + nomeArquivo + "Solucao-exec-" +numero+".txt");
+//                PrintStream saida = new PrintStream(diretorio + "\\" + nomeArquivo + "Solution-exec-" +numero+".txt");
 //                PrintStream saida5 = new PrintStream(diretorio + "\\" + nomeArquivo + "Execucao-" +numero+".txt");
 //                PrintStream saida6 = new PrintStream(diretorio + "\\" + nomeArquivo + "tamanho_arquivo"+numero+".txt");
 //                //--------------- Inicializa com a mesma população inicial ------------------
@@ -306,7 +305,7 @@ public class AlgoritmosMO {
 //                //CarregaSolucao(Pop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
 //                Inicializa(Pop,TamPop,listRequests,Pin, Pout, n, Qmax,  K,  U,  P, m,d,c, TimeWindows, currentTime,lastNode);
 //                for(int i =0; i<TamPop; i++){
-//                    Solucao s = new Solucao();
+//                    Solution s = new Solution();
 //                    s.setSolucao(vizinhoAleatorio(Pop.get(i),i,i+1, 1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 //                    Pop.get(i).setSolucao(s);
 //                }
@@ -315,7 +314,7 @@ public class AlgoritmosMO {
 //                //----------------------------------------------------------------------------------------------------------------------
 //                //                                                   GRAVAÇÃO NO ARQUIVO
 //                //----------------------------------------------------------------------------------------------------------------------
-//                for(Solucao s: arquivo){
+//                for(Solution s: arquivo){
 //                    saida.print("\t" + s + "\n");
 //                    saida1.print("\t" + s.getF1n() + "\t"+ s.getF2n() + "\n");
 //                    saida5.print("\t" + s.getF1n() + "\t"+ s.getF2n() + "\n");
@@ -441,7 +440,7 @@ public class AlgoritmosMO {
 //                    //----------------------------------------------------------------------------------------------------------------------
 //                    //                                                   GRAVAÇÃO NO ARQUIVO
 //                    //----------------------------------------------------------------------------------------------------------------------
-//                    for (Solucao s : arquivo) {
+//                    for (Solution s : arquivo) {
 //                        saida.print("\t" + s + "\n");
 //                        saida1.print("\t" + s.getF1n() + "\t" + s.getF2n() + "\n");
 //                        saida5.print("\t" + s.getF1n() + "\t" + s.getF2n() + "\n");
@@ -470,7 +469,7 @@ public class AlgoritmosMO {
 //            }
 //            List<Solucao> naoDominados = new ArrayList<>();
 //            Dominancia(paretoCombinado,naoDominados);
-//            for(Solucao s: naoDominados){
+//            for(Solution s: naoDominados){
 //                saida3.print("\t" + s +"\n");
 //                saida4.print("\t" + s.getF1() + "\t" + s.getF2() +"\n");
 //            }
@@ -480,16 +479,16 @@ public class AlgoritmosMO {
 //            e.printStackTrace();
 //        }
 //    }
-    public static void NSGAII(List<Solucao> Pop, List<Solucao> Q, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+    public static void NSGAII(List<Solution> Pop, List<Solution> Q, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m,
             List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
 
-        List<Solucao> naoDominados = new ArrayList();
-        List<Solucao> arquivo = new ArrayList();
+        List<Solution> naoDominados = new ArrayList();
+        List<Solution> arquivo = new ArrayList();
         List<Integer> pais = new ArrayList<>();
-        List<Solucao> Pop_linha = new ArrayList();
-        List<Solucao> Pop_2linha = new ArrayList();//P'(t) = P(t) U Q(t)
-        List<List<Solucao>> fronts = new ArrayList<>();//fronteiras não dominadas
+        List<Solution> Pop_linha = new ArrayList();
+        List<Solution> Pop_2linha = new ArrayList();//P'(t) = P(t) U Q(t)
+        List<List<Solution>> fronts = new ArrayList<>();//fronteiras não dominadas
         String diretorio, nomeArquivo;
         diretorio = "\\home\\Multivariada";
         nomeArquivo = "NSGAII-Puro";
@@ -499,7 +498,7 @@ public class AlgoritmosMO {
         }
         try {
 
-            List<Solucao> paretoCombinado = new ArrayList<>();
+            List<Solution> paretoCombinado = new ArrayList<>();
             for (int cont = 0; cont < 1; cont++) {
                 String numero;
                 numero = Integer.toString(cont);
@@ -522,7 +521,7 @@ public class AlgoritmosMO {
                 Mutacao2Shuffle(Q, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
 
                 Normalizacao2(arquivo);
-                for (Solucao s : arquivo) {
+                for (Solution s : arquivo) {
                     saida1.print("\t" + s.getF1() + "\t" + s.getF2() + "\n");
                     saida3.print("\t" + s.getF1n() + "\t" + s.getF2n() + "\n");
                 }
@@ -571,7 +570,7 @@ public class AlgoritmosMO {
                     System.out.println("Geração = " + gerAtual + "\t" + arquivo.size());
                     //System.out.println("Geração = " + gerAtual+" TamPop = " + Pop.size());
 
-                    for (Solucao s : arquivo) {
+                    for (Solution s : arquivo) {
                         saida1.print("\t" + s.getF1() + "\t" + s.getF2() + "\n");
                         saida3.print("\t" + s.getF1n() + "\t" + s.getF2n() + "\n");
                     }
@@ -587,7 +586,7 @@ public class AlgoritmosMO {
                 Pop.clear();
                 fronts.clear();
             }
-            List<Solucao> paretoFinal = new ArrayList<>();
+            List<Solution> paretoFinal = new ArrayList<>();
             Dominancia(paretoCombinado, paretoFinal);
 
             ImprimePopulacao(paretoFinal);
@@ -597,14 +596,14 @@ public class AlgoritmosMO {
 
     }
 
-    public static void SPEA2(List<Solucao> Pop, List<Solucao> Q, Integer TamPop, Integer TamArq, Integer MaxGer, double Pm, double Pc, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+    public static void SPEA2(List<Solution> Pop, List<Solution> Q, Integer TamPop, Integer TamArq, Integer MaxGer, double Pm, double Pc, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m,
             List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
 
-        List<Solucao> naoDominados = new ArrayList();
-        List<Solucao> arquivo = new ArrayList();
+        List<Solution> naoDominados = new ArrayList();
+        List<Solution> arquivo = new ArrayList();
         List<Integer> pais = new ArrayList<>();
-        List<Solucao> Pop_linha = new ArrayList();
+        List<Solution> Pop_linha = new ArrayList();
         String diretorio, nomeArquivo;
         diretorio = "\\home\\EMO2017\\SPEA2\\30Exec\\AtualizacaoArquivo\\SegundaExecucao_ConferindoDados";
         nomeArquivo = "SPEA2-Puro";
@@ -613,7 +612,7 @@ public class AlgoritmosMO {
             System.out.println("Diretórios ja existem!");
         }
         try {
-            List<Solucao> paretoCombinado = new ArrayList<>();
+            List<Solution> paretoCombinado = new ArrayList<>();
             for (int cont = 0; cont < 30; cont++) {
                 String numero;
                 int TamMax;
@@ -632,7 +631,7 @@ public class AlgoritmosMO {
                 System.out.println("Execução = " + cont);
                 int gerAtual = 0;
                 FitnessSPEA2(Pop, dist, TamPop, TamArq);
-                List<Solucao> teste = new ArrayList<>();
+                List<Solution> teste = new ArrayList<>();
                 while (gerAtual < MaxGer) {
                     FitnessSPEA2(Pop, dist, TamPop, TamArq);
                     System.out.println("Geração = " + gerAtual);
@@ -673,11 +672,11 @@ public class AlgoritmosMO {
                 Pop_linha.clear();
                 System.out.println(arquivo.size());
             }
-            List<Solucao> paretoFinal = new ArrayList<>();
+            List<Solution> paretoFinal = new ArrayList<>();
             Dominancia(paretoCombinado, paretoFinal);
             PrintStream saida4 = new PrintStream(diretorio + "\\ParetoCombinado.txt");
             PrintStream saida5 = new PrintStream(diretorio + "\\ParetoCombinadoFOs.txt");
-            for (Solucao s : paretoFinal) {
+            for (Solution s : paretoFinal) {
                 saida4.print(s + "\n");
                 saida5.print(s.getF1() + "\t" + s.getF2() + "\n");
             }
@@ -687,8 +686,8 @@ public class AlgoritmosMO {
         }
     }
 
-    public static void gravaArquivo(List<Solucao> arquivo, PrintStream saida1, PrintStream saida2, PrintStream saida3) {
-        for (Solucao s : arquivo) {
+    public static void gravaArquivo(List<Solution> arquivo, PrintStream saida1, PrintStream saida2, PrintStream saida3) {
+        for (Solution s : arquivo) {
             saida1.print("\t" + s.getF1() + "\t" + s.getF2() + "\n");
             saida3.print("\t" + s.getF1n() + "\t" + s.getF2n() + "\n");
         }
@@ -697,7 +696,7 @@ public class AlgoritmosMO {
         saida3.print("\n\n");
     }
 
-    public static void FitnessSPEA2(List<Solucao> Pop, double[][] dist, Integer TamPop, Integer TamArq) {
+    public static void FitnessSPEA2(List<Solution> Pop, double[][] dist, Integer TamPop, Integer TamArq) {
         Integer k = (int) Math.sqrt(TamPop + TamArq);
         List<Double> lista = new ArrayList<>();
         double maximo = 0, minimo = 9999999;
@@ -717,17 +716,17 @@ public class AlgoritmosMO {
         }
         //Normalizar o Fitness
         double soma = 0;
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             double fitness = (maximo - s.getFitness()) / (maximo - minimo);
             s.setFitness(fitness);
             soma += fitness;
         }
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             s.setFitness(s.getFitness() / soma);
         }
     }
 
-    public static void Reducao(List<Solucao> Pop, List<List<Solucao>> fronts, int TamMax) {
+    public static void Reducao(List<Solution> Pop, List<List<Solution>> fronts, int TamMax) {
         //OrdenaArquivo(Pop);
         //ImprimePopulacao(Pop);
         int contador = 0;
@@ -742,7 +741,7 @@ public class AlgoritmosMO {
         }
     }
 
-    public static void FitnessMOGA(List<Solucao> Pop) {
+    public static void FitnessMOGA(List<Solution> Pop) {
 //        int soma = 0;
 //        for (int i = 0; i < Pop.size(); i++) {
 //            soma += Pop.get(i).geteDom();
@@ -759,7 +758,7 @@ public class AlgoritmosMO {
 //            Pop.get(i).setFitness(fit.get(i));
 //        }
 
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             s.setFitness(s.geteDom() + 1);
             //System.out.println(s.geteDom());
         }
@@ -785,10 +784,10 @@ public class AlgoritmosMO {
 
     }
 
-    public static void FitnessMOGA2(List<Solucao> Pop) {
+    public static void FitnessMOGA2(List<Solution> Pop) {
         List<Integer> frequencia = new ArrayList<>();
         List<Integer> fa = new ArrayList<>();
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             s.setFitness(s.geteDom() + 1);
             //System.out.println(s.geteDom());
         }
@@ -848,8 +847,8 @@ public class AlgoritmosMO {
             posicao = posicao + nvezes;
         }
 
-//       for(Solucao s: Pop){
-//           System.out.println("Solucao s = "+s.getFitness());
+//       for(Solution s: Pop){
+//           System.out.println("Solution s = "+s.getFitness());
 //       }
         double soma = 0;
 
@@ -894,12 +893,12 @@ public class AlgoritmosMO {
 
     }
 
-    public static void FitnessMOGA3(List<Solucao> Pop) {
+    public static void FitnessMOGA3(List<Solution> Pop) {
         List<Integer> mi = new ArrayList<>();
         List<Integer> frequencia = new ArrayList<>();
         List<Integer> fa = new ArrayList<>();
 
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             s.setFitness(s.geteDom() + 1);
         }
         OrdenaPopulacao(Pop);
@@ -929,8 +928,8 @@ public class AlgoritmosMO {
 
         //----------------------------------------------------------------------------------    
         //System.out.println("Tamanho da população = " + Pop.size());
-        Solucao maior = new Solucao();
-        Solucao menor = new Solucao();
+        Solution maior = new Solution();
+        Solution menor = new Solution();
 
         maior.setSolucao(Collections.max(Pop));
         menor.setSolucao(Collections.min(Pop));
@@ -988,12 +987,12 @@ public class AlgoritmosMO {
 //        }
     }
 
-    public static void FitnessMOGA4(List<Solucao> Pop) {
+    public static void FitnessMOGA4(List<Solution> Pop) {
         List<Integer> mi = new ArrayList<>();
         List<Integer> frequencia = new ArrayList<>();
         List<Integer> fa = new ArrayList<>();
 
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             s.setFitness(s.geteDom() + 1);
         }
         OrdenaPopulacao(Pop);
@@ -1023,8 +1022,8 @@ public class AlgoritmosMO {
 
         //----------------------------------------------------------------------------------    
         //System.out.println("Tamanho da população = " + Pop.size());
-        Solucao maior = new Solucao();
-        Solucao menor = new Solucao();
+        Solution maior = new Solution();
+        Solution menor = new Solution();
 
         maior.setSolucao(Collections.max(Pop));
         menor.setSolucao(Collections.min(Pop));
@@ -1066,10 +1065,10 @@ public class AlgoritmosMO {
         }
     }
 
-    public static void FitnessMO(List<Solucao> Pop) {
+    public static void FitnessMO(List<Solution> Pop) {
         List<Integer> frequencia = new ArrayList<>();
         List<Integer> fa = new ArrayList<>();
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             s.setFitness(s.geteDom() + 1);
             //System.out.println(s.geteDom());
         }
@@ -1169,7 +1168,7 @@ public class AlgoritmosMO {
 
     }
 
-    public static void NormalizaFitness(List<Solucao> Pop) {
+    public static void NormalizaFitness(List<Solution> Pop) {
 //        List<Double> lista = new ArrayList<>();
 //        for(int i=0; i<Pop.size(); i++){
 //            lista.add(Pop.get(i).getFitness());
@@ -1190,7 +1189,7 @@ public class AlgoritmosMO {
         }
     }
 
-    public static void Dominancia(List<Solucao> Pop, List<Solucao> naoDominados) {
+    public static void Dominancia(List<Solution> Pop, List<Solution> naoDominados) {
         //--------------------------------------------------------------------------------------------------------------
         //List<Solucao> naoDominados = new ArrayList<>();
         naoDominados.clear();
@@ -1239,25 +1238,25 @@ public class AlgoritmosMO {
         retiraIguais(naoDominados);
     }
 
-    public static void Normalizacao(List<Solucao> Pop) {
+    public static void Normalizacao(List<Solution> Pop) {
         double max = -999999999;
         double min = 999999999;
 
         //para F1
         //obtendo o valor maximo
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             if (s.getF1() > max) {
                 max = s.getF1();
             }
         }
         //obtendo o valor minimo
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             if (s.getF1() < min) {
                 min = s.getF1();
             }
         }
         //System.out.println("F1: max = " + max +"\tmin = " + min);
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             s.setF1n((s.getF1() - min) / (max - min));
         }
 
@@ -1266,24 +1265,24 @@ public class AlgoritmosMO {
 
         //para F2
         //obtendo o valor maximo
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             if (s.getF2() > max) {
                 max = s.getF2();
             }
         }
         //obtendo o valor minimo
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             if (s.getF2() < min) {
                 min = s.getF2();
             }
         }
         //System.out.println("F2: max = " + max +"\tmin = " + min);
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             s.setF2n((s.getF2() - min) / (max - min));
         }
     }
 
-    public static void Distancia(List<Solucao> Pop, double dist[][]) {
+    public static void Distancia(List<Solution> Pop, double dist[][]) {
         //calcula a distancia entre os elementos - usa somente metada da matriz
         List<Double> linha = new ArrayList<>();
         for (int i = 0; i < Pop.size(); i++) {
@@ -1313,7 +1312,7 @@ public class AlgoritmosMO {
 //        };
     }
 
-    public static void Partilha(List<Solucao> Pop, double dist[][], double sigmaSH, double sigma, double alfa) {
+    public static void Partilha(List<Solution> Pop, double dist[][], double sigmaSH, double sigma, double alfa) {
         for (int i = 0; i < Pop.size(); i++) {
             double soma = 0;
             List<Double> s = new ArrayList<>();
@@ -1338,10 +1337,10 @@ public class AlgoritmosMO {
         }
     }
 
-    public static void Inicializa(List<Solucao> Pop, int TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
+    public static void Inicializa(List<Solution> Pop, int TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
             List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
-        Solucao s0 = new Solucao();
+        Solution s0 = new Solution();
         for (int i = 0; i < TamPop; i++) {
             s0.setSolucao(geraPesos(i, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
             //Pop.add(s0);
@@ -1351,19 +1350,19 @@ public class AlgoritmosMO {
         }
     }
 
-    public static void Normalizacao2(List<Solucao> Pop) {
+    public static void Normalizacao2(List<Solution> Pop) {
         double max = -999999999;
         double min = 999999999;
 
         //para F1
         //obtendo o valor maximo
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             if (s.getF1() > max) {
                 max = s.getF1();
             }
         }
         //obtendo o valor minimo
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             if (s.getF1() < min) {
                 min = s.getF1();
             }
@@ -1379,13 +1378,13 @@ public class AlgoritmosMO {
 
         //para F2
         //obtendo o valor maximo
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             if (s.getF2() > max) {
                 max = s.getF2();
             }
         }
         //obtendo o valor minimo
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             if (s.getF2() < min) {
                 min = s.getF2();
             }
@@ -1396,22 +1395,22 @@ public class AlgoritmosMO {
         }
     }
 
-    public static void Normalizacao3(List<Solucao> Pop) {
-        Solucao maior = new Solucao();
-        Solucao menor = new Solucao();
+    public static void Normalizacao3(List<Solution> Pop) {
+        Solution maior = new Solution();
+        Solution menor = new Solution();
 
         maior.setSolucao(Collections.max(Pop));
         menor.setSolucao(Collections.min(Pop));
 
-        for (Solucao s : Pop) {
+        for (Solution s : Pop) {
             s.setFitness((maior.getFitness() - s.getFitness()) / (maior.getFitness() - menor.getFitness()));
         }
     }
 
-    public static void atualizaArquivo(List<Solucao> Pop, List<Solucao> arquivo, int TamMax) {
+    public static void atualizaArquivo(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
 
-        List<Solucao> naoDominados = new ArrayList<>();
-        List<Solucao> Q = new ArrayList<>();
+        List<Solution> naoDominados = new ArrayList<>();
+        List<Solution> Q = new ArrayList<>();
         Random rnd = new Random();
         double melhorFitness;
         if (Pop.size() > 0) {
@@ -1428,7 +1427,7 @@ public class AlgoritmosMO {
         arquivo.clear();
         arquivo.addAll(naoDominados);
         Normalizacao2(arquivo);
-        for (Solucao s : arquivo) {
+        for (Solution s : arquivo) {
             s.setFitness(melhorFitness);
         }
         //retiraIguais(arquivo);
@@ -1485,11 +1484,11 @@ public class AlgoritmosMO {
         //
     }
 
-    public static void atualizaArquivoNSGAII(List<Solucao> Pop, List<Solucao> arquivo, int TamMax) {
+    public static void atualizaArquivoNSGAII(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
         //retiraIguais(Pop);        
 
-        List<Solucao> naoDominados = new ArrayList<>();
-        List<Solucao> Q = new ArrayList<>();
+        List<Solution> naoDominados = new ArrayList<>();
+        List<Solution> Q = new ArrayList<>();
         Random rnd = new Random();
         double melhorFitness;
         if (Pop.size() > 0) {
@@ -1509,7 +1508,7 @@ public class AlgoritmosMO {
         arquivo.addAll(naoDominados);
         retiraIguais(arquivo);
         Normalizacao2(arquivo);
-        for (Solucao s : arquivo) {
+        for (Solution s : arquivo) {
             s.setFitness(melhorFitness);
         }
         //---------------------------------------------------------------------
@@ -1554,11 +1553,11 @@ public class AlgoritmosMO {
         OrdenaArquivo(arquivo);
     }
 
-    public static void atualizaArquivoNSGAII2(List<Solucao> Pop, List<Solucao> arquivo, int TamMax) {
+    public static void atualizaArquivoNSGAII2(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
         //retiraIguais(Pop);        
 
-        List<Solucao> naoDominados = new ArrayList<>();
-        List<Solucao> Q = new ArrayList<>();
+        List<Solution> naoDominados = new ArrayList<>();
+        List<Solution> Q = new ArrayList<>();
         Random rnd = new Random();
         double melhorFitness;
         if (Pop.size() > 0) {
@@ -1584,7 +1583,7 @@ public class AlgoritmosMO {
 
         Normalizacao2(arquivo);
 
-        for (Solucao s : arquivo) {
+        for (Solution s : arquivo) {
             s.setFitness(melhorFitness);
         }
         //---------------------------------------------------------------------
@@ -1629,8 +1628,8 @@ public class AlgoritmosMO {
         OrdenaArquivo(arquivo);
     }
     
-    public static void atualizaArquivoTeste(List<Solucao> Pop, List<Solucao> arquivo, int TamMax){
-        List<Solucao> naoDominados = new ArrayList<>();
+    public static void atualizaArquivoTeste(List<Solution> Pop, List<Solution> arquivo, int TamMax){
+        List<Solution> naoDominados = new ArrayList<>();
         Dominancia(Pop, naoDominados);
         arquivo.addAll(naoDominados);
         naoDominados.clear();
@@ -1642,8 +1641,8 @@ public class AlgoritmosMO {
         }
     }
     
-    public static void atualizaArquivoSPEA2(List<Solucao> Pop, List<Solucao> arquivo, int TamMax) {
-        List<Solucao> naoDominados = new ArrayList<>();
+    public static void atualizaArquivoSPEA2(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
+        List<Solution> naoDominados = new ArrayList<>();
         arquivo.addAll(Pop);
         retiraIguais(arquivo);
         Dominancia(arquivo, naoDominados);
@@ -1656,7 +1655,7 @@ public class AlgoritmosMO {
         //OrdenaArquivo(Pop);
         int i = 0;
         if (arquivo.size() < TamMax) {
-            List<Solucao> NewPop = new ArrayList<>();
+            List<Solution> NewPop = new ArrayList<>();
             NewPop.addAll(Pop);
             NewPop.addAll(arquivo);
             do {
@@ -1670,11 +1669,11 @@ public class AlgoritmosMO {
         OrdenaArquivo(arquivo);
     }
 
-    public static void atualizaArquivoNSGA(List<Solucao> Pop, List<Solucao> arquivo, int TamMax) {
+    public static void atualizaArquivoNSGA(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
 //        List<Solucao> naoDominados = new ArrayList<>();
 //        List<Solucao> lista = new ArrayList<>();
-//        for(Solucao s: Pop){
-//            for(Solucao s_arquivo: arquivo){
+//        for(Solution s: Pop){
+//            for(Solution s_arquivo: arquivo){
 //                if(s != s_arquivo){
 //                    lista.add(s);
 //                    break;
@@ -1690,7 +1689,7 @@ public class AlgoritmosMO {
         //ImprimePopulacao(arquivo);
 
         //arquivo.addAll(Pop);
-        List<Solucao> naoDominados = new ArrayList<>();
+        List<Solution> naoDominados = new ArrayList<>();
         arquivo.addAll(Pop);
         retiraIguais(arquivo);
         Dominancia(arquivo, naoDominados);
@@ -1736,13 +1735,13 @@ public class AlgoritmosMO {
         OrdenaArquivo(arquivo);
     }
 
-    public static void OrdenaArquivo(List<Solucao> arquivo) {
+    public static void OrdenaArquivo(List<Solution> arquivo) {
         int tamanhoArquivo = arquivo.size();
 
         for (int i = 0; i < tamanhoArquivo; i++) {
             for (int j = 0; j < tamanhoArquivo; j++) {
                 if (arquivo.get(i).getF1() < arquivo.get(j).getF1()) {
-                    Solucao s = new Solucao();
+                    Solution s = new Solution();
                     s.setSolucao(arquivo.get(i));
                     arquivo.get(i).setSolucao(arquivo.get(j));
                     arquivo.get(j).setSolucao(s);
@@ -1751,7 +1750,7 @@ public class AlgoritmosMO {
         }
     }
 
-    public static void retiraIguais(List<Solucao> arquivo) {
+    public static void retiraIguais(List<Solution> arquivo) {
         int tamanhoArquivo = arquivo.size();
         for (int i = 0; i < tamanhoArquivo; i++) {
             for (int j = i + 1; j < tamanhoArquivo; j++) {
@@ -1782,7 +1781,7 @@ public class AlgoritmosMO {
 //            System.out.println("primeira fronteira = " + front);
 //            List<Integer> dominadas = new ArrayList<>();
 //            
-//            for(Solucao s: front){
+//            for(Solution s: front){
 //                
 //                dominadas.addAll(s.getL());
 //                
@@ -1804,11 +1803,11 @@ public class AlgoritmosMO {
 //        }
 //    }
 
-    public static void FNDS(List<Solucao> Pop, List<List<Solucao>> fronts) {
-        List<Solucao> PopAux = new ArrayList<>();//lista para remover soluções
+    public static void FNDS(List<Solution> Pop, List<List<Solution>> fronts) {
+        List<Solution> PopAux = new ArrayList<>();//lista para remover soluções
         PopAux.addAll(Pop);
         fronts.clear();
-        List<Solucao> front = new ArrayList<>();//lista com apenas uma fronteira
+        List<Solution> front = new ArrayList<>();//lista com apenas uma fronteira
         int contador = 0;
         //ImprimePopulacao(Pop);
         while (PopAux.size() > 0) {
@@ -1818,7 +1817,7 @@ public class AlgoritmosMO {
                 }
             }
 
-            for (Solucao s : front) {
+            for (Solution s : front) {
                 for (int posicao : s.getL()) {
                     Pop.get(posicao).redeDom();
                 }
@@ -1830,7 +1829,7 @@ public class AlgoritmosMO {
             //System.out.println(front);
             //System.out.println(fronts.size());
             //ImprimePopulacao(front);
-            for (Solucao s : PopAux) {//forçando a barra - olhar o motivo de dar numero negativo no eDom
+            for (Solution s : PopAux) {//forçando a barra - olhar o motivo de dar numero negativo no eDom
                 if (s.geteDom() < 0) {
                     s.seteDom(0);
                 }
@@ -1846,7 +1845,7 @@ public class AlgoritmosMO {
         for (int i = 0; i < fronts.size(); i++) {
             //System.out.println(i);
             front.addAll(fronts.get(i));
-            for (Solucao s : front) {
+            for (Solution s : front) {
                 s.seteDom(i);
             }
             //System.out.println(front.size());
@@ -1854,22 +1853,22 @@ public class AlgoritmosMO {
         }
         //System.out.println("\n");
         Pop.clear();
-        for (List<Solucao> f : fronts) {
+        for (List<Solution> f : fronts) {
             Pop.addAll(f);
             //System.out.println(f);
         }
     }
 
-    public static void FNDS2(List<Solucao> Pop, List<List<Solucao>> fronts) {
-        List<Solucao> PopAux = new ArrayList<>();//lista para remover soluções
+    public static void FNDS2(List<Solution> Pop, List<List<Solution>> fronts) {
+        List<Solution> PopAux = new ArrayList<>();//lista para remover soluções
         PopAux.addAll(Pop);
-        List<Solucao> front = new ArrayList<>();//lista com apenas uma fronteira
+        List<Solution> front = new ArrayList<>();//lista com apenas uma fronteira
 
         //fronts.add(new ArrayList<>());
         int contador = 0;
 //        for(int i=0; i<Pop.size();i++){
 //            for(int j=0; j<PopAux.size();j++){
-//                for(Solucao s: PopAux){
+//                for(Solution s: PopAux){
 //                    if(s.geteDom()==i){
 //                        front.add(s);
 //                    }
@@ -1909,11 +1908,11 @@ public class AlgoritmosMO {
         //System.out.println("Tamanho = " + fronts.size());
     }
 
-    public static void FNDS3(List<Solucao> Pop, List<List<Solucao>> fronts) {
-        List<Solucao> PopAux = new ArrayList<>();//lista para remover soluções
+    public static void FNDS3(List<Solution> Pop, List<List<Solution>> fronts) {
+        List<Solution> PopAux = new ArrayList<>();//lista para remover soluções
         PopAux.addAll(Pop);
         fronts.clear();
-        List<Solucao> front = new ArrayList<>();//lista com apenas uma fronteira
+        List<Solution> front = new ArrayList<>();//lista com apenas uma fronteira
         int contador = 0;
 
         while (PopAux.size() > 0) {
@@ -1935,7 +1934,7 @@ public class AlgoritmosMO {
         for (int i = 0; i < fronts.size(); i++) {
             //System.out.println(i);
             front.addAll(fronts.get(i));
-            for (Solucao s : front) {
+            for (Solution s : front) {
                 s.seteDom(i);
             }
             //System.out.println(front.size());
@@ -1943,13 +1942,13 @@ public class AlgoritmosMO {
         }
         //System.out.println("\n");
         Pop.clear();
-        for (List<Solucao> f : fronts) {
+        for (List<Solution> f : fronts) {
             Pop.addAll(f);
             //System.out.println(f);
         }
     }
 
-    public static void ReduzPopulacao(List<Solucao> Pop_linha, List<List<Solucao>> fronts, int TamPop) {
+    public static void ReduzPopulacao(List<Solution> Pop_linha, List<List<Solution>> fronts, int TamPop) {
         for (int i = 0; i < fronts.size(); i++) {
             Pop_linha.addAll(fronts.get(i));
             ImprimePopulacao(Pop_linha);
@@ -1961,13 +1960,13 @@ public class AlgoritmosMO {
         }
     }
 
-    public static Solucao MOVND(Solucao s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
+    public static Solution MOVND(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
             Integer Qmax, Integer TimeWindows) {
 
         Random rnd = new Random();
-        Solucao melhor = new Solucao(s_0);
-        Solucao s_linha = new Solucao();
-        Solucao s = new Solucao();
+        Solution melhor = new Solution(s_0);
+        Solution s_linha = new Solution();
+        Solution s = new Solution();
         int cont1 = 0;
         int k, r;
         r = 4;
@@ -1991,7 +1990,7 @@ public class AlgoritmosMO {
         return melhor;
     }
 
-    public static void buscaLocal(List<Solucao> arquivo, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U,
+    public static void buscaLocal(List<Solution> arquivo, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U,
             Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
             Integer Qmax, Integer TimeWindows) {
         Random rnd = new Random();
@@ -1999,31 +1998,31 @@ public class AlgoritmosMO {
         //numeroSolucoes = 10;
         //System.out.println("Numero solucoes para busca = " + numeroSolucoes);
 
-        List<Solucao> naoDominados = new ArrayList<>();
+        List<Solution> naoDominados = new ArrayList<>();
         Dominancia(arquivo, naoDominados);
         numeroSolucoes = naoDominados.size() / 5;
         //ImprimePopulacao(naoDominados);
         for (int i = 0; i < numeroSolucoes; i++) {
 //            int posicao = rnd.nextInt(arquivo.size());
 //            System.out.println(posicao);
-//            Solucao s = new Solucao(MOVND(arquivo.get(posicao), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+//            Solution s = new Solution(MOVND(arquivo.get(posicao), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 //            arquivo.get(posicao).setSolucao(s);
             int posicao = rnd.nextInt(naoDominados.size());
             System.out.println(posicao);
-            Solucao s = new Solucao(MOVND(naoDominados.get(posicao), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            Solution s = new Solution(MOVND(naoDominados.get(posicao), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
             arquivo.add(s);
         }
 
     }
 
-    public static Solucao MOILS(Solucao s_0, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
+    public static Solution MOILS(Solution s_0, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
             List<List<Integer>> c, Integer TimeWindows) {
         //Solução inicial já é gerada pelo GA
-        Solucao s = new Solucao(s_0);
-        Solucao s_linha = new Solucao();
-        Solucao s_2linha = new Solucao();
-        List<Solucao> historico = new ArrayList<>();
+        Solution s = new Solution(s_0);
+        Solution s_linha = new Solution();
+        Solution s_2linha = new Solution();
+        List<Solution> historico = new ArrayList<>();
         int MAXITER = 20;
 
         //BuscaLocal
@@ -2071,12 +2070,12 @@ public class AlgoritmosMO {
         return s_0;
     }
 
-    public static Solucao primeiroMelhorVizinhoMO(Solucao s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
+    public static Solution primeiroMelhorVizinhoMO(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
-        Solucao melhor = new Solucao(s);
+        Solution melhor = new Solution(s);
 
-        Solucao aux = new Solucao();
+        Solution aux = new Solution();
 
         List<Integer> original = new ArrayList<Integer>(s.getRotaConcatenada());
 
@@ -2284,12 +2283,12 @@ public class AlgoritmosMO {
         return melhor;
     }
 
-    public static Solucao melhorVizinho(Solucao s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
+    public static Solution melhorVizinho(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
-        Solucao melhor = new Solucao(s);
+        Solution melhor = new Solution(s);
 
-        Solucao aux = new Solucao();
+        Solution aux = new Solution();
 
         List<Integer> original = new ArrayList<Integer>(s.getRotaConcatenada());
 
