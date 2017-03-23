@@ -1,0 +1,181 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJMWh1Tl-XpgARaXDSSpbkVjg",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJedAMjViXpgARNgo5SyFMQ2Y",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9184725,
+               "lng" : -43.9441868
+            },
+            "southwest" : {
+               "lat" : -19.9231265,
+               "lng" : -43.9470446
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "1.2 km",
+                  "value" : 1153
+               },
+               "duration" : {
+                  "text" : "5 mins",
+                  "value" : 304
+               },
+               "end_address" : "Av. Olegário Maciel, 748 - Centro, Belo Horizonte - MG, 30180-110, Brazil",
+               "end_location" : {
+                  "lat" : -19.9209476,
+                  "lng" : -43.9447298
+               },
+               "start_address" : "Praça Raul Soares, 14 - Centro, Belo Horizonte - MG, 30180-030, Brazil",
+               "start_location" : {
+                  "lat" : -19.9231265,
+                  "lng" : -43.9443893
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 225
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 55
+                     },
+                     "end_location" : {
+                        "lat" : -19.9220051,
+                        "lng" : -43.9455106
+                     },
+                     "html_instructions" : "Head \u003cb\u003enortheast\u003c/b\u003e on \u003cb\u003ePraça Raul Soares\u003c/b\u003e toward \u003cb\u003eAv. Augusto de Lima\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "pfrxBl{ekGGCKESGKAKAMAK?M@K@KBKD]PGFGFGHEHEHEHIPENCPCPAN?N?NBNBLDJ"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9231265,
+                        "lng" : -43.9443893
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 311
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 60
+                     },
+                     "end_location" : {
+                        "lat" : -19.9196065,
+                        "lng" : -43.9470446
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Bias Fortes\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "p_rxBlbfkGgAl@iAl@_Af@cBz@QHcBbAa@VIDGD"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9220051,
+                        "lng" : -43.9455106
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 132
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 25
+                     },
+                     "end_location" : {
+                        "lat" : -19.9184725,
+                        "lng" : -43.9466774
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Mato Grosso\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "ppqxB~kfkGWGeAUeCi@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9196065,
+                        "lng" : -43.9470446
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 269
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 78
+                     },
+                     "end_location" : {
+                        "lat" : -19.9190694,
+                        "lng" : -43.9441868
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e at the 1st cross street onto \u003cb\u003eRua dos Tamôios\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "liqxBvifkGh@gDTyAZ{BZsB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9184725,
+                        "lng" : -43.9466774
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 216
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 86
+                     },
+                     "end_location" : {
+                        "lat" : -19.9209476,
+                        "lng" : -43.9447298
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Olegário Maciel\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "dmqxBdzekGrFdAbCd@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9190694,
+                        "lng" : -43.9441868
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "pfrxBl{ekGSI_@Is@AWDi@V]b@[t@Gb@A^B^HXqCzAcDbBuBlAk@\\GDWGkE_AvBqNvJjB"
+         },
+         "summary" : "Av. Bias Fortes",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

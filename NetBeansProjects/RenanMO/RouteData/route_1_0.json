@@ -1,0 +1,274 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJuyXL-PmZpgARjmiyFx2UJlE",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJbfevC_6ZpgAR_R-g4-MuUFk",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9138376,
+               "lng" : -43.9344971
+            },
+            "southwest" : {
+               "lat" : -19.922086,
+               "lng" : -43.9417671
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "1.9 km",
+                  "value" : 1853
+               },
+               "duration" : {
+                  "text" : "8 mins",
+                  "value" : 451
+               },
+               "end_address" : "Av. do Contorno, 340 - Santa Efigênia, Belo Horizonte - MG, 30110-017, Brazil",
+               "end_location" : {
+                  "lat" : -19.9140985,
+                  "lng" : -43.9417671
+               },
+               "start_address" : "Av. dos Andradas, 128 - Centro, Belo Horizonte - MG, 30120-010, Brazil",
+               "start_location" : {
+                  "lat" : -19.9166804,
+                  "lng" : -43.9344971
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "90 m",
+                        "value" : 90
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 17
+                     },
+                     "end_location" : {
+                        "lat" : -19.9174587,
+                        "lng" : -43.9347238
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eAv. dos Andradas\u003c/b\u003e toward \u003cb\u003eRua dos Caetés\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "f~pxBr}ckGF@NBx@Pj@J\\F"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9166804,
+                        "lng" : -43.9344971
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "74 m",
+                        "value" : 74
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 18
+                     },
+                     "end_location" : {
+                        "lat" : -19.9174066,
+                        "lng" : -43.9353914
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eRua dos Caetés\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "bcqxB~~ckGCPKh@G\\?D?B?F@D?DBBFH"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9174587,
+                        "lng" : -43.9347238
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 537
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 129
+                     },
+                     "end_location" : {
+                        "lat" : -19.922086,
+                        "lng" : -43.9366758
+                     },
+                     "html_instructions" : "\u003cb\u003eRua dos Caetés\u003c/b\u003e turns \u003cb\u003eleft\u003c/b\u003e and becomes \u003cb\u003eR. da Bahia\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "xbqxBdcdkGxDv@b@HxB^xB`@bEr@p@Nd@H`@FdBXp@L"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9174066,
+                        "lng" : -43.9353914
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 199
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 37
+                     },
+                     "end_location" : {
+                        "lat" : -19.9205475,
+                        "lng" : -43.9376498
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Afonso Pena\u003c/b\u003e (signs for \u003cb\u003eRodoviária\u003c/b\u003e)",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "``rxBfkdkGg@VOJYHaAh@{@d@a@Xe@X[N"
+                     },
+                     "start_location" : {
+                        "lat" : -19.922086,
+                        "lng" : -43.9366758
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.6 km",
+                        "value" : 582
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 126
+                     },
+                     "end_location" : {
+                        "lat" : -19.9160326,
+                        "lng" : -43.9404529
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eAv. Afonso Pena\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "lvqxBhqdkGaAh@uDfBYPi@VYR_ChAoAr@i@XWNGDy@f@]RgCnAw@d@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9205475,
+                        "lng" : -43.9376498
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "89 m",
+                        "value" : 89
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 20
+                     },
+                     "end_location" : {
+                        "lat" : -19.9152571,
+                        "lng" : -43.9403703
+                     },
+                     "html_instructions" : "\u003cb\u003eAv. Afonso Pena\u003c/b\u003e turns slightly \u003cb\u003eright\u003c/b\u003e and becomes \u003cb\u003ePraça Rio Branco\u003c/b\u003e/\u003cb\u003eR. Curitiba\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "dzpxBxbekGMDG@E@C?E?SCWEgAO"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9160326,
+                        "lng" : -43.9404529
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "64 m",
+                        "value" : 64
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 18
+                     },
+                     "end_location" : {
+                        "lat" : -19.9150547,
+                        "lng" : -43.9408238
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eCorredor MOVE Centro\u003c/b\u003e/\u003cb\u003ePraça Rio Branco\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "jupxBhbekGKAMAGn@Gl@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9152571,
+                        "lng" : -43.9403703
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 96
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 40
+                     },
+                     "end_location" : {
+                        "lat" : -19.9143135,
+                        "lng" : -43.9409559
+                     },
+                     "html_instructions" : "\u003cb\u003eCorredor MOVE Centro\u003c/b\u003e/\u003cb\u003ePraça Rio Branco\u003c/b\u003e turns slightly \u003cb\u003eright\u003c/b\u003e and becomes \u003cb\u003eR. Saturnino de Brito\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "`tpxBbeekGCFELADCDABC@C@E@UB}AS"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9150547,
+                        "lng" : -43.9408238
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 122
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 46
+                     },
+                     "end_location" : {
+                        "lat" : -19.9140985,
+                        "lng" : -43.9417671
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "lopxB~eekGIFGFOHw@`@CB?@?@?@?@@Bp@tA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9143135,
+                        "lng" : -43.9409559
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "f~pxBr}ckG|Bb@\\FCPSfA@VBHFHxDv@|Ch@|HtAvAXfC`@p@Lg@Vi@T}BnAgAr@}Ax@oExBcAj@_ChAoAr@aAh@aAl@eDbBw@d@MDMBI?_C[MAGn@Gl@CFGREHc@H}ASIFWP{@f@?Dr@xA"
+         },
+         "summary" : "R. da Bahia and Av. Afonso Pena",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

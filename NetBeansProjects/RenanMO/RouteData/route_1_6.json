@@ -1,0 +1,204 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJuyXL-PmZpgARjmiyFx2UJlE",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EkNSdWEgZG9zIFR1cGlzLCAzMTQgLSBDZW50cm8sIEJlbG8gSG9yaXpvbnRlIC0gTUcsIDMwMTkwLTA2MCwgQnJhc2ls",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9166804,
+               "lng" : -43.9344971
+            },
+            "southwest" : {
+               "lat" : -19.92459,
+               "lng" : -43.9412476
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "1.7 km",
+                  "value" : 1741
+               },
+               "duration" : {
+                  "text" : "8 mins",
+                  "value" : 459
+               },
+               "end_address" : "Rua dos Tupis, 314 - Centro, Belo Horizonte - MG, 30190-060, Brazil",
+               "end_location" : {
+                  "lat" : -19.9213968,
+                  "lng" : -43.9400441
+               },
+               "start_address" : "Av. dos Andradas, 128 - Centro, Belo Horizonte - MG, 30120-010, Brazil",
+               "start_location" : {
+                  "lat" : -19.9166804,
+                  "lng" : -43.9344971
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "90 m",
+                        "value" : 90
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 17
+                     },
+                     "end_location" : {
+                        "lat" : -19.9174587,
+                        "lng" : -43.9347238
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eAv. dos Andradas\u003c/b\u003e toward \u003cb\u003eRua dos Caetés\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "f~pxBr}ckGF@NBx@Pj@J\\F"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9166804,
+                        "lng" : -43.9344971
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "74 m",
+                        "value" : 74
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 18
+                     },
+                     "end_location" : {
+                        "lat" : -19.9174066,
+                        "lng" : -43.9353914
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eRua dos Caetés\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "bcqxB~~ckGCPKh@G\\?D?B?F@D?DBBFH"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9174587,
+                        "lng" : -43.9347238
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.8 km",
+                        "value" : 825
+                     },
+                     "duration" : {
+                        "text" : "3 mins",
+                        "value" : 206
+                     },
+                     "end_location" : {
+                        "lat" : -19.92459,
+                        "lng" : -43.9373571
+                     },
+                     "html_instructions" : "\u003cb\u003eRua dos Caetés\u003c/b\u003e turns \u003cb\u003eleft\u003c/b\u003e and becomes \u003cb\u003eR. da Bahia\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "xbqxBdcdkGxDv@b@HxB^xB`@bEr@p@Nd@H`@FdBXp@Ll@LZFhARjCb@fARjCd@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9174066,
+                        "lng" : -43.9353914
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 420
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 108
+                     },
+                     "end_location" : {
+                        "lat" : -19.9236406,
+                        "lng" : -43.9412476
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Augusto de Lima\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "torxBnodkG_AfGIb@w@zE{@`G"
+                     },
+                     "start_location" : {
+                        "lat" : -19.92459,
+                        "lng" : -43.9373571
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 273
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 75
+                     },
+                     "end_location" : {
+                        "lat" : -19.9212651,
+                        "lng" : -43.9405905
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. São Paulo\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "virxBxgekGgAOcDo@oAWQCkCg@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9236406,
+                        "lng" : -43.9412476
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "59 m",
+                        "value" : 59
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 35
+                     },
+                     "end_location" : {
+                        "lat" : -19.9213968,
+                        "lng" : -43.9400441
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eRua dos Tupis\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "|zqxBtcekGFi@Hi@FY"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9212651,
+                        "lng" : -43.9405905
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "f~pxBr}ckG|Bb@\\FCPSfA@VBHFHxDv@|Ch@|HtAvAXfC`@dEv@rEv@jCd@_AfGaA~F{@`GgAOsFgA}Ck@XmB"
+         },
+         "summary" : "R. da Bahia",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

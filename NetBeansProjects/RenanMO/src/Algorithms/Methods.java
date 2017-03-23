@@ -55,13 +55,16 @@ import static java.util.stream.Collectors.toSet;
 public class Methods {
 
     public static Integer readProblemData(List<Request> listOfRequests, List<List<Integer>> distanceBetweenNodes,
-            List<List<Integer>> timeBetweenNodes, Set<Integer> setOfOrigins, Set<Integer> setOfDestinations, 
+            List<List<Integer>> timeBetweenNodes, Set<Integer> setOfOrigins, Set<Integer> setOfDestinations,
             Map<Integer, List<Request>> requestsWichBoardsInNode, Map<Integer, List<Request>> requestsWichLeavesInNode,
             Set<Integer> setOfNodes, Integer numberOfNodes, List<Integer> loadIndex) {
 
+//        String instanceName = "requests110";
+//        String nodesTable = "bh_nodes_2";
+//        String adjacenciesTable = "Adjacencies_bh_nodes";
         String instanceName = "requests110";
-        String nodesTable = "bh_nodes_2";
-        String adjacenciesTable = "Adjacencies_bh_nodes";
+        String nodesTable = "bh_nodes_little";
+        String adjacenciesTable = "adjacencies_bh_nodes_little";
 
         listOfRequests.addAll(new RequestDAO(instanceName).getListOfRequest());
         setOfNodes.addAll(new NodeDAO(nodesTable).getSetOfNodes());
@@ -75,14 +78,12 @@ public class Methods {
         setOfDestinations.addAll(listOfRequests.stream()
                 .map(Request::getDestination)
                 .collect(Collectors.toCollection(HashSet::new)));
-        
+
         requestsWichBoardsInNode.putAll(listOfRequests.stream()
                 .collect(Collectors.groupingBy(Request::getOrigin)));
         requestsWichLeavesInNode.putAll(listOfRequests.stream()
                 .collect(Collectors.groupingBy(Request::getDestination)));
 
-        
-        
         for (int i = 0; i < numberOfNodes; i++) {
             if (requestsWichBoardsInNode.get(i) != null && requestsWichLeavesInNode.get(i) != null) {
                 loadIndex.add(requestsWichBoardsInNode.get(i).size() - requestsWichLeavesInNode.get(i).size());
@@ -91,7 +92,7 @@ public class Methods {
             }
 
         }
-        
+
         return numberOfNodes;
     }
 

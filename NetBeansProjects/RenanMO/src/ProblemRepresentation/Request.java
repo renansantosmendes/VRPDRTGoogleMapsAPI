@@ -53,15 +53,15 @@ public class Request implements Comparable, Cloneable{
 		this.origin = origin;
 		this.destination = destination;
 		
-		this.pickupE = pickupE/60;
+		this.pickupE = pickupE;
 		if(pickupL - pickupE > 0)
-			this.pickupL = pickupL/60;
+			this.pickupL = pickupL;
 		else
 			this.pickupL = pickupE + timeWindowDefault;
 		
-		this.deliveryE = deliveryE/60;
+		this.deliveryE = deliveryE;
 		if(deliveryL - deliveryE > 0)
-			this.deliveryL = deliveryL/60;
+			this.deliveryL = deliveryL;
 		else
 			this.deliveryL = deliveryE + timeWindowDefault;
 	}

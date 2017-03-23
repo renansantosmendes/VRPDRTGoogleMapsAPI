@@ -1,0 +1,273 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EkdSdWEgR3VhaWN1cnVzLCAzNDgtMzU0IC0gQ2VudHJvLCBCZWxvIEhvcml6b250ZSAtIE1HLCAzMDExMS0wNjAsIEJyYXNpbA",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJedAMjViXpgARNgo5SyFMQ2Y",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9100619,
+               "lng" : -43.9368628
+            },
+            "southwest" : {
+               "lat" : -19.9209476,
+               "lng" : -43.9447298
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "2.3 km",
+                  "value" : 2280
+               },
+               "duration" : {
+                  "text" : "7 mins",
+                  "value" : 440
+               },
+               "end_address" : "Av. Olegário Maciel, 748 - Centro, Belo Horizonte - MG, 30180-110, Brazil",
+               "end_location" : {
+                  "lat" : -19.9209476,
+                  "lng" : -43.9447298
+               },
+               "start_address" : "Rua Guaicurus, 348-354 - Centro, Belo Horizonte - MG, 30111-060, Brazil",
+               "start_location" : {
+                  "lat" : -19.9152414,
+                  "lng" : -43.9368628
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 353
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 109
+                     },
+                     "end_location" : {
+                        "lat" : -19.9144176,
+                        "lng" : -43.9401199
+                     },
+                     "html_instructions" : "Head \u003cb\u003ewest\u003c/b\u003e on \u003cb\u003eRua Guaicurus\u003c/b\u003e toward \u003cb\u003eR. Rio de Janeiro\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "fupxBjldkGAD_@`C_@~B_@`C_@~Ba@`C"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9152414,
+                        "lng" : -43.9368628
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.4 km",
+                        "value" : 373
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 47
+                     },
+                     "end_location" : {
+                        "lat" : -19.9115066,
+                        "lng" : -43.9416445
+                     },
+                     "html_instructions" : "Take the ramp to \u003cb\u003eAv. Pres. Antônio Carlos\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "bppxBv`ekGK\\OLKFOJcAn@kAt@]XKFMHOHOFIDGBg@Ra@NKDMBUFOBm@FS?gA?"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9144176,
+                        "lng" : -43.9401199
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 143
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 13
+                     },
+                     "end_location" : {
+                        "lat" : -19.9104382,
+                        "lng" : -43.9423521
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eleft\u003c/b\u003e at the fork, follow signs for \u003cb\u003eAv. Pedro II\u003c/b\u003e/\u003cb\u003eLagoinha\u003c/b\u003e",
+                     "maneuver" : "fork-left",
+                     "polyline" : {
+                        "points" : "|}oxBfjekGc@J[JYLOJE@WPQNMHEBEFCBCHKHMH"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9115066,
+                        "lng" : -43.9416445
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 223
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 24
+                     },
+                     "end_location" : {
+                        "lat" : -19.9113604,
+                        "lng" : -43.941843
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e to merge onto \u003cb\u003eAv. Pres. Antônio Carlos\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "fwoxBtnekGQCAAC?K?EAEAEAECECACCGCG?I@I@G@EDGHILGLGHGBABG^E^Ad@@TBRF^JND"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9104382,
+                        "lng" : -43.9423521
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "55 m",
+                        "value" : 55
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 6
+                     },
+                     "end_location" : {
+                        "lat" : -19.9117168,
+                        "lng" : -43.9422115
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e toward \u003cb\u003ePraça do Peixe\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "~|oxBnkekGb@d@b@b@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9113604,
+                        "lng" : -43.941843
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "61 m",
+                        "value" : 61
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 7
+                     },
+                     "end_location" : {
+                        "lat" : -19.9120696,
+                        "lng" : -43.9426522
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003ePraça do Peixe\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "f_pxBxmekGNNNNTZNZ"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9117168,
+                        "lng" : -43.9422115
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 262
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 26
+                     },
+                     "end_location" : {
+                        "lat" : -19.9139307,
+                        "lng" : -43.94307269999999
+                     },
+                     "html_instructions" : "Take the exit on the \u003cb\u003eleft\u003c/b\u003e toward \u003cb\u003eCentro\u003c/b\u003e",
+                     "maneuver" : "ramp-left",
+                     "polyline" : {
+                        "points" : "lapxBppekGX`@RTb@d@fA`ALJLFJDF@P?PCVKPOf@_@r@g@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9120696,
+                        "lng" : -43.9426522
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 170
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 31
+                     },
+                     "end_location" : {
+                        "lat" : -19.9153852,
+                        "lng" : -43.943154
+                     },
+                     "html_instructions" : "Keep \u003cb\u003eright\u003c/b\u003e, follow signs for \u003cb\u003eAv. Olegário Maciel\u003c/b\u003e",
+                     "maneuver" : "keep-right",
+                     "polyline" : {
+                        "points" : "`mpxBdsekGF?HAHEPGHGHEJCJCN?LBHBLBvAVXFPDNB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9139307,
+                        "lng" : -43.94307269999999
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.6 km",
+                        "value" : 640
+                     },
+                     "duration" : {
+                        "text" : "3 mins",
+                        "value" : 177
+                     },
+                     "end_location" : {
+                        "lat" : -19.9209476,
+                        "lng" : -43.9447298
+                     },
+                     "html_instructions" : "Continue onto \u003cb\u003eAv. Olegário Maciel\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "dvpxBtsekGnA\\bDr@pF`AdBXrC`@rFdAbCd@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9153852,
+                        "lng" : -43.943154
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "fupxBjldkGaBhKaA`GK\\OL[RoCdBi@`@]RiAd@m@Tc@J}@J{A?_AVi@X}@l@KJGLYRSE[CKEGGGO@SBMNQh@YBG^EdA?h@Jn@PfBhBTZNZl@v@jBfBZRRFb@Ch@[zAgAPAZMRMVG\\BVFrCh@rFpAvIzArC`@rFdAbCd@"
+         },
+         "summary" : "Av. Olegário Maciel",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

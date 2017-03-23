@@ -119,21 +119,21 @@ public class RequestDAO {
             ResultSet resultSetForRequests = statement.executeQuery();
 
             while (resultSetForRequests.next()) {
-
+                int valueAdded = 420;
                 Integer requestId = resultSetForRequests.getInt("id");
                 Integer passengerOrigin = resultSetForRequests.getInt("passengerOrigin");
                 Integer passengerDestination = resultSetForRequests.getInt("passengerDestination");
-                Integer pickUpTimeWindowLower = 60*(resultSetForRequests.getTime("pickUpTimeWindowLower").toLocalTime().getHour()
-                        + resultSetForRequests.getTime("pickUpTimeWindowLower").toLocalTime().getMinute());
+                Integer pickUpTimeWindowLower = 60*(resultSetForRequests.getTime("pickUpTimeWindowLower").toLocalTime().getHour())
+                        + resultSetForRequests.getTime("pickUpTimeWindowLower").toLocalTime().getMinute() + valueAdded;
 
-                Integer pickUpTimeWindowUpper = 60*(resultSetForRequests.getTime("pickUpTimeWindowUpper").toLocalTime().getHour()
-                        + resultSetForRequests.getTime("pickUpTimeWindowUpper").toLocalTime().getMinute());
+                Integer pickUpTimeWindowUpper = 60*(resultSetForRequests.getTime("pickUpTimeWindowUpper").toLocalTime().getHour())
+                        + resultSetForRequests.getTime("pickUpTimeWindowUpper").toLocalTime().getMinute() + valueAdded;
 
-                Integer deliveryTimeWindowLower = 60*(resultSetForRequests.getTime("deliveryTimeWindowLower").toLocalTime().getHour()
-                        + resultSetForRequests.getTime("deliveryTimeWindowLower").toLocalTime().getMinute());
+                Integer deliveryTimeWindowLower = 60*(resultSetForRequests.getTime("deliveryTimeWindowLower").toLocalTime().getHour())
+                        + resultSetForRequests.getTime("deliveryTimeWindowLower").toLocalTime().getMinute() + valueAdded;
 
-                Integer deliveryTimeWindowUpper = 60*(resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime().getHour()
-                        + resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime().getMinute());
+                Integer deliveryTimeWindowUpper = 60*(resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime().getHour())
+                        + resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime().getMinute() + valueAdded;
                 Request request = new Request(requestId, passengerOrigin, passengerDestination, pickUpTimeWindowLower,
                         pickUpTimeWindowUpper,deliveryTimeWindowLower ,deliveryTimeWindowUpper);
                 listOfRequests.add(request);

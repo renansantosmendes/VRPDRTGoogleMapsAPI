@@ -37,13 +37,14 @@ public class StaticGoogleMap {
     private StringBuilder stringOfNodes = new StringBuilder();
     private StringBuilder polylines = new StringBuilder();
     private StringBuilder polylinesForAllRotes = new StringBuilder();
+    private String mapCenter = "Galeria+Ouvidor";
     private String city = "Belo+Horizonte";
     private String state = "Minas+Gerais";
     private String country = "Brasil";
-    private int zoom = 13;
+    private int zoom = 15;
     private int scale = 2;
-    private int width = 1000;
-    private int height = 1000;
+    private int width = 1200;
+    private int height = 1200;
     private String mapType = "roadmap";
     private String color = "red";
     private int weight = 4;
@@ -87,7 +88,7 @@ public class StaticGoogleMap {
     }
 
     public URL buildURL() throws MalformedURLException, IOException {
-        URL url = new URL(URLRoot + city + "," + state + "," + country + "&zoom=" + zoom + "&scale=" + scale
+        URL url = new URL(URLRoot + mapCenter + ","+ city + "," + state + "," + country + "&zoom=" + zoom + "&scale=" + scale
                 + "&size=" + width + "x" + height + "&maptype=" + mapType + stringOfNodes.toString()
                 + pathGeneratedForAllRoutes + "&key=" + staticMapKey + "&format=jpg");
 //        URL url = new URL(URLRoot + city + "," + state + "," + country + "&zoom=" + zoom + "&scale=" + scale
@@ -123,7 +124,7 @@ public class StaticGoogleMap {
         }
 
         frame.add(new JLabel(new ImageIcon((new ImageIcon(staticMapsFolder+"/Route_"+ totalOfRoutes + "_Static_Map.jpg"))
-                .getImage().getScaledInstance(630, 600, java.awt.Image.SCALE_SMOOTH))));
+                .getImage().getScaledInstance(730, 700, java.awt.Image.SCALE_SMOOTH))));
         frame.setVisible(true);
         frame.pack();
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);

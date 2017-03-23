@@ -1,0 +1,205 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJ_5d_z-aZpgARN03NoETaJpo",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJEdCm6OSZpgARqr5sBEXN9TA",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.920802,
+               "lng" : -43.9370547
+            },
+            "southwest" : {
+               "lat" : -19.9283265,
+               "lng" : -43.9396512
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "1.4 km",
+                  "value" : 1421
+               },
+               "duration" : {
+                  "text" : "6 mins",
+                  "value" : 366
+               },
+               "end_address" : "Av. Afonso Pena, 994 - Centro, Belo Horizonte - MG, 30130-002, Brazil",
+               "end_location" : {
+                  "lat" : -19.9218083,
+                  "lng" : -43.9370547
+               },
+               "start_address" : "Av. Álvares Cabral, 365 - Lourdes, Belo Horizonte - MG, 30170-000, Brazil",
+               "start_location" : {
+                  "lat" : -19.9263141,
+                  "lng" : -43.9383953
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "72 m",
+                        "value" : 72
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 26
+                     },
+                     "end_location" : {
+                        "lat" : -19.9261032,
+                        "lng" : -43.9377742
+                     },
+                     "html_instructions" : "Head \u003cb\u003enortheast\u003c/b\u003e on \u003cb\u003eAv. Álvares Cabral\u003c/b\u003e toward \u003cb\u003eR. da Bahia\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "lzrxB~udkGg@kACGAI?MBQ"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9263141,
+                        "lng" : -43.9383953
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 256
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 54
+                     },
+                     "end_location" : {
+                        "lat" : -19.9283265,
+                        "lng" : -43.9383986
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. da Bahia\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "byrxB`rdkGbEv@|B`@zBb@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9261032,
+                        "lng" : -43.9377742
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 135
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 37
+                     },
+                     "end_location" : {
+                        "lat" : -19.9280146,
+                        "lng" : -43.9396512
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e at the 2nd cross street onto \u003cb\u003eRua dos Aimorés\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "`gsxB~udkG_@|B_@zB"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9283265,
+                        "lng" : -43.9383986
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.7 km",
+                        "value" : 705
+                     },
+                     "duration" : {
+                        "text" : "3 mins",
+                        "value" : 171
+                     },
+                     "end_location" : {
+                        "lat" : -19.9218666,
+                        "lng" : -43.9380169
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e at the 1st cross street onto \u003cb\u003eR. Espírito Santo\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "`esxBx}dkG{AU}ASg@KUCQEo@MyAUw@Oa@Gi@Mq@OeB[e@EUEiF_AuFcA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9280146,
+                        "lng" : -43.9396512
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 124
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 40
+                     },
+                     "end_location" : {
+                        "lat" : -19.920802,
+                        "lng" : -43.937665
+                     },
+                     "html_instructions" : "Continue straight to stay on \u003cb\u003eR. Espírito Santo\u003c/b\u003e",
+                     "maneuver" : "straight",
+                     "polyline" : {
+                        "points" : "t~qxBrsdkGYGSCGEgBa@w@S"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9218666,
+                        "lng" : -43.9380169
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 129
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 38
+                     },
+                     "end_location" : {
+                        "lat" : -19.9218083,
+                        "lng" : -43.9370547
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Afonso Pena\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "~wqxBjqdkGl@Wx@e@`@U~@e@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.920802,
+                        "lng" : -43.937665
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "lzrxB~udkGk@sAAWBQbEv@xFdA_AxFyDi@}@OaAS}E{@q@OeB[{@KmOoCoBg@w@Sl@WzA{@~@e@"
+         },
+         "summary" : "R. Espírito Santo",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

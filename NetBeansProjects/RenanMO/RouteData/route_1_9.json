@@ -1,0 +1,275 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJuyXL-PmZpgARjmiyFx2UJlE",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJE_AciR2apgARPxS5vTrU42w",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.912356,
+               "lng" : -43.9310629
+            },
+            "southwest" : {
+               "lat" : -19.9187102,
+               "lng" : -43.9372076
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "2.0 km",
+                  "value" : 1952
+               },
+               "duration" : {
+                  "text" : "6 mins",
+                  "value" : 352
+               },
+               "end_address" : "R. Célio de Castro, 869 - Floresta, Belo Horizonte - MG, Brazil",
+               "end_location" : {
+                  "lat" : -19.9127637,
+                  "lng" : -43.9310629
+               },
+               "start_address" : "Av. dos Andradas, 128 - Centro, Belo Horizonte - MG, 30120-010, Brazil",
+               "start_location" : {
+                  "lat" : -19.9166804,
+                  "lng" : -43.9344971
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "90 m",
+                        "value" : 90
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 17
+                     },
+                     "end_location" : {
+                        "lat" : -19.9174587,
+                        "lng" : -43.9347238
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eAv. dos Andradas\u003c/b\u003e toward \u003cb\u003eRua dos Caetés\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "f~pxBr}ckGF@NBx@Pj@J\\F"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9166804,
+                        "lng" : -43.9344971
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "74 m",
+                        "value" : 74
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 18
+                     },
+                     "end_location" : {
+                        "lat" : -19.9174066,
+                        "lng" : -43.9353914
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eRua dos Caetés\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "bcqxB~~ckGCPKh@G\\?D?B?F@D?DBBFH"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9174587,
+                        "lng" : -43.9347238
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 128
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 28
+                     },
+                     "end_location" : {
+                        "lat" : -19.9185154,
+                        "lng" : -43.9357179
+                     },
+                     "html_instructions" : "\u003cb\u003eRua dos Caetés\u003c/b\u003e turns \u003cb\u003eleft\u003c/b\u003e and becomes \u003cb\u003eR. da Bahia\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "xbqxBdcdkGxDv@b@H"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9174066,
+                        "lng" : -43.9353914
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "67 m",
+                        "value" : 67
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 40
+                     },
+                     "end_location" : {
+                        "lat" : -19.9186684,
+                        "lng" : -43.935096
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eRua dos Tupinambás\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "viqxBfedkGL}@N}@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9185154,
+                        "lng" : -43.9357179
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 451
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 81
+                     },
+                     "end_location" : {
+                        "lat" : -19.9149596,
+                        "lng" : -43.9340008
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e at the 1st cross street onto \u003cb\u003eAv. dos Andradas\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "tjqxBjadkGBQBSqFgAUI{Bc@GAIAwCg@KCSEYEYESEQAE?Y@O@UD"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9186684,
+                        "lng" : -43.935096
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 314
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 46
+                     },
+                     "end_location" : {
+                        "lat" : -19.9141482,
+                        "lng" : -43.9368585
+                     },
+                     "html_instructions" : "\u003cb\u003eAv. dos Andradas\u003c/b\u003e turns \u003cb\u003eleft\u003c/b\u003e and becomes \u003cb\u003eAv. do Contorno\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "nspxBnzckGU\\INI^IXIVc@vCa@tCUpBGZ"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9149596,
+                        "lng" : -43.9340008
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "43 m",
+                        "value" : 43
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 4
+                     },
+                     "end_location" : {
+                        "lat" : -19.9139483,
+                        "lng" : -43.9372076
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e to stay on \u003cb\u003eAv. do Contorno\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "lnpxBjldkGg@dA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9141482,
+                        "lng" : -43.9368585
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 177
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 23
+                     },
+                     "end_location" : {
+                        "lat" : -19.9124036,
+                        "lng" : -43.9368048
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Varginha\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "dmpxBpndkGuCc@{AY]Ie@I"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9139483,
+                        "lng" : -43.9372076
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.6 km",
+                        "value" : 608
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 95
+                     },
+                     "end_location" : {
+                        "lat" : -19.9127637,
+                        "lng" : -43.9310629
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Célio de Castro\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "ncpxB~kdkG?o@?k@?cA?oBGsG?w@?qA?sA@y@@Y@ODWDUD_@Fc@LeAFk@BO@GBE@CBCBEBC@A"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9124036,
+                        "lng" : -43.9368048
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "f~pxBr}ckG|Bb@\\FCPSfA@VBHFHxDv@b@HL}@RoABSqFgAqCm@uDo@{AWWAi@BUDU\\Sn@Sp@eAlH]lCg@dAuCc@yBc@e@I?o@?oBGcK?iC@mCNwAb@uDJa@LO"
+         },
+         "summary" : "Av. dos Andradas and R. Célio de Castro",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

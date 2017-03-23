@@ -1,0 +1,181 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJ_5d_z-aZpgARN03NoETaJpo",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJMWh1Tl-XpgARaXDSSpbkVjg",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9231265,
+               "lng" : -43.9377742
+            },
+            "southwest" : {
+               "lat" : -19.9307553,
+               "lng" : -43.9446739
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "1.7 km",
+                  "value" : 1691
+               },
+               "duration" : {
+                  "text" : "7 mins",
+                  "value" : 398
+               },
+               "end_address" : "Praça Raul Soares, 14 - Centro, Belo Horizonte - MG, 30180-030, Brazil",
+               "end_location" : {
+                  "lat" : -19.9231265,
+                  "lng" : -43.9443893
+               },
+               "start_address" : "Av. Álvares Cabral, 365 - Lourdes, Belo Horizonte - MG, 30170-000, Brazil",
+               "start_location" : {
+                  "lat" : -19.9263141,
+                  "lng" : -43.9383953
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "72 m",
+                        "value" : 72
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 26
+                     },
+                     "end_location" : {
+                        "lat" : -19.9261032,
+                        "lng" : -43.9377742
+                     },
+                     "html_instructions" : "Head \u003cb\u003enortheast\u003c/b\u003e on \u003cb\u003eAv. Álvares Cabral\u003c/b\u003e toward \u003cb\u003eR. da Bahia\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "lzrxB~udkGg@kACGAI?MBQ"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9263141,
+                        "lng" : -43.9383953
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.5 km",
+                        "value" : 534
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 107
+                     },
+                     "end_location" : {
+                        "lat" : -19.9307553,
+                        "lng" : -43.9390522
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. da Bahia\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "byrxB`rdkGbEv@|B`@zBb@vB^vB\\tBb@bBXZD"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9261032,
+                        "lng" : -43.9377742
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 125
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 48
+                     },
+                     "end_location" : {
+                        "lat" : -19.9304991,
+                        "lng" : -43.9402142
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Gonçalves Dias\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "fvsxB`zdkGs@fF"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9307553,
+                        "lng" : -43.9390522
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.9 km",
+                        "value" : 915
+                     },
+                     "duration" : {
+                        "text" : "3 mins",
+                        "value" : 202
+                     },
+                     "end_location" : {
+                        "lat" : -19.9234243,
+                        "lng" : -43.9446739
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Bias Fortes\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "rtsxBhaekGYRwDtBaAj@e@VID?@KD_Ab@aAd@YP}@b@YN{@`@IDIDqC|AwBlAa@LaCrA{Az@WNQLOHg@RgCzA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9304991,
+                        "lng" : -43.9402142
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "45 m",
+                        "value" : 45
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 15
+                     },
+                     "end_location" : {
+                        "lat" : -19.9231265,
+                        "lng" : -43.9443893
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003ePraça Raul Soares\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the right\u003c/div\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "jhrxBd}ekGEEGKIIGGKIIGCA"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9234243,
+                        "lng" : -43.9446739
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "lzrxB~udkGk@sAAWBQbEv@xFdAnF|@xE|@ZDs@fFqEhCqBjAgD`B}CzA{CbBwBlAa@L}EnCi@\\w@\\gCzAEEQUSQMI"
+         },
+         "summary" : "R. da Bahia and Av. Bias Fortes",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}

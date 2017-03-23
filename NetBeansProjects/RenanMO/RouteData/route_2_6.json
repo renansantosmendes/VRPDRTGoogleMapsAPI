@@ -1,0 +1,229 @@
+{
+   "geocoded_waypoints" : [
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "ChIJedAMjViXpgARNgo5SyFMQ2Y",
+         "types" : [ "street_address" ]
+      },
+      {
+         "geocoder_status" : "OK",
+         "place_id" : "EkNSdWEgZG9zIFR1cGlzLCAzMTQgLSBDZW50cm8sIEJlbG8gSG9yaXpvbnRlIC0gTUcsIDMwMTkwLTA2MCwgQnJhc2ls",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "routes" : [
+      {
+         "bounds" : {
+            "northeast" : {
+               "lat" : -19.9209476,
+               "lng" : -43.9400441
+            },
+            "southwest" : {
+               "lat" : -19.9234361,
+               "lng" : -43.94610309999999
+            }
+         },
+         "copyrights" : "Map data ©2017 Google",
+         "legs" : [
+            {
+               "distance" : {
+                  "text" : "1.2 km",
+                  "value" : 1177
+               },
+               "duration" : {
+                  "text" : "7 mins",
+                  "value" : 405
+               },
+               "end_address" : "Rua dos Tupis, 314 - Centro, Belo Horizonte - MG, 30190-060, Brazil",
+               "end_location" : {
+                  "lat" : -19.9213968,
+                  "lng" : -43.9400441
+               },
+               "start_address" : "Av. Olegário Maciel, 748 - Centro, Belo Horizonte - MG, 30180-110, Brazil",
+               "start_location" : {
+                  "lat" : -19.9209476,
+                  "lng" : -43.9447298
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "65 m",
+                        "value" : 65
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 19
+                     },
+                     "end_location" : {
+                        "lat" : -19.92151,
+                        "lng" : -43.9448928
+                     },
+                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eAv. Olegário Maciel\u003c/b\u003e toward \u003cb\u003eRua dos Goitacazes\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "|xqxBp}ekGnB^"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9209476,
+                        "lng" : -43.9447298
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 115
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 49
+                     },
+                     "end_location" : {
+                        "lat" : -19.9212758,
+                        "lng" : -43.9459678
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eRua dos Goitacazes\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "l|qxBp~ekGOfA]nC"
+                     },
+                     "start_location" : {
+                        "lat" : -19.92151,
+                        "lng" : -43.9448928
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 111
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 41
+                     },
+                     "end_location" : {
+                        "lat" : -19.9220903,
+                        "lng" : -43.9456585
+                     },
+                     "html_instructions" : "Sharp \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eAv. Bias Fortes\u003c/b\u003e",
+                     "maneuver" : "turn-sharp-left",
+                     "polyline" : {
+                        "points" : "~zqxBhefkGLXdAk@lAk@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9212758,
+                        "lng" : -43.9459678
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 130
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 46
+                     },
+                     "end_location" : {
+                        "lat" : -19.9231144,
+                        "lng" : -43.9459322
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003ePraça Raul Soares\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "``rxBjcfkGDFFJHJFHHFRJPDRDJ?L?J?LALALCJEJE"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9220903,
+                        "lng" : -43.9456585
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 233
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 80
+                     },
+                     "end_location" : {
+                        "lat" : -19.9226034,
+                        "lng" : -43.9444358
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eleft\u003c/b\u003e to stay on \u003cb\u003ePraça Raul Soares\u003c/b\u003e (signs for \u003cb\u003ePraça Sete\u003c/b\u003e/\u003cb\u003ePça. Estação\u003c/b\u003e/\u003cb\u003eSerr. S. Pinto\u003c/b\u003e)",
+                     "maneuver" : "turn-slight-left",
+                     "polyline" : {
+                        "points" : "lfrxB`efkGBA@?BA@ABA@ABA@A?I?I@GBIBEDGBGBIBGBIDQ@K@O?MAOAMCMCMGKEKIKGKKGIGMGKEKCGAG?G?G?G?G@G@G@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9231144,
+                        "lng" : -43.9459322
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.3 km",
+                        "value" : 322
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 76
+                     },
+                     "end_location" : {
+                        "lat" : -19.9210105,
+                        "lng" : -43.9418994
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Amazonas\u003c/b\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "fcrxBv{ekGICKECCGEY[MW{@gBM]OYYo@OYISKSGMIUYi@Ui@Wi@"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9226034,
+                        "lng" : -43.9444358
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 201
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 94
+                     },
+                     "end_location" : {
+                        "lat" : -19.9213968,
+                        "lng" : -43.9400441
+                     },
+                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eRua dos Tupis\u003c/b\u003e",
+                     "maneuver" : "turn-slight-right",
+                     "polyline" : {
+                        "points" : "hyqxBzkekGCICKD]t@qEFi@Hi@FY"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9210105,
+                        "lng" : -43.9418994
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            }
+         ],
+         "overview_polyline" : {
+            "points" : "|xqxBp}ekGnB^OfA]nCLXrCwALRPT\\Rd@JX?t@G\\MJGDC?SDQHMNc@F]@]C]G[MWQWUOYMc@E_@BQAOIa@a@iA_CgAaCg@kAkAgCCKD]|@{FPcA"
+         },
+         "summary" : "Praça Raul Soares and Av. Amazonas",
+         "warnings" : [],
+         "waypoint_order" : []
+      }
+   ],
+   "status" : "OK"
+}
