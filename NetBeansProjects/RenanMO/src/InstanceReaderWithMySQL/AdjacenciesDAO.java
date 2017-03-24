@@ -29,14 +29,14 @@ public class AdjacenciesDAO {
     }
 
     public void addAdjacenciesIntoDataBase(int numberOfNodes, List<List<Integer>> time, List<List<Integer>> distance) {
-        String sql = "insert into Adjacencies (originNode, destinationNode, timeTo, distanceTo) values (?,?,?,?)";
+        String sql = "insert into " + this.adjacenciesTable + "(originNode, destinationNode, timeTo, distanceTo) values (?,?,?,?)";
         try {
             PreparedStatement statement = this.connection.prepareStatement(sql);
             for (int i = 0; i < numberOfNodes; i++) {
                 for (int j = 0; j < numberOfNodes; j++) {
                     statement.setString(1, Integer.toString(i));
                     statement.setString(2, Integer.toString(j));
-                    statement.setString(3, Integer.toString(time.get(i).get(j)));
+                    statement.setString(3, Integer.toString(time.get(i).get(j)*60));
                     statement.setString(4, Double.toString(distance.get(i).get(j)));
                     statement.execute();
 
@@ -110,8 +110,8 @@ public class AdjacenciesDAO {
             while (resultSet.next()) {
                 Integer originNode = resultSet.getInt("originNode");
                 Integer destinationNode = resultSet.getInt("destinationNode");
-                Integer distanceTo = (resultSet.getInt("timeTo"))/60;
-                timeBetweenNodes.get(originNode).set(destinationNode, distanceTo);
+                Integer timeTo = (resultSet.getInt("timeTo"))/60;
+                timeBetweenNodes.get(originNode).set(destinationNode, timeTo);
             }
             resultSet.close();
             statement.close();

@@ -84,12 +84,12 @@ public class Algorithms {
     public static double FuncaoDeAvaliacao(Solution S, List<Request> listOfRequests, List<List<Integer>> c) {
         double avalicao = 0;
         double V = 12;
-        //double alfa = S.getListaNaoAtendimento().size();
+        //double alfa = S.getNonAttendedRequestsList().size();
         double alfa = 10 * listOfRequests.size();
         double beta = 1 / 10;
         double gama = 1;//12 é o número de pontos de parada incluindo o depósito
 
-        avalicao = S.getfObjetivo1() + alfa * S.getfObjetivo4() + beta * S.getfObjetivo8() + gama * S.getfObjetivo9();
+        avalicao = S.getSolutionTotalCost() + alfa * S.getNumberOfNonAttendedRequests() + beta * S.getDeliveryTimeWindowAntecipation() + gama * S.getDeliveryTimeWindowDelay();
 
         return avalicao;
     }
@@ -101,14 +101,14 @@ public class Algorithms {
         int W = 1000,
                 costU = 800;//200;
 
-        for (Route r : S.getConjRotas()) {
+        for (Route r : S.getSetOfRoutes()) {
             totalCost += W;
             for (int i = 0, j = r.getListaVisitacao().size(); i < j - 1; i++) {
                 totalCost += c.get(r.getListaVisitacao().get(i)).get(r.getListaVisitacao().get(i + 1));
             }
         }
 
-        totalCost += S.getListaNaoAtendimento().size() * costU;
+        totalCost += S.getNonAttendedRequestsList().size() * costU;
 
         return totalCost;
     }
@@ -120,17 +120,17 @@ public class Algorithms {
         int W = 1000,
                 costU = 10000;//200;//800
 
-        for (Route r : S.getConjRotas()) {
+        for (Route r : S.getSetOfRoutes()) {
             totalCost += W;
             for (int i = 0, j = r.getListaVisitacao().size(); i < j - 1; i++) {
                 totalCost += c.get(r.getListaVisitacao().get(i)).get(r.getListaVisitacao().get(i + 1));
             }
         }
 
-        totalCost += S.getListaNaoAtendimento().size() * costU;
+        totalCost += S.getNonAttendedRequestsList().size() * costU;
 
         int somaTotal = 0;
-        for (Route r : S.getConjRotas()) {
+        for (Route r : S.getSetOfRoutes()) {
             int soma = 0;
 
             for (Request request : r.getListaAtendimento()) {
@@ -158,14 +158,14 @@ public class Algorithms {
         int W = 1000,//1000,
                 costU = 0;//800;//200;
 
-        for (Route r : S.getConjRotas()) {
+        for (Route r : S.getSetOfRoutes()) {
             totalCost += W;
             for (int i = 0, j = r.getListaVisitacao().size(); i < j - 1; i++) {
                 totalCost += c.get(r.getListaVisitacao().get(i)).get(r.getListaVisitacao().get(i + 1));
             }
         }
 
-        totalCost += S.getListaNaoAtendimento().size() * costU;
+        totalCost += S.getNonAttendedRequestsList().size() * costU;
 
         return totalCost;
     }
@@ -173,7 +173,7 @@ public class Algorithms {
     public static int FO2(Solution S, List<List<Integer>> c) {
         int somaTotal = 0;
 
-        for (Route r : S.getConjRotas()) {
+        for (Route r : S.getSetOfRoutes()) {
             int soma = 0;
 
             for (Request request : r.getListaAtendimento()) {
@@ -196,8 +196,8 @@ public class Algorithms {
 
     public static int FO3(Solution S) {
         int diferenca;
-        Route maiorRota = new Route(Collections.max(S.getConjRotas()));
-        Route menorRota = new Route(Collections.min(S.getConjRotas()));
+        Route maiorRota = new Route(Collections.max(S.getSetOfRoutes()));
+        Route menorRota = new Route(Collections.min(S.getSetOfRoutes()));
         diferenca = maiorRota.getListaAtendimento().size() - menorRota.getListaAtendimento().size();
 
         return diferenca;
@@ -206,16 +206,16 @@ public class Algorithms {
     }
 
     public static int FO4(Solution S) {
-        return S.getListaNaoAtendimento().size();
+        return S.getNonAttendedRequestsList().size();
     }
 
     public static int FO5(Solution S) {
-        return S.getConjRotas().size();
+        return S.getSetOfRoutes().size();
     }
 
     public static int FO6(Solution S) {
         Set<Route> rotas = new HashSet<>();
-        rotas.addAll(S.getConjRotas());
+        rotas.addAll(S.getSetOfRoutes());
         int soma = 0;
         for (Route r : rotas) {
             for (Request request : r.getListaAtendimento()) {
@@ -227,7 +227,7 @@ public class Algorithms {
 
     public static int FO7(Solution S) {
         Set<Route> rotas = new HashSet<>();
-        rotas.addAll(S.getConjRotas());
+        rotas.addAll(S.getSetOfRoutes());
         int soma = 0;
         for (Route r : rotas) {
             for (Request request : r.getListaAtendimento()) {
@@ -239,7 +239,7 @@ public class Algorithms {
 
     public static int FO8(Solution S) {
         Set<Route> rotas = new HashSet<>();
-        rotas.addAll(S.getConjRotas());
+        rotas.addAll(S.getSetOfRoutes());
         int soma = 0;
         for (Route r : rotas) {
             for (Request request : r.getListaAtendimento()) {
@@ -251,7 +251,7 @@ public class Algorithms {
 
     public static int FO9(Solution S) {
         Set<Route> rotas = new HashSet<>();
-        rotas.addAll(S.getConjRotas());
+        rotas.addAll(S.getSetOfRoutes());
         int soma = 0;
         for (Route r : rotas) {
             for (Request request : r.getListaAtendimento()) {
@@ -270,8 +270,8 @@ public class Algorithms {
 //                + 0.0007717224*S.getfObjetivo5() + 0.6241041415*S.getfObjetivo6() - 0.0051142916*S.getfObjetivo7());
 
         //Agregação feita com base na análise de cluster, utilizando a matriz de correlação amostral Rij
-        S.setF1(800 * S.getfObjetivo5() + 500 * S.getfObjetivo4() + S.getfObjetivo6() + 20 * S.getfObjetivo7());
-        S.setF2(S.getfObjetivo1() + S.getfObjetivo2() + 20 * S.getfObjetivo3());
+        S.setAggregatedObjective1(800 * S.getNumberOfVehicles() + 500 * S.getNumberOfNonAttendedRequests() + S.getTotalTravelTime() + 20 * S.getTotalWaintingTime());
+        S.setAggregatedObjective2(S.getSolutionTotalCost() + S.getSolutionTotalDelay() + 20 * S.getChargeBalance());
 
 //        S.setF1(alfa * S.getfObjetivo2() + /*beta**/ 10 * S.getfObjetivo3() + /*delta**/ 50 * S.getfObjetivo4());
 //        S.setF2(gama * S.getfObjetivo1() +/*epslon*/ 800 * S.getfObjetivo5());
@@ -388,21 +388,21 @@ public class Algorithms {
         }
 
         //S.setFuncaoObjetivo(FuncaoObjetivo(S,c));
-        S.setListaNaoAtendimento(U);
-        S.setfObjetivo1(FO1(S, c));
-        S.setfObjetivo2(FO2(S, c));
-        S.setfObjetivo3(FO3(S));
-        S.setfObjetivo4(FO4(S));
-        S.setfObjetivo5(FO5(S));
-        S.setfObjetivo6(FO6(S));
-        S.setfObjetivo7(FO7(S));
-        S.setfObjetivo8(FO8(S));
-        S.setfObjetivo9(FO9(S));
+        S.setNonAttendedRequestsList(U);
+        S.setSolutionTotalCost(FO1(S, c));
+        S.setSolutionTotalDelay(FO2(S, c));
+        S.setChargeBalance(FO3(S));
+        S.setNumberOfNonAttendedRequests(FO4(S));
+        S.setNumberOfVehicles(FO5(S));
+        S.setTotalTravelTime(FO6(S));
+        S.setTotalWaintingTime(FO7(S));
+        S.setDeliveryTimeWindowAntecipation(FO8(S));
+        S.setDeliveryTimeWindowDelay(FO9(S));
         FOagregados(S, 1, 1, 1, 1, 1);
         S.setLogger(log);
-        S.concatenarRota();
+        S.linkTheRoutes();
         //S.setfObjetivo1((int) FuncaoObjetivo(S, c));
-        S.setFuncaoObjetivo(FuncaoDeAvaliacao(S, listRequests, c));
+        S.setObjectiveFunction(FuncaoDeAvaliacao(S, listRequests, c));
 
         return S;
     }
@@ -419,7 +419,7 @@ public class Algorithms {
 
         //Step 1
         Solution S = new Solution();
-        S.setRotaConcatenada(vizinho);
+        S.setLinkedRouteList(vizinho);
         String log = "";
 
         int currentK;
@@ -721,7 +721,7 @@ public class Algorithms {
                     //log += R.toString()+"\n";
                     //System.out.println("Route "+R+" - "+currentTime);
                     currentTime += d.get(lastNode).get(0);
-                    S.getConjRotas().add(R);
+                    S.getSetOfRoutes().add(R);
                 }
 
             }
@@ -740,22 +740,22 @@ public class Algorithms {
             /*}while(!U.isEmpty());*/
         }
         //System.out.print("Usize = "+U.size()+"\n"+FO(S,U.size())+" -> ");
-        S.setListaNaoAtendimento(U);
-        S.setfObjetivo1(FO1(S, c));
-        S.setfObjetivo2(FO2(S, c));
-        S.setfObjetivo3(FO3(S));
-        S.setfObjetivo4(FO4(S));
-        S.setfObjetivo5(FO5(S));
-        S.setfObjetivo6(FO6(S));
-        S.setfObjetivo7(FO7(S));
-        S.setfObjetivo8(FO8(S));
-        S.setfObjetivo9(FO9(S));
+        S.setNonAttendedRequestsList(U);
+        S.setSolutionTotalCost(FO1(S, c));
+        S.setSolutionTotalDelay(FO2(S, c));
+        S.setChargeBalance(FO3(S));
+        S.setNumberOfNonAttendedRequests(FO4(S));
+        S.setNumberOfVehicles(FO5(S));
+        S.setTotalTravelTime(FO6(S));
+        S.setTotalWaintingTime(FO7(S));
+        S.setDeliveryTimeWindowAntecipation(FO8(S));
+        S.setDeliveryTimeWindowDelay(FO9(S));
         FOagregados(S, 1, 1, 1, 1, 1);
         S.setLogger(log);
         //S.setfObjetivo1((int) FuncaoObjetivo(S, c));
-        S.setFuncaoObjetivo(FuncaoDeAvaliacao(S, listRequests, c));
+        S.setObjectiveFunction(FuncaoDeAvaliacao(S, listRequests, c));
         //System.out.println(FO(S,U.size())+"\t"+U.size());
-        //System.out.println(FO(S)+"\t"+S.getListaNaoAtendimento().size());
+        //System.out.println(FO(S)+"\t"+S.getNonAttendedRequestsList().size());
         //if(ativaLog)
         //	System.out.println(S.getLogger());
 
@@ -777,9 +777,9 @@ public class Algorithms {
             //System.out.println("População Inicial");
             //ImprimePopulacao(Pop);
             Solution SBest = new Solution();
-            SBest.setFuncaoObjetivo(1000000000);
-            SBest.setfObjetivo1(1000000000);
-            SBest.setfObjetivo2(1000000000);
+            SBest.setObjectiveFunction(1000000000);
+            SBest.setSolutionTotalCost(1000000000);
+            SBest.setSolutionTotalDelay(1000000000);
 
             //System.out.println("Teste do elitismo, SBest = "+ SBest);
             List<Integer> pais = new ArrayList<>();
@@ -802,7 +802,7 @@ public class Algorithms {
                 InicializaPopulacaoPerturbacao(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                 
                 
-                Pop.sort(Comparator.comparingDouble(Solution::getFuncaoObjetivo));
+                Pop.sort(Comparator.comparingDouble(Solution::getObjectiveFunction));
                 NewFitness(Pop);
                 //OrdenaPopulacao(Pop);
                 
@@ -821,8 +821,8 @@ public class Algorithms {
                 //Fitness(Pop);
                 //OrdenaPopulacao(Pop);
                 ImprimePopulacao(Pop);
-                SBest.setFuncaoObjetivo(1000000000);
-                SBest.setfObjetivo2(1000000000);
+                SBest.setObjectiveFunction(1000000000);
+                SBest.setSolutionTotalDelay(1000000000);
                 //SBest.setSolucao(S);
                 //System.out.println("População Inicial");
                 //ImprimePopulacao(Pop);
@@ -836,7 +836,7 @@ public class Algorithms {
                     //Cálculo do fitness - aptidão
                     NewFitness(Pop);
                     SBest = CopiaMelhorSolucao(Pop, SBest);
-                    saida.print(SBest.getFuncaoObjetivo() + "\t");
+                    saida.print(SBest.getObjectiveFunction() + "\t");
 
                     //Selecionar
                     Selecao(pais, Pop, TamPop);
@@ -859,9 +859,9 @@ public class Algorithms {
                     //System.out.println("GerAtual = " + GerAtual);
 //                    if ((GerAtual % 150 == 0) && (GerAtual != 0)) {
 //                        Solution s = new Solution(SBest);
-//                        SBest.setSolucao(ILS(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+//                        SBest.setSolucao(IteratedLocalSearch(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
 //                    }
-                    System.out.println("Geração = " + GerAtual + "\tMelhorFO = " + SBest.getFuncaoObjetivo());
+                    System.out.println("Geração = " + GerAtual + "\tMelhorFO = " + SBest.getObjectiveFunction());
                     GerAtual++;
                 }
                 Pop.clear();
@@ -907,7 +907,7 @@ public class Algorithms {
             System.out.println("Solução = " + S);
             Pop.get(cont).setSolucao(S);
 
-            //System.out.println("Pop(0) = " + Pop.get(0).getRotaConcatenada());
+            //System.out.println("Pop(0) = " + Pop.get(0).getLinkedRoute());
             while (linha != null) {
                 cont++;
                 lista.clear();
@@ -923,8 +923,8 @@ public class Algorithms {
                 S.setSolucao(avaliaSolucao(lista, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                 System.out.println("Solução = " + S);
                 Pop.get(cont).setSolucao(S);
-                //Pop.get(cont).setRotaConcatenada(lista);
-                // System.out.println("Pop("+cont+") = " + Pop.get(cont).getRotaConcatenada());
+                //Pop.get(cont).setLinkedRoute(lista);
+                // System.out.println("Pop("+cont+") = " + Pop.get(cont).getLinkedRoute());
             }
             arq.close();
         } catch (IOException e) {
@@ -957,7 +957,7 @@ public class Algorithms {
             //System.out.println("iteração VND = " + cont1);
             //s.setSolucao(primeiroMelhorVizinho(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
             s.setSolucao(melhorVizinho(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-            if (s.getFuncaoObjetivo() < melhor.getFuncaoObjetivo()) {
+            if (s.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                 melhor.setSolucao(s);
                 k = 1;
                 //k = 1 + rnd.nextInt(4);
@@ -998,7 +998,7 @@ public class Algorithms {
             //System.out.println("iteração VND = " + cont1);
             //s.setSolucao(primeiroMelhorVizinho(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
             s.setSolucao(melhorVizinho(s_0, vizinhanca.get(k - 1), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-            if (s.getFuncaoObjetivo() < melhor.getFuncaoObjetivo()) {
+            if (s.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                 melhor.setSolucao(s);
                 k = 1;
             } else {
@@ -1028,7 +1028,7 @@ public class Algorithms {
                 //s_linha.setSolucao(vizinhoAleatorio(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                 s_2linha.setSolucao(VND(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                if (s_2linha.getFuncaoObjetivo() < melhor.getFuncaoObjetivo()) {
+                if (s_2linha.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                     melhor.setSolucao(s_2linha);
                     k = 1;
 
@@ -1051,7 +1051,7 @@ public class Algorithms {
         int posicao1, posicao2;
         int NUMPERT = 2;//número de perturções
 
-        List<Integer> original = new ArrayList<>(s.getRotaConcatenada());
+        List<Integer> original = new ArrayList<>(s.getLinkedRouteList());
         //for (int i = 0; i < NUMPERT; i++) {
         posicao1 = p1.nextInt(original.size());
 
@@ -1080,7 +1080,7 @@ public class Algorithms {
         int posicao1, posicao2;
         int NUMPERT = 2;//número de perturções
 
-        List<Integer> original = new ArrayList<>(s.getRotaConcatenada());
+        List<Integer> original = new ArrayList<>(s.getLinkedRouteList());
         //for (int i = 0; i < NUMPERT; i++) {
         posicao1 = p1.nextInt(original.size());
 
@@ -1099,7 +1099,7 @@ public class Algorithms {
         return s;
     }
 
-    public static Solution ILS(Solution s_0, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
+    public static Solution IteratedLocalSearch(Solution s_0, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
             List<List<Integer>> c, Integer TimeWindows) {
         //Solução inicial já é gerada pelo GA
@@ -1110,12 +1110,12 @@ public class Algorithms {
         int MAXITER = 2;
 
         //BuscaLocal
-        s.setSolucao(RVND(s_0, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+        s.setSolucao(VND(s_0, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
         System.out.println("Apos a primeria busca local s= " + s);
         //s.setSolucao(primeiroMelhorVizinho(s_0,2,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
         int cont = 0;
         while (cont < MAXITER) {
-            //System.out.println("Entrou no laço do ILS\tFO = " + s.getfObjetivo());
+            //System.out.println("Entrou no laço do IteratedLocalSearch\tFO = " + s.getfObjetivo());
 
             System.out.println("Interação ILS = " + cont);
             //Perturbação
@@ -1126,14 +1126,14 @@ public class Algorithms {
             //s_2linha.setSolucao(primeiroMelhorVizinho(s_0,2,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
             //System.out.println("Apos busca local s'' = " + s_2linha);
             //CriterioAceitacao
-            if (s_2linha.getFuncaoObjetivo() < s_0.getFuncaoObjetivo()) {
+            if (s_2linha.getObjectiveFunction() < s_0.getObjectiveFunction()) {
                 //System.out.println("s_0 = " + s_0.getfObjetivo());
                 //System.out.println("s_2linha = "+s_2linha.getfObjetivo());
                 s.setSolucao(s_2linha);
                 s_0.setSolucao(s_2linha);
                 //historico.add(s_2linha);
 
-                System.out.println("Atualizou\tFO = " + s.getFuncaoObjetivo());
+                System.out.println("Atualizou\tFO = " + s.getObjectiveFunction());
                 //System.out.println("Tamanho Historico =  " + historico.size() );
                 //return s_0;
             }
@@ -1234,8 +1234,8 @@ public class Algorithms {
         Solution original = new Solution();
         Solution originalFinal = new Solution();
 
-        SStar.setfObjetivo1(9999999);
-        SStar.setfObjetivo2(9999999);
+        SStar.setSolutionTotalCost(9999999);
+        SStar.setSolutionTotalDelay(9999999);
         double tempoInicio, tempoFim, tempo = 0;
         /*String logStar = "";
 		
@@ -1804,7 +1804,7 @@ public class Algorithms {
                     //System.out.println("Route "+R+" - "+currentTime);
                     //solutionCost += currentTime;
                     currentTime += d.get(lastNode).get(0);
-                    S.getConjRotas().add(R);
+                    S.getSetOfRoutes().add(R);
                     //System.out.println("Solution S = "+S);
                 }
 
@@ -1830,21 +1830,21 @@ public class Algorithms {
             }
             //solutionCost += FO(S,U.size()); 
             //solutionCost = FO(S,U.size());
-            S.setListaNaoAtendimento(U);
-            S.setfObjetivo1(FO1(S, c));
-            S.setfObjetivo2(FO2(S, c));
-            S.setfObjetivo3(FO3(S));
-            S.setfObjetivo4(FO4(S));
-            S.setfObjetivo5(FO5(S));
-            S.setfObjetivo6(FO6(S));
-            S.setfObjetivo7(FO7(S));
-            S.setfObjetivo8(FO8(S));
-            S.setfObjetivo9(FO9(S));
-            S.setFuncaoObjetivo(FuncaoDeAvaliacao(S, listRequests, c));
+            S.setNonAttendedRequestsList(U);
+            S.setSolutionTotalCost(FO1(S, c));
+            S.setSolutionTotalDelay(FO2(S, c));
+            S.setChargeBalance(FO3(S));
+            S.setNumberOfNonAttendedRequests(FO4(S));
+            S.setNumberOfVehicles(FO5(S));
+            S.setTotalTravelTime(FO6(S));
+            S.setTotalWaintingTime(FO7(S));
+            S.setDeliveryTimeWindowAntecipation(FO8(S));
+            S.setDeliveryTimeWindowDelay(FO9(S));
+            S.setObjectiveFunction(FuncaoDeAvaliacao(S, listRequests, c));
 
             FOagregados(S, 1, 1, 1, 1, 1);
             S.setLogger(log);
-            S.concatenarRota();
+            S.linkTheRoutes();
             //solutionCost = FO(S);// ???IMPORTANTE?????
 
             tempoInicio = (System.nanoTime() * 0.000001);
@@ -1872,7 +1872,7 @@ public class Algorithms {
             original.setSolucao(S);
             S.setSolucao(busca);
 
-            if (S.getFuncaoObjetivo() < SStar.getFuncaoObjetivo()) {
+            if (S.getObjectiveFunction() < SStar.getObjectiveFunction()) {
                 //System.out.println("ACHEI: "+solutionCost+" -> "+S);
                 SStar.setSolucao(S);
                 originalFinal.setSolucao(original);
@@ -1891,7 +1891,7 @@ public class Algorithms {
             auxA.clear();
             auxA = A.get(alpha);
             auxA.set(0, auxA.get(0) + 1.0);
-            auxA.set(1, auxA.get(1) + S.getfObjetivo1());
+            auxA.set(1, auxA.get(1) + S.getSolutionTotalCost());
             A.put(alpha, new ArrayList<Double>(auxA));
 
             if (num_iterations > 0 && num_iterations % 20 == 0) {
@@ -1904,7 +1904,7 @@ public class Algorithms {
                         auxA.set(4, 0.0);
                     } else {
                         auxA.set(3, auxA.get(1) / auxA.get(0));
-                        auxA.set(4, Math.pow(SStar.getfObjetivo1() / auxA.get(3), teta));
+                        auxA.set(4, Math.pow(SStar.getSolutionTotalCost() / auxA.get(3), teta));
 
                         sigma += auxA.get(4);
                     }
@@ -1924,7 +1924,7 @@ public class Algorithms {
         }
         //System.out.print("Usize = "+SStarUsize+"\n"+SStarCost+" -> ");
         //System.out.println(SStarCost+"\t"+SStarUsize);
-        //System.out.println(SStar.getfObjetivo()+"\t"+SStar.getListaNaoAtendimento().size());
+        //System.out.println(SStar.getfObjetivo()+"\t"+SStar.getNonAttendedRequestsList().size());
         /**
          * IMPRIME PRIMEIRO O TEMPO DE BUSCA*
          */
@@ -1933,7 +1933,7 @@ public class Algorithms {
         //saida2.println();
         /*if(ativaLog){
          //System.out.println(SStar.getLogger());
-         //	System.out.println("NaoAtendimento "+SStar.getListaNaoAtendimento().size());
+         //	System.out.println("NaoAtendimento "+SStar.getNonAttendedRequestsList().size());
          //System.out.println("Atendimento "+SStar.getListaAtendimento().size());
          }*/
         return SStar;

@@ -7,12 +7,12 @@
       },
       {
          "geocoder_status" : "OK",
-         "place_id" : "ChIJE_AciR2apgARPxS5vTrU42w",
-         "types" : [ "street_address" ]
+         "place_id" : "ChIJgQBmWfuZpgAR30cD4lINtkI",
+         "types" : [ "establishment", "point_of_interest", "premise" ]
       },
       {
          "geocoder_status" : "OK",
-         "place_id" : "ChIJedAMjViXpgARNgo5SyFMQ2Y",
+         "place_id" : "ChIJE_AciR2apgARPxS5vTrU42w",
          "types" : [ "street_address" ]
       },
       {
@@ -25,29 +25,29 @@
       {
          "bounds" : {
             "northeast" : {
-               "lat" : -19.9121439,
+               "lat" : -19.9121332,
                "lng" : -43.9308349
             },
             "southwest" : {
-               "lat" : -19.92151,
-               "lng" : -43.9470446
+               "lat" : -19.9220743,
+               "lng" : -43.9437121
             }
          },
          "copyrights" : "Map data ©2017 Google",
          "legs" : [
             {
                "distance" : {
-                  "text" : "2.0 km",
-                  "value" : 2012
+                  "text" : "0.8 km",
+                  "value" : 780
                },
                "duration" : {
-                  "text" : "7 mins",
-                  "value" : 440
+                  "text" : "3 mins",
+                  "value" : 203
                },
-               "end_address" : "R. Célio de Castro, 869 - Floresta, Belo Horizonte - MG, Brazil",
+               "end_address" : "Obelisco Praça Sete - Av. Afonso Pena - Centro, Belo Horizonte - MG, 31840-190, Brazil",
                "end_location" : {
-                  "lat" : -19.9127637,
-                  "lng" : -43.9310629
+                  "lat" : -19.9191852,
+                  "lng" : -43.9387306
                },
                "start_address" : "Av. do Contorno, 340 - Santa Efigênia, Belo Horizonte - MG, 30110-017, Brazil",
                "start_location" : {
@@ -103,21 +103,21 @@
                   },
                   {
                      "distance" : {
-                        "text" : "0.6 km",
-                        "value" : 599
+                        "text" : "0.2 km",
+                        "value" : 173
                      },
                      "duration" : {
-                        "text" : "3 mins",
-                        "value" : 166
+                        "text" : "1 min",
+                        "value" : 43
                      },
                      "end_location" : {
-                        "lat" : -19.9169681,
-                        "lng" : -43.9366691
+                        "lat" : -19.915984,
+                        "lng" : -43.9406129
                      },
                      "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eRua dos Caetés\u003c/b\u003e",
                      "maneuver" : "turn-left",
                      "polyline" : {
-                        "points" : "nwpxBxmekGDWDYZeBBI@IJ_APsADOBOLw@F_@N_AVwA\\_C\\aCj@eDT{A"
+                        "points" : "nwpxBxmekGDWDYZeBBI@IJ_APsA"
                      },
                      "start_location" : {
                         "lat" : -19.9156,
@@ -127,25 +127,168 @@
                   },
                   {
                      "distance" : {
-                        "text" : "0.3 km",
-                        "value" : 282
+                        "text" : "0.4 km",
+                        "value" : 408
+                     },
+                     "duration" : {
+                        "text" : "2 mins",
+                        "value" : 96
+                     },
+                     "end_location" : {
+                        "lat" : -19.9191852,
+                        "lng" : -43.9387306
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Afonso Pena\u003c/b\u003e\u003cdiv style=\"font-size:0.9em\"\u003eDestination will be on the left\u003c/div\u003e",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "zypxBxcekG\\EfCsApC{AFELIv@_@`Am@dCcA\\QTM"
+                     },
+                     "start_location" : {
+                        "lat" : -19.915984,
+                        "lng" : -43.9406129
+                     },
+                     "travel_mode" : "DRIVING"
+                  }
+               ],
+               "traffic_speed_entry" : [],
+               "via_waypoint" : []
+            },
+            {
+               "distance" : {
+                  "text" : "2.3 km",
+                  "value" : 2273
+               },
+               "duration" : {
+                  "text" : "7 mins",
+                  "value" : 437
+               },
+               "end_address" : "R. Célio de Castro, 869 - Floresta, Belo Horizonte - MG, Brazil",
+               "end_location" : {
+                  "lat" : -19.9127637,
+                  "lng" : -43.9310629
+               },
+               "start_address" : "Obelisco Praça Sete - Av. Afonso Pena - Centro, Belo Horizonte - MG, 31840-190, Brazil",
+               "start_location" : {
+                  "lat" : -19.9191852,
+                  "lng" : -43.9387306
+               },
+               "steps" : [
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 212
                      },
                      "duration" : {
                         "text" : "1 min",
-                        "value" : 73
+                        "value" : 36
+                     },
+                     "end_location" : {
+                        "lat" : -19.920802,
+                        "lng" : -43.937665
+                     },
+                     "html_instructions" : "Head \u003cb\u003esoutheast\u003c/b\u003e on \u003cb\u003eAv. Afonso Pena\u003c/b\u003e toward \u003cb\u003eAv. Amazonas\u003c/b\u003e",
+                     "polyline" : {
+                        "points" : "|mqxB`xdkGPKPMtDuBfAm@^W"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9191852,
+                        "lng" : -43.9387306
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 124
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 32
+                     },
+                     "end_location" : {
+                        "lat" : -19.9218666,
+                        "lng" : -43.9380169
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Espírito Santo\u003c/b\u003e (signs for \u003cb\u003eViad. Santa Tereza\u003c/b\u003e/\u003cb\u003eAeroporto Internacional\u003c/b\u003e)",
+                     "maneuver" : "turn-right",
+                     "polyline" : {
+                        "points" : "~wqxBjqdkGv@RfB`@FDRBXF"
+                     },
+                     "start_location" : {
+                        "lat" : -19.920802,
+                        "lng" : -43.937665
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.1 km",
+                        "value" : 119
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 34
+                     },
+                     "end_location" : {
+                        "lat" : -19.9220184,
+                        "lng" : -43.9369264
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e at the 1st cross street onto \u003cb\u003eRua dos Tupis\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "t~qxBrsdkGh@eEACACCECE"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9218666,
+                        "lng" : -43.9380169
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.2 km",
+                        "value" : 193
+                     },
+                     "duration" : {
+                        "text" : "1 min",
+                        "value" : 34
+                     },
+                     "end_location" : {
+                        "lat" : -19.9205475,
+                        "lng" : -43.9376498
+                     },
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e at the 1st cross street onto \u003cb\u003eAv. Afonso Pena\u003c/b\u003e",
+                     "maneuver" : "turn-left",
+                     "polyline" : {
+                        "points" : "r_rxBxldkGYYOJYHaAh@{@d@a@Xe@X[N"
+                     },
+                     "start_location" : {
+                        "lat" : -19.9220184,
+                        "lng" : -43.9369264
+                     },
+                     "travel_mode" : "DRIVING"
+                  },
+                  {
+                     "distance" : {
+                        "text" : "0.7 km",
+                        "value" : 693
+                     },
+                     "duration" : {
+                        "text" : "3 mins",
+                        "value" : 164
                      },
                      "end_location" : {
                         "lat" : -19.914509,
                         "lng" : -43.9360148
                      },
-                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eR. Espírito Santo\u003c/b\u003e",
-                     "maneuver" : "turn-left",
+                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Espírito Santo\u003c/b\u003e (signs for \u003cb\u003eAv. Crist. Machado\u003c/b\u003e/\u003cb\u003ePampulha\u003c/b\u003e/\u003cb\u003eAerop. Internacional\u003c/b\u003e/\u003cb\u003eVitória\u003c/b\u003e)",
+                     "maneuver" : "turn-right",
                      "polyline" : {
-                        "points" : "``qxBdkdkGmAUcASIAGAkASiASyAUwAW"
+                        "points" : "lvqxBhqdkGa@GiCg@o@KiCe@_B[WCs@Ou@McCc@mAUcASIAGAkASiASyAUwAW"
                      },
                      "start_location" : {
-                        "lat" : -19.9169681,
-                        "lng" : -43.9366691
+                        "lat" : -19.9205475,
+                        "lng" : -43.9376498
                      },
                      "travel_mode" : "DRIVING"
                   },
@@ -251,17 +394,17 @@
             },
             {
                "distance" : {
-                  "text" : "2.4 km",
-                  "value" : 2444
+                  "text" : "2.1 km",
+                  "value" : 2100
                },
                "duration" : {
-                  "text" : "8 mins",
-                  "value" : 483
+                  "text" : "7 mins",
+                  "value" : 413
                },
-               "end_address" : "Av. Olegário Maciel, 748 - Centro, Belo Horizonte - MG, 30180-110, Brazil",
+               "end_address" : "Av. do Contorno, 340 - Santa Efigênia, Belo Horizonte - MG, 30110-017, Brazil",
                "end_location" : {
-                  "lat" : -19.9209476,
-                  "lng" : -43.9447298
+                  "lat" : -19.9140985,
+                  "lng" : -43.9417671
                },
                "start_address" : "R. Célio de Castro, 869 - Floresta, Belo Horizonte - MG, Brazil",
                "start_location" : {
@@ -390,264 +533,25 @@
                   },
                   {
                      "distance" : {
-                        "text" : "0.1 km",
-                        "value" : 104
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 39
-                     },
-                     "end_location" : {
-                        "lat" : -19.9145121,
-                        "lng" : -43.9430729
-                     },
-                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eR. Paulo de Frontin\u003c/b\u003e",
-                     "maneuver" : "turn-left",
-                     "polyline" : {
-                        "points" : "zlpxBbwekGP@F?D?DA@?BADE`@e@LSJWJc@"
-                     },
-                     "start_location" : {
-                        "lat" : -19.9139009,
-                        "lng" : -43.943704
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "93 m",
-                        "value" : 93
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 35
-                     },
-                     "end_location" : {
-                        "lat" : -19.9153129,
-                        "lng" : -43.9431282
-                     },
-                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Olegário Maciel\u003c/b\u003e",
-                     "maneuver" : "turn-right",
-                     "polyline" : {
-                        "points" : "tppxBdsekGFCDCBAB?@?nBZF?FAFC"
-                     },
-                     "start_location" : {
-                        "lat" : -19.9145121,
-                        "lng" : -43.9430729
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "0.6 km",
-                        "value" : 649
-                     },
-                     "duration" : {
-                        "text" : "3 mins",
-                        "value" : 183
-                     },
-                     "end_location" : {
-                        "lat" : -19.9209476,
-                        "lng" : -43.9447298
-                     },
-                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e to stay on \u003cb\u003eAv. Olegário Maciel\u003c/b\u003e",
-                     "maneuver" : "turn-slight-right",
-                     "polyline" : {
-                        "points" : "tupxBpsekGNBnA\\bDr@pF`AdBXrC`@rFdAbCd@"
-                     },
-                     "start_location" : {
-                        "lat" : -19.9153129,
-                        "lng" : -43.9431282
-                     },
-                     "travel_mode" : "DRIVING"
-                  }
-               ],
-               "traffic_speed_entry" : [],
-               "via_waypoint" : []
-            },
-            {
-               "distance" : {
-                  "text" : "1.6 km",
-                  "value" : 1553
-               },
-               "duration" : {
-                  "text" : "7 mins",
-                  "value" : 393
-               },
-               "end_address" : "Av. do Contorno, 340 - Santa Efigênia, Belo Horizonte - MG, 30110-017, Brazil",
-               "end_location" : {
-                  "lat" : -19.9140985,
-                  "lng" : -43.9417671
-               },
-               "start_address" : "Av. Olegário Maciel, 748 - Centro, Belo Horizonte - MG, 30180-110, Brazil",
-               "start_location" : {
-                  "lat" : -19.9209476,
-                  "lng" : -43.9447298
-               },
-               "steps" : [
-                  {
-                     "distance" : {
-                        "text" : "65 m",
-                        "value" : 65
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 19
-                     },
-                     "end_location" : {
-                        "lat" : -19.92151,
-                        "lng" : -43.9448928
-                     },
-                     "html_instructions" : "Head \u003cb\u003esouth\u003c/b\u003e on \u003cb\u003eAv. Olegário Maciel\u003c/b\u003e toward \u003cb\u003eRua dos Goitacazes\u003c/b\u003e",
-                     "polyline" : {
-                        "points" : "|xqxBp}ekGnB^"
-                     },
-                     "start_location" : {
-                        "lat" : -19.9209476,
-                        "lng" : -43.9447298
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "0.1 km",
-                        "value" : 115
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 49
-                     },
-                     "end_location" : {
-                        "lat" : -19.9212758,
-                        "lng" : -43.9459678
-                     },
-                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eRua dos Goitacazes\u003c/b\u003e",
-                     "maneuver" : "turn-right",
-                     "polyline" : {
-                        "points" : "l|qxBp~ekGOfA]nC"
-                     },
-                     "start_location" : {
-                        "lat" : -19.92151,
-                        "lng" : -43.9448928
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "0.2 km",
-                        "value" : 217
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 40
-                     },
-                     "end_location" : {
-                        "lat" : -19.9196065,
-                        "lng" : -43.9470446
-                     },
-                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. Bias Fortes\u003c/b\u003e",
-                     "maneuver" : "turn-right",
-                     "polyline" : {
-                        "points" : "~zqxBhefkG_Af@cBz@QHcBbAa@VIDGD"
-                     },
-                     "start_location" : {
-                        "lat" : -19.9212758,
-                        "lng" : -43.9459678
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "0.2 km",
-                        "value" : 218
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 48
-                     },
-                     "end_location" : {
-                        "lat" : -19.9177246,
-                        "lng" : -43.9464643
-                     },
-                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Mato Grosso\u003c/b\u003e",
-                     "maneuver" : "turn-right",
-                     "polyline" : {
-                        "points" : "ppqxB~kfkGWGeAUeCi@iAUkAU"
-                     },
-                     "start_location" : {
-                        "lat" : -19.9196065,
-                        "lng" : -43.9470446
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "0.2 km",
-                        "value" : 222
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 37
-                     },
-                     "end_location" : {
-                        "lat" : -19.9162085,
-                        "lng" : -43.9450965
-                     },
-                     "html_instructions" : "Slight \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eAv. do Contorno\u003c/b\u003e",
-                     "maneuver" : "turn-slight-right",
-                     "polyline" : {
-                        "points" : "vdqxBjhfkGOSQSQUQKQOuAiAwAiASQSO"
-                     },
-                     "start_location" : {
-                        "lat" : -19.9177246,
-                        "lng" : -43.9464643
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
                         "text" : "0.3 km",
-                        "value" : 270
-                     },
-                     "duration" : {
-                        "text" : "1 min",
-                        "value" : 39
-                     },
-                     "end_location" : {
-                        "lat" : -19.9143188,
-                        "lng" : -43.943472
-                     },
-                     "html_instructions" : "Continue straight to stay on \u003cb\u003eAv. do Contorno\u003c/b\u003e",
-                     "maneuver" : "straight",
-                     "polyline" : {
-                        "points" : "h{pxBz_fkGSQSOMKMMOIw@q@mAeACAe@]_Ay@u@m@"
-                     },
-                     "start_location" : {
-                        "lat" : -19.9162085,
-                        "lng" : -43.9450965
-                     },
-                     "travel_mode" : "DRIVING"
-                  },
-                  {
-                     "distance" : {
-                        "text" : "0.3 km",
-                        "value" : 271
+                        "value" : 327
                      },
                      "duration" : {
                         "text" : "2 mins",
-                        "value" : 95
+                        "value" : 121
                      },
                      "end_location" : {
                         "lat" : -19.9147808,
                         "lng" : -43.9410587
                      },
-                     "html_instructions" : "Turn \u003cb\u003eright\u003c/b\u003e onto \u003cb\u003eR. Paulo de Frontin\u003c/b\u003e",
-                     "maneuver" : "turn-right",
+                     "html_instructions" : "Turn \u003cb\u003eleft\u003c/b\u003e onto \u003cb\u003eR. Paulo de Frontin\u003c/b\u003e",
+                     "maneuver" : "turn-left",
                      "polyline" : {
-                        "points" : "nopxBtuekGLSJWJc@FW@E@GBKBMBOPcANaAP_ANy@Sa@Q_@"
+                        "points" : "zlpxBbwekGP@F?D?DA@?BADE`@e@LSJWJc@FW@E@GBKBMBOPcANaAP_ANy@Sa@Q_@"
                      },
                      "start_location" : {
-                        "lat" : -19.9143188,
-                        "lng" : -43.943472
+                        "lat" : -19.9139009,
+                        "lng" : -43.943704
                      },
                      "travel_mode" : "DRIVING"
                   },
@@ -704,9 +608,9 @@
             }
          ],
          "overview_polyline" : {
-            "points" : "bnpxB`kekGp@pALAv@a@HAzBXTFVHDW`@_Cb@gD^wBbByK`AaGqCi@gDk@qDm@i@ZUpBGZg@dAqF}@cAS?{A?sDGkI?eDBsAR}A`@eDJULMx@c@NGb@bAp@fB\\Rj@pAx@|Af@bAhAjCWrAA`@LPSp@eAlH]lCg@dAmGtGg@h@Qb@O^If@G~@?lBB^TfAt@dB~EbKn@dBX@JADAf@k@Xk@Jc@FCHED?vBZNE~A`@bDr@pF`AxFz@vJjBnB^OfA]nC_Af@uBdAeCzAQJ}A]oE_AkAUOSc@i@c@[uEuD}E_EeBwAu@m@LSV{@H]Lq@bA_Ge@aA}ASIFWP{@d@?Br@|A"
+            "points" : "bnpxB`kekGp@pALAv@a@HAzBXTFVHDW`@_Cb@gD\\EfCsAxCaBdAi@`Am@dCcAr@_@b@Y|FcD^Wv@RnBf@l@Jf@iEEICEYYOJYHaAh@}A~@aAh@kDo@qHqA}McCcDi@wAWi@Z]lCg@dAuCc@yBc@e@I?o@?oBGcK?iC@mCNwAb@uDJa@LOr@_@XMbAfCPb@\\RdA|B~@bBf@nAh@lACJIb@K~@DPFDIXm@nDw@fGGZg@dA_HhH_@d@Yz@I~@GzABfAJp@b@pA|FvLn@dBP@L?PIn@y@V{@Nq@h@cD`@yBe@aA}ASIFWP{@f@?Dr@xA"
          },
-         "summary" : "Rua dos Caetés and R. Célio de Castro",
+         "summary" : "Av. Afonso Pena",
          "warnings" : [],
          "waypoint_order" : [ 0, 1 ]
       }

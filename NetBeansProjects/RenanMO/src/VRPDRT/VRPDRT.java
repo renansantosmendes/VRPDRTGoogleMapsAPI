@@ -4,28 +4,9 @@
  * and open the template in the editor.
  */
 package VRPDRT;
-
-import static Algorithms.Algorithms.GRASP_reativo;
-import static Algorithms.Algorithms.GeneticAlgorithm;
-import static Algorithms.Algorithms.ILS;
-import static Algorithms.Algorithms.VND;
-import static Algorithms.Algorithms.floydWarshall;
+import static Algorithms.Algorithms.IteratedLocalSearch;
 import static Algorithms.Algorithms.greedyConstructive;
-import static Algorithms.AlgorithmsForMultiObjectiveOptimization.NSGAII;
-import static Algorithms.AlgorithmsForMultiObjectiveOptimization.SPEA2;
-import static Algorithms.Methods.ImprimePopulacao;
-import static Algorithms.Methods.InicializaPopulacao;
-import static Algorithms.Methods.InicializaPopulacaoPerturbacao;
-import static Algorithms.Methods.NewFitness;
-import static Algorithms.Methods.loaderProblem;
-import InstanceReaderWithMySQL.AdjacenciesDAO;
-import InstanceReaderWithMySQL.NodeDAO;
-import InstanceReaderWithMySQL.RequestDAO;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -34,22 +15,13 @@ import java.util.Map;
 import java.util.Set;
 import ProblemRepresentation.Request;
 import ProblemRepresentation.Solution;
-import static Algorithms.Methods.loadAdjacencies;
 import static Algorithms.Methods.readProblemData;
-import GoogleMapsApi.StaticGoogleMap;
-import InstanceReaderWithMySQL.DataUpdaterDAO;
-import ProblemRepresentation.Node;
 import java.io.IOException;
-
 /**
  *
  * @author Renan
  */
 public class VRPDRT {
-
-    /**
-     * @param args the command line arguments
-     */
     final static Integer TimeWindows = 3;
     static List<Request> listOfRequests = new ArrayList<>();
     static List<List<Integer>> listOfAdjacencies = new LinkedList<>();
@@ -62,52 +34,47 @@ public class VRPDRT {
     static Map<Integer, List<Request>> requestsWichBoardsInNode = new HashMap<>();
     static Map<Integer, List<Request>> requestsWichLeavesInNode = new HashMap<>();
     static List<Integer> loadIndexList = new LinkedList<>();
-    static Integer numberOfVehicles = 50;
     static Set<Integer> setOfVehicles = new HashSet<>();
-    static Integer vehicleCapacity = 10;
     static List<Request> listOfNonAttendedRequests = new ArrayList<>();
     static List<Request> P = new ArrayList<>();
 
-    //-----------------Teste--------------------------------
+    //-------------------Test--------------------------------
     static Integer currentTime;
     static Integer lastNode;
 
     public static void main(String[] args) throws IOException {
+        final Integer numberOfVehicles = 6;
+        final Integer vehicleCapacity = 10;
+        String instanceName = "requests110";
+        String nodesData = "bh_nodes_little";
+        String adjacenciesData = "adjacencies_bh_nodes_little";//"adjacencies_vrpdrt"
 
-        
-        
-        numberOfNodes = readProblemData(listOfRequests, distanceBetweenNodes, timeBetweenNodes, Pmais, Pmenos,
-                requestsWichBoardsInNode, requestsWichLeavesInNode, setOfNodes, numberOfNodes, loadIndexList);
+        numberOfNodes = readProblemData(instanceName, nodesData, adjacenciesData, listOfRequests, distanceBetweenNodes,
+                timeBetweenNodes, Pmais, Pmenos, requestsWichBoardsInNode, requestsWichLeavesInNode, setOfNodes,
+                numberOfNodes, loadIndexList);
 
-        System.out.println("Quantidade de veículos = " + numberOfVehicles);
-        System.out.println("Capacidade = " + vehicleCapacity);
+        System.out.println("Number of Vehicles = " + numberOfVehicles);
+        System.out.println("Vehicle Capacity = " + vehicleCapacity);
 
-        // Conj. de veiculos, todos com mesma capacidade
         Set<Integer> setOfVehicles = new HashSet<>(vehicleCapacity);
         for (int i = 0; i < numberOfVehicles; i++) {
             setOfVehicles.add(i);
         }
-        
-//        List<Node> listOfNodes = new NodeDAO("bh_nodes_little").getListOfNodes();
-//        new DataUpdaterDAO().updateAdjacenciesData(listOfNodes);
 
-        Solution s = greedyConstructive(0.2, 0.15, 0.55, 0.10, listOfRequests.subList(0, 20), requestsWichBoardsInNode, requestsWichLeavesInNode,
+        Solution s = greedyConstructive(0.2, 0.15, 0.55, 0.10, listOfRequests.subList(0, 50), requestsWichBoardsInNode, requestsWichLeavesInNode,
                 numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes,
                 distanceBetweenNodes, TimeWindows, currentTime, lastNode);
-//
-        System.out.println(s.getConjRotas());
+
+        System.out.println(s.getSetOfRoutes());
         System.out.println(s);
-        System.out.println(s.getListaNaoAtendimento());
-        System.out.println("Number of non attended requests = " + s.getListaNaoAtendimento().size());
-//
-//        System.out.println("Time to = "  + timeBetweenNodes.get(0).get(5));
-        //listOfRequests.forEach(System.out::println);
-//        Set<List<Integer>> setTest = new HashSet<>();
-//        for(List<Integer> route : s.getRoutesForMap() ){
-//            setTest.add(route);
-//            new StaticGoogleMap(new NodeDAO("bh_nodes_little").getListOfNodes(),setTest).buildMapInWindow();
-//            setTest.clear();
-//        }
-        new StaticGoogleMap(new NodeDAO("bh_nodes_little").getListOfNodes(),s.getRoutesForMap()).buildMapInWindow();
+        System.out.println(s.getNonAttendedRequestsList());
+        
+//        IteratedLocalSearch(s, listOfRequests, requestsWichBoardsInNode,requestsWichLeavesInNode,numberOfNodes, vehicleCapacity, 
+//                setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes, distanceBetweenNodes, TimeWindows);
+        
+        
+        s.getStaticMapForEveryRoute(nodesData);
+        
+        
     }
 }

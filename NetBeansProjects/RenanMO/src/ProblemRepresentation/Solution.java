@@ -1,5 +1,8 @@
 package ProblemRepresentation;
 
+import GoogleMapsApi.StaticGoogleMap;
+import InstanceReaderWithMySQL.NodeDAO;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -11,169 +14,163 @@ import java.util.Set;
 
 public class Solution implements Comparable<Solution> {
 
-    private Set<Route> conjRotas;
-    private double funcaoObjetivo;
-    private int fObjetivo1;//f1: custo
-    private int fObjetivo2;//f2: atraso
-    private int fObjetivo3;//f3: diferença entre rota maior e menor
-    private int fObjetivo4;//f4: número de não atendimentos
-    private int fObjetivo5;//f5: número de veículos
-    private int fObjetivo6;//f6: tempo de viagem
-    private int fObjetivo7;//f7: tempo de espera
-    private int fObjetivo8;//f8: violação do limite inferior da janela de tempo de desembarque 
-    private int fObjetivo9;//f9: violação do limite superior da janela de tempo de desembarque
+    private Set<Route> setOfRoutes;
+    private double objectiveFunction;
+    private int solutionTotalCost;//f1
+    private int solutionTotalDelay;//f2
+    private int chargeBalance;//f3
+    private int numberOfNonAttendedRequests;//f4
+    private int numberOfVehicles;//f5
+    private int totalTravelTime;//f6
+    private int totalWaintingTime;//f7
+    private int deliveryTimeWindowAntecipation;//f8
+    private int deliveryTimeWindowDelay;//f9
 
-    private double F1;//objetivo agregado 1 
-    private double F2;//objetivo agregado 2 
-    private double F1n;//objetivo agregado 1 normalizado
-    private double F2n;//objetivo agregado 2 normalizado
-    private int nDom;//número de soluções que são dominadas pela solução corrente
-    private int eDom;//número de soluções que dominam esta solução 
-    private List<Integer> L;//conjunto de solucoes que são dominadas por i (esta solucao)
+    private double aggregatedObjective1;
+    private double aggregatedObjective2;
+    private double aggregatedObjective1Normalized;
+    private double aggregatedObjective2Normalized;
+    private int numberOfDominatedSolutionsByThisSolution;
+    private int numberOfSolutionsWichDomineThisSolution;
+    private List<Integer> listOfSolutionsDominatedByThisSolution;
     private double fitness;
     private int dif;
     private int S;
     private int R;
-    /**
-     * ******	Foi anexado a classe Route	******* private List<Request>
-     * listaAtendimento;
-	**
-     */
-    private List<Request> listaNaoAtendimento;
-    private List<Integer> rotaConcatenada;
+    private List<Request> nonAttendedRequestsList;
+    private List<Integer> linkedRouteList;
     private String logger;
     private int tempoExtraTotal;
 
     public Solution() {
-        conjRotas = new HashSet<Route>();
-        L = new ArrayList<>();
-        funcaoObjetivo = -1;
-        fObjetivo1 = -1;
-        fObjetivo2 = -1;
-        fObjetivo3 = -1;
-        fObjetivo4 = -1;
-        fObjetivo5 = -1;
-        fObjetivo6 = -1;
-        fObjetivo7 = -1;
-        fObjetivo8 = -1;
-        fObjetivo9 = -1;
-        F1 = -1;
-        F2 = -1;
-        F1n = -1;
-        F2n = -1;
+        setOfRoutes = new HashSet<Route>();
+        listOfSolutionsDominatedByThisSolution = new ArrayList<>();
+        objectiveFunction = -1;
+        solutionTotalCost = -1;
+        solutionTotalDelay = -1;
+        chargeBalance = -1;
+        numberOfNonAttendedRequests = -1;
+        numberOfVehicles = -1;
+        totalTravelTime = -1;
+        totalWaintingTime = -1;
+        deliveryTimeWindowAntecipation = -1;
+        deliveryTimeWindowDelay = -1;
+        aggregatedObjective1 = -1;
+        aggregatedObjective2 = -1;
+        aggregatedObjective1Normalized = -1;
+        aggregatedObjective2Normalized = -1;
         R = 0;
         S = 0;
         fitness = -0.9;
         dif = -1;
-        nDom = 0;
-        eDom = 0;
-        /**
-         * *****	Foi anexado a classe Rota	******* listaAtendimento = new
-         * LinkedList<Request>();
-		**
-         */
-        listaNaoAtendimento = new ArrayList<Request>();
-        rotaConcatenada = new ArrayList<Integer>();
+        numberOfDominatedSolutionsByThisSolution = 0;
+        numberOfSolutionsWichDomineThisSolution = 0;
+        nonAttendedRequestsList = new ArrayList<Request>();
+        linkedRouteList = new ArrayList<Integer>();
         logger = "";
     }
 
-    public Solution(Solution solucao2) {
-        conjRotas = new HashSet<Route>(solucao2.getConjRotas());
-        L = new ArrayList<>(solucao2.getL());
-        funcaoObjetivo = solucao2.getFuncaoObjetivo();
-        fObjetivo1 = solucao2.getfObjetivo1();
-        fObjetivo2 = solucao2.getfObjetivo2();
-        fObjetivo3 = solucao2.getfObjetivo3();
-        fObjetivo4 = solucao2.getfObjetivo4();
-        fObjetivo5 = solucao2.getfObjetivo5();
-        fObjetivo6 = solucao2.getfObjetivo6();
-        fObjetivo7 = solucao2.getfObjetivo7();
-        fObjetivo8 = solucao2.getfObjetivo8();
-        fObjetivo9 = solucao2.getfObjetivo9();
-        F1 = solucao2.getF1();
-        F2 = solucao2.getF2();
-        F1n = solucao2.getF1n();
-        F2n = solucao2.getF2n();
-        fitness = solucao2.getFitness();
-        tempoExtraTotal = solucao2.getTempoExtraTotal();
-        /**
-         * *****	Foi anexado a classe Rota	******* listaAtendimento = new
-         * LinkedList<Request>(solucao2.getListaAtendimento());
-		 **
-         */
-        listaNaoAtendimento = new ArrayList<Request>(solucao2.getListaNaoAtendimento());
-        rotaConcatenada = new ArrayList<Integer>(solucao2.getRotaConcatenada());
-        logger = new String(solucao2.getLogger());
+    public Solution(Solution solution) {
+        setOfRoutes = new HashSet<Route>(solution.getSetOfRoutes());
+        listOfSolutionsDominatedByThisSolution = new ArrayList<>(solution.getListOfSolutionsDominatedByThisSolution());
+        objectiveFunction = solution.getObjectiveFunction();
+        solutionTotalCost = solution.getSolutionTotalCost();
+        solutionTotalDelay = solution.getSolutionTotalDelay();
+        chargeBalance = solution.getChargeBalance();
+        numberOfNonAttendedRequests = solution.getNumberOfNonAttendedRequests();
+        numberOfVehicles = solution.getNumberOfVehicles();
+        totalTravelTime = solution.getTotalTravelTime();
+        totalWaintingTime = solution.getTotalWaintingTime();
+        deliveryTimeWindowAntecipation = solution.getDeliveryTimeWindowAntecipation();
+        deliveryTimeWindowDelay = solution.getDeliveryTimeWindowDelay();
+        aggregatedObjective1 = solution.getAggregatedObjective1();
+        aggregatedObjective2 = solution.getAggregatedObjective2();
+        aggregatedObjective1Normalized = solution.getAggregatedObjective1Normalized();
+        aggregatedObjective2Normalized = solution.getAggregatedObjective2Normalized();
+        fitness = solution.getFitness();
+        tempoExtraTotal = solution.getTempoExtraTotal();
+        nonAttendedRequestsList = new ArrayList<Request>(solution.getNonAttendedRequestsList());
+        linkedRouteList = new ArrayList<Integer>(solution.getLinkedRouteList());
+        logger = new String(solution.getLogger());
     }
 
-    public void setSolucao(Solution solucao) {
-        setConjRotas(solucao.getConjRotas());
-        setL(solucao.getL());
-        setFuncaoObjetivo(solucao.getFuncaoObjetivo());
-        setfObjetivo1(solucao.getfObjetivo1());
-        setfObjetivo2(solucao.getfObjetivo2());
-        setfObjetivo3(solucao.getfObjetivo3());
-        setfObjetivo4(solucao.getfObjetivo4());
-        setfObjetivo5(solucao.getfObjetivo5());
-        setfObjetivo6(solucao.getfObjetivo6());
-        setfObjetivo7(solucao.getfObjetivo7());
-        setfObjetivo8(solucao.getfObjetivo8());
-        setfObjetivo9(solucao.getfObjetivo9());
-        setF1(solucao.getF1());
-        setF2(solucao.getF2());
-        setF1n(solucao.getF1n());
-        setF2n(solucao.getF2n());
-        setFitness(solucao.getFitness());
-        setR(solucao.getR());
-        setS(solucao.getS());
-        //setListaAtendimento(solucao.getListaAtendimento());
-        setListaNaoAtendimento(solucao.getListaNaoAtendimento());
-        setRotaConcatenada(solucao.getRotaConcatenada());
-        setLogger(solucao.getLogger());
-        setTempoExtraTotal(solucao.getTempoExtraTotal());
+    public void setSolucao(Solution solution) {
+        setSetOfRoutes(solution.getSetOfRoutes());
+        setListOfSolutionsDominatedByThisSolution(solution.getListOfSolutionsDominatedByThisSolution());
+        setObjectiveFunction(solution.getObjectiveFunction());
+        setSolutionTotalCost(solution.getSolutionTotalCost());
+        setSolutionTotalDelay(solution.getSolutionTotalDelay());
+        setChargeBalance(solution.getChargeBalance());
+        setNumberOfNonAttendedRequests(solution.getNumberOfNonAttendedRequests());
+        setNumberOfVehicles(solution.getNumberOfVehicles());
+        setTotalTravelTime(solution.getTotalTravelTime());
+        setTotalWaintingTime(solution.getTotalWaintingTime());
+        setDeliveryTimeWindowAntecipation(solution.getDeliveryTimeWindowAntecipation());
+        setDeliveryTimeWindowDelay(solution.getDeliveryTimeWindowDelay());
+        setAggregatedObjective1(solution.getAggregatedObjective1());
+        setAggregatedObjective2(solution.getAggregatedObjective2());
+        setAggregatedObjective1Normalized(solution.getAggregatedObjective1Normalized());
+        setAggregatedObjective2Normalized(solution.getAggregatedObjective2Normalized());
+        setFitness(solution.getFitness());
+        setR(solution.getR());
+        setS(solution.getS());
+        setNonAttendedRequestsList(solution.getNonAttendedRequestsList());
+        setLinkedRouteList(solution.getLinkedRouteList());
+        setLogger(solution.getLogger());
+        setTempoExtraTotal(solution.getTempoExtraTotal());
     }
 
     public void resetSolucao(double FO, int FO1, int FO2, int FO3, int FO4, int FO5, int FO6, int FO7, int FO8, int FO9) {
-        conjRotas.clear();
-        L.clear();
-        funcaoObjetivo = FO;
-        fObjetivo1 = FO1;
-        fObjetivo2 = FO2;
-        fObjetivo3 = FO3;
-        fObjetivo4 = FO4;
-        fObjetivo5 = FO5;
-        fObjetivo6 = FO6;
-        fObjetivo7 = FO7;
-        fObjetivo8 = FO8;
-        fObjetivo9 = FO9;
-        //-----------------------------------------------------------
-        //           Prestar atenção aqui, se der problema
-        //-----------------------------------------------------------
-        F1 = 99999999;
-        F2 = 99999999;
-        F1n = 99999999;
-        F2n = 99999999;
-
-        //listaAtendimento.clear();
-        listaNaoAtendimento.clear();
-        rotaConcatenada.clear();
+        setOfRoutes.clear();
+        listOfSolutionsDominatedByThisSolution.clear();
+        objectiveFunction = FO;
+        solutionTotalCost = FO1;
+        solutionTotalDelay = FO2;
+        chargeBalance = FO3;
+        numberOfNonAttendedRequests = FO4;
+        numberOfVehicles = FO5;
+        totalTravelTime = FO6;
+        totalWaintingTime = FO7;
+        deliveryTimeWindowAntecipation = FO8;
+        deliveryTimeWindowDelay = FO9;
+        aggregatedObjective1 = 99999999;
+        aggregatedObjective2 = 99999999;
+        aggregatedObjective1Normalized = 99999999;
+        aggregatedObjective2Normalized = 99999999;
+        nonAttendedRequestsList.clear();
+        linkedRouteList.clear();
         logger = "";
     }
 
-    public Set<Route> getConjRotas() {
-        return conjRotas;
+    public Set<Route> getSetOfRoutes() {
+        return setOfRoutes;
     }
 
-    public Set<List<Integer>> getRoutesForMap(){
+    public Set<List<Integer>> getRoutesForMap() {
         Set<List<Integer>> routes = new HashSet<>();
-        for(Route route: this.getConjRotas()){
+        for (Route route : this.getSetOfRoutes()) {
             routes.add(route.getListaVisitacao());
         }
         return routes;
     }
-    
-    public List<Integer> getL() {
-        return this.L;
+
+    public void getStaticMapWithAllRoutes(String nodesData) throws IOException {
+        new StaticGoogleMap(new NodeDAO(nodesData).getListOfNodes(), this.getRoutesForMap()).buildMapInWindow();
+    }
+
+    public void getStaticMapForEveryRoute(String nodesData) throws IOException {
+
+        Set<List<Integer>> routes = new HashSet<>();
+        for (List<Integer> route : this.getRoutesForMap()) {
+            routes.add(route);
+            new StaticGoogleMap(new NodeDAO(nodesData).getListOfNodes(), routes).buildMapInWindow();
+            routes.clear();
+        }
+
+    }
+
+    public List<Integer> getListOfSolutionsDominatedByThisSolution() {
+        return this.listOfSolutionsDominatedByThisSolution;
     }
 
     public int getR() {
@@ -192,106 +189,106 @@ public class Solution implements Comparable<Solution> {
         this.S = S;
     }
 
-    public void setConjRotas(Set<Route> conjRotas) {
-        this.conjRotas.clear();
-        this.conjRotas.addAll(new HashSet<Route>(conjRotas));
+    public void setSetOfRoutes(Set<Route> conjRotas) {
+        this.setOfRoutes.clear();
+        this.setOfRoutes.addAll(new HashSet<Route>(conjRotas));
     }
 
-    public void setL(List<Integer> L) {
-        this.L.clear();
-        this.L.addAll(L);
+    public void setListOfSolutionsDominatedByThisSolution(List<Integer> listOfSolutionsDominatedByThisSolution) {
+        this.listOfSolutionsDominatedByThisSolution.clear();
+        this.listOfSolutionsDominatedByThisSolution.addAll(listOfSolutionsDominatedByThisSolution);
     }
 
-    public void addL(int posicao) {//adiciona posicao da solucao na populaçao corrente que é dominada por esta 
-        this.L.add(posicao);
+    public void addL(int posicao) {
+        this.listOfSolutionsDominatedByThisSolution.add(posicao);
     }
 
     public void addnDom() {
-        this.nDom++;
+        this.numberOfDominatedSolutionsByThisSolution++;
     }
 
     public void addeDom() {
-        this.eDom++;
+        this.numberOfSolutionsWichDomineThisSolution++;
     }
 
-    public void setnDom(int nDom) {
-        this.nDom = nDom;
+    public void setNumberOfDominatedSolutionsByThisSolution(int numberOfDominatedSolutionsByThisSolution) {
+        this.numberOfDominatedSolutionsByThisSolution = numberOfDominatedSolutionsByThisSolution;
     }
 
-    public void seteDom(int eDom) {
-        this.eDom = eDom;
+    public void setNumberOfSolutionsWichDomineThisSolution(int numberOfSolutionsWichDomineThisSolution) {
+        this.numberOfSolutionsWichDomineThisSolution = numberOfSolutionsWichDomineThisSolution;
     }
 
     public void redeDom() {
-        this.eDom--;
+        this.numberOfSolutionsWichDomineThisSolution--;
     }
 
-    public double getFuncaoObjetivo() {
-        return this.funcaoObjetivo;
+    public double getObjectiveFunction() {
+        return this.objectiveFunction;
     }
 
-    public int getfObjetivo1() {
-        return fObjetivo1;
+    public int getSolutionTotalCost() {
+        return solutionTotalCost;
     }
 
-    public int getfObjetivo2() {
-        return fObjetivo2;
+    public int getSolutionTotalDelay() {
+        return solutionTotalDelay;
     }
 
-    public int getfObjetivo3() {
-        return fObjetivo3;
+    public int getChargeBalance() {
+        return chargeBalance;
     }
 
-    public int getfObjetivo4() {
-        return fObjetivo4;
+    public int getNumberOfNonAttendedRequests() {
+        return numberOfNonAttendedRequests;
     }
 
-    public int getfObjetivo5() {
-        return fObjetivo5;
+    public int getNumberOfVehicles() {
+        return numberOfVehicles;
     }
 
-    public int getfObjetivo6() {
-        return fObjetivo6;
+    public int getTotalTravelTime() {
+        return totalTravelTime;
     }
 
-    public int getfObjetivo7() {
-        return fObjetivo7;
+    public int getTotalWaintingTime() {
+        return totalWaintingTime;
     }
 
-    public int getfObjetivo8() {
-        return fObjetivo8;
+    public int getDeliveryTimeWindowAntecipation() {
+        return deliveryTimeWindowAntecipation;
     }
 
-    public int getfObjetivo9() {
-        return fObjetivo9;
+    public int getDeliveryTimeWindowDelay() {
+        return deliveryTimeWindowDelay;
     }
 
-    public double getF1() {
-        return this.F1;
+    public double getAggregatedObjective1() {
+        return this.aggregatedObjective1;
     }
 
-    public double getF2() {
-        return this.F2;
+    public double getAggregatedObjective2() {
+        return this.aggregatedObjective2;
     }
 
-    public double getF1n() {
-        return this.F1n;
+    public double getAggregatedObjective1Normalized() {
+        return this.aggregatedObjective1Normalized;
     }
 
-    public double getF2n() {
-        return this.F2n;
+    public double getAggregatedObjective2Normalized() {
+        return this.aggregatedObjective2Normalized;
     }
 
     public double getFitness() {
         return this.fitness;
     }
 
-    public int getnDom() {
-        return this.nDom;
+    public int getNumberOfDominatedSolutionsByThisSolution() {
+        return this.numberOfDominatedSolutionsByThisSolution;
     }
 
-    public int geteDom() {
-        return this.eDom;
+    public int getNumberOfSolutionsWichDomineThisSolution() {
+        return this.numberOfSolutionsWichDomineThisSolution;
     }
 
     public int getTempoExtraTotal() {
@@ -302,92 +299,82 @@ public class Solution implements Comparable<Solution> {
         this.tempoExtraTotal = tempo;
     }
 
-    public void setFuncaoObjetivo(double funcaoObjetivo) {
-        this.funcaoObjetivo = funcaoObjetivo;
+    public void setObjectiveFunction(double objectiveFunction) {
+        this.objectiveFunction = objectiveFunction;
     }
 
-    public void setfObjetivo1(int fObjetivo1) {
-        this.fObjetivo1 = fObjetivo1;
+    public void setSolutionTotalCost(int solutionTotalCost) {
+        this.solutionTotalCost = solutionTotalCost;
     }
 
-    public void setfObjetivo2(int fObjetivo2) {
-        this.fObjetivo2 = fObjetivo2;
+    public void setSolutionTotalDelay(int solutionTotalDelay) {
+        this.solutionTotalDelay = solutionTotalDelay;
     }
 
-    public void setfObjetivo3(int fObjetivo3) {
-        this.fObjetivo3 = fObjetivo3;
+    public void setChargeBalance(int chargeBalance) {
+        this.chargeBalance = chargeBalance;
     }
 
-    public void setfObjetivo4(int fObjetivo4) {
-        this.fObjetivo4 = fObjetivo4;
+    public void setNumberOfNonAttendedRequests(int numberOfNonAttendedRequests) {
+        this.numberOfNonAttendedRequests = numberOfNonAttendedRequests;
     }
 
-    public void setfObjetivo5(int fObjetivo5) {
-        this.fObjetivo5 = fObjetivo5;
+    public void setNumberOfVehicles(int numberOfVehicles) {
+        this.numberOfVehicles = numberOfVehicles;
     }
 
-    public void setfObjetivo6(int fObjetivo6) {
-        this.fObjetivo6 = fObjetivo6;
+    public void setTotalTravelTime(int totalTravelTime) {
+        this.totalTravelTime = totalTravelTime;
     }
 
-    public void setfObjetivo7(int fObjetivo7) {
-        this.fObjetivo7 = fObjetivo7;
+    public void setTotalWaintingTime(int totalWaintingTime) {
+        this.totalWaintingTime = totalWaintingTime;
     }
 
-    public void setfObjetivo8(int fObjetivo8) {
-        this.fObjetivo8 = fObjetivo8;
+    public void setDeliveryTimeWindowAntecipation(int deliveryTimeWindowAntecipation) {
+        this.deliveryTimeWindowAntecipation = deliveryTimeWindowAntecipation;
     }
 
-    public void setfObjetivo9(int fObjetivo9) {
-        this.fObjetivo9 = fObjetivo9;
+    public void setDeliveryTimeWindowDelay(int deliveryTimeWindowDelay) {
+        this.deliveryTimeWindowDelay = deliveryTimeWindowDelay;
     }
 
-    public void setF1(double F1) {
-        this.F1 = F1;
+    public void setAggregatedObjective1(double aggregatedObjective1) {
+        this.aggregatedObjective1 = aggregatedObjective1;
     }
 
-    public void setF2(double F2) {
-        this.F2 = F2;
+    public void setAggregatedObjective2(double aggregatedObjective2) {
+        this.aggregatedObjective2 = aggregatedObjective2;
     }
 
-    public void setF1n(double F1n) {
-        this.F1n = F1n;
+    public void setAggregatedObjective1Normalized(double aggregatedObjective1Normalized) {
+        this.aggregatedObjective1Normalized = aggregatedObjective1Normalized;
     }
 
-    public void setF2n(double F2n) {
-        this.F2n = F2n;
+    public void setAggregatedObjective2Normalized(double aggregatedObjective2Normalized) {
+        this.aggregatedObjective2Normalized = aggregatedObjective2Normalized;
     }
 
     public void setFitness(double fitness) {
         this.fitness = fitness;
     }
 
-    /**
-     * ******	Foi anexado a classe Route	*******
-
- public void setListaAtendimento(List<Request> listaAtendimento) {
-     * this.listaAtendimento.clear(); this.listaAtendimento.addAll(new
-     * LinkedList<Request>(listaAtendimento)); }
-     *
-     * public List<Request> getListaAtendimento() { return listaAtendimento; }
-	**
-     */
-    public List<Request> getListaNaoAtendimento() {
-        return listaNaoAtendimento;
+    public List<Request> getNonAttendedRequestsList() {
+        return nonAttendedRequestsList;
     }
 
-    public void setListaNaoAtendimento(List<Request> listaNaoAtendimento) {
-        this.listaNaoAtendimento.clear();
-        this.listaNaoAtendimento.addAll(new LinkedList<Request>(listaNaoAtendimento));
+    public void setNonAttendedRequestsList(List<Request> listaNaoAtendimento) {
+        this.nonAttendedRequestsList.clear();
+        this.nonAttendedRequestsList.addAll(new LinkedList<Request>(listaNaoAtendimento));
     }
 
-    public List<Integer> getRotaConcatenada() {
-        return rotaConcatenada;
+    public List<Integer> getLinkedRouteList() {
+        return linkedRouteList;
     }
 
-    public void setRotaConcatenada(List<Integer> rotaConcatenada) {
-        this.rotaConcatenada.clear();
-        this.rotaConcatenada.addAll(new ArrayList<Integer>(rotaConcatenada));
+    public void setLinkedRouteList(List<Integer> rotaConcatenada) {
+        this.linkedRouteList.clear();
+        this.linkedRouteList.addAll(new ArrayList<Integer>(rotaConcatenada));
     }
 
     public String getLogger() {
@@ -403,28 +390,18 @@ public class Solution implements Comparable<Solution> {
         this.dif = dif;
     }
 
-    public void concatenarRota() {
-        for (Route r : conjRotas) {
-            rotaConcatenada.addAll(r.getListaVisitacao().subList(1, r.getListaVisitacao().size() - 1));
+    public void linkTheRoutes() {
+        for (Route r : setOfRoutes) {
+            linkedRouteList.addAll(r.getListaVisitacao().subList(1, r.getListaVisitacao().size() - 1));
         }
     }
 
-    /**
-     * ******	Foi anexado a classe Route	*******
-
- public void addAtendimento(Request request){
- listaAtendimento.add(request); }
-
- public void removeAtendimento(Request request){
- listaAtendimento.remove(request); }
-	**
-     */
-    public void addNaoAtendimento(Request request) {
-        listaNaoAtendimento.add(request);
+    public void addNonAttendeRequest(Request request) {
+        nonAttendedRequestsList.add(request);
     }
 
-    public void removeNaoAtendimento(Request request) {
-        listaNaoAtendimento.remove(request);
+    public void removeNonAttendeRequest(Request request) {
+        nonAttendedRequestsList.remove(request);
     }
 
     @Override
@@ -432,25 +409,25 @@ public class Solution implements Comparable<Solution> {
         DecimalFormat df = new DecimalFormat("0.000");
         //System.out.println(NumberFormat.getCurrencyInstance().format(12345678.908874));
         //if(conjRotas != null){// como impedir a chamada do metodo para conjRotas == null ???
-        //String s = "FO1 = " + fObjetivo1 + "\t FO2 = " + fObjetivo2 + "\t FO3 = " +  fObjetivo3 +/*"\t Fit = "+ fitness +*/"\t U = "+listaNaoAtendimento.size() + "\t N = " + conjRotas.size() + "\t";
-        //String s = fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+listaNaoAtendimento.size() + "\t" + conjRotas.size() + ";\t";
-        //String s = fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + ";\t";
-        //String s = funcaoObjetivo + "\t"+ F1 + "\t"+ F2 + "\t" + fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + "\t" + fObjetivo6 + "\t" + fObjetivo7 + "\t";
-        String s = funcaoObjetivo + "\t"+fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + "\t" + fObjetivo6 + "\t" + fObjetivo7 + "\t"+ fObjetivo8 + "\t" + fObjetivo9 + "\t";
-        //String s = funcaoObjetivo + "\t" + fObjetivo1 + "\t" + fObjetivo4 + "\t" + fObjetivo8 + "\t" + fObjetivo9 + "\t";
-        //String s = fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + "\t" + fObjetivo6 + "\t" + fObjetivo7 + "\t";
-        //String s = "F1 = "+ F1 + "\tF2 = "+ F2 + "\tFit = " + fitness +"\tf1 = " + fObjetivo1 + "\tf2 = " + fObjetivo2 + "\tf3 = " +  fObjetivo3 +"\tf4 = "+fObjetivo4 + "\tf5 = " + fObjetivo5 + ";\t";
-        //String s = F1 + "\t"+ F2 + "\t"+ F1n + "\t"+ F2n + "\t" + eDom +"\t" + fitness +"\t" + fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + ";\t";
+        //String s = "FO1 = " + solutionTotalCost + "\t FO2 = " + solutionTotalDelay + "\t FO3 = " +  chargeBalance +/*"\t Fit = "+ fitness +*/"\t U = "+listaNaoAtendimento.size() + "\t N = " + conjRotas.size() + "\t";
+        //String s = solutionTotalCost + "\t" + solutionTotalDelay + "\t" +  chargeBalance +"\t"+listaNaoAtendimento.size() + "\t" + conjRotas.size() + ";\t";
+        //String s = solutionTotalCost + "\t" + solutionTotalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
+        //String s = objectiveFunction + "\t"+ aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t" + solutionTotalCost + "\t" + solutionTotalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t";
+        String s = objectiveFunction + "\t" + solutionTotalCost + "\t" + solutionTotalDelay + "\t" + chargeBalance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" + deliveryTimeWindowDelay + "\t";
+        //String s = objectiveFunction + "\t" + solutionTotalCost + "\t" + numberOfNonAttendedRequests + "\t" + deliveryTimeWindowAntecipation + "\t" + deliveryTimeWindowDelay + "\t";
+        //String s = solutionTotalCost + "\t" + solutionTotalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t";
+        //String s = "aggregatedObjective1 = "+ aggregatedObjective1 + "\tF2 = "+ aggregatedObjective2 + "\tFit = " + fitness +"\tf1 = " + solutionTotalCost + "\tf2 = " + solutionTotalDelay + "\tf3 = " +  chargeBalance +"\tf4 = "+numberOfNonAttendedRequests + "\tf5 = " + numberOfVehicles + ";\t";
+        //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ aggregatedObjective1Normalized + "\t"+ aggregatedObjective2Normalized + "\t" + numberOfSolutionsWichDomineThisSolution +"\t" + fitness +"\t" + solutionTotalCost + "\t" + solutionTotalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
 
-        //String s = F1 + "\t"+ F2 + "\t" + eDom +"\t" + fitness +"\t" + fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + ";\t";
-        //String s = F1 + "\t"+ F2 + "\t" + eDom +"\t"+ L +";\t";
-        //String s = F1 + "\t"+ F2 + "\t"+ df.format(F1n) + "\t"+ df.format(F2n) + "\t" + eDom +"\t" + df.format(fitness) +"\t" + L +" \t "+ S +" \t "+ R +" \t" + fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + ";\t";
-        //String s = F1 + "\t"+ F2 + "\t"+ L + "\t" + nDom +"\t" + " \t "+ S +" \t "+ R +" \t" + fObjetivo1 + "\t" + fObjetivo2 + "\t" +  fObjetivo3 +"\t"+fObjetivo4 + "\t" + fObjetivo5 + ";\t";
-        //String s = F1 + "\t"+ F2;
-        //String s = df.format(F1n) + "\t"+ df.format(F2n)+";\t";
+        //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t" + numberOfSolutionsWichDomineThisSolution +"\t" + fitness +"\t" + solutionTotalCost + "\t" + solutionTotalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
+        //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t" + numberOfSolutionsWichDomineThisSolution +"\t"+ listOfSolutionsDominatedByThisSolution +";\t";
+        //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ df.format(aggregatedObjective1Normalized) + "\t"+ df.format(aggregatedObjective2Normalized) + "\t" + numberOfSolutionsWichDomineThisSolution +"\t" + df.format(fitness) +"\t" + listOfSolutionsDominatedByThisSolution +" \t "+ S +" \t "+ R +" \t" + solutionTotalCost + "\t" + solutionTotalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
+        //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ listOfSolutionsDominatedByThisSolution + "\t" + numberOfDominatedSolutionsByThisSolution +"\t" + " \t "+ S +" \t "+ R +" \t" + solutionTotalCost + "\t" + solutionTotalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
+        //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2;
+        //String s = df.format(aggregatedObjective1Normalized) + "\t"+ df.format(aggregatedObjective2Normalized)+";\t";
         int indice = 1;
         String listaAtendimento = " ";
-        for (Route r : conjRotas) {
+        for (Route r : setOfRoutes) {
             s += "R" + indice + ": " + r + " ";
             listaAtendimento += "R" + indice++ + ": ";
             for (Request req : r.getListaAtendimento()) {
@@ -485,13 +462,12 @@ public class Solution implements Comparable<Solution> {
             return false;
         }
 
-        if (conjRotas.size() != solucao2.getConjRotas().size()) {
+        if (setOfRoutes.size() != solucao2.getSetOfRoutes().size()) {
             return false;
         }
 
-        // deve olhar se as listas de rotas sao iguais
-        for (Iterator<Route> i = conjRotas.iterator(); i.hasNext();) {
-            if (!solucao2.getConjRotas().contains(i.next())) {
+        for (Iterator<Route> i = setOfRoutes.iterator(); i.hasNext();) {
+            if (!solucao2.getSetOfRoutes().contains(i.next())) {
                 return false;
             }
         }
@@ -502,18 +478,16 @@ public class Solution implements Comparable<Solution> {
     @Override
     public int hashCode() {
 
-        if (conjRotas == null) {
+        if (setOfRoutes == null) {
             return -1;
         }
 
         int hash = 0;
 
-        for (Route i : conjRotas) {
+        for (Route i : setOfRoutes) {
             hash += i.hashCode();
         }
 
-        /*for(Iterator<Rota> i = solucao.iterator(); i.hasNext();)
-				hash += i.next().hashCode();*/
         return hash;
     }
 
