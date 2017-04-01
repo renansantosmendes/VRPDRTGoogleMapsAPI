@@ -38,11 +38,11 @@ import java.io.IOException;
  */
 public class VRPDRT {
 
-    final static Integer TimeWindows = 3;
+    final static Long timeWindows = (long) 3;
     static List<Request> listOfRequests = new ArrayList<>();
     static List<List<Integer>> listOfAdjacencies = new LinkedList<>();
-    static List<List<Integer>> distanceBetweenNodes = new LinkedList<>();
-    static List<List<Integer>> timeBetweenNodes = new LinkedList<>();
+    static List<List<Long>> distanceBetweenNodes = new LinkedList<>();
+    static List<List<Long>> timeBetweenNodes = new LinkedList<>();
     static Set<Integer> Pmais = new HashSet<>();
     static Set<Integer> Pmenos = new HashSet<>();
     static Set<Integer> setOfNodes = new HashSet<>();
@@ -55,7 +55,7 @@ public class VRPDRT {
     static List<Request> P = new ArrayList<>();
 
     //-------------------Test--------------------------------
-    static Integer currentTime;
+    static Long currentTime;
     static Integer lastNode;
 
     public static void main(String[] args) throws ApiException, InterruptedException, IOException {
@@ -73,28 +73,28 @@ public class VRPDRT {
                 timeBetweenNodes, Pmais, Pmenos, requestsWichBoardsInNode, requestsWichLeavesInNode, setOfNodes,
                 numberOfNodes, loadIndexList);
 
-        new DataUpdaterUsingGoogleMapsApi(directionsApiKey, distanceMatrixApiKey, new NodeDAO(nodesData).getListOfNodes(),
-                adjacenciesData).updateAdjacenciesData();
+//        new DataUpdaterUsingGoogleMapsApi(directionsApiKey, distanceMatrixApiKey, new NodeDAO(nodesData).getListOfNodes(),
+//                adjacenciesData).updateAdjacenciesData();
 
-//        System.out.println("Number of Vehicles = " + numberOfVehicles);
-//        System.out.println("Vehicle Capacity = " + vehicleCapacity);
-//
-//        Set<Integer> setOfVehicles = new HashSet<>(vehicleCapacity);
-//        for (int i = 0; i < numberOfVehicles; i++) {
-//            setOfVehicles.add(i);
-//        }
+        System.out.println("Number of Vehicles = " + numberOfVehicles);
+        System.out.println("Vehicle Capacity = " + vehicleCapacity);
+
+        Set<Integer> setOfVehicles = new HashSet<>(vehicleCapacity);
+        for (int i = 0; i < numberOfVehicles; i++) {
+            setOfVehicles.add(i);
+        }
 //        
 //        //new DataUpdaterDAO(adjacenciesData).updateAdjacenciesData(new NodeDAO(nodesData).getListOfNodes());
-//        Solution s = greedyConstructive(0.2, 0.15, 0.55, 0.10, listOfRequests.subList(0, 1), requestsWichBoardsInNode, 
-//                requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, P, 
-//                loadIndexList, timeBetweenNodes, distanceBetweenNodes, TimeWindows, currentTime, lastNode);
-//
-//        System.out.println(s.getSetOfRoutes());
-//        System.out.println(s);
+        Solution s = greedyConstructive(0.2, 0.15, 0.55, 0.10, listOfRequests.subList(0, 10), requestsWichBoardsInNode, 
+                requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, P, 
+                loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
+
+        System.out.println(s.getSetOfRoutes());
+        System.out.println(s);
 //        System.out.println(s.getNonAttendedRequestsList());
         //System.out.println(timeBetweenNodes.get(0).get(3));
         //IteratedLocalSearch(s, listOfRequests, requestsWichBoardsInNode,requestsWichLeavesInNode,numberOfNodes, vehicleCapacity, 
-        //      setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes, distanceBetweenNodes, TimeWindows);
+        //      setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows);
         //s.getStaticMapWithAllRoutes(nodesData);
         //s.getStaticMapForEveryRoute(nodesData);
     }

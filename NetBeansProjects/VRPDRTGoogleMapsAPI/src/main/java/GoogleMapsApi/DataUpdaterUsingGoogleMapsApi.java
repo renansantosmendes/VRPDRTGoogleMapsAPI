@@ -12,6 +12,7 @@ import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DirectionsResult;
+import com.google.maps.model.DirectionsRoute;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -73,7 +74,7 @@ public class DataUpdaterUsingGoogleMapsApi {
     }
 
     private void addDataToTheSameNode(Node origin, Node destination) {
-        insertDataInAdjacenciesTable(origin, destination, 0, 0);
+        insertDataInAdjacenciesTable(origin, destination, 0, 0, "");
     }
 
     private void addDataFromGoogleMapsApi(Node origin, Node destination) throws ApiException {
@@ -89,20 +90,21 @@ public class DataUpdaterUsingGoogleMapsApi {
             directionsApiRequest.alternatives(true);
 
             DirectionsResult routesBetweenNodes = directionsApiRequest.await();
-            System.out.println(routesBetweenNodes.routes.length);
 
-            List<Long> distancesList = new ArrayList<>();
-            List<Long> durationList = new ArrayList<>();
-            for (int i = 0; i < routesBetweenNodes.routes.length; i++) {
-                distancesList.add(routesBetweenNodes.routes[i].legs[0].distance.inMeters);
-                durationList.add(routesBetweenNodes.routes[i].legs[0].duration.inSeconds);
+            List<DirectionsRoute> routesList = new ArrayList<>();
+            DirectionsRoute[] routes = routesBetweenNodes.routes;
+
+            for (int i = 0; i < routes.length; i++) {
+                routesList.add(routes[i]);
             }
-            distancesList.sort(Comparator.comparing(Long::valueOf));
-            durationList.sort(Comparator.comparing(Long::valueOf));
-                       
-            
-            System.out.println(routesBetweenNodes.routes[1].overviewPolyline.getEncodedPath());
-         
+            routesList.sort(Comparator.comparing(u -> u.legs[0].distance.inMeters));
+            DirectionsRoute smallerRouteBetweenNodes = routesList.get(0);
+            Long routeDuration = smallerRouteBetweenNodes.legs[0].duration.inSeconds;
+            Long routeDistance = smallerRouteBetweenNodes.legs[0].distance.inMeters;
+            String routePolyline = smallerRouteBetweenNodes.overviewPolyline.toString();
+            insertDataInAdjacenciesTable(origin, destination, routeDuration, routeDistance,
+                    smallerRouteBetweenNodes.overviewPolyline.getEncodedPath());
+            //System.out.println(routesBetweenNodes.routes[0].overviewPolyline.getEncodedPath());
 
         } catch (InterruptedException ex) {
             Logger.getLogger(DataUpdaterUsingGoogleMapsApi.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,14 +113,31 @@ public class DataUpdaterUsingGoogleMapsApi {
         }
     }
 
-    private void insertDataInAdjacenciesTable(Node origin, Node destination, int totalTravelTime, double totalDistance) {
+    private void insertDataInAdjacenciesTable(Node origin, Node destination, long totalTravelTime, long totalDistance) {
         String sql = "insert into " + this.adjacenciesTableInDataBase + " values (?,?,?,?)";
         try {
             PreparedStatement statement = this.connection.prepareStatement(sql);
             statement.setString(1, origin.getNodeId().toString());
             statement.setString(2, destination.getNodeId().toString());
-            statement.setString(3, Integer.toString(totalTravelTime));
+            statement.setString(3, Long.toString(totalTravelTime));
             statement.setString(4, Double.toString(totalDistance));
+            statement.execute();
+            statement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void insertDataInAdjacenciesTable(Node origin, Node destination, long totalTravelTime, long totalDistance,
+            String polyline) {
+        String sql = "insert into " + this.adjacenciesTableInDataBase + " values (?,?,?,?,?)";
+        try {
+            PreparedStatement statement = this.connection.prepareStatement(sql);
+            statement.setString(1, origin.getNodeId().toString());
+            statement.setString(2, destination.getNodeId().toString());
+            statement.setString(3, Long.toString(totalTravelTime));
+            statement.setString(4, Double.toString(totalDistance));
+            statement.setString(5, polyline);
             statement.execute();
             statement.close();
         } catch (SQLException e) {

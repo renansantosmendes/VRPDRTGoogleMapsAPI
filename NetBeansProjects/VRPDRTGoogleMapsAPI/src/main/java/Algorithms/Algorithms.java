@@ -17,7 +17,6 @@ import java.util.Map;
 import ProblemRepresentation.Request;
 import ProblemRepresentation.Route;
 import ProblemRepresentation.Solution;
-import static Algorithms.Methods.SeparaOrigemDestino;
 import static Algorithms.Methods.CalculaCRL;
 import static Algorithms.Methods.CalculaDRL;
 import static Algorithms.Methods.CalculaListaSemNosViaveis;
@@ -30,7 +29,6 @@ import static Algorithms.Methods.Cruzamento2Pontos;
 import static Algorithms.Methods.Desembarca;
 import static Algorithms.Methods.Embarca;
 import static Algorithms.Methods.EmbarcaRelaxacao;
-import static Algorithms.Methods.EncontraNosViaveis;
 import static Algorithms.Methods.FinalizaRota;
 import static Algorithms.Methods.Fitness;
 import static Algorithms.Methods.ImprimePopulacao;
@@ -65,6 +63,8 @@ import java.time.Clock;
 import java.util.Comparator;
 import java.util.Scanner;
 import java.util.TreeMap;
+import static Algorithms.Methods.findFeasibleNodes;
+import static Algorithms.Methods.separateOriginFromDestination;
 
 public class Algorithms {
 
@@ -81,7 +81,7 @@ public class Algorithms {
         }
     }
 
-    public static double FuncaoDeAvaliacao(Solution S, List<Request> listOfRequests, List<List<Integer>> c) {
+    public static double FuncaoDeAvaliacao(Solution S, List<Request> listOfRequests, List<List<Long>> c) {
         double avalicao = 0;
         double V = 12;
         //double alfa = S.getNonAttendedRequestsList().size();
@@ -89,7 +89,7 @@ public class Algorithms {
         double beta = 1 / 10;
         double gama = 1;//12 é o número de pontos de parada incluindo o depósito
 
-        avalicao = S.getSolutionTotalCost() + alfa * S.getNumberOfNonAttendedRequests() + beta * S.getDeliveryTimeWindowAntecipation() + gama * S.getDeliveryTimeWindowDelay();
+        avalicao = S.getTotalDistance() + alfa * S.getNumberOfNonAttendedRequests() + beta * S.getDeliveryTimeWindowAntecipation() + gama * S.getDeliveryTimeWindowDelay();
 
         return avalicao;
     }
@@ -136,7 +136,7 @@ public class Algorithms {
             for (Request request : r.getListaAtendimento()) {
                 //System.out.println("Solicitação = " + request);
                 if (request.getDeliveryTime() > request.getDeliveryL()) {
-                    int dif = request.getDeliveryTime() - request.getDeliveryL();
+                    long dif = request.getDeliveryTime() - request.getDeliveryL();
                     if (dif < tempoMaximo) {
                         totalCost += dif * PENALIDADE;
                     } else {
@@ -152,7 +152,7 @@ public class Algorithms {
         return totalCost;
     }
 
-    public static int FO1(Solution S, List<List<Integer>> c) {
+    public static long FO1(Solution S, List<List<Long>> c) {
         int totalCost = 0;
         //o custo do veiculo é de 1000
         int W = 1000,//1000,
@@ -170,7 +170,7 @@ public class Algorithms {
         return totalCost;
     }
 
-    public static int FO2(Solution S, List<List<Integer>> c) {
+    public static long FO2(Solution S, List<List<Long>> c) {
         int somaTotal = 0;
 
         for (Route r : S.getSetOfRoutes()) {
@@ -179,7 +179,7 @@ public class Algorithms {
             for (Request request : r.getListaAtendimento()) {
                 //System.out.println("Solicitação = " + request);
                 if (request.getDeliveryTime() > request.getDeliveryL()) {
-                    int dif = request.getDeliveryTime() - request.getDeliveryL();
+                    long dif = request.getDeliveryTime() - request.getDeliveryL();
                     /*if(dif<tempoMaximo){
                      totalCost += dif*PENALIDADE;
                      }else{
@@ -271,149 +271,166 @@ public class Algorithms {
 
         //Agregação feita com base na análise de cluster, utilizando a matriz de correlação amostral Rij
         S.setAggregatedObjective1(800 * S.getNumberOfVehicles() + 500 * S.getNumberOfNonAttendedRequests() + S.getTotalTravelTime() + 20 * S.getTotalWaintingTime());
-        S.setAggregatedObjective2(S.getSolutionTotalCost() + S.getSolutionTotalDelay() + 20 * S.getChargeBalance());
+        S.setAggregatedObjective2(S.getTotalDistance() + S.getTotalDelay() + 20 * S.getChargeBalance());
 
 //        S.setF1(alfa * S.getfObjetivo2() + /*beta**/ 10 * S.getfObjetivo3() + /*delta**/ 50 * S.getfObjetivo4());
 //        S.setF2(gama * S.getfObjetivo1() +/*epslon*/ 800 * S.getfObjetivo5());
     }
 
-    // Algoritmo Construtivo Guloso
-    public static Solution greedyConstructive(Double alphaD, Double alphaP, Double alphaV, Double alphaT, List<Request> listRequests,
-            Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K,
-            List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d, List<List<Integer>> c,
-            Integer TimeWindows, Integer currentTime, Integer lastNode) {
+    
+    public static Solution greedyConstructive(Double alphaD, Double alphaP, Double alphaV, Double alphaT, 
+            List<Request> listOfRequests, Map<Integer, List<Request>> requestsWichBoardsInNode, 
+            Map<Integer, List<Request>> requestsWichLeavesInNode, Integer numberOfNodes, Integer vehicleCapacity, 
+            Set<Integer> setOfVehicles, List<Request> listOfNonAttendedRequests, List<Request> requestList, 
+            List<Integer> loadIndex, List<List<Long>> timeBetweenNodes, List<List<Long>> distanceBetweenNodes, 
+            Long timeWindows, Long currentTime, Integer lastNode) {
 
-        P.clear();
-        U.clear();
-        P.addAll(listRequests);
+        requestList.clear();
+        listOfNonAttendedRequests.clear();
+        requestList.addAll(listOfRequests);
 
         //Step 1
-        Solution S = new Solution();
+        Solution solution = new Solution();
         String log = "";
 
-        int currentK;
-        Map<Integer, Double> CRL = new HashMap<>(n), // Cost Rank List
-                NRL = new HashMap<>(n), // Number of Passengers Rank List
-                DRL = new HashMap<>(n), // Delivery time-window Rank List
-                TRL = new HashMap<>(n), // Time-window Rank List
-                NRF = new HashMap<>(n);	// Time-window Rank List
+        int currentVehicle;
+        Map<Integer, Double> costRankList = new HashMap<>(numberOfNodes);
+        Map<Integer, Double> numberOfPassengersRankList = new HashMap<>(numberOfNodes); 
+        Map<Integer, Double> deliveryTimeWindowRankList = new HashMap<>(numberOfNodes); 
+        Map<Integer, Double> timeWindowRankList = new HashMap<>(numberOfNodes); 
+        Map<Integer, Double> nodeRankingFunction = new HashMap<>(numberOfNodes);
 
-        Iterator<Integer> itK = K.iterator();
-        U.clear();
-        while (!P.isEmpty() && itK.hasNext()) {
+        Iterator<Integer> vehicleIterator = setOfVehicles.iterator();
+        listOfNonAttendedRequests.clear();
+        while (!requestList.isEmpty() && vehicleIterator.hasNext()) {
 
-            SeparaOrigemDestino(U, Pin, Pout, n, P);
+            separateOriginFromDestination(listOfNonAttendedRequests, requestsWichBoardsInNode, requestsWichLeavesInNode, 
+                    numberOfNodes, requestList);
 
             //Step 2
-            Route R = new Route();
-            currentK = itK.next();
-            log += "\tGROTA " + (currentK + 1) + " ";
+            Route route = new Route();
+            currentVehicle = vehicleIterator.next();
+            log += "\tGROute " + (currentVehicle + 1) + " ";
 
             //Step 3
-            R.addVisitacao(0);
+            route.addVisitedNodes(0);
 
-            currentTime = 0;
+            currentTime = (long) 0;
             //-------------------------------------------------------------------
             double max, min;
             //Integer  lastNode = R.getLastNode();
-            lastNode = R.getLastNode();
+            lastNode = route.getLastNode();
 
-            boolean encontrado;
+            boolean feasibleNodeIsFound;
 
-            while (!P.isEmpty()) {
-                encontrado = false;
-                m.clear();
-                for (int i = 0; i < n; i++) {
-                    m.add(Pin.get(i).size() - Pout.get(i).size());
+            while (!requestList.isEmpty()) {
+                feasibleNodeIsFound = false;
+                loadIndex.clear();
+                for (int i = 0; i < numberOfNodes; i++) {
+                    loadIndex.add(requestsWichBoardsInNode.get(i).size() - requestsWichLeavesInNode.get(i).size());
                 }
 
                 //Step 4
-                Set<Integer> FeasibleNode = new HashSet<>();
-                List<Integer> EarliestTime = new ArrayList<>();
+                Set<Integer> feasibleNode = new HashSet<>();
+                List<Long> earliestTime = new ArrayList<>();
 
-                EncontraNosViaveis(n, lastNode, encontrado, Qmax, R, Pin, Pout, FeasibleNode, d, currentTime, TimeWindows);
+                findFeasibleNodes(numberOfNodes, lastNode, feasibleNodeIsFound, vehicleCapacity, route, 
+                        requestsWichBoardsInNode, requestsWichLeavesInNode, feasibleNode, timeBetweenNodes, 
+                        currentTime, timeWindows);
 
                 //System.out.println("FEASIBLE NODES = "+ FeasibleNode);			
-                if (FeasibleNode.size() > 1) {
+                if (feasibleNode.size() > 1) {
                     //Step 4.1
-                    CalculaCRL(FeasibleNode, CRL, c, lastNode);
+                    CalculaCRL(feasibleNode, costRankList, distanceBetweenNodes, lastNode);
                     //Step 4.2
-                    CalculaNRL(FeasibleNode, NRL, m, lastNode);
+                    CalculaNRL(feasibleNode, numberOfPassengersRankList, loadIndex, lastNode);
                     //Step 4.3
-                    CalculaDRL(FeasibleNode, DRL, Pout, lastNode, d, EarliestTime);
+                    CalculaDRL(feasibleNode, deliveryTimeWindowRankList, requestsWichLeavesInNode, lastNode, 
+                            timeBetweenNodes, earliestTime);
                     //Step 4.4
-                    CalculaTRL(FeasibleNode, TRL, Pin, lastNode, d, EarliestTime);
+                    CalculaTRL(feasibleNode, timeWindowRankList, requestsWichBoardsInNode, lastNode, timeBetweenNodes, 
+                            earliestTime);
                 } else {
                     //Step 4.1
-                    CalculaListaSemNosViaveis(CRL, FeasibleNode);
+                    CalculaListaSemNosViaveis(costRankList, feasibleNode);
                     //Step 4.2
-                    CalculaListaSemNosViaveis(NRL, FeasibleNode);
+                    CalculaListaSemNosViaveis(numberOfPassengersRankList, feasibleNode);
                     //Step 4.3
-                    CalculaListaSemNosViaveis(DRL, FeasibleNode);
+                    CalculaListaSemNosViaveis(deliveryTimeWindowRankList, feasibleNode);
                     //Step 4.4
-                    CalculaListaSemNosViaveis(TRL, FeasibleNode);
+                    CalculaListaSemNosViaveis(timeWindowRankList, feasibleNode);
                 }
 
                 //Step 5
-                CalculaNRF(NRF, CRL, NRL, DRL, TRL, alphaD, alphaP, alphaV, alphaT, FeasibleNode);
+                CalculaNRF(nodeRankingFunction, costRankList, numberOfPassengersRankList, deliveryTimeWindowRankList, 
+                        timeWindowRankList, alphaD, alphaP, alphaV, alphaT, feasibleNode);
 
                 //Step 6              
                 //System.out.println("Tamanho da NRF = " + NRF.size());              
-                max = Collections.max(NRF.values());
+                max = Collections.max(nodeRankingFunction.values());
 
-                currentTime = AdicionaNo(NRF, CRL, NRL, DRL, TRL, max, lastNode, Pin, d, EarliestTime, currentTime, R);
-                lastNode = R.getLastNode();
+                currentTime = AdicionaNo(nodeRankingFunction, costRankList, numberOfPassengersRankList, 
+                        deliveryTimeWindowRankList, timeWindowRankList, max, lastNode, requestsWichBoardsInNode, 
+                        timeBetweenNodes, earliestTime, currentTime, route);
+                
+                lastNode = route.getLastNode();
 
                 //Step 7
                 //RETIRAR A LINHA DE BAIXO DEPOIS - inicialização de listRequestAux
                 List<Request> listRequestAux = new LinkedList<>();
                 //Desembarca as solicitações no nó 
-                Desembarca(Pin, Pout, lastNode, currentTime, P, listRequestAux, R, log);
+                Desembarca(requestsWichBoardsInNode, requestsWichLeavesInNode, lastNode, currentTime, requestList, 
+                        listRequestAux, route, log);
                 //Embarca as solicitações sem tempo de espera
-                Embarca(Pin, lastNode, currentTime, P, listRequestAux, R, log, Qmax);
+                Embarca(requestsWichBoardsInNode, lastNode, currentTime, requestList, listRequestAux, route, log, vehicleCapacity);
                 //Embarca agora as solicitações onde o veículo precisar esperar e guarda atualiza o tempo (currentTime)                               
-                currentTime = EmbarcaRelaxacao(Pin, lastNode, currentTime, P, listRequestAux, R, log, Qmax, TimeWindows);
+                currentTime = EmbarcaRelaxacao(requestsWichBoardsInNode, lastNode, currentTime, requestList, 
+                        listRequestAux, route, log, vehicleCapacity, timeWindows);
 
                 //---------- Trata as solicitações inviáveis -----------
-                RetiraSolicitacoesInviaveis(Pin, Pout, listRequestAux, currentTime, P, U);
-                encontrado = ProcuraSolicitacaoParaAtender(R, Qmax, Pin, Pout, currentTime, n, d, lastNode, TimeWindows, encontrado);
-                RetiraSolicitacaoNaoSeraAtendida(encontrado, Pin, Pout, listRequestAux, currentTime, P, U);
+                RetiraSolicitacoesInviaveis(requestsWichBoardsInNode, requestsWichLeavesInNode, listRequestAux, 
+                        currentTime, requestList, listOfNonAttendedRequests);
+                feasibleNodeIsFound = ProcuraSolicitacaoParaAtender(route, vehicleCapacity, requestsWichBoardsInNode, 
+                        requestsWichLeavesInNode, currentTime, numberOfNodes, timeBetweenNodes, lastNode, timeWindows, 
+                        feasibleNodeIsFound);
+                RetiraSolicitacaoNaoSeraAtendida(feasibleNodeIsFound, requestsWichBoardsInNode, requestsWichLeavesInNode, 
+                        listRequestAux, currentTime, requestList, listOfNonAttendedRequests);
 
                 //Step 8
-                currentTime = FinalizaRota(P, R, currentTime, lastNode, d, S);
+                currentTime = FinalizaRota(requestList, route, currentTime, lastNode, timeBetweenNodes, solution);
             }
 
             //Step 9
-            AnaliseSolicitacoesViaveisEmU(U, P, itK, d);
+            AnaliseSolicitacoesViaveisEmU(listOfNonAttendedRequests, requestList, vehicleIterator, timeBetweenNodes);
         }
 
         //S.setFuncaoObjetivo(FuncaoObjetivo(S,c));
-        S.setNonAttendedRequestsList(U);
-        S.setSolutionTotalCost(FO1(S, c));
-        S.setSolutionTotalDelay(FO2(S, c));
-        S.setChargeBalance(FO3(S));
-        S.setNumberOfNonAttendedRequests(FO4(S));
-        S.setNumberOfVehicles(FO5(S));
-        S.setTotalTravelTime(FO6(S));
-        S.setTotalWaintingTime(FO7(S));
-        S.setDeliveryTimeWindowAntecipation(FO8(S));
-        S.setDeliveryTimeWindowDelay(FO9(S));
-        FOagregados(S, 1, 1, 1, 1, 1);
-        S.setLogger(log);
-        S.linkTheRoutes();
+        solution.setNonAttendedRequestsList(listOfNonAttendedRequests);
+        solution.setTotalDistance(FO1(solution, distanceBetweenNodes));
+        solution.setTotalDelay(FO2(solution, distanceBetweenNodes));
+        solution.setChargeBalance(FO3(solution));
+        solution.setNumberOfNonAttendedRequests(FO4(solution));
+        solution.setNumberOfVehicles(FO5(solution));
+        solution.setTotalTravelTime(FO6(solution));
+        solution.setTotalWaintingTime(FO7(solution));
+        solution.setDeliveryTimeWindowAntecipation(FO8(solution));
+        solution.setDeliveryTimeWindowDelay(FO9(solution));
+        FOagregados(solution, 1, 1, 1, 1, 1);
+        solution.setLogger(log);
+        solution.linkTheRoutes();
         //S.setfObjetivo1((int) FuncaoObjetivo(S, c));
-        S.setObjectiveFunction(FuncaoDeAvaliacao(S, listRequests, c));
+        solution.setObjectiveFunction(FuncaoDeAvaliacao(solution, listOfRequests, distanceBetweenNodes));
 
-        return S;
+        return solution;
     }
 
     /**
      * Avalia Vizinho
      *
      */
-    public static Solution avaliaSolucao(List<Integer> vizinho, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U,
-            Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c,
-            Integer n, Integer Qmax, Integer TimeWindows) {
+    public static Solution avaliaSolucao(List<Integer> vizinho, List<Request> listRequests, List<Request> P, 
+            Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, 
+            List<List<Long>> d, List<List<Long>> c,  Integer n, Integer Qmax, Long TimeWindows) {
         P.clear();
         P.addAll(listRequests);
 
@@ -474,8 +491,8 @@ public class Algorithms {
             /*if(currentK+1 == 3)
              System.out.println("ROTA BREMA");*/
             //Step 3
-            R.addVisitacao(0);
-            int currentTime = 0;
+            R.addVisitedNodes(0);
+            long currentTime = 0;
 
             Integer lastNode = R.getLastNode();
             Integer newNode;
@@ -528,7 +545,7 @@ public class Algorithms {
                 }
                 //-------------------------------------------------------------------------------------------------
                 //Step 6
-                List<Integer> EarliestTime = new ArrayList<>();
+                List<Long> EarliestTime = new ArrayList<>();
 
                 if (lastNode == 0) {
                     //System.out.println("VIZINHO PROBLEMATICO "+vizinho);
@@ -546,7 +563,7 @@ public class Algorithms {
 
                 currentTime += d.get(lastNode).get(newNode);
 
-                R.addVisitacao(newNode);
+                R.addVisitedNodes(newNode);
                 lastNode = R.getLastNode();
 
                 //Step 7
@@ -616,8 +633,8 @@ public class Algorithms {
 
                 listRequestAux.addAll(Pin.get(lastNode));
 
-                int waitTime = TimeWindows;
-                int aux;
+                long waitTime = TimeWindows;
+                long aux;
 
                 for (Request request : listRequestAux) {
                     if (R.getLotacaoAtual() < Qmax && currentTime + waitTime >= request.getPickupE() && currentTime + waitTime <= request.getPickupL() && vizinho.contains(request.getDestination())) {
@@ -717,7 +734,7 @@ public class Algorithms {
 
                 //Step 8
                 if (P.isEmpty()) {
-                    R.addVisitacao(0);
+                    R.addVisitedNodes(0);
                     //log += R.toString()+"\n";
                     //System.out.println("Route "+R+" - "+currentTime);
                     currentTime += d.get(lastNode).get(0);
@@ -741,8 +758,8 @@ public class Algorithms {
         }
         //System.out.print("Usize = "+U.size()+"\n"+FO(S,U.size())+" -> ");
         S.setNonAttendedRequestsList(U);
-        S.setSolutionTotalCost(FO1(S, c));
-        S.setSolutionTotalDelay(FO2(S, c));
+        S.setTotalDistance(FO1(S, c));
+        S.setTotalDelay(FO2(S, c));
         S.setChargeBalance(FO3(S));
         S.setNumberOfNonAttendedRequests(FO4(S));
         S.setNumberOfVehicles(FO5(S));
@@ -764,8 +781,8 @@ public class Algorithms {
 
     public static void GeneticAlgorithm(List<Solution> Pop, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests,
             Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K,
-            List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d, List<List<Integer>> c,
-            Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d, List<List<Long>> c,
+            Long TimeWindows, Long currentTime, Integer lastNode) {
 
         String diretorio, nomeArquivo;
         try {
@@ -778,8 +795,8 @@ public class Algorithms {
             //ImprimePopulacao(Pop);
             Solution SBest = new Solution();
             SBest.setObjectiveFunction(1000000000);
-            SBest.setSolutionTotalCost(1000000000);
-            SBest.setSolutionTotalDelay(1000000000);
+            SBest.setTotalDistance(1000000000);
+            SBest.setTotalDelay(1000000000);
 
             //System.out.println("Teste do elitismo, SBest = "+ SBest);
             List<Integer> pais = new ArrayList<>();
@@ -819,7 +836,7 @@ public class Algorithms {
                 //OrdenaPopulacao(Pop);
                 ImprimePopulacao(Pop);
                 SBest.setObjectiveFunction(1000000000);
-                SBest.setSolutionTotalDelay(1000000000);
+                SBest.setTotalDelay(1000000000);
                 //SBest.setSolucao(S);
                 //System.out.println("População Inicial");
                 //ImprimePopulacao(Pop);
@@ -876,7 +893,7 @@ public class Algorithms {
 
     public static void InicializaSolucaoArquivo(List<Solution> Pop, String NomeArquivo, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
+            List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
 
         List<Integer> lista = new ArrayList<>();
 
@@ -931,8 +948,9 @@ public class Algorithms {
 
     }
 
-    public static Solution VND(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
-            Integer Qmax, Integer TimeWindows) {
+    public static Solution VND(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, 
+            List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d,
+            List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
 
         Random rnd = new Random();
         Solution melhor = new Solution(s_0);
@@ -970,8 +988,9 @@ public class Algorithms {
         return melhor;
     }
 
-    public static Solution RVND(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
-            Integer Qmax, Integer TimeWindows) {
+    public static Solution RVND(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, 
+            Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d, List<List<Long>> c, 
+            Integer n, Integer Qmax, Long TimeWindows) {
 
         Solution melhor = new Solution(s_0);
         Solution s = new Solution();
@@ -1005,8 +1024,9 @@ public class Algorithms {
         return melhor;
     }
 
-    public static Solution VNS(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
-            Integer Qmax, Integer TimeWindows) {
+    public static Solution VNS(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, 
+            List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d, 
+            List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
 
         Solution melhor = new Solution(s_0);
         Solution s_linha = new Solution();
@@ -1041,7 +1061,7 @@ public class Algorithms {
 
     public static Solution Perturbacao(Solution s, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
-            List<Integer> m, List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows) {
+            List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows) {
         Random rnd = new Random();
         Random p1 = new Random();
         Random p2 = new Random();
@@ -1069,7 +1089,7 @@ public class Algorithms {
 
     public static Solution PerturbacaoSemente(Solution s, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
-            List<Integer> m, List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows) {
+            List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows) {
         Random rnd = new Random(19700621);
         Random p1 = new Random(19622);
         Random p2 = new Random(19700623);
@@ -1095,9 +1115,10 @@ public class Algorithms {
         return s;
     }
 
-    public static Solution IteratedLocalSearch(Solution s_0, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
-            List<List<Integer>> c, Integer TimeWindows) {
+    public static Solution IteratedLocalSearch(Solution s_0, List<Request> listRequests, Map<Integer, 
+            List<Request>> Pin, Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K,
+            List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d,
+            List<List<Long>> c, Long TimeWindows) {
         //Solução inicial já é gerada pelo GA
         Solution s = new Solution(s_0);
         Solution s_linha = new Solution();
@@ -1137,8 +1158,8 @@ public class Algorithms {
     }
 
     public static Solution geraPesos(Integer semente, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
-            List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d,
+            List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         //for (int i = 0; i < 1; i++) {
         Solution S = new Solution();
         Random rnd = new Random(semente);
@@ -1192,8 +1213,8 @@ public class Algorithms {
     }
 
     public static void GeraPopGulosa(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
-            List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d,
+            List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Solution s = new Solution();
         //Pop.clear();
         InicializaPopulacao(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
@@ -1215,40 +1236,22 @@ public class Algorithms {
     public static Solution GRASP_reativo(Integer MAX_ITERATIONS, Double alphaD, Double alphaP, Double alphaV, Double alphaT, int tipoBusca,
             int tipoEstrategia, int tipoMovimento, List<Request> listRequests, PrintStream saida, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m,
-            List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows) {
+            List<List<Long>> d, List<List<Long>> c, Long TimeWindows) {
 
         Solution SStar = new Solution();
         Solution original = new Solution();
         Solution originalFinal = new Solution();
 
-        SStar.setSolutionTotalCost(9999999);
-        SStar.setSolutionTotalDelay(9999999);
+        SStar.setTotalDistance(9999999);
+        SStar.setTotalDelay(9999999);
         double tempoInicio, tempoFim, tempo = 0;
-        /*String logStar = "";
-		
-		
-         int SStarCost = 99999,
-         solutionCost,
-         SStarUsize = 0;*/
+     
 
         Solution S = new Solution();
         String log;
 
         Integer num_iterations = 0;
 
-        /*Map<Double, Double> pAlpha = new HashMap<Double, Double>();
-
-         pAlpha.put(0.0, 1.0);
-         pAlpha.put(0.1, 1.0);
-         pAlpha.put(0.2, 1.0);
-         pAlpha.put(0.3, 1.0);
-         pAlpha.put(0.4, 1.0);
-         pAlpha.put(0.5, 1.0);
-         pAlpha.put(0.6, 1.0);
-         pAlpha.put(0.7, 1.0);
-         pAlpha.put(0.8, 1.0);
-         pAlpha.put(0.9, 1.0);
-         pAlpha.put(1.0, 1.0);*/
         Double alpha;
         Iterator<Integer> itK;
         int currentK;
@@ -1270,33 +1273,9 @@ public class Algorithms {
 
         }
 
-        /*List<Double> A = new ArrayList<Double>();
-         A.add(0.30);
-         A.add(0.35);
-         A.add(0.40);
-         A.add(0.45);
-         A.add(0.50);
-         A.add(0.55);
-         A.add(0.60);
-         A.add(0.65);
-         A.add(0.70);
-		
-         int count[] = new int[A.size()];
-         int score[] = new int[A.size()];
-         double prob[] = new double[A.size()];
-         double avg[] = new double[A.size()];
-         double Qk[] = new double[A.size()];*/
         double teta = 10, sigma;
         double probAcumulada, auxProbAcumulada;
 
-        /*for(int k = 0; k < A.size(); k++){
-         count[k] = score[k] = 0;
-         prob[k] = 1.0/((double)A.size());
-         }*/
-        /**
-         * aux[0] = count[] aux[1] = score[] aux[2] = prob[] aux[3] = avg[]
-         * aux[4] = Qk[] *
-         */
         List<Double> auxA = new ArrayList<Double>(5);
         auxA.add(0.0);
         auxA.add(0.0);
@@ -1365,8 +1344,8 @@ public class Algorithms {
                 log += "\tGROTA " + (currentK + 1) + " ";
 
                 //Step 3
-                R.addVisitacao(0);
-                int currentTime = 0;
+                R.addVisitedNodes(0);
+                long currentTime = 0;
 
                 Double min, max;
 
@@ -1386,7 +1365,7 @@ public class Algorithms {
 
                     //Step 4
                     Set<Integer> FeasibleNode = new HashSet<Integer>();
-                    List<Integer> EarliestTime = new ArrayList<Integer>();
+                    List<Long> EarliestTime = new ArrayList<Long>();
 
                     //lastNode = R.getLastNode();					
                     for (int i = 1; i < n; i++) {
@@ -1628,7 +1607,7 @@ public class Algorithms {
 
                     currentTime += d.get(lastNode).get(newNode);
 
-                    R.addVisitacao(newNode);
+                    R.addVisitedNodes(newNode);
                     lastNode = R.getLastNode();
 
                     CRL.clear();
@@ -1686,8 +1665,8 @@ public class Algorithms {
 
                     listRequestAux.addAll(Pin.get(lastNode));
 
-                    int waitTime = TimeWindows;
-                    int aux;
+                    long waitTime = TimeWindows;
+                    long aux;
 
                     for (Request request : listRequestAux) {
                         if (R.getLotacaoAtual() < Qmax && currentTime + waitTime >= request.getPickupE() && currentTime + waitTime <= request.getPickupL()) {
@@ -1786,7 +1765,7 @@ public class Algorithms {
 
                 //Step 8
                 if (P.isEmpty()) {
-                    R.addVisitacao(0);
+                    R.addVisitedNodes(0);
                     //log += R.toString()+"\n";
                     //System.out.println("Route "+R+" - "+currentTime);
                     //solutionCost += currentTime;
@@ -1818,8 +1797,8 @@ public class Algorithms {
             //solutionCost += FO(S,U.size()); 
             //solutionCost = FO(S,U.size());
             S.setNonAttendedRequestsList(U);
-            S.setSolutionTotalCost(FO1(S, c));
-            S.setSolutionTotalDelay(FO2(S, c));
+            S.setTotalDistance(FO1(S, c));
+            S.setTotalDelay(FO2(S, c));
             S.setChargeBalance(FO3(S));
             S.setNumberOfNonAttendedRequests(FO4(S));
             S.setNumberOfVehicles(FO5(S));
@@ -1878,7 +1857,7 @@ public class Algorithms {
             auxA.clear();
             auxA = A.get(alpha);
             auxA.set(0, auxA.get(0) + 1.0);
-            auxA.set(1, auxA.get(1) + S.getSolutionTotalCost());
+            auxA.set(1, auxA.get(1) + S.getTotalDistance());
             A.put(alpha, new ArrayList<Double>(auxA));
 
             if (num_iterations > 0 && num_iterations % 20 == 0) {
@@ -1891,7 +1870,7 @@ public class Algorithms {
                         auxA.set(4, 0.0);
                     } else {
                         auxA.set(3, auxA.get(1) / auxA.get(0));
-                        auxA.set(4, Math.pow(SStar.getSolutionTotalCost() / auxA.get(3), teta));
+                        auxA.set(4, Math.pow(SStar.getTotalDistance() / auxA.get(3), teta));
 
                         sigma += auxA.get(4);
                     }
@@ -1932,7 +1911,7 @@ public class Algorithms {
      */
     public static Solution buscaLocal(Solution inicial, int tipoEstrategia, int tipoMovimento, List<Request> listRequests, List<Request> P,
             Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
+            List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution melhor = new Solution();
         Solution s = new Solution(inicial);
 

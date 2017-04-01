@@ -11,7 +11,7 @@ public class Route implements Comparable<Route>{
 	private List<Integer> Qik;
 	
 	// Vetor Tempoik do veiculo k ao deixar o vertice i
-	private List<Integer> Tempoik;
+	private List<Long> Tempoik;
 	
 	// Lista de solicitacoes atendidas	
 	private List<Request> listaAtendimento;
@@ -21,14 +21,14 @@ public class Route implements Comparable<Route>{
 	public Route(){
 		listaVisitacao = new ArrayList<Integer>();
 		Qik = new ArrayList<Integer>();
-		Tempoik = new ArrayList<Integer>();	
+		Tempoik = new ArrayList<Long>();	
 		listaAtendimento = new ArrayList<Request>();
 	}
 	
 	public Route(Route rota2){
 		listaVisitacao = new ArrayList<Integer>(rota2.getListaVisitacao());
 		Qik = new ArrayList<Integer>(rota2.getQik());
-		Tempoik = new ArrayList<Integer>(rota2.getTempoik());
+		Tempoik = new ArrayList<Long>(rota2.getTempoik());
 		listaAtendimento = new ArrayList<Request>(rota2.getListaAtendimento());
 	}
 	
@@ -50,11 +50,11 @@ public class Route implements Comparable<Route>{
 		this.Qik.addAll(qik);
 	}
 
-	public List<Integer> getTempoik() {
+	public List<Long> getTempoik() {
 		return Tempoik;
 	}
 
-	public void setTempoik(List<Integer> tempoik) {
+	public void setTempoik(List<Long> tempoik) {
 		this.Tempoik.clear();
 		this.Tempoik.addAll(tempoik);
 	}
@@ -79,7 +79,7 @@ public class Route implements Comparable<Route>{
 		return Qik.get(posicao);
 	}
 	
-	public Integer getTempoAtual(){
+	public Long getTempoAtual(){
 		int posicao = Tempoik.size()-1;
 		return Tempoik.get(posicao);
 	}
@@ -92,11 +92,11 @@ public class Route implements Comparable<Route>{
             tempoExtra = tempo;
         }
         
-	public void setTempoikDeposito(int horario){
+	public void setTempoikDeposito(long horario){
 		Tempoik.set(0, horario);
 	}
 	
-	public void addVisitacao(Integer visitacao){
+	public void addVisitedNodes(Integer visitacao){
 		listaVisitacao.add(visitacao);
 		
 		int posicao = Qik.size()-1;
@@ -109,10 +109,10 @@ public class Route implements Comparable<Route>{
 		else
 			Qik.add(0);
 		
-		Tempoik.add(-1);
+		Tempoik.add((long) -1);
 	}
 	
-	public void addEmbarque(Request request, int horario){
+	public void addEmbarque(Request request, Long horario){
 		int posicao = Qik.size()-1;
 		int lotacao = Qik.get(posicao);
 		
@@ -124,7 +124,7 @@ public class Route implements Comparable<Route>{
 		addAtendimento(request);		
 	}
 	
-	public void addDesembarque(Request request, int horario){
+	public void addDesembarque(Request request, long horario){
 		int posicao = Qik.size()-1;
 		if(posicao == -1 || posicao != Tempoik.size()-1)
 			System.out.println("POSICAO INVALIDA");

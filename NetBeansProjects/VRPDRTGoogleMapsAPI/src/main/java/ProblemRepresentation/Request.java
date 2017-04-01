@@ -18,21 +18,21 @@ public class Request implements Comparable, Cloneable{
 	
 	// ?? usar int ou TIME?
 	//tempo em minutos
-	private Integer pickupE,		// tempo inicio p/ coletar na origem 
+	private Long pickupE,		// tempo inicio p/ coletar na origem 
 			pickupL,		// tempo fim p/ coletar na origem
 			deliveryE,		// tempo inicio p/ entregar no destino
 			deliveryL,		// tempo fim p/ entregar no destino
-			pickupTime = -1,	// tempo em que foi coletado na origem
-			deliveryTime = -1;	// tempo em que foi entregue no destino
+			pickupTime = (long) -1,	// tempo em que foi coletado na origem
+			deliveryTime = (long) -1;	// tempo em que foi entregue no destino
 		
-	private Integer timeWindowDefault = 3;	
+	private Long timeWindowDefault = (long) 3;	
 	
 	
 	public Request(){
 		
 	}
 	
-	public Request( int id, int origin, int destination, int pickupE, int deliveryE){
+	public Request( int id, int origin, int destination, long pickupE, long deliveryE){
 		this.id = id;
 		
 		this.origin = origin;
@@ -47,7 +47,7 @@ public class Request implements Comparable, Cloneable{
 		
 	}
 	
-	public Request( int id, int origin, int destination, int pickupE, int pickupL, int deliveryE, int deliveryL){
+	public Request( int id, int origin, int destination, long pickupE, long pickupL, long deliveryE, long deliveryL){
 		this.id = id;
 		
 		this.origin = origin;
@@ -110,19 +110,19 @@ public class Request implements Comparable, Cloneable{
 		this.destination = destination;
 	}
 
-	public int getPickupE() {
+	public long getPickupE() {
 		return pickupE;
 	}
 
-	public void setPickupE(int pickupE) {
+	public void setPickupE(long pickupE) {
 		this.pickupE = pickupE;
 	}
 
-	public int getPickupL() {
+	public long getPickupL() {
 		return pickupL;
 	}
 
-	public void setPickupL(int pickupL) {
+	public void setPickupL(long pickupL) {
 		
 		if(pickupL - this.pickupE > 0)
 			this.pickupL = pickupL;
@@ -130,19 +130,19 @@ public class Request implements Comparable, Cloneable{
 			this.pickupL = pickupE + timeWindowDefault;
 	}
 
-	public int getDeliveryE() {
+	public long getDeliveryE() {
 		return deliveryE;
 	}
 
-	public void setDeliveryE(int deliveryE) {
+	public void setDeliveryE(long deliveryE) {
 		this.deliveryE = deliveryE;
 	}
 
-	public int getDeliveryL() {
+	public long getDeliveryL() {
 		return deliveryL;
 	}
 
-	public void setDeliveryL(int deliveryL) {
+	public void setDeliveryL(long deliveryL) {
 		
 		if(deliveryL - this.deliveryE > 0)
 			this.deliveryL = deliveryL;
@@ -150,27 +150,27 @@ public class Request implements Comparable, Cloneable{
 			this.deliveryL = deliveryE + timeWindowDefault;
 	}
 
-	public Integer getPickupTime() {
+	public Long getPickupTime() {
 		return pickupTime;
 	}
 
-	public void setPickupTime(int pickupTime) {
+	public void setPickupTime(Long pickupTime) {
 		this.pickupTime = pickupTime;
 	}
 
-	public Integer getDeliveryTime() {
+	public Long getDeliveryTime() {
 		return deliveryTime;
 	}
 
-	public void setDeliveryTime(int deliveryTime) {
+	public void setDeliveryTime(long deliveryTime) {
 		this.deliveryTime = deliveryTime;
 	}
 
-	public int getTimeWindowDefault() {
+	public long getTimeWindowDefault() {
 		return timeWindowDefault;
 	}
 
-	public void setTimeWindowDefault(int timeWindowDefault) {
+	public void setTimeWindowDefault(long timeWindowDefault) {
 		if(timeWindowDefault > 0)
 			this.timeWindowDefault = timeWindowDefault;
 	}
@@ -272,9 +272,9 @@ public class Request implements Comparable, Cloneable{
 		int hash = 0;
 		
 		String s = Integer.toString(id) + Integer.toString(origin) + Integer.toString(destination) + 
-					Integer.toString(pickupE) + Integer.toString(pickupL) + 
-					Integer.toString(deliveryE) + Integer.toString(deliveryL) + 
-					Integer.toString(pickupTime) + Integer.toString(deliveryTime) + Integer.toString(timeWindowDefault);
+					Long.toString(pickupE) + Long.toString(pickupL) + 
+					Long.toString(deliveryE) + Long.toString(deliveryL) + 
+					Long.toString(pickupTime) + Long.toString(deliveryTime) + Long.toString(timeWindowDefault);
 		
 		hash = s.hashCode();
 		
@@ -290,28 +290,28 @@ public class Request implements Comparable, Cloneable{
 		if(r2.getId().compareTo(this.id) == 0)
 			return 0;
 		
-		if(((Integer)r2.pickupE).compareTo(this.pickupE) > 0)
+		if(((Long)r2.pickupE).compareTo(this.pickupE) > 0)
 			return -1;
 		
-		if(((Integer)r2.pickupE).compareTo(this.pickupE) < 0)
+		if(((Long)r2.pickupE).compareTo(this.pickupE) < 0)
 			return 1;
 		
-		if(((Integer)r2.deliveryE).compareTo(this.deliveryE) > 0)
+		if(((Long)r2.deliveryE).compareTo(this.deliveryE) > 0)
 			return -1;
 		
-		if(((Integer)r2.deliveryE).compareTo(this.deliveryE) < 0)
+		if(((Long)r2.deliveryE).compareTo(this.deliveryE) < 0)
 			return 1;
 		
-		if(((Integer)r2.pickupL).compareTo(this.pickupL) > 0)
+		if(((Long)r2.pickupL).compareTo(this.pickupL) > 0)
 			return -1;
 		
-		if(((Integer)r2.pickupL).compareTo(this.pickupL) < 0)
+		if(((Long)r2.pickupL).compareTo(this.pickupL) < 0)
 			return 1;
 		
-		if(((Integer)r2.deliveryL).compareTo(this.deliveryL) > 0)
+		if(((Long)r2.deliveryL).compareTo(this.deliveryL) > 0)
 			return -1;
 		
-		if(((Integer)r2.deliveryL).compareTo(this.deliveryL) < 0)
+		if(((Long)r2.deliveryL).compareTo(this.deliveryL) < 0)
 			return 1;
 		
 		return 0;
@@ -331,19 +331,19 @@ public class Request implements Comparable, Cloneable{
 			
 			request.destination = new Integer(this.destination);
 			
-			request.pickupE = new Integer(this.pickupE);
+			request.pickupE = new Long(this.pickupE);
 			
-			request.pickupL = new Integer(this.pickupL);
+			request.pickupL = new Long(this.pickupL);
 			
-			request.deliveryE = new Integer(this.deliveryE);
+			request.deliveryE = new Long(this.deliveryE);
 			
-			request.deliveryL = new Integer(this.deliveryL);
+			request.deliveryL = new Long(this.deliveryL);
 			
-			request.pickupTime = new Integer(this.pickupTime);
+			request.pickupTime = new Long(this.pickupTime);
 			
-			request.deliveryTime = new Integer(this.deliveryTime);
+			request.deliveryTime = new Long(this.deliveryTime);
 			
-			request.timeWindowDefault = new Integer(this.timeWindowDefault);
+			request.timeWindowDefault = new Long(this.timeWindowDefault);
 			
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block

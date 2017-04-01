@@ -28,16 +28,17 @@ public class AdjacenciesDAO {
         this.nodesTable = nodesTable;
     }
 
-    public void addAdjacenciesIntoDataBase(int numberOfNodes, List<List<Integer>> time, List<List<Integer>> distance) {
-        String sql = "insert into " + this.adjacenciesTable + "(originNode, destinationNode, timeTo, distanceTo) values (?,?,?,?)";
+    public void addAdjacenciesIntoDataBase(int numberOfNodes, List<List<Long>> time, List<List<Long>> distance) {
+        String sql = "insert into " + this.adjacenciesTable + "(originNode, destinationNode, timeTo, distanceTo, overviewPolyline)"
+                + " values (?,?,?,?,?)";
         try {
             PreparedStatement statement = this.connection.prepareStatement(sql);
             for (int i = 0; i < numberOfNodes; i++) {
                 for (int j = 0; j < numberOfNodes; j++) {
                     statement.setString(1, Integer.toString(i));
                     statement.setString(2, Integer.toString(j));
-                    statement.setString(3, Integer.toString(time.get(i).get(j)*60));
-                    statement.setString(4, Double.toString(distance.get(i).get(j)));
+                    statement.setString(3, Long.toString(time.get(i).get(j)*60));
+                    statement.setString(4, Long.toString(distance.get(i).get(j)));
                     statement.execute();
                 }
             }
@@ -66,14 +67,15 @@ public class AdjacenciesDAO {
 
     }
 
-    public List<List<Integer>> getAdjacenciesListOfDistances() {
+    public List<List<Long>> getAdjacenciesListOfDistances() {
         try {
             int numberOfNodes = this.getNumberOfNodes();
-            List<List<Integer>> distanceBetweenNodes = new LinkedList<>();
+            List<List<Long>> distanceBetweenNodes = new LinkedList<>();
             for (int i = 0; i < numberOfNodes; i++) {
-                distanceBetweenNodes.add(new LinkedList<Integer>());
+                distanceBetweenNodes.add(new LinkedList<Long>());
                 for(int j = 0; j< numberOfNodes; j++){
-                    distanceBetweenNodes.get(i).add(0);
+                    long zero = 0;
+                    distanceBetweenNodes.get(i).add(zero);
                 }
             }
             String sql = "select * from " + this.adjacenciesTable;
@@ -82,7 +84,7 @@ public class AdjacenciesDAO {
             while (resultSet.next()) {
                 Integer originNode = resultSet.getInt("originNode");
                 Integer destinationNode = resultSet.getInt("destinationNode");
-                Integer distanceTo = resultSet.getInt("distanceTo");
+                Long distanceTo = resultSet.getLong("distanceTo");
                 distanceBetweenNodes.get(originNode).set(destinationNode, distanceTo);
             }
             resultSet.close();
@@ -93,14 +95,15 @@ public class AdjacenciesDAO {
         }
     }
     
-    public List<List<Integer>> getAdjacenciesListOfTimes() {
+    public List<List<Long>> getAdjacenciesListOfTimes() {
         try {
             int numberOfNodes = this.getNumberOfNodes();
-            List<List<Integer>> timeBetweenNodes = new LinkedList<>();
+            List<List<Long>> timeBetweenNodes = new LinkedList<>();
             for (int i = 0; i < numberOfNodes; i++) {
-                timeBetweenNodes.add(new LinkedList<Integer>());
+                timeBetweenNodes.add(new LinkedList<Long>());
                 for(int j = 0; j< numberOfNodes; j++){
-                    timeBetweenNodes.get(i).add(0);
+                    long zero = 0;
+                    timeBetweenNodes.get(i).add(zero);
                 }
             }
             String sql = "select * from " + this.adjacenciesTable;
@@ -109,7 +112,7 @@ public class AdjacenciesDAO {
             while (resultSet.next()) {
                 Integer originNode = resultSet.getInt("originNode");
                 Integer destinationNode = resultSet.getInt("destinationNode");
-                Integer timeTo = Math.round((resultSet.getInt("timeTo"))/60);
+                long timeTo = Math.round((resultSet.getLong("timeTo"))/60);
                 timeBetweenNodes.get(originNode).set(destinationNode, timeTo);
             }
             resultSet.close();

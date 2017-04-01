@@ -140,7 +140,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
 //    }
     public static void MOGA(List<Solution> Pop, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m,
-            List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         String diretorio, nomeArquivo;
         try {
             //----------------------------------------------------------------------------------------------------
@@ -481,7 +481,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
 //    }
     public static void NSGAII(List<Solution> Pop, List<Solution> Q, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m,
-            List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
 
         List<Solution> naoDominados = new ArrayList();
         List<Solution> arquivo = new ArrayList();
@@ -598,7 +598,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
     public static void SPEA2(List<Solution> Pop, List<Solution> Q, Integer TamPop, Integer TamArq, Integer MaxGer, double Pm, double Pc, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m,
-            List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
 
         List<Solution> naoDominados = new ArrayList();
         List<Solution> arquivo = new ArrayList();
@@ -1338,8 +1338,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
     }
 
     public static void Inicializa(List<Solution> Pop, int TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
-            List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d,
+            List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Solution s0 = new Solution();
         for (int i = 0; i < TamPop; i++) {
             s0.setSolucao(geraPesos(i, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
@@ -1960,8 +1960,9 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static Solution MOVND(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
-            Integer Qmax, Integer TimeWindows) {
+    public static Solution MOVND(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, 
+            Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d, List<List<Long>> c, 
+            Integer n, Integer Qmax, Long TimeWindows) {
 
         Random rnd = new Random();
         Solution melhor = new Solution(s_0);
@@ -1990,9 +1991,9 @@ public class AlgorithmsForMultiObjectiveOptimization {
         return melhor;
     }
 
-    public static void buscaLocal(List<Solution> arquivo, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U,
-            Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n,
-            Integer Qmax, Integer TimeWindows) {
+    public static void buscaLocal(List<Solution> arquivo, List<Request> listRequests, List<Request> P, Set<Integer> K, 
+            List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d,
+            List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Random rnd = new Random();
         int numeroSolucoes = arquivo.size() / 5;
         //numeroSolucoes = 10;
@@ -2016,8 +2017,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
     }
 
     public static Solution MOILS(Solution s_0, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
-            List<List<Integer>> c, Integer TimeWindows) {
+            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d,
+            List<List<Long>> c, Long TimeWindows) {
         //Solução inicial já é gerada pelo GA
         Solution s = new Solution(s_0);
         Solution s_linha = new Solution();
@@ -2072,7 +2073,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
     public static Solution primeiroMelhorVizinhoMO(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
+            List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution melhor = new Solution(s);
 
         Solution aux = new Solution();
@@ -2285,7 +2286,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
     public static Solution melhorVizinho(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
+            List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution melhor = new Solution(s);
 
         Solution aux = new Solution();

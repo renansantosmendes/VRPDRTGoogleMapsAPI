@@ -54,9 +54,9 @@ import static Algorithms.Algorithms.IteratedLocalSearch;
  */
 public class Methods {
 
-    public static Integer readProblemData(String instanceName, String nodesTable, String adjacenciesTable, List<Request> listOfRequests, List<List<Integer>> distanceBetweenNodes,
-            List<List<Integer>> timeBetweenNodes, Set<Integer> setOfOrigins, Set<Integer> setOfDestinations,
-            Map<Integer, List<Request>> requestsWichBoardsInNode, Map<Integer, List<Request>> requestsWichLeavesInNode,
+    public static Integer readProblemData(String instanceName, String nodesTable, String adjacenciesTable, List<Request> listOfRequests,
+            List<List<Long>> distanceBetweenNodes, List<List<Long>> timeBetweenNodes, Set<Integer> setOfOrigins,
+            Set<Integer> setOfDestinations, Map<Integer, List<Request>> requestsWichBoardsInNode, Map<Integer, List<Request>> requestsWichLeavesInNode,
             Set<Integer> setOfNodes, Integer numberOfNodes, List<Integer> loadIndex) {
 
         listOfRequests.addAll(new RequestDAO(instanceName).getListOfRequest());
@@ -87,7 +87,7 @@ public class Methods {
         return numberOfNodes;
     }
 
-    public static void SeparaOrigemDestino(List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, Integer n, List<Request> P) {
+    public static void separateOriginFromDestination(List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, Integer n, List<Request> P) {
         //--------------------------------------------------------------------------------------------------------------------------------------
         U.clear();
         Pin.clear();
@@ -115,15 +115,18 @@ public class Methods {
         }
     }
 
-    public static void EncontraNosViaveis(Integer n, Integer lastNode, boolean encontrado, Integer Qmax, Route R, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, Set<Integer> FeasibleNode,
-            List<List<Integer>> d, Integer currentTime, Integer TimeWindows) {
+    public static void findFeasibleNodes(Integer numberOfNodes, Integer lastNode, boolean feasibleNodeIsFound,
+            Integer vehicleCapacity, Route route, Map<Integer, List<Request>> requestsWhichBoardsInNode,
+            Map<Integer, List<Request>> requestsWhichLeavesInNode, Set<Integer> feasibleNode, List<List<Long>> timeBetweenNodes,
+            Long currentTime, Long timeWindows) {
         //--------------------------------------------------------------------------------------------------------------------------------------
-        for (int i = 1; i < n; i++) {
-            CondicionaisViabilidade(i, lastNode, encontrado, R, Qmax, Pin, Pout, FeasibleNode, d, currentTime, TimeWindows);
+        for (int i = 1; i < numberOfNodes; i++) {
+            feasibilityConstraints(i, lastNode, feasibleNodeIsFound, route, vehicleCapacity, requestsWhichBoardsInNode,
+                    requestsWhichLeavesInNode, feasibleNode, timeBetweenNodes, currentTime, timeWindows);
         }
     }
 
-    public static void CalculaCRL(Set<Integer> FeasibleNode, Map<Integer, Double> CRL, List<List<Integer>> c, Integer lastNode) {
+    public static void CalculaCRL(Set<Integer> FeasibleNode, Map<Integer, Double> CRL, List<List<Long>> c, Integer lastNode) {
         //--------------------------------------------------------------------------------------------------------------------------------------
         Double min, max;
         for (Integer i : FeasibleNode) {
@@ -169,7 +172,7 @@ public class Methods {
     }
 
     public static void CalculaDRL(Set<Integer> FeasibleNode, Map<Integer, Double> DRL, Map<Integer, List<Request>> Pout,
-            Integer lastNode, List<List<Integer>> d, List<Integer> EarliestTime) {
+            Integer lastNode, List<List<Long>> d, List<Long> EarliestTime) {
         //--------------------------------------------------------------------------------------------------------------------------------------
         Double min, max;
         for (Integer i : FeasibleNode) {
@@ -206,7 +209,7 @@ public class Methods {
     }
 
     public static void CalculaTRL(Set<Integer> FeasibleNode, Map<Integer, Double> TRL, Map<Integer, List<Request>> Pin,
-            Integer lastNode, List<List<Integer>> d, List<Integer> EarliestTime) {
+            Integer lastNode, List<List<Long>> d, List<Long> EarliestTime) {
         //--------------------------------------------------------------------------------------------------------------------------------------
         double min, max;
         for (Integer i : FeasibleNode) {
@@ -261,9 +264,9 @@ public class Methods {
         }
     }
 
-    public static int AdicionaNo(Map<Integer, Double> NRF, Map<Integer, Double> CRL, Map<Integer, Double> NRL, Map<Integer, Double> DRL,
+    public static long AdicionaNo(Map<Integer, Double> NRF, Map<Integer, Double> CRL, Map<Integer, Double> NRL, Map<Integer, Double> DRL,
             Map<Integer, Double> TRL, Double max, Integer lastNode, Map<Integer, List<Request>> Pin,
-            List<List<Integer>> d, List<Integer> EarliestTime, Integer currentTime, Route R) {
+            List<List<Long>> d, List<Long> EarliestTime, Long currentTime, Route R) {
         //-------------------------------------------------------------------------------------------------------------------------------------- 
         for (Map.Entry<Integer, Double> e : NRF.entrySet()) {
             Integer newNode = e.getKey();
@@ -283,7 +286,7 @@ public class Methods {
 
                 currentTime += d.get(lastNode).get(newNode);
 
-                R.addVisitacao(newNode);
+                R.addVisitedNodes(newNode);
                 lastNode = R.getLastNode();
                 break;
             }
@@ -296,7 +299,7 @@ public class Methods {
         return currentTime;
     }
 
-    public static void Desembarca(Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, Integer lastNode, Integer currentTime,
+    public static void Desembarca(Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, Integer lastNode, Long currentTime,
             List<Request> P, List<Request> listRequestAux, Route R, String log) {
         //--------------------------------------------------------------------------------------------------------------------------------------
         listRequestAux.addAll(Pout.get(lastNode));//percorre todas as solicitações que desembarcam no último nó
@@ -324,7 +327,7 @@ public class Methods {
         listRequestAux.clear();
     }
 
-    public static void Embarca(Map<Integer, List<Request>> Pin, Integer lastNode, Integer currentTime,
+    public static void Embarca(Map<Integer, List<Request>> Pin, Integer lastNode, Long currentTime,
             List<Request> P, List<Request> listRequestAux, Route R, String log, Integer Qmax) {
         //--------------------------------------------------------------------------------------------------------------------------------------
         listRequestAux.addAll(Pin.get(lastNode));
@@ -342,13 +345,13 @@ public class Methods {
         listRequestAux.clear();
     }
 
-    public static int EmbarcaRelaxacao(Map<Integer, List<Request>> Pin, Integer lastNode, Integer currentTime, List<Request> P,
-            List<Request> listRequestAux, Route R, String log, Integer Qmax, Integer TimeWindows) {
+    public static long EmbarcaRelaxacao(Map<Integer, List<Request>> Pin, Integer lastNode, Long currentTime, List<Request> P,
+            List<Request> listRequestAux, Route R, String log, Integer Qmax, Long TimeWindows) {
         //--------------------------------------------------------------------------------------------------------------------------------------
         listRequestAux.addAll(Pin.get(lastNode));
 
-        int waitTime = TimeWindows;
-        int aux;
+        long waitTime = TimeWindows;
+        long aux;
 
         for (Request request : listRequestAux) {
             if (R.getLotacaoAtual() < Qmax && currentTime + waitTime >= request.getPickupE() && currentTime + waitTime <= request.getPickupL()) {
@@ -371,7 +374,7 @@ public class Methods {
     }
 
     public static void RetiraSolicitacoesInviaveis(Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<Request> listRequestAux,
-            Integer currentTime, List<Request> P, List<Request> U) {
+            Long currentTime, List<Request> P, List<Request> U) {
         //--------------------------------------------------------------------------------------------------------------------------------------
         listRequestAux.clear();
         for (Integer key : Pin.keySet()) {
@@ -392,8 +395,8 @@ public class Methods {
     }
 
     public static boolean ProcuraSolicitacaoParaAtender(Route R, Integer Qmax, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            Integer currentTime, Integer n, List<List<Integer>> d, Integer lastNode,
-            Integer TimeWindows, boolean encontrado) {
+            Long currentTime, Integer n, List<List<Long>> d, Integer lastNode,
+            Long TimeWindows, boolean encontrado) {
         //-------------------------------------------------------------------------------------------------------------------------------------- 
         encontrado = false;
         for (int i = 1; !encontrado && i < n; i++) {//varre todas as solicitações para encontrar se tem alguma viável
@@ -424,7 +427,7 @@ public class Methods {
     }
 
     public static void RetiraSolicitacaoNaoSeraAtendida(boolean encontrado, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<Request> listRequestAux,
-            Integer currentTime, List<Request> P, List<Request> U) {
+            Long currentTime, List<Request> P, List<Request> U) {
         //--------------------------------------------------------------------------------------------------------------------------------------         
         if (!encontrado) {
             for (Integer key : Pin.keySet()) {//bloco de comando que coloca as solicitações que nn embarcaram no conjunto de inviáveis (U)
@@ -442,17 +445,17 @@ public class Methods {
         }
     }
 
-    public static int FinalizaRota(List<Request> P, Route R, Integer currentTime, Integer lastNode, List<List<Integer>> d, Solution S) {
+    public static long FinalizaRota(List<Request> P, Route R, Long currentTime, Integer lastNode, List<List<Long>> d, Solution S) {
         //-------------------------------------------------------------------------------------------------------------------------------------- 
         if (P.isEmpty()) {
-            R.addVisitacao(0);
+            R.addVisitedNodes(0);
             currentTime += d.get(lastNode).get(0);
             S.getSetOfRoutes().add(R);
         }
         return currentTime;
     }
 
-    public static void AnaliseSolicitacoesViaveisEmU(List<Request> U, List<Request> P, Iterator itK, List<List<Integer>> d) {
+    public static void AnaliseSolicitacoesViaveisEmU(List<Request> U, List<Request> P, Iterator itK, List<List<Long>> d) {
         //-------------------------------------------------------------------------------------------------------------------------------------- 
         if (!U.isEmpty() && itK.hasNext()) {//analise se há solicitações que possam ser atendidas com um novo veículo começando na origem
             boolean encontrado = false;
@@ -468,9 +471,8 @@ public class Methods {
         }
     }
 
-    public static void CondicionaisViabilidade(Integer i, Integer lastNode, boolean encontrado, Route R, Integer Qmax, Map<Integer, List<Request>> Pin,
-            Map<Integer, List<Request>> Pout, Set<Integer> FeasibleNode, List<List<Integer>> d, Integer currentTime,
-            Integer TimeWindows) {
+    public static void feasibilityConstraints(Integer i, Integer lastNode, boolean encontrado, Route R, Integer Qmax, Map<Integer, List<Request>> Pin,
+            Map<Integer, List<Request>> Pout, Set<Integer> FeasibleNode, List<List<Long>> d, Long currentTime, Long timeWindows) {
         if (i != lastNode) {
             encontrado = false;
             if (R.getLotacaoAtual() < Qmax) {
@@ -481,7 +483,7 @@ public class Methods {
                         break;
                     }
                     //para lastNode que não seja a origem - faz cair dentro da janela de tempo de pelo menos uma requisição
-                    if (!encontrado && currentTime + d.get(lastNode).get(i) >= request.getPickupE() - TimeWindows
+                    if (!encontrado && currentTime + d.get(lastNode).get(i) >= request.getPickupE() - timeWindows
                             && currentTime + d.get(lastNode).get(i) <= request.getPickupL()) {
                         FeasibleNode.add(i);
                         encontrado = true;
@@ -506,8 +508,8 @@ public class Methods {
 
     public static void InicializaPopulacao(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U,
-            List<Request> P, List<Integer> m, List<List<Integer>> d, List<List<Integer>> c,
-            Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            List<Request> P, List<Integer> m, List<List<Long>> d, List<List<Long>> c,
+            Long TimeWindows, Long currentTime, Integer lastNode) {
 
         for (int i = 0; i < TamPop; i++) {
             Solution S = new Solution();
@@ -524,8 +526,8 @@ public class Methods {
 
     public static void InicializaPopulacaoPerturbacao(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U,
-            List<Request> P, List<Integer> m, List<List<Integer>> d, List<List<Integer>> c,
-            Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            List<Request> P, List<Integer> m, List<List<Long>> d, List<List<Long>> c,
+            Long TimeWindows, Long currentTime, Integer lastNode) {
 
         for (int i = 0; i < TamPop; i++) {
             Solution S = new Solution();
@@ -534,18 +536,12 @@ public class Methods {
             S_linha.setSolucao(Perturbacao(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
             Pop.add(S_linha);
         }
-
-//        for (int i = 0; i < TamPop; i++) {
-//            Solution solucao = new Solution(Pop.get(i));
-//        }
-//        //Coloquei a linha de baixo, que estava no codigo principal dos algoritmos multi
-//        Inicializa(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
     }
 
     public static void InicializaPopulacaoGulosa(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U,
-            List<Request> P, List<Integer> m, List<List<Integer>> d, List<List<Integer>> c,
-            Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            List<Request> P, List<Integer> m, List<List<Long>> d, List<List<Long>> c,
+            Long TimeWindows, Long currentTime, Integer lastNode) {
 
         for (int i = 0; i < TamPop; i++) {
             Solution S = new Solution();
@@ -557,10 +553,10 @@ public class Methods {
                 z = rnd.nextDouble();
                 w = 1 - x - y - z;
             } while (x + y + z > 1);
-            S.setSolucao(greedyConstructive(x, y, z, w, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+            //S.setSolucao(greedyConstructive(x, y, z, w, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
             //System.out.println("SolucaoGulosaAleatoria = "+ S);
             //S.setSolucao(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
-            Pop.add(S);
+            //Pop.add(S);
 
         }
         //for (int i = 0; i < TamPop; i++) {
@@ -570,8 +566,8 @@ public class Methods {
 
     public static Solution GeraSolucaoAleatoria(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U,
-            List<Request> P, List<Integer> m, List<List<Integer>> d, List<List<Integer>> c,
-            Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            List<Request> P, List<Integer> m, List<List<Long>> d, List<List<Long>> c,
+            Long TimeWindows, Long currentTime, Integer lastNode) {
 
         P.clear();
         U.clear();
@@ -592,7 +588,7 @@ public class Methods {
         U.clear();
         while (!P.isEmpty() && itK.hasNext()) {
 
-            SeparaOrigemDestino(U, Pin, Pout, n, P);
+            separateOriginFromDestination(U, Pin, Pout, n, P);
 
             //Step 2
             Route R = new Route();
@@ -600,8 +596,8 @@ public class Methods {
             log += "\tGROTA " + (currentK + 1) + " ";
 
             //Step 3
-            R.addVisitacao(0);
-            currentTime = 0;
+            R.addVisitedNodes(0);
+            currentTime = (long) 0;
             double max, min;
             lastNode = R.getLastNode();
 
@@ -616,9 +612,9 @@ public class Methods {
 
                 //Step 4
                 Set<Integer> FeasibleNode = new HashSet<>();
-                List<Integer> EarliestTime = new ArrayList<>();
+                List<Long> EarliestTime = new ArrayList<>();
 
-                EncontraNosViaveis(n, lastNode, encontrado, Qmax, R, Pin, Pout, FeasibleNode, d, currentTime, TimeWindows);
+                findFeasibleNodes(n, lastNode, encontrado, Qmax, R, Pin, Pout, FeasibleNode, d, currentTime, TimeWindows);
 
                 //System.out.println("FEASIBLE NODES = "+ FeasibleNode);			
                 if (FeasibleNode.size() > 1) {
@@ -683,8 +679,8 @@ public class Methods {
 //        S.linkTheRoutes();
         //S.setFuncaoObjetivo(FuncaoObjetivo(S,c));
         S.setNonAttendedRequestsList(U);
-        S.setSolutionTotalCost(FO1(S, c));
-        S.setSolutionTotalDelay(FO2(S, c));
+        S.setTotalDistance(FO1(S, c));
+        S.setTotalDelay(FO2(S, c));
         S.setChargeBalance(FO3(S));
         S.setNumberOfNonAttendedRequests(FO4(S));
         S.setNumberOfVehicles(FO5(S));
@@ -703,7 +699,7 @@ public class Methods {
 
     public static void Mutacao(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
-            List<Integer> m, List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Random rnd = new Random();
         Random p1 = new Random();
         Random p2 = new Random();
@@ -732,7 +728,7 @@ public class Methods {
 
     public static void MutacaoShuffle(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
-            List<Integer> m, List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Random rnd = new Random();
         Random p1 = new Random();
         Random p2 = new Random();
@@ -754,7 +750,7 @@ public class Methods {
 
     public static void Mutacao2Opt(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
-            List<Integer> m, List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Random rnd = new Random();
         Random p1 = new Random();
         Random p2 = new Random();
@@ -797,7 +793,7 @@ public class Methods {
 
     public static void Mutacao2Shuffle(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
-            List<Integer> m, List<List<Integer>> d, List<List<Integer>> c, Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Random rnd = new Random();
         Random p1 = new Random();
         Random p2 = new Random();
@@ -839,8 +835,8 @@ public class Methods {
     }
 
     public static void MutacaoILS(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d, List<List<Integer>> c,
-            Integer TimeWindows, Integer currentTime, Integer lastNode) {
+            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d, List<List<Long>> c,
+            Long TimeWindows, Long currentTime, Integer lastNode) {
         Random rnd = new Random();
         Random p1 = new Random();
         Random p2 = new Random();
@@ -928,8 +924,10 @@ public class Methods {
         }
     }
 
-    public static void Cruzamento(List<Solution> Pop_nova, List<Solution> Pop, Integer TamMax, double Pc, List<Integer> pais, List<Request> listRequests,
-            List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
+    public static void Cruzamento(List<Solution> Pop_nova, List<Solution> Pop, Integer TamMax, double Pc, 
+            List<Integer> pais, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, 
+            Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d, List<List<Long>> c, 
+            Integer n, Integer Qmax, Long TimeWindows) {
         int pai;
         int mae;
         int pontoCorte;
@@ -987,7 +985,7 @@ public class Methods {
 
     public static void Cruzamento2Pontos(List<Solution> Pop_nova, List<Solution> Pop, Integer TamMax, double Pc, List<Integer> pais, List<Request> listRequests,
             List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
+            List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         int pai;
         int mae;
         int pontoCorte;
@@ -1119,7 +1117,7 @@ public class Methods {
 
     public static Solution primeiroMelhorVizinho(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
+            List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution melhor = new Solution(s);
 
         Solution aux = new Solution();
@@ -1146,7 +1144,7 @@ public class Methods {
 
                             aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()) {
+                            if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                                 //System.out.println("ACHEI TROCA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                                 melhor.setSolucao(aux);
                                 return melhor;
@@ -1168,7 +1166,7 @@ public class Methods {
 
                             aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()) {
+                            if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                                 //System.out.println("ACHEI INSERCAO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                                 melhor.setSolucao(aux);
                                 return melhor;
@@ -1191,7 +1189,7 @@ public class Methods {
 
                             aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()) {
+                            if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                                 melhor.setSolucao(aux);
                                 return melhor;
@@ -1260,7 +1258,7 @@ public class Methods {
 
                     aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                    if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()) {
+                    if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                         //System.out.println("ACHEI ALEATORIA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                         melhor.setSolucao(aux);
                         return melhor;
@@ -1287,7 +1285,7 @@ public class Methods {
 
                             aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()) {
+                            if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                                 melhor.setSolucao(aux);
                                 return melhor;
@@ -1314,7 +1312,7 @@ public class Methods {
 
                             aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()) {
+                            if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                                 melhor.setSolucao(aux);
                                 return melhor;
@@ -1332,7 +1330,7 @@ public class Methods {
 
     public static Solution melhorVizinho(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
+            List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution melhor = new Solution(s);
 
         Solution aux = new Solution();
@@ -1542,7 +1540,7 @@ public class Methods {
 
     public static Solution primeiroMelhorVizinhoAleatorio(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
+            List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution melhor = new Solution(s);
         Solution aux = new Solution();
         List<Integer> original = new ArrayList<>(s.getLinkedRouteList());
@@ -1584,7 +1582,7 @@ public class Methods {
                     aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     //System.out.println("Posições da troca = " + posicao1 + "\t" + posicao2);
                     //System.out.println("Solution gerada = " + aux);
-                    if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()) {
+                    if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                         melhor.setSolucao(aux);
                         return melhor;
                     }
@@ -1608,7 +1606,7 @@ public class Methods {
                     aux.setSolucao(avaliaSolucao(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     //System.out.println("Posições da troca = " + posicao + "\t" + elemento);
                     //System.out.println("Solution gerada = " + aux);
-                    if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()) {
+                    if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                         melhor.setSolucao(aux);
                         return melhor;
                     }
@@ -1632,7 +1630,7 @@ public class Methods {
                     vizinho.add(posicao2, original.get(posicao1));
 
                     aux.setSolucao(avaliaSolucao(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                    if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()) {
+                    if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                         //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                         melhor.setSolucao(aux);
                         return melhor;
@@ -1646,7 +1644,7 @@ public class Methods {
 
     public static Solution vizinhoAleatorio(Solution s, int semente1, int semente2, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            List<List<Integer>> d, List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
+            List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution melhor = new Solution(s);
         Solution aux = new Solution();
         List<Integer> original = new ArrayList<>(s.getLinkedRouteList());
@@ -1752,8 +1750,8 @@ public class Methods {
     }
 
     public static Solution buscaTabu(Solution inicial, int tipoEstrategia, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
-            List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d,
-            List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
+            List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d,
+            List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution estrela = new Solution();
         Solution s = new Solution(inicial);
         estrela.setSolucao(s);
@@ -1809,11 +1807,11 @@ public class Methods {
 
     public static Solution melhorVizinhoBT(Solution s, Solution estrela, int tipoMovimento, int[][] listaTabuTroca, int[][] listaTabuSubstituicao,
             int[][] listaTabuMovimento, int iteracao, List<Request> listRequests, List<Request> P, Set<Integer> K,
-            List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Integer>> d,
-            List<List<Integer>> c, Integer n, Integer Qmax, Integer TimeWindows) {
+            List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d,
+            List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
 
         Solution melhor = new Solution();
-        melhor.setSolutionTotalCost(999999);
+        melhor.setTotalDistance(999999);
 
         Solution aux = new Solution();
 
@@ -1844,9 +1842,9 @@ public class Methods {
 
                             aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()
+                            if (aux.getTotalDistance() < melhor.getTotalDistance()
                                     && ((listaTabuTroca[posicao2][posicao1] <= iteracao && listaTabuTroca[posicao1][posicao2] <= iteracao)
-                                    || aux.getSolutionTotalCost() < estrela.getSolutionTotalCost())) {
+                                    || aux.getTotalDistance() < estrela.getTotalDistance())) {
 
                                 melhor.setSolucao(aux);
                                 pos1 = posicao1;
@@ -1877,8 +1875,8 @@ public class Methods {
 
                             aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()
-                                    && (listaTabuSubstituicao[posicao][elemento] <= iteracao || aux.getSolutionTotalCost() < estrela.getSolutionTotalCost())) {
+                            if (aux.getTotalDistance() < melhor.getTotalDistance()
+                                    && (listaTabuSubstituicao[posicao][elemento] <= iteracao || aux.getTotalDistance() < estrela.getTotalDistance())) {
 
                                 melhor.setSolucao(aux);
                                 pos = posicao;
@@ -1909,8 +1907,8 @@ public class Methods {
 
                             aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()
-                                    && (listaTabuMovimento[posicao1][posicao2] <= iteracao || aux.getSolutionTotalCost() < estrela.getSolutionTotalCost())) {
+                            if (aux.getTotalDistance() < melhor.getTotalDistance()
+                                    && (listaTabuMovimento[posicao1][posicao2] <= iteracao || aux.getTotalDistance() < estrela.getTotalDistance())) {
 
                                 melhor.setSolucao(aux);
                                 pos1 = posicao1;
@@ -1963,9 +1961,9 @@ public class Methods {
 
                         aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                        if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()
+                        if (aux.getTotalDistance() < melhor.getTotalDistance()
                                 && ((listaTabuTroca[posicao2][posicao1] <= iteracao && listaTabuTroca[posicao1][posicao2] <= iteracao)
-                                || aux.getSolutionTotalCost() < estrela.getSolutionTotalCost())) {
+                                || aux.getTotalDistance() < estrela.getTotalDistance())) {
 
                             melhor.setSolucao(aux);
                             pos1 = posicao1;
@@ -1987,8 +1985,8 @@ public class Methods {
 
                         aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                        if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()
-                                && (listaTabuSubstituicao[posicao][elemento] <= iteracao || aux.getSolutionTotalCost() < estrela.getSolutionTotalCost())) {
+                        if (aux.getTotalDistance() < melhor.getTotalDistance()
+                                && (listaTabuSubstituicao[posicao][elemento] <= iteracao || aux.getTotalDistance() < estrela.getTotalDistance())) {
 
                             melhor.setSolucao(aux);
                             pos = posicao;
@@ -2010,8 +2008,8 @@ public class Methods {
 
                         aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                        if (aux.getSolutionTotalCost() < melhor.getSolutionTotalCost()
-                                && (listaTabuMovimento[posicao1][posicao2] <= iteracao || aux.getSolutionTotalCost() < estrela.getSolutionTotalCost())) {
+                        if (aux.getTotalDistance() < melhor.getTotalDistance()
+                                && (listaTabuMovimento[posicao1][posicao2] <= iteracao || aux.getTotalDistance() < estrela.getTotalDistance())) {
 
                             melhor.setSolucao(aux);
                             pos1 = posicao1;
