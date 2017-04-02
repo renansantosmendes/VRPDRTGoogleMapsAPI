@@ -1,6 +1,7 @@
 package ProblemRepresentation;
 
 //import GoogleMapsApi.StaticGoogleMap;
+import GoogleMapsApi.GoogleStaticMap;
 import InstanceReaderWithMySQL.NodeDAO;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -154,17 +155,16 @@ public class Solution implements Comparable<Solution> {
         return routes;
     }
 
-    public void getStaticMapWithAllRoutes(String nodesData) throws IOException {
-        //StaticGoogleMap(new NodeDAO(nodesData).getListOfNodes(), this.getRoutesForMap()).buildMapInWindow();
+    public void getStaticMapWithAllRoutes(List<Node> nodesList, String adjacenciesTable, String nodesTable) throws IOException {
+        //new GoogleStaticMap(nodesList, this.getLinkedRouteList(), adjacenciesTable, nodesTable);
+        new GoogleStaticMap(nodesList, this.getRoutesForMap(), adjacenciesTable, nodesTable);
     }
 
-    public void getStaticMapForEveryRoute(String nodesData) throws IOException {
+    public void getStaticMapForEveryRoute(List<Node> nodesList, String adjacenciesTable, String nodesTable) throws IOException {
 
         Set<List<Integer>> routes = new HashSet<>();
         for (List<Integer> route : this.getRoutesForMap()) {
-            routes.add(route);
-            //new StaticGoogleMap(new NodeDAO(nodesData).getListOfNodes(), routes).buildMapInWindow();
-            routes.clear();
+            new GoogleStaticMap(nodesList, route, adjacenciesTable, nodesTable);
         }
 
     }
@@ -372,9 +372,9 @@ public class Solution implements Comparable<Solution> {
         return linkedRouteList;
     }
 
-    public void setLinkedRouteList(List<Integer> rotaConcatenada) {
+    public void setLinkedRouteList(List<Integer> linkedRouteList) {
         this.linkedRouteList.clear();
-        this.linkedRouteList.addAll(new ArrayList<Integer>(rotaConcatenada));
+        this.linkedRouteList.addAll(new ArrayList<Integer>(linkedRouteList));
     }
 
     public String getLogger() {
@@ -404,6 +404,11 @@ public class Solution implements Comparable<Solution> {
         nonAttendedRequestsList.remove(request);
     }
 
+    public String getStringWIthObjectives(){
+        String stringWithObjectives =  totalDistance + "\t" + totalDelay + "\t" + chargeBalance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" + deliveryTimeWindowDelay + "\t";
+        return stringWithObjectives;
+    }
+    
     @Override
     public String toString() {
         DecimalFormat df = new DecimalFormat("0.000");
@@ -413,12 +418,14 @@ public class Solution implements Comparable<Solution> {
         //String s = totalDistance + "\t" + totalDelay + "\t" +  chargeBalance +"\t"+listaNaoAtendimento.size() + "\t" + conjRotas.size() + ";\t";
         //String s = totalDistance + "\t" + totalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
         //String s = objectiveFunction + "\t"+ aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t" + totalDistance + "\t" + totalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t";
-        String s = objectiveFunction + "\t" + totalDistance + "\t" + totalDelay + "\t" + chargeBalance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" + deliveryTimeWindowDelay + "\t";
+        //String s = objectiveFunction + "\t" + totalDistance + "\t" + totalDelay + "\t" + chargeBalance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" + deliveryTimeWindowDelay + "\t";
+        String s =  totalDistance + "\t" + totalDelay + "\t" + chargeBalance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" + deliveryTimeWindowDelay + "\t";
+        //String s = objectiveFunction + "\t" + totalDistance + "\t"  + numberOfNonAttendedRequests + "\t";
+
         //String s = objectiveFunction + "\t" + totalDistance + "\t" + numberOfNonAttendedRequests + "\t" + deliveryTimeWindowAntecipation + "\t" + deliveryTimeWindowDelay + "\t";
         //String s = totalDistance + "\t" + totalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t";
         //String s = "aggregatedObjective1 = "+ aggregatedObjective1 + "\tF2 = "+ aggregatedObjective2 + "\tFit = " + fitness +"\tf1 = " + totalDistance + "\tf2 = " + totalDelay + "\tf3 = " +  chargeBalance +"\tf4 = "+numberOfNonAttendedRequests + "\tf5 = " + numberOfVehicles + ";\t";
         //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ aggregatedObjective1Normalized + "\t"+ aggregatedObjective2Normalized + "\t" + numberOfSolutionsWichDomineThisSolution +"\t" + fitness +"\t" + totalDistance + "\t" + totalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
-
         //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t" + numberOfSolutionsWichDomineThisSolution +"\t" + fitness +"\t" + totalDistance + "\t" + totalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
         //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t" + numberOfSolutionsWichDomineThisSolution +"\t"+ listOfSolutionsDominatedByThisSolution +";\t";
         //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ df.format(aggregatedObjective1Normalized) + "\t"+ df.format(aggregatedObjective2Normalized) + "\t" + numberOfSolutionsWichDomineThisSolution +"\t" + df.format(fitness) +"\t" + listOfSolutionsDominatedByThisSolution +" \t "+ S +" \t "+ R +" \t" + totalDistance + "\t" + totalDelay + "\t" +  chargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";

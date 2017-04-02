@@ -5,8 +5,11 @@
  */
 package VRPDRT;
 
+import Algorithms.Algorithms;
 import static Algorithms.Algorithms.IteratedLocalSearch;
+import static Algorithms.Algorithms.geraPesos;
 import static Algorithms.Algorithms.greedyConstructive;
+import Algorithms.Methods;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,7 +33,11 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
 import com.google.maps.model.TrafficModel;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
+import static Algorithms.Algorithms.perturbation;
 
 /**
  *
@@ -65,37 +72,35 @@ public class VRPDRT {
         String destination = "-19.9165861,-43.9346433";
         String instanceName = "requests110";
         String nodesData = "bh_nodes_little";
-        String adjacenciesData = "adjacencies_bh_nodes_little";
+        String adjacenciesData = "adjacencies_bh_nodes_little_test";
         final Integer numberOfVehicles = 50;
         final Integer vehicleCapacity = 10;
-
-        numberOfNodes = readProblemData(instanceName, nodesData, adjacenciesData, listOfRequests, distanceBetweenNodes,
-                timeBetweenNodes, Pmais, Pmenos, requestsWichBoardsInNode, requestsWichLeavesInNode, setOfNodes,
-                numberOfNodes, loadIndexList);
-
-//        new DataUpdaterUsingGoogleMapsApi(directionsApiKey, distanceMatrixApiKey, new NodeDAO(nodesData).getListOfNodes(),
-//                adjacenciesData).updateAdjacenciesData();
 
         System.out.println("Number of Vehicles = " + numberOfVehicles);
         System.out.println("Vehicle Capacity = " + vehicleCapacity);
 
-        Set<Integer> setOfVehicles = new HashSet<>(vehicleCapacity);
-        for (int i = 0; i < numberOfVehicles; i++) {
-            setOfVehicles.add(i);
-        }
-//        
-//        //new DataUpdaterDAO(adjacenciesData).updateAdjacenciesData(new NodeDAO(nodesData).getListOfNodes());
-        Solution s = greedyConstructive(0.2, 0.15, 0.55, 0.10, listOfRequests.subList(0, 10), requestsWichBoardsInNode, 
-                requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, P, 
+        //new DataUpdaterUsingGoogleMapsApi(directionsApiKey, distanceMatrixApiKey, new NodeDAO(nodesData).getListOfNodes(),
+        //        adjacenciesData).updateAdjacenciesData();
+        numberOfNodes = readProblemData(instanceName, nodesData, adjacenciesData, listOfRequests, distanceBetweenNodes,
+                timeBetweenNodes, Pmais, Pmenos, requestsWichBoardsInNode, requestsWichLeavesInNode, setOfNodes,
+                numberOfNodes, loadIndexList);
+
+        Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
+
+        Solution solution = greedyConstructive(0.2, 0.15, 0.55, 0.10, listOfRequests.subList(0, 110), requestsWichBoardsInNode,
+                requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, P,
                 loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 
-        System.out.println(s.getSetOfRoutes());
-        System.out.println(s);
-//        System.out.println(s.getNonAttendedRequestsList());
-        //System.out.println(timeBetweenNodes.get(0).get(3));
-        //IteratedLocalSearch(s, listOfRequests, requestsWichBoardsInNode,requestsWichLeavesInNode,numberOfNodes, vehicleCapacity, 
-        //      setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows);
-        //s.getStaticMapWithAllRoutes(nodesData);
-        //s.getStaticMapForEveryRoute(nodesData);
+        //System.out.println(solution.getSetOfRoutes());
+        //System.out.println(solution.getStringWIthObjectives());
+        //        IteratedLocalSearch(s, listOfRequests, requestsWichBoardsInNode,requestsWichLeavesInNode,numberOfNodes, vehicleCapacity, 
+        //              setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows);
+        //s.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
+        //s.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
+        int numberOfRandomSolutions = 10000;
+
+
     }
+
+    
 }

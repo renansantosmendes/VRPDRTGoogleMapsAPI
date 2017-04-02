@@ -5,9 +5,7 @@
  */
 package Algorithms;
 
-import static Algorithms.Algorithms.Perturbacao;
 import static Algorithms.Algorithms.RVND;
-import static Algorithms.Algorithms.avaliaSolucao;
 import static Algorithms.Algorithms.geraPesos;
 import static Algorithms.Methods.CopiaMelhorSolucao;
 import static Algorithms.Methods.Cruzamento;
@@ -39,6 +37,8 @@ import java.util.Set;
 import ProblemRepresentation.Request;
 import ProblemRepresentation.Solution;
 import static Algorithms.Algorithms.IteratedLocalSearch;
+import static Algorithms.Algorithms.rebuildSolution;
+import static Algorithms.Algorithms.perturbation;
 
 /**
  *
@@ -2036,7 +2036,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
             System.out.println("Interação MOILS = " + cont);
 
             //Perturbação
-            s_linha.setSolucao(Perturbacao(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+            s_linha.setSolucao(perturbation(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
             //System.out.println("Apos perturbação s'= " + s_linha);
 
             //BuscaLocal
@@ -2098,7 +2098,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         if (vizinho.get(i) != vizinho.get(j)) {
                             Collections.swap(vizinho, i, j);
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI TROCA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -2120,7 +2120,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         if (vizinho.get(i) != j) {
                             vizinho.set(i, j);
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI INSERCAO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -2143,7 +2143,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                             vizinho.remove(i);
                             vizinho.add(j, original.get(i));
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -2212,7 +2212,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         vizinho.add(posicao2, original.get(posicao1));
                     }
 
-                    aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                     if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                         //System.out.println("ACHEI ALEATORIA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -2239,7 +2239,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -2266,7 +2266,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -2311,7 +2311,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         if (vizinho.get(i) != vizinho.get(j)) {
                             Collections.swap(vizinho, i, j);
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI TROCA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -2333,7 +2333,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         if (vizinho.get(i) != j) {
                             vizinho.set(i, j);
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI INSERCAO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -2356,7 +2356,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                             vizinho.remove(i);
                             vizinho.add(j, original.get(i));
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -2425,7 +2425,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         vizinho.add(posicao2, original.get(posicao1));
                     }
 
-                    aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                     if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                         //System.out.println("ACHEI ALEATORIA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -2451,7 +2451,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -2477,7 +2477,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());

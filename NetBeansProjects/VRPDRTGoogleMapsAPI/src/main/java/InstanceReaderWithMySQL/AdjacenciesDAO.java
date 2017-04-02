@@ -37,7 +37,7 @@ public class AdjacenciesDAO {
                 for (int j = 0; j < numberOfNodes; j++) {
                     statement.setString(1, Integer.toString(i));
                     statement.setString(2, Integer.toString(j));
-                    statement.setString(3, Long.toString(time.get(i).get(j)*60));
+                    statement.setString(3, Long.toString(time.get(i).get(j) * 60));
                     statement.setString(4, Long.toString(distance.get(i).get(j)));
                     statement.execute();
                 }
@@ -73,7 +73,7 @@ public class AdjacenciesDAO {
             List<List<Long>> distanceBetweenNodes = new LinkedList<>();
             for (int i = 0; i < numberOfNodes; i++) {
                 distanceBetweenNodes.add(new LinkedList<Long>());
-                for(int j = 0; j< numberOfNodes; j++){
+                for (int j = 0; j < numberOfNodes; j++) {
                     long zero = 0;
                     distanceBetweenNodes.get(i).add(zero);
                 }
@@ -94,14 +94,14 @@ public class AdjacenciesDAO {
             throw new RuntimeException(e);
         }
     }
-    
+
     public List<List<Long>> getAdjacenciesListOfTimes() {
         try {
             int numberOfNodes = this.getNumberOfNodes();
             List<List<Long>> timeBetweenNodes = new LinkedList<>();
             for (int i = 0; i < numberOfNodes; i++) {
                 timeBetweenNodes.add(new LinkedList<Long>());
-                for(int j = 0; j< numberOfNodes; j++){
+                for (int j = 0; j < numberOfNodes; j++) {
                     long zero = 0;
                     timeBetweenNodes.get(i).add(zero);
                 }
@@ -112,7 +112,7 @@ public class AdjacenciesDAO {
             while (resultSet.next()) {
                 Integer originNode = resultSet.getInt("originNode");
                 Integer destinationNode = resultSet.getInt("destinationNode");
-                long timeTo = Math.round((resultSet.getLong("timeTo"))/60);
+                long timeTo = Math.round((resultSet.getLong("timeTo")) / 60);
                 timeBetweenNodes.get(originNode).set(destinationNode, timeTo);
             }
             resultSet.close();
@@ -121,5 +121,21 @@ public class AdjacenciesDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getPolylineBetweenNodes(int origin, int destination) {
+        try {
+            String sql = "select overviewPolyline from " + this.adjacenciesTable + " where originNode = " + origin
+                    + " and destinationNode = " + destination;
+            PreparedStatement statement = this.connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            String polyline = null;
+            while (resultSet.next()) {
+                polyline = resultSet.getString("overviewPolyline");
+            }
+            return polyline;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }       
     }
 }

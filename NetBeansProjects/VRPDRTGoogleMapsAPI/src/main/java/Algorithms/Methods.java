@@ -18,10 +18,8 @@ import static Algorithms.Algorithms.FO9;
 import static Algorithms.Algorithms.FOagregados;
 import static Algorithms.Algorithms.FOp;
 import static Algorithms.Algorithms.FuncaoDeAvaliacao;
-import static Algorithms.Algorithms.Perturbacao;
 import static Algorithms.Algorithms.PerturbacaoSemente;
 import static Algorithms.Algorithms.VND;
-import static Algorithms.Algorithms.avaliaSolucao;
 import static Algorithms.Algorithms.greedyConstructive;
 import static Algorithms.AlgorithmsForMultiObjectiveOptimization.Inicializa;
 import InstanceReaderWithMySQL.AdjacenciesDAO;
@@ -47,6 +45,8 @@ import ProblemRepresentation.Route;
 import ProblemRepresentation.Solution;
 import static java.util.stream.Collectors.toSet;
 import static Algorithms.Algorithms.IteratedLocalSearch;
+import static Algorithms.Algorithms.rebuildSolution;
+import static Algorithms.Algorithms.perturbation;
 
 /**
  *
@@ -533,7 +533,7 @@ public class Methods {
             Solution S = new Solution();
             Solution S_linha = new Solution();
             S.setSolucao(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
-            S_linha.setSolucao(Perturbacao(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+            S_linha.setSolucao(perturbation(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
             Pop.add(S_linha);
         }
     }
@@ -720,7 +720,7 @@ public class Methods {
                 Collections.swap(individuo, posicao1, posicao2);
 
                 Solution S = new Solution();
-                S.setSolucao(avaliaSolucao(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                S.setSolucao(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                 Pop.get(i).setSolucao(S);
             }
         }
@@ -742,7 +742,7 @@ public class Methods {
                 List<Integer> individuo = new ArrayList<>(Pop.get(i).getLinkedRouteList());
                 Collections.shuffle(individuo);
                 Solution S = new Solution();
-                S.setSolucao(avaliaSolucao(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                S.setSolucao(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                 Pop.get(i).setSolucao(S);
             }
         }
@@ -785,7 +785,7 @@ public class Methods {
                 individuo.addAll(min, aux);
 
                 Solution S = new Solution();
-                S.setSolucao(avaliaSolucao(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                S.setSolucao(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                 Pop.get(i).setSolucao(S);
             }
         }
@@ -828,7 +828,7 @@ public class Methods {
                 individuo.addAll(min, aux);
 
                 Solution S = new Solution();
-                S.setSolucao(avaliaSolucao(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                S.setSolucao(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                 Pop.get(i).setSolucao(S);
             }
         }
@@ -924,9 +924,9 @@ public class Methods {
         }
     }
 
-    public static void Cruzamento(List<Solution> Pop_nova, List<Solution> Pop, Integer TamMax, double Pc, 
-            List<Integer> pais, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, 
-            Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d, List<List<Long>> c, 
+    public static void Cruzamento(List<Solution> Pop_nova, List<Solution> Pop, Integer TamMax, double Pc,
+            List<Integer> pais, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U,
+            Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d, List<List<Long>> c,
             Integer n, Integer Qmax, Long TimeWindows) {
         int pai;
         int mae;
@@ -957,8 +957,8 @@ public class Methods {
                 filho2.addAll(Pop.get(mae).getLinkedRouteList().subList(0, pontoCorte));
                 filho2.addAll((Pop.get(pai).getLinkedRouteList().subList(pontoCorte, Pop.get(pai).getLinkedRouteList().size())));
 
-                s1.setSolucao(avaliaSolucao(filho1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                s2.setSolucao(avaliaSolucao(filho2, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                s1.setSolucao(rebuildSolution(filho1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                s2.setSolucao(rebuildSolution(filho2, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
             } else {
                 s1.setSolucao(Pop.get(mae));
@@ -1039,8 +1039,8 @@ public class Methods {
                     filho1.addAll(min, parte2);
                     filho2.addAll(min, parte1);
 
-                    s1.setSolucao(avaliaSolucao(filho1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                    s2.setSolucao(avaliaSolucao(filho2, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    s1.setSolucao(rebuildSolution(filho1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    s2.setSolucao(rebuildSolution(filho2, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                 } else {
                     s1.setSolucao(Pop.get(mae));
@@ -1142,7 +1142,7 @@ public class Methods {
                         if (vizinho.get(i) != vizinho.get(j)) {
                             Collections.swap(vizinho, i, j);
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                                 //System.out.println("ACHEI TROCA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1164,7 +1164,7 @@ public class Methods {
                         if (vizinho.get(i) != j) {
                             vizinho.set(i, j);
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                                 //System.out.println("ACHEI INSERCAO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1187,7 +1187,7 @@ public class Methods {
                             vizinho.remove(i);
                             vizinho.add(j, original.get(i));
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1256,7 +1256,7 @@ public class Methods {
                         vizinho.add(posicao2, original.get(posicao1));
                     }
 
-                    aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                     if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                         //System.out.println("ACHEI ALEATORIA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1283,7 +1283,7 @@ public class Methods {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1310,7 +1310,7 @@ public class Methods {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1355,7 +1355,7 @@ public class Methods {
                         if (vizinho.get(i) != vizinho.get(j)) {
                             Collections.swap(vizinho, i, j);
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI TROCA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1377,7 +1377,7 @@ public class Methods {
                         if (vizinho.get(i) != j) {
                             vizinho.set(i, j);
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI INSERCAO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1400,7 +1400,7 @@ public class Methods {
                             vizinho.remove(i);
                             vizinho.add(j, original.get(i));
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1469,7 +1469,7 @@ public class Methods {
                         vizinho.add(posicao2, original.get(posicao1));
                     }
 
-                    aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                     if (aux.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                         //System.out.println("ACHEI ALEATORIA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1495,7 +1495,7 @@ public class Methods {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1521,7 +1521,7 @@ public class Methods {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1579,7 +1579,7 @@ public class Methods {
                     } while (Objects.equals(vizinho.get(posicao1), vizinho.get(posicao2)));
 
                     Collections.swap(vizinho, posicao1, posicao2);
-                    aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     //System.out.println("Posições da troca = " + posicao1 + "\t" + posicao2);
                     //System.out.println("Solution gerada = " + aux);
                     if (aux.getTotalDistance() < melhor.getTotalDistance()) {
@@ -1603,7 +1603,7 @@ public class Methods {
                     } while (elemento == 0 || elemento == vizinho.get(posicao));
 
                     vizinho.set(posicao, elemento);
-                    aux.setSolucao(avaliaSolucao(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolucao(rebuildSolution(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     //System.out.println("Posições da troca = " + posicao + "\t" + elemento);
                     //System.out.println("Solution gerada = " + aux);
                     if (aux.getTotalDistance() < melhor.getTotalDistance()) {
@@ -1629,7 +1629,7 @@ public class Methods {
                     vizinho.remove(posicao1);
                     vizinho.add(posicao2, original.get(posicao1));
 
-                    aux.setSolucao(avaliaSolucao(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolucao(rebuildSolution(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                         //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                         melhor.setSolucao(aux);
@@ -1683,7 +1683,7 @@ public class Methods {
                     } while (Objects.equals(vizinho.get(posicao1), vizinho.get(posicao2)));
 
                     Collections.swap(vizinho, posicao1, posicao2);
-                    aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     return aux;
                     //System.out.println("Posições da troca = " + posicao1 + "\t" + posicao2);
                     //System.out.println("Solution gerada = " + aux);
@@ -1708,7 +1708,7 @@ public class Methods {
                     } while (elemento == 0 || elemento == vizinho.get(posicao));
 
                     vizinho.set(posicao, elemento);
-                    aux.setSolucao(avaliaSolucao(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolucao(rebuildSolution(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     //System.out.println("Posições da troca = " + posicao + "\t" + elemento);
                     //System.out.println("Solution gerada = " + aux);
                     return aux;
@@ -1735,7 +1735,7 @@ public class Methods {
                     vizinho.remove(posicao1);
                     vizinho.add(posicao2, original.get(posicao1));
 
-                    aux.setSolucao(avaliaSolucao(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolucao(rebuildSolution(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     return aux;
 //                    if (aux.getfObjetivo() < melhor.getfObjetivo()) {
 //                        //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
@@ -1840,7 +1840,7 @@ public class Methods {
                         if (vizinho.get(posicao1) != vizinho.get(posicao2)) {
                             Collections.swap(vizinho, posicao1, posicao2);
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getTotalDistance() < melhor.getTotalDistance()
                                     && ((listaTabuTroca[posicao2][posicao1] <= iteracao && listaTabuTroca[posicao1][posicao2] <= iteracao)
@@ -1873,7 +1873,7 @@ public class Methods {
                         if (vizinho.get(posicao) != elemento) {
                             vizinho.set(posicao, elemento);
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getTotalDistance() < melhor.getTotalDistance()
                                     && (listaTabuSubstituicao[posicao][elemento] <= iteracao || aux.getTotalDistance() < estrela.getTotalDistance())) {
@@ -1905,7 +1905,7 @@ public class Methods {
                             vizinho.remove(posicao1);
                             vizinho.add(posicao2, original.get(posicao1));
 
-                            aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getTotalDistance() < melhor.getTotalDistance()
                                     && (listaTabuMovimento[posicao1][posicao2] <= iteracao || aux.getTotalDistance() < estrela.getTotalDistance())) {
@@ -1959,7 +1959,7 @@ public class Methods {
 
                         Collections.swap(vizinho, posicao1, posicao2);
 
-                        aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                        aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                         if (aux.getTotalDistance() < melhor.getTotalDistance()
                                 && ((listaTabuTroca[posicao2][posicao1] <= iteracao && listaTabuTroca[posicao1][posicao2] <= iteracao)
@@ -1983,7 +1983,7 @@ public class Methods {
 
                         vizinho.set(posicao, elemento);
 
-                        aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                        aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                         if (aux.getTotalDistance() < melhor.getTotalDistance()
                                 && (listaTabuSubstituicao[posicao][elemento] <= iteracao || aux.getTotalDistance() < estrela.getTotalDistance())) {
@@ -2006,7 +2006,7 @@ public class Methods {
                         vizinho.remove(posicao1);
                         vizinho.add(posicao2, original.get(posicao1));
 
-                        aux.setSolucao(avaliaSolucao(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                        aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                         if (aux.getTotalDistance() < melhor.getTotalDistance()
                                 && (listaTabuMovimento[posicao1][posicao2] <= iteracao || aux.getTotalDistance() < estrela.getTotalDistance())) {
@@ -2018,14 +2018,16 @@ public class Methods {
                             listaTabuMovimento[pos2][pos1] = iteracao + duracaoTabu;
                         }
                     }
-
                     vizinho.clear();
                 }
-
                 break;
         }
-
         return melhor;
+    }
 
+    public static void initializeFleetOfVehicles(Set<Integer> setOfVehicles, final Integer numberOfVehicles) {
+        for (int i = 0; i < numberOfVehicles; i++) {
+            setOfVehicles.add(i);
+        }
     }
 }

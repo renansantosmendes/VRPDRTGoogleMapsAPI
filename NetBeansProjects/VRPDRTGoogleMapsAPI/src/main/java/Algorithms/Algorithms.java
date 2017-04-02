@@ -65,6 +65,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 import static Algorithms.Methods.findFeasibleNodes;
 import static Algorithms.Methods.separateOriginFromDestination;
+import VRPDRT.VRPDRT;
 
 public class Algorithms {
 
@@ -82,16 +83,18 @@ public class Algorithms {
     }
 
     public static double FuncaoDeAvaliacao(Solution S, List<Request> listOfRequests, List<List<Long>> c) {
-        double avalicao = 0;
+        double avaliacao = 0;
         double V = 12;
         //double alfa = S.getNonAttendedRequestsList().size();
         double alfa = 10 * listOfRequests.size();
         double beta = 1 / 10;
         double gama = 1;//12 é o número de pontos de parada incluindo o depósito
-
-        avalicao = S.getTotalDistance() + alfa * S.getNumberOfNonAttendedRequests() + beta * S.getDeliveryTimeWindowAntecipation() + gama * S.getDeliveryTimeWindowDelay();
-
-        return avalicao;
+        int Y = 1000;
+        int W = 800;
+        //avaliacao = S.getTotalDistance() + alfa * S.getNumberOfNonAttendedRequests() + beta * S.getDeliveryTimeWindowAntecipation() + gama * S.getDeliveryTimeWindowDelay();
+        avaliacao = S.getTotalDistance() + S.getSetOfRoutes().size()*W + S.getNonAttendedRequestsList().size()*Y;
+        
+        return avaliacao;
     }
 
     //Função Objetivo
@@ -428,7 +431,7 @@ public class Algorithms {
      * Avalia Vizinho
      *
      */
-    public static Solution avaliaSolucao(List<Integer> vizinho, List<Request> listRequests, List<Request> P, 
+    public static Solution rebuildSolution(List<Integer> vizinho, List<Request> listRequests, List<Request> P, 
             Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, 
             List<List<Long>> d, List<List<Long>> c,  Integer n, Integer Qmax, Long TimeWindows) {
         P.clear();
@@ -898,7 +901,7 @@ public class Algorithms {
         List<Integer> lista = new ArrayList<>();
 
         Solution S = new Solution();
-        //S.setSolucao(avaliaSolucao(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+        //S.setSolucao(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
         //Pop.get(i).setSolucao(S);
 
         try {
@@ -917,7 +920,7 @@ public class Algorithms {
                 teste = linha[i];
             }
 
-            S.setSolucao(avaliaSolucao(lista, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            S.setSolucao(rebuildSolution(lista, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
             System.out.println("Solução = " + S);
             Pop.get(cont).setSolucao(S);
 
@@ -934,7 +937,7 @@ public class Algorithms {
                     lista.add(no);
                     //System.out.println("Nó = " + no);
                 }
-                S.setSolucao(avaliaSolucao(lista, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                S.setSolucao(rebuildSolution(lista, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                 System.out.println("Solução = " + S);
                 Pop.get(cont).setSolucao(S);
                 //Pop.get(cont).setLinkedRoute(lista);
@@ -1059,7 +1062,7 @@ public class Algorithms {
         return melhor;
     }
 
-    public static Solution Perturbacao(Solution s, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+    public static Solution perturbation(Solution s, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
             List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows) {
         Random rnd = new Random();
@@ -1081,7 +1084,7 @@ public class Algorithms {
         original.add(posicao1, original.remove(posicao2));
         //}
         Solution S = new Solution();
-        S.setSolucao(avaliaSolucao(original, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+        S.setSolucao(rebuildSolution(original, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
         s.setSolucao(S);
 
         return s;
@@ -1109,7 +1112,7 @@ public class Algorithms {
         original.add(posicao1, original.remove(posicao2));
         //}
         Solution S = new Solution();
-        S.setSolucao(avaliaSolucao(original, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+        S.setSolucao(rebuildSolution(original, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
         s.setSolucao(S);
 
         return s;
@@ -1119,41 +1122,30 @@ public class Algorithms {
             List<Request>> Pin, Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K,
             List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d,
             List<List<Long>> c, Long TimeWindows) {
-        //Solução inicial já é gerada pelo GA
+        
         Solution s = new Solution(s_0);
         Solution s_linha = new Solution();
         Solution s_2linha = new Solution();
         List<Solution> historico = new ArrayList<>();
         int MAXITER = 2;
 
-        //BuscaLocal
         s.setSolucao(VND(s_0, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-        System.out.println("Apos a primeria busca local s = " + s);
-        //s.setSolucao(primeiroMelhorVizinho(s_0,2,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
+        System.out.println("After the first local search s = " + s);
         int cont = 0;
         while (cont < MAXITER) {
-            //System.out.println("Entrou no laço do IteratedLocalSearch\tFO = " + s.getfObjetivo());
-
-            System.out.println("Interação ILS = " + cont);
-            //Perturbação
-            s_linha.setSolucao(Perturbacao(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
-            System.out.println("Apos perturbação s'= " + s_linha);
-            //BuscaLocal
+            System.out.println("Iteration ILS = " + cont);
+            s_linha.setSolucao(perturbation(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+            System.out.println("After pertubation s'= " + s_linha);
             s_2linha.setSolucao(VND(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-            //s_2linha.setSolucao(primeiroMelhorVizinho(s_0,2,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
-            //System.out.println("Apos busca local s'' = " + s_2linha);
-            //CriterioAceitacao
+ 
             if (s_2linha.getObjectiveFunction() < s_0.getObjectiveFunction()) {
                 s.setSolucao(s_2linha);
                 s_0.setSolucao(s_2linha);
-                System.out.println("Atualizou\tFO = " + s.getObjectiveFunction());
+                System.out.println("Actualized \tFO = " + s.getObjectiveFunction());
             }
-
             cont++;
         }
-
-        System.out.println("Soluçao retornada do ILS = " + s_0);
-
+        System.out.println("Returned solution from ILS = " + s_0);
         return s_0;
     }
 
@@ -1187,7 +1179,7 @@ public class Algorithms {
         List<Integer> lista = new ArrayList<>();
 
         Solution S = new Solution();
-        //S.setSolucao(avaliaSolucao(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+        //S.setSolucao(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
         //Pop.get(i).setSolucao(S);
 
         try {
@@ -1944,6 +1936,64 @@ public class Algorithms {
         }
 
         return melhor;
+    }
+
+    public static void generateRandomSolutionsUsingPerturbation(int numberOfRandomSolutions, final Integer vehicleCapacity, 
+            List<Request> listOfRequests, Map<Integer, List<Request>> requestsWichBoardsInNode, 
+            Map<Integer, List<Request>> requestsWichLeavesInNode, Integer numberOfNodes, 
+            Set<Integer> setOfVehicles, List<Request> listOfNonAttendedRequests, List<Request> requestList, 
+            List<Integer> loadIndexList, List<List<Long>> timeBetweenNodes, List<List<Long>> distanceBetweenNodes, 
+            Long timeWindows, Long currentTime, Integer lastNode) throws FileNotFoundException {
+        
+        Solution solution = greedyConstructive(0.2, 0.15, 0.55, 0.1,listOfRequests,requestsWichBoardsInNode, 
+                requestsWichLeavesInNode, numberOfNodes, vehicleCapacity,setOfVehicles, listOfNonAttendedRequests, requestList,
+                loadIndexList,timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime,lastNode);
+       
+        Solution solution1 = new Solution();
+        String folder = "RandomSolutionsUsingPerturbation";
+        boolean success = (new File(folder)).mkdirs();
+        if (!success) {
+            System.out.println("Folder already exist!");
+        }
+        
+        String destinationFileForObjectives = folder + "/Random_Solutions_" + numberOfRandomSolutions + "_Objectives.txt";
+        String destinationFileForSolutions = folder + "/Random_Solutions_" + numberOfRandomSolutions + "_Solutions.txt";
+        PrintStream printStreamForObjectives = new PrintStream(destinationFileForObjectives);
+        PrintStream printStreamForSolutions = new PrintStream(destinationFileForSolutions);
+        for (int i = 0; i < numberOfRandomSolutions; i++) {
+            solution1.setSolucao(perturbation(solution, listOfRequests,requestsWichBoardsInNode,requestsWichLeavesInNode,
+                    numberOfNodes, vehicleCapacity,setOfVehicles, listOfNonAttendedRequests, requestList,loadIndexList, timeBetweenNodes,
+                    distanceBetweenNodes,timeWindows));
+            System.out.println(solution1.getStringWIthObjectives());
+            printStreamForObjectives.print(solution1.getStringWIthObjectives() + "\n");
+            printStreamForSolutions.print(solution1 + "\n");
+        }
+    }
+
+    public static void generateRandomSolutionsUsingGreedyAlgorithm(int numberOfRandomSolutions, final Integer vehicleCapacity,
+            List<Request> listOfRequests, Map<Integer, List<Request>> requestsWichBoardsInNode, 
+            Map<Integer, List<Request>> requestsWichLeavesInNode, Integer numberOfNodes, Set<Integer> setOfVehicles, 
+            List<Request> listOfNonAttendedRequests, List<Request> requestList, List<Integer> loadIndexList, 
+            List<List<Long>> timeBetweenNodes, List<List<Long>> distanceBetweenNodes,  Long timeWindows, 
+            Long currentTime, Integer lastNode) throws FileNotFoundException {
+        Solution solution1 = new Solution();
+        String folder = "RandomSolutionsUsingGreedyAlgorithm";
+        boolean success = (new File(folder)).mkdirs();
+        if (!success) {
+            System.out.println("Folder already exist!");
+        }
+        String destinationFileForObjectives = folder + "/Random_Solutions_" + numberOfRandomSolutions + "_Objectives.txt";
+        String destinationFileForSolutions = folder + "/Random_Solutions_" + numberOfRandomSolutions + "_Solutions.txt";
+        PrintStream printStreamForObjectives = new PrintStream(destinationFileForObjectives);
+        PrintStream printStreamForSolutions = new PrintStream(destinationFileForSolutions);
+        for (int i = 0; i < numberOfRandomSolutions; i++) {
+            solution1.setSolucao(geraPesos(i, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes,
+                    vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
+                    distanceBetweenNodes, timeWindows, currentTime, lastNode));
+            System.out.println(solution1.getStringWIthObjectives());
+            printStreamForObjectives.print(solution1.getStringWIthObjectives() + "\n");
+            printStreamForSolutions.print(solution1 + "\n");
+        }
     }
 
 }
