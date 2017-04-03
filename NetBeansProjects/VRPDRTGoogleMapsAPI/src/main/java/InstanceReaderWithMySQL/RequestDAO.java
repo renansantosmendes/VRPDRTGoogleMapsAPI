@@ -36,15 +36,13 @@ public class RequestDAO {
     }
 
     public void addRequestIntoDataBase(Request request) {
-        String sql = "insert into requests250 "
-                + "(id, passengerOrigin, passengerDestination, pickUpTimeWindowLower, pickUpTimeWindowUpper, "
-                + "deliveryTimeWindowLower, deliveryTimeWindowUpper)"
-                + " values (?,?,?,?,?,?,?)";
+        //r250n12tw03
+        String sql = "insert into r250n12tw10 values (?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement statement = this.connection.prepareStatement(sql);
 
-            statement.setString(1, request.getId().toString());
+            statement.setString(1, null);
             statement.setString(2, Integer.toString(request.getOrigin()));
             statement.setString(3, Integer.toString(request.getDestination()));
             LocalDateTime pickUpTimeWindowLower, pickUpTimeWindowUpper, deliveryTimeWindowLower, deliveryTimeWindowUpper;
@@ -109,7 +107,6 @@ public class RequestDAO {
         }
     }
 
-
     public List<Request> getListOfRequest() {
         try {
             String sql = "select * from " + this.instanceName;
@@ -119,27 +116,31 @@ public class RequestDAO {
             ResultSet resultSetForRequests = statement.executeQuery();
 
             while (resultSetForRequests.next()) {
-                int valueAdded = 420;
+                int valueAdded = 0;
                 Integer requestId = resultSetForRequests.getInt("id");
                 Integer passengerOrigin = resultSetForRequests.getInt("passengerOrigin");
                 Integer passengerDestination = resultSetForRequests.getInt("passengerDestination");
-                Integer pickUpTimeWindowLower = 60*(resultSetForRequests.getTime("pickUpTimeWindowLower").toLocalTime().getHour())
+
+                Integer pickUpTimeWindowLower = 60 * (resultSetForRequests.getTime("pickUpTimeWindowLower").toLocalTime().getHour())
                         + resultSetForRequests.getTime("pickUpTimeWindowLower").toLocalTime().getMinute() + valueAdded;
 
-                Integer pickUpTimeWindowUpper = 60*(resultSetForRequests.getTime("pickUpTimeWindowUpper").toLocalTime().getHour())
+                Integer pickUpTimeWindowUpper = 60 * (resultSetForRequests.getTime("pickUpTimeWindowUpper").toLocalTime().getHour())
                         + resultSetForRequests.getTime("pickUpTimeWindowUpper").toLocalTime().getMinute() + valueAdded;
 
-                Integer deliveryTimeWindowLower = 60*(resultSetForRequests.getTime("deliveryTimeWindowLower").toLocalTime().getHour())
+                Integer deliveryTimeWindowLower = 60 * (resultSetForRequests.getTime("deliveryTimeWindowLower").toLocalTime().getHour())
                         + resultSetForRequests.getTime("deliveryTimeWindowLower").toLocalTime().getMinute() + valueAdded;
 
-                Integer deliveryTimeWindowUpper = 60*(resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime().getHour())
+                Integer deliveryTimeWindowUpper = 60 * (resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime().getHour())
                         + resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime().getMinute() + valueAdded;
                 Request request = new Request(requestId, passengerOrigin, passengerDestination, pickUpTimeWindowLower,
                         pickUpTimeWindowUpper,deliveryTimeWindowLower ,deliveryTimeWindowUpper);
+//                Request request = new Request(requestId, passengerOrigin, passengerDestination, pickUpTimeWindowLower,
+//                        deliveryTimeWindowLower);
                 listOfRequests.add(request);
             }
             resultSetForRequests.close();
             statement.close();
+            this.connection.close();
             return listOfRequests;
         } catch (SQLException e) {
             throw new RuntimeException(e);

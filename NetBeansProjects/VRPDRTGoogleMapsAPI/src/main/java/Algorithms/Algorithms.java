@@ -960,34 +960,24 @@ public class Algorithms {
         Solution s_linha = new Solution();
         Solution s = new Solution();
         int cont1 = 0;
-        //Solucao aux = new Solution();
         int k, r;
-        //r = 4;
         r = 6;
-        //k = 1 + rnd.nextInt(4);
         k = 1;
-
         while ((k <= r)/* && (cont1 <= 50)*/) {
             if (k == 4) {
                 k++;
             }
             System.out.println("k = " + k);
-            //System.out.println("iteração VND = " + cont1);
-            //s.setSolucao(primeiroMelhorVizinho(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
-            s.setSolucao(melhorVizinho(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            s.setSolucao(primeiroMelhorVizinho(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
+            //s.setSolucao(melhorVizinho(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
             if (s.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                 melhor.setSolucao(s);
                 k = 1;
-                //k = 1 + rnd.nextInt(4);
-                //return melhor;
-                //break;
             } else {
                 k = k + 1;
-                // k = 1 + rnd.nextInt(4);
             }
             cont1++;
         }
-//        System.out.println("Soluçao retornada do VND = " + melhor);
         return melhor;
     }
 

@@ -133,6 +133,8 @@ public class AdjacenciesDAO {
             while (resultSet.next()) {
                 polyline = resultSet.getString("overviewPolyline");
             }
+            resultSet.close();
+            statement.close();
             return polyline;
         } catch (SQLException e) {
             throw new RuntimeException(e);

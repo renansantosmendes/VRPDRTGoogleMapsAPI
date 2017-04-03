@@ -25,7 +25,7 @@ public class Request implements Comparable, Cloneable{
 			pickupTime = (long) -1,	// tempo em que foi coletado na origem
 			deliveryTime = (long) -1;	// tempo em que foi entregue no destino
 		
-	private Long timeWindowDefault = (long) 3;	
+	private Long timeWindowDefault = (long) 10;	
 	
 	
 	public Request(){

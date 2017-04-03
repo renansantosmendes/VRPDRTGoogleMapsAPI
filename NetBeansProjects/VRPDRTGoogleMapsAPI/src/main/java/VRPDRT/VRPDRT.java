@@ -38,6 +38,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import static Algorithms.Algorithms.perturbation;
+import InstanceReaderWithMySQL.RequestDAO;
 
 /**
  *
@@ -70,7 +71,7 @@ public class VRPDRT {
         String distanceMatrixApiKey = "AIzaSyDP6omcIkKRzcraIm4sna5QeEybpbi2Ojw";
         String origin = "-19.9138637,-43.9419221";
         String destination = "-19.9165861,-43.9346433";
-        String instanceName = "requests110";
+        String instanceName = "r250n12tw10"; 
         String nodesData = "bh_nodes_little";
         String adjacenciesData = "adjacencies_bh_nodes_little_test";
         final Integer numberOfVehicles = 50;
@@ -81,25 +82,26 @@ public class VRPDRT {
 
         //new DataUpdaterUsingGoogleMapsApi(directionsApiKey, distanceMatrixApiKey, new NodeDAO(nodesData).getListOfNodes(),
         //        adjacenciesData).updateAdjacenciesData();
+        
         numberOfNodes = readProblemData(instanceName, nodesData, adjacenciesData, listOfRequests, distanceBetweenNodes,
                 timeBetweenNodes, Pmais, Pmenos, requestsWichBoardsInNode, requestsWichLeavesInNode, setOfNodes,
                 numberOfNodes, loadIndexList);
 
         Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
 
-        Solution solution = greedyConstructive(0.2, 0.15, 0.55, 0.10, listOfRequests.subList(0, 110), requestsWichBoardsInNode,
+        Solution solution = greedyConstructive(0.2, 0.15, 0.55, 0.10, listOfRequests, requestsWichBoardsInNode,
                 requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, P,
                 loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
-
-        //System.out.println(solution.getSetOfRoutes());
+        
+        //new RequestDAO().addRequestIntoDataBase();
+        
+        System.out.println(solution);
         //System.out.println(solution.getStringWIthObjectives());
-        //        IteratedLocalSearch(s, listOfRequests, requestsWichBoardsInNode,requestsWichLeavesInNode,numberOfNodes, vehicleCapacity, 
-        //              setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows);
+                IteratedLocalSearch(solution, listOfRequests, requestsWichBoardsInNode,requestsWichLeavesInNode,numberOfNodes, vehicleCapacity, 
+                      setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows);
         //s.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
-        //s.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
-        int numberOfRandomSolutions = 10000;
-
-
+        solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
+        System.out.println(solution);
     }
 
     
