@@ -150,8 +150,13 @@ public class GoogleStaticMap {
             String imageUrl = this.buildURL().toString();
             //System.out.println("URL");
             System.out.println(imageUrl);
-
-            String destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_Static_Map.jpg";
+            String destinationFile;
+            if(this.routes == null){
+                 destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_"+this.route+".jpg";
+            }else{
+                 destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_"+".jpg";
+            }
+           
             String str = destinationFile;
             URL url = new URL(imageUrl);
             InputStream is = url.openStream();

@@ -7,7 +7,6 @@ package VRPDRT;
 
 import Algorithms.Algorithms;
 import static Algorithms.Algorithms.IteratedLocalSearch;
-import static Algorithms.Algorithms.geraPesos;
 import static Algorithms.Algorithms.greedyConstructive;
 import Algorithms.Methods;
 import java.util.ArrayList;
@@ -21,24 +20,9 @@ import ProblemRepresentation.Request;
 import ProblemRepresentation.Solution;
 import static Algorithms.Methods.readProblemData;
 import GoogleMapsApi.DataUpdaterUsingGoogleMapsApi;
-import InstanceReaderWithMySQL.DataUpdaterDAO;
 import InstanceReaderWithMySQL.NodeDAO;
-import java.io.IOException;
-import com.google.maps.DirectionsApi;
-import com.google.maps.DirectionsApiRequest;
-import com.google.maps.DistanceMatrixApi;
-import com.google.maps.DistanceMatrixApiRequest;
-import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
-import com.google.maps.model.DirectionsResult;
-import com.google.maps.model.DirectionsRoute;
-import com.google.maps.model.TrafficModel;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
-import static Algorithms.Algorithms.perturbation;
-import InstanceReaderWithMySQL.RequestDAO;
 
 /**
  *
@@ -67,42 +51,34 @@ public class VRPDRT {
     static Integer lastNode;
 
     public static void main(String[] args) throws ApiException, InterruptedException, IOException {
-        String directionsApiKey = "AIzaSyCgaZr9fRAUs3_8lftkt026_MfZ3yZVN4E";
-        String distanceMatrixApiKey = "AIzaSyDP6omcIkKRzcraIm4sna5QeEybpbi2Ojw";
-        String origin = "-19.9138637,-43.9419221";
-        String destination = "-19.9165861,-43.9346433";
-        String instanceName = "r250n12tw10"; 
+
+        String instanceName = "r050n12tw10";
         String nodesData = "bh_nodes_little";
         String adjacenciesData = "adjacencies_bh_nodes_little_test";
         final Integer numberOfVehicles = 50;
         final Integer vehicleCapacity = 10;
 
-        System.out.println("Number of Vehicles = " + numberOfVehicles);
-        System.out.println("Vehicle Capacity = " + vehicleCapacity);
-
         //new DataUpdaterUsingGoogleMapsApi(directionsApiKey, distanceMatrixApiKey, new NodeDAO(nodesData).getListOfNodes(),
         //        adjacenciesData).updateAdjacenciesData();
-        
         numberOfNodes = readProblemData(instanceName, nodesData, adjacenciesData, listOfRequests, distanceBetweenNodes,
                 timeBetweenNodes, Pmais, Pmenos, requestsWichBoardsInNode, requestsWichLeavesInNode, setOfNodes,
                 numberOfNodes, loadIndexList);
+
+        Algorithms.printProblemInformations(listOfRequests, numberOfVehicles, vehicleCapacity, instanceName, adjacenciesData, nodesData);
 
         Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
 
         Solution solution = greedyConstructive(0.2, 0.15, 0.55, 0.10, listOfRequests, requestsWichBoardsInNode,
                 requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, P,
                 loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
-        
-        //new RequestDAO().addRequestIntoDataBase();
-        
+
         System.out.println(solution);
-        //System.out.println(solution.getStringWIthObjectives());
-                IteratedLocalSearch(solution, listOfRequests, requestsWichBoardsInNode,requestsWichLeavesInNode,numberOfNodes, vehicleCapacity, 
-                      setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows);
+
+        IteratedLocalSearch(solution, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity,
+                setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows);
         //s.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         System.out.println(solution);
     }
 
-    
 }

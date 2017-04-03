@@ -1117,7 +1117,7 @@ public class Algorithms {
         Solution s_linha = new Solution();
         Solution s_2linha = new Solution();
         List<Solution> historico = new ArrayList<>();
-        int MAXITER = 2;
+        int MAXITER = 4;
 
         s.setSolucao(VND(s_0, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
         System.out.println("After the first local search s = " + s);
@@ -1984,6 +1984,17 @@ public class Algorithms {
             printStreamForObjectives.print(solution1.getStringWIthObjectives() + "\n");
             printStreamForSolutions.print(solution1 + "\n");
         }
+    }
+
+    public static void printProblemInformations(List<Request> listOfRequests, final Integer numberOfVehicles, final Integer vehicleCapacity, String instanceName, String adjacenciesData, String nodesData) {
+        System.out.println("VRPDRT - Informations");
+        System.out.println("Number of requests = " + listOfRequests.size());
+        System.out.println("Number of vehicles = " + numberOfVehicles);
+        System.out.println("Vehicle capacity = " + vehicleCapacity);
+        System.out.println("Instance name = " + instanceName);
+        System.out.println("Adjacencies instance = " + adjacenciesData);
+        System.out.println("Nodes instance = " + nodesData);
+        System.out.println();
     }
 
 }

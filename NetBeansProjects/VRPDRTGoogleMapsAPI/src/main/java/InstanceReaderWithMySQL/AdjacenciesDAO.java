@@ -135,6 +135,7 @@ public class AdjacenciesDAO {
             }
             resultSet.close();
             statement.close();
+            this.connection.close();
             return polyline;
         } catch (SQLException e) {
             throw new RuntimeException(e);
