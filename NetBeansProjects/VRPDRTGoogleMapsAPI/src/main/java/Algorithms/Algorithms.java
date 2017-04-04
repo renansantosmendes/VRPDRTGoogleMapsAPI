@@ -23,15 +23,11 @@ import static Algorithms.Methods.CalculaListaSemNosViaveis;
 import static Algorithms.Methods.CalculaNRF;
 import static Algorithms.Methods.CalculaNRL;
 import static Algorithms.Methods.CalculaTRL;
-import static Algorithms.Methods.CopiaMelhorSolucao;
-import static Algorithms.Methods.Cruzamento;
-import static Algorithms.Methods.Cruzamento2Pontos;
 import static Algorithms.Methods.Desembarca;
 import static Algorithms.Methods.Embarca;
 import static Algorithms.Methods.EmbarcaRelaxacao;
 import static Algorithms.Methods.FinalizaRota;
 import static Algorithms.Methods.Fitness;
-import static Algorithms.Methods.ImprimePopulacao;
 import static Algorithms.Methods.ProcuraSolicitacaoParaAtender;
 import static Algorithms.Methods.RetiraSolicitacaoNaoSeraAtendida;
 import static Algorithms.Methods.RetiraSolicitacoesInviaveis;
@@ -43,20 +39,10 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Objects;
 import java.util.Random;
-import static Algorithms.Methods.InicializaPopulacao;
 import static Algorithms.Methods.InicializaPopulacaoPerturbacao;
-import static Algorithms.Methods.InsereMelhorIndividuo;
-import static Algorithms.Methods.Mutacao;
-import static Algorithms.Methods.Mutacao2Opt;
-import static Algorithms.Methods.Mutacao2Shuffle;
 import static Algorithms.Methods.MutacaoILS;
-import static Algorithms.Methods.MutacaoShuffle;
 import static Algorithms.Methods.NewFitness;
-import static Algorithms.Methods.OrdenaPopulacao;
-import static Algorithms.Methods.Selecao;
 import static Algorithms.Methods.buscaTabu;
-import static Algorithms.Methods.melhorVizinho;
-import static Algorithms.Methods.primeiroMelhorVizinho;
 import static Algorithms.Methods.primeiroMelhorVizinhoAleatorio;
 import static Algorithms.Methods.vizinhoAleatorio;
 import java.time.Clock;
@@ -66,6 +52,20 @@ import java.util.TreeMap;
 import static Algorithms.Methods.findFeasibleNodes;
 import static Algorithms.Methods.separateOriginFromDestination;
 import VRPDRT.VRPDRT;
+import static Algorithms.Methods.initializePopulation;
+import static Algorithms.Methods.printPopulation;
+import static Algorithms.Methods.rouletteWheelSelectionAlgorithm;
+import static Algorithms.Methods.populationSorting;
+import static Algorithms.Methods.onePointCrossover;
+import static Algorithms.Methods.twoPointsCrossover;
+import static Algorithms.Methods.copyBestSolution;
+import static Algorithms.Methods.insertBestIndividualInPopulation;
+import static Algorithms.Methods.firstImprovementAlgorithm;
+import static Algorithms.Methods.bestImprovementAlgorithm;
+import static Algorithms.Methods.mutation2Shuffle;
+import static Algorithms.Methods.mutation2Opt;
+import static Algorithms.Methods.mutacaoShuffle;
+import static Algorithms.Methods.mutationSwap;
 
 public class Algorithms {
 
@@ -804,7 +804,7 @@ public class Algorithms {
             //System.out.println("Teste do elitismo, SBest = "+ SBest);
             List<Integer> pais = new ArrayList<>();
             double tempoInicio, tempoFim;
-            //SBest = CopiaMelhorSolucao(Pop, SBest);
+            //SBest = copyBestSolution(Pop, SBest);
             //System.out.println("Melhor Individuo = " + SBest);
             int somaTotal;
             double media, desvio;
@@ -837,7 +837,7 @@ public class Algorithms {
                 //GeraPopGulosa(Pop,TamPop,listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                 //Fitness(Pop);
                 //OrdenaPopulacao(Pop);
-                ImprimePopulacao(Pop);
+                printPopulation(Pop);
                 SBest.setObjectiveFunction(1000000000);
                 SBest.setTotalDelay(1000000000);
                 //SBest.setSolucao(S);
@@ -848,28 +848,28 @@ public class Algorithms {
                 int GerAtual = 0;
                 while (GerAtual < MaxGer) {
                     //Ordenação da população
-                    OrdenaPopulacao(Pop);
+                    populationSorting(Pop);
 
                     //Cálculo do fitness - aptidão
                     NewFitness(Pop);
-                    SBest = CopiaMelhorSolucao(Pop, SBest);
+                    SBest = copyBestSolution(Pop, SBest);
                     saida.print(SBest.getObjectiveFunction() + "\t");
 
                     //Selecionar
-                    Selecao(pais, Pop, TamPop);
+                    rouletteWheelSelectionAlgorithm(pais, Pop, TamPop);
                     //Cruzamento
                     //Cruzamento(Pop, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
 
-                    Cruzamento2Pontos(Pop, Pop, TamPop, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
+                    twoPointsCrossover(Pop, Pop, TamPop, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
                     //Mutação
                     //Mutacao(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                     //Mutacao2Opt(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                     //MutacaoShuffle(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);                   
-                    Mutacao2Shuffle(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+                    mutation2Shuffle(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                     //MutacaoILS(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
 
                     //Elitismo
-                    InsereMelhorIndividuo(Pop, SBest);
+                    insertBestIndividualInPopulation(Pop, SBest);
                     NewFitness(Pop);
 
                     //BuscaLocal
@@ -888,10 +888,10 @@ public class Algorithms {
             e.printStackTrace();
         }
 
-        OrdenaPopulacao(Pop);
+        populationSorting(Pop);
         Fitness(Pop);
         //System.out.println("Geração final = ");
-        ImprimePopulacao(Pop);
+        printPopulation(Pop);
     }
 
     public static void InicializaSolucaoArquivo(List<Solution> Pop, String NomeArquivo, List<Request> listRequests, List<Request> P, Set<Integer> K,
@@ -951,7 +951,7 @@ public class Algorithms {
 
     }
 
-    public static Solution VND(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, 
+    public static Solution VariableNeighborhoodDescend(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, 
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d,
             List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
 
@@ -968,8 +968,8 @@ public class Algorithms {
                 k++;
             }
             System.out.println("k = " + k);
-            s.setSolucao(primeiroMelhorVizinho(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
-            //s.setSolucao(melhorVizinho(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            s.setSolucao(firstImprovementAlgorithm(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
+            //s.setSolucao(bestImprovementAlgorithm(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
             if (s.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                 melhor.setSolucao(s);
                 k = 1;
@@ -1004,9 +1004,9 @@ public class Algorithms {
         while ((k <= r)) {
 
             System.out.println("k = " + k + "\tN = " + vizinhanca.get(k - 1));
-            //System.out.println("iteração VND = " + cont1);
-            //s.setSolucao(primeiroMelhorVizinho(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
-            s.setSolucao(melhorVizinho(s_0, vizinhanca.get(k - 1), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            //System.out.println("iteração VariableNeighborhoodDescend = " + cont1);
+            //s.setSolucao(firstImprovementAlgorithm(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
+            s.setSolucao(bestImprovementAlgorithm(s_0, vizinhanca.get(k - 1), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
             if (s.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                 melhor.setSolucao(s);
                 k = 1;
@@ -1036,7 +1036,7 @@ public class Algorithms {
             while ((k <= r)) {
 
                 //s_linha.setSolucao(vizinhoAleatorio(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                s_2linha.setSolucao(VND(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                s_2linha.setSolucao(VariableNeighborhoodDescend(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                 if (s_2linha.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                     melhor.setSolucao(s_2linha);
@@ -1119,14 +1119,14 @@ public class Algorithms {
         List<Solution> historico = new ArrayList<>();
         int MAXITER = 4;
 
-        s.setSolucao(VND(s_0, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+        s.setSolucao(VariableNeighborhoodDescend(s_0, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
         System.out.println("After the first local search s = " + s);
         int cont = 0;
         while (cont < MAXITER) {
             System.out.println("Iteration ILS = " + cont);
             s_linha.setSolucao(perturbation(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
             System.out.println("After pertubation s'= " + s_linha);
-            s_2linha.setSolucao(VND(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            s_2linha.setSolucao(VariableNeighborhoodDescend(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
  
             if (s_2linha.getObjectiveFunction() < s_0.getObjectiveFunction()) {
                 s.setSolucao(s_2linha);
@@ -1199,7 +1199,7 @@ public class Algorithms {
             List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Solution s = new Solution();
         //Pop.clear();
-        InicializaPopulacao(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+        initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
 
         for (int i = 0; i < TamPop; i++) {
             s.setSolucao(geraPesos(i, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
@@ -1903,13 +1903,13 @@ public class Algorithms {
          * Aleatoria
          *
          */
-        if (tipoEstrategia == 1) { // utiliza o m�todo melhorVizinho
+        if (tipoEstrategia == 1) { // utiliza o m�todo bestImprovementAlgorithm
 
             do {
 
                 melhor.setSolucao(s);
-                //s.setSolucao(melhorVizinho(melhor,tipoMovimento, listRequests));
-                s.setSolucao(melhorVizinho(melhor, tipoMovimento, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                //s.setSolucao(bestImprovementAlgorithm(melhor,tipoMovimento, listRequests));
+                s.setSolucao(bestImprovementAlgorithm(melhor, tipoMovimento, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
             } while (!s.equals(melhor));
 
@@ -1918,8 +1918,8 @@ public class Algorithms {
             do {
 
                 melhor.setSolucao(s);
-                //s.setSolucao(primeiroMelhorVizinho(melhor,tipoMovimento, listRequests));
-                s.setSolucao(primeiroMelhorVizinho(melhor, tipoMovimento, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                //s.setSolucao(firstImprovementAlgorithm(melhor,tipoMovimento, listRequests));
+                s.setSolucao(firstImprovementAlgorithm(melhor, tipoMovimento, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
             } while (!s.equals(melhor));
 

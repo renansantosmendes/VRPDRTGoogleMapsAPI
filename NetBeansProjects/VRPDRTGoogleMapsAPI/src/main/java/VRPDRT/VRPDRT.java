@@ -23,6 +23,7 @@ import GoogleMapsApi.DataUpdaterUsingGoogleMapsApi;
 import InstanceReaderWithMySQL.NodeDAO;
 import com.google.maps.errors.ApiException;
 import java.io.IOException;
+import static Algorithms.AlgorithmsForMultiObjectiveOptimization.NonDominatedSortedGeneticAlgorithmII;
 
 /**
  *
@@ -57,6 +58,11 @@ public class VRPDRT {
         String adjacenciesData = "adjacencies_bh_nodes_little_test";
         final Integer numberOfVehicles = 50;
         final Integer vehicleCapacity = 10;
+        Integer populationSize = 10;
+        Integer maximumNumberOfGenerations = 5;
+        Integer maximumNumberOfExecutions = 1;
+        double probabilityOfMutation = 0.02;
+        double probabilityOfCrossover = 0.7;
 
         //new DataUpdaterUsingGoogleMapsApi(directionsApiKey, distanceMatrixApiKey, new NodeDAO(nodesData).getListOfNodes(),
         //        adjacenciesData).updateAdjacenciesData();
@@ -72,13 +78,18 @@ public class VRPDRT {
                 requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, P,
                 loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 
-        System.out.println(solution);
-
-        IteratedLocalSearch(solution, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity,
-                setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows);
-        //s.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
-        solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
-        System.out.println(solution);
+        //System.out.println(solution);
+        //IteratedLocalSearch(solution, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity,
+        //        setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows);
+        //solution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
+        //solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
+        //System.out.println(solution);
+        
+        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
+                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
+                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes,
+                distanceBetweenNodes, timeWindows, currentTime, lastNode);
+        
     }
 
 }

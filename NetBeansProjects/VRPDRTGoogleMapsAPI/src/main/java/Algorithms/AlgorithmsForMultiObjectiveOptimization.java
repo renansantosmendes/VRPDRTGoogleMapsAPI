@@ -7,21 +7,7 @@ package Algorithms;
 
 import static Algorithms.Algorithms.RVND;
 import static Algorithms.Algorithms.geraPesos;
-import static Algorithms.Methods.CopiaMelhorSolucao;
-import static Algorithms.Methods.Cruzamento;
-import static Algorithms.Methods.Cruzamento2Pontos;
 import static Algorithms.Methods.Fitness;
-import static Algorithms.Methods.ImprimePopulacao;
-import static Algorithms.Methods.InicializaPopulacao;
-import static Algorithms.Methods.InsereMelhorIndividuo;
-import static Algorithms.Methods.Mutacao;
-import static Algorithms.Methods.Mutacao2Opt;
-import static Algorithms.Methods.Mutacao2Shuffle;
-import static Algorithms.Methods.MutacaoShuffle;
-import static Algorithms.Methods.OrdenaPopulacao;
-import static Algorithms.Methods.Selecao;
-import static Algorithms.Methods.melhorVizinho;
-import static Algorithms.Methods.primeiroMelhorVizinho;
 import static Algorithms.Methods.vizinhoAleatorio;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,6 +25,20 @@ import ProblemRepresentation.Solution;
 import static Algorithms.Algorithms.IteratedLocalSearch;
 import static Algorithms.Algorithms.rebuildSolution;
 import static Algorithms.Algorithms.perturbation;
+import static Algorithms.Methods.initializePopulation;
+import static Algorithms.Methods.printPopulation;
+import static Algorithms.Methods.rouletteWheelSelectionAlgorithm;
+import static Algorithms.Methods.populationSorting;
+import static Algorithms.Methods.onePointCrossover;
+import static Algorithms.Methods.twoPointsCrossover;
+import static Algorithms.Methods.copyBestSolution;
+import static Algorithms.Methods.insertBestIndividualInPopulation;
+import static Algorithms.Methods.firstImprovementAlgorithm;
+import static Algorithms.Methods.bestImprovementAlgorithm;
+import static Algorithms.Methods.mutation2Shuffle;
+import static Algorithms.Methods.mutation2Opt;
+import static Algorithms.Methods.mutacaoShuffle;
+import static Algorithms.Methods.mutationSwap;
 
 /**
  *
@@ -46,111 +46,15 @@ import static Algorithms.Algorithms.perturbation;
  */
 public class AlgorithmsForMultiObjectiveOptimization {
 
-//    public static void MOGA(List<Solucao> Pop, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests,Map<Integer, List<Request>> Pin,
-//                            Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, 
-//                            List<List<Integer>> d, List<List<Integer>> c,Integer TimeWindows, Integer currentTime, Integer lastNode){
-//        String diretorio, nomeArquivo;
-//        try {
-//            //----------------------------------------------------------------------------------------------------
-//            //                       Inicialiações do algoritmo, arquivo e variáveis
-//            //----------------------------------------------------------------------------------------------------
-//   
-//            List<Integer> pais = new ArrayList<>();
-//            
-//            double tempoInicio,tempoFim;
-//            //SBest = CopiaMelhorSolucao(Pop, SBest);
-//            //System.out.println("Melhor Individuo = " + SBest);
-//            int somaTotal;
-//            double media, desvio;
-//            diretorio = "\\home\\renanMulti";
-//            nomeArquivo = "MOGA";
-//            boolean success = (new File(diretorio)).mkdirs();
-//            if (!success) {
-//                System.out.println("Diretórios ja existem!");
-//            }
-//            PrintStream saida;
-//            saida = new PrintStream(diretorio + "\\" + nomeArquivo + ".txt");
-//            //----------------------------------------------------------------------------------------------------
-//            for (int cont = 0; cont < 1; cont++) {
-//                //--------------- Inicializa com a mesma população inicial ------------------
-//                List<Solucao> naoDominados = new ArrayList();
-//                double dist[][] = new double[TamPop][TamPop];
-//                double sigmaSH = 0.05;
-//                double sigma = 0.25;
-//                double alfa = 1;
-//                
-//                InicializaPopulacao(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-//                Inicializa(Pop,TamPop,listRequests,Pin, Pout, n, Qmax,  K,  U,  P, m,d,c, TimeWindows, currentTime,lastNode);
-//                //CarregaSolucao(Pop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-//                //Dominancia(Pop,naoDominados);
-//                 
-//                
-//                FitnessMOGA(Pop);
-//                Partilha(Pop,dist,sigmaSH,sigma,alfa);
-//                //Normalizacao(Pop);
-//                ImprimePopulacao(Pop);
-//                Distancia(Pop,dist);
-//                Dominancia(Pop,naoDominados);
-//                OrdenaPopulacao(Pop);
-//                
-//                //System.out.println("Pareto");
-//                //ImprimePopulacao(naoDominados); 
-//                                              
-//                System.out.println("Execução = " + cont);
-//                int GerAtual = 0;
-//                while (GerAtual < MaxGer) {
-//                    //Ordenação da população
-//                    //OrdenaPopulacao(Pop);
-//
-//                    //Cálculo do fitness - aptidão
-//                    FitnessMOGA(Pop);
-//                    Partilha(Pop,dist,sigmaSH,sigma,alfa);
-//                    Normalizacao(Pop);
-//                    
-//                    //Selecionar
-//                    Selecao(pais, Pop);
-//
-//                    //Cruzamento
-//                    Cruzamento2Pontos(Pop, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
-//
-//                    //Mutação
-//                    Mutacao2Shuffle(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-//                           
-//                    FitnessMOGA(Pop);
-//                    Partilha(Pop,dist,sigmaSH,sigma,alfa);
-//                    Normalizacao(Pop);
-//                    Distancia(Pop,dist);
-//                    Dominancia(Pop,naoDominados);
-//                    System.out.println("Geração = " + GerAtual);
-//                    GerAtual++;
-//                }
-//                List<Solucao> melhores = new ArrayList<>();
-//                Dominancia(naoDominados,melhores);
-//                //melhores.addAll(naoDominados);
-//                ImprimePopulacao(melhores);
-//                
-//                Pop.clear();
-//                
-//            }
-//            
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
     public static void MOGA(List<Solution> Pop, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m,
             List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         String diretorio, nomeArquivo;
         try {
-            //----------------------------------------------------------------------------------------------------
-            //                       Inicialiações do algoritmo, arquivo e variáveis
-            //----------------------------------------------------------------------------------------------------
-
             List<Integer> pais = new ArrayList<>();
 
             double tempoInicio, tempoFim;
-            //SBest = CopiaMelhorSolucao(Pop, SBest);
+            //SBest = copyBestSolution(Pop, SBest);
             //System.out.println("Melhor Individuo = " + SBest);
             int somaTotal;
             double media, desvio;
@@ -164,7 +68,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
             saida = new PrintStream(diretorio + "\\" + nomeArquivo + ".txt");
             //----------------------------------------------------------------------------------------------------
             for (int cont = 0; cont < 1; cont++) {
-                //--------------- Inicializa com a mesma população inicial ------------------
+                //--------------- initializePopulation com a mesma população inicial ------------------
                 List<Solution> naoDominados = new ArrayList();
                 List<Solution> arquivo = new ArrayList();
                 double dist[][] = new double[TamPop][TamPop];
@@ -172,26 +76,26 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 double sigma = 1;
                 double alfa = 1;
                 int TamMax = 60;
-                InicializaPopulacao(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+                Methods.initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                 //CarregaSolucao(Pop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-                Inicializa(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+                //initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                 for (int i = 0; i < TamPop; i++) {
                     Solution s = new Solution();
                     s.setSolucao(vizinhoAleatorio(Pop.get(i), i, i + 1, 1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     Pop.get(i).setSolucao(s);
                 }
 
-                Dominancia(Pop, naoDominados);
+                dominanceAlgorithm(Pop, naoDominados);
                 //ImprimePopulacao(Pop);
                 System.out.println("Primeira Fronteira");
-                ImprimePopulacao(naoDominados);
+                printPopulation(naoDominados);
                 System.out.println("\n\n\n");
-                FitnessMO(Pop);
-                Normalizacao2(Pop);
-                Distancia(Pop, dist);
+                fitnessEvaluationForMultiObjectiveOptimization(Pop);
+                normalizeObjectiveFunctionsValues(Pop);
+                evaluateDistanceBetweenSolutions(Pop, dist);
                 //Partilha(Pop,dist,sigmaSH,sigma,alfa);
 
-                ImprimePopulacao(Pop);
+                printPopulation(Pop);
 
                 //Partilha(Pop,dist,sigmaSH,sigma,alfa);
                 //OrdenaPopulacao(Pop);
@@ -201,11 +105,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 int GerAtual = 0;
                 while (GerAtual < MaxGer) {
                     //Atualiza arquivo
-                    atualizaArquivo(Pop, arquivo, TamMax);
+                    updateSolutionsFile(Pop, arquivo, TamMax);
                     //System.out.println("Tamanho da população = " + Pop.size());
                     //ImprimePopulacao(Pop);
                     //Ordenação da população
-                    OrdenaPopulacao(Pop);
+                    populationSorting(Pop);
 
                     //Selecionar
                     //Selecao(pais, Pop);
@@ -214,23 +118,23 @@ public class AlgorithmsForMultiObjectiveOptimization {
                     //Cruzamento
                     //Cruzamento2Pontos(Pop, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
                     //Mutação
-                    Mutacao2Shuffle(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+                    mutation2Shuffle(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                     //ImprimePopulacao(Pop);
                     //Normalizacao2(Pop);
                     //ImprimePopulacao(Pop);
 
-                    Dominancia(Pop, naoDominados);
+                    dominanceAlgorithm(Pop, naoDominados);
 
-                    atualizaArquivo(Pop, arquivo, TamMax);
+                    updateSolutionsFile(Pop, arquivo, TamMax);
 
                     //Partilha(Pop,dist,sigmaSH,sigma,alfa);
                     //System.out.println("Tamanho da população antes = " + Pop.size());
-                    FitnessMO(Pop);
+                    fitnessEvaluationForMultiObjectiveOptimization(Pop);
                     //System.out.println("Tamanho da população depois = " + Pop.size());
 
-                    Normalizacao2(Pop);
+                    normalizeObjectiveFunctionsValues(Pop);
 
-                    Distancia(Pop, dist);
+                    evaluateDistanceBetweenSolutions(Pop, dist);
 
                     //Partilha(Pop,dist,sigmaSH,sigma,alfa);
                     //System.out.println("Popsize = " + Pop.size());
@@ -240,11 +144,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                     //ImprimePopulacao(Pop);
                 }
                 List<Solution> melhores = new ArrayList<>();
-                Dominancia(arquivo, melhores);
-                Normalizacao2(melhores);
+                dominanceAlgorithm(arquivo, melhores);
+                normalizeObjectiveFunctionsValues(melhores);
                 //melhores.addAll(naoDominados);
                 System.out.println("Pareto final");
-                ImprimePopulacao(melhores);
+                printPopulation(melhores);
                 //ImprimePopulacao(arquivo);
                 Pop.clear();
 
@@ -256,343 +160,125 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
     }
 
-//    public static void NSGAII(List<Solucao> Pop, List<Solucao> Q,Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests,Map<Integer, List<Request>> Pin,
-//                            Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, 
-//                            List<List<Integer>> d, List<List<Integer>> c,Integer TimeWindows, Integer currentTime, Integer lastNode){
-//        String diretorio, nomeArquivo;
-//        try {
-//            //----------------------------------------------------------------------------------------------------
-//            //                       Inicialiações do algoritmo, arquivo e variáveis
-//            //----------------------------------------------------------------------------------------------------
-//   
-//            List<Integer> pais = new ArrayList<>();
-//                        
-//            diretorio = "\\home\\renanMulti";
-//            nomeArquivo = "NSGAII-";
-//            boolean success = (new File(diretorio)).mkdirs();
-//            if (!success) {
-//                System.out.println("Diretórios ja existem!");
-//            }
-//            PrintStream saida1,saida2,saida3,saida4;
-//            //saida  = new PrintStream(diretorio + "\\" + nomeArquivo + ".txt");
-//            saida1 = new PrintStream(diretorio + "\\" + nomeArquivo + "FO_normalizada.txt");
-//            saida2 = new PrintStream(diretorio + "\\" + nomeArquivo + "tamanho_arquivo.txt");
-//            saida3 = new PrintStream(diretorio + "\\" + nomeArquivo + "Pareto_Combinado-Solucoes.txt");
-//            saida4 = new PrintStream(diretorio + "\\" + nomeArquivo + "Pareto_Combinado-FOs.txt");
-//            //----------------------------------------------------------------------------------------------------
-//            List<Solucao> paretoCombinado = new ArrayList<>();
-//            for (int cont = 0; cont < 1; cont++) {//laço para fazer os experimentos estatísticos, alterar para cont < 30
-//                String numero;
-//                numero = Integer.toString(cont);
-//                PrintStream saida = new PrintStream(diretorio + "\\" + nomeArquivo + "Solution-exec-" +numero+".txt");
-//                PrintStream saida5 = new PrintStream(diretorio + "\\" + nomeArquivo + "Execucao-" +numero+".txt");
-//                PrintStream saida6 = new PrintStream(diretorio + "\\" + nomeArquivo + "tamanho_arquivo"+numero+".txt");
-//                //--------------- Inicializa com a mesma população inicial ------------------
-//                List<Solucao> naoDominados = new ArrayList();
-//                List<Solucao> arquivo = new ArrayList();
-//                List<Solucao> Pop_linha = new ArrayList();
-//                List<Solucao> Pop_2linha = new ArrayList();//P'(t) = P(t) U Q(t)
-//                List<List<Solucao>> fronts = new ArrayList<>();//fronteiras não dominadas
-//                double dist[][] = new double[TamPop][TamPop];
-//                double sigmaSH = Math.sqrt(2)/60;// 0.05;//deixado para o algoritmo calcular o raio do nicho
-//                double sigma = 1;
-//                double alfa = 1;
-//                //int TamMax = 60;//não sei porque é 60, mas que estava assim estava 
-//                int TamMax = 10;
-//                //int TamMax = Pop.size();
-//                Q.clear();
-//                InicializaPopulacao(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-//                //CarregaSolucao(Pop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-//                Inicializa(Pop,TamPop,listRequests,Pin, Pout, n, Qmax,  K,  U,  P, m,d,c, TimeWindows, currentTime,lastNode);
-//                for(int i =0; i<TamPop; i++){
-//                    Solution s = new Solution();
-//                    s.setSolucao(vizinhoAleatorio(Pop.get(i),i,i+1, 1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-//                    Pop.get(i).setSolucao(s);
-//                }
-//                Dominancia(Pop,naoDominados);
-//                atualizaArquivoNSGAII2(naoDominados,arquivo,TamMax);
-//                //----------------------------------------------------------------------------------------------------------------------
-//                //                                                   GRAVAÇÃO NO ARQUIVO
-//                //----------------------------------------------------------------------------------------------------------------------
-//                for(Solution s: arquivo){
-//                    saida.print("\t" + s + "\n");
-//                    saida1.print("\t" + s.getF1n() + "\t"+ s.getF2n() + "\n");
-//                    saida5.print("\t" + s.getF1n() + "\t"+ s.getF2n() + "\n");
-//                }
-//                saida.print("\n\n");
-//                saida1.print("\n\n");
-//                saida5.print("\n\n");
-//                saida2.print(arquivo.size() + "\n");
-//                saida6.print(arquivo.size() + "\n");
-//                //----------------------------------------------------------------------------------------------------------------------
-//                Q.addAll(Pop);
-//                Dominancia(Q,naoDominados);
-//                FNDS3(Q,fronts);
-//                
-//                FitnessMO(Q);
-//                
-//                Normalizacao2(Q);
-//                //System.out.println("Descendencia = ");
-//                //ImprimePopulacao(Q);
-//                Distancia(Q, dist);
-//                //Partilha(Pop,dist,sigmaSH,sigma,alfa);
-//                
-//                //Gera Q - descendencia
-//                OrdenaPopulacao(Q);
-//                //Selecionar
-//                Selecao(pais, Q);
-//                //Cruzamento
-////                Cruzamento2Pontos(Q, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
-//                Cruzamento(Q, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
-//                //Mutação
-//                //Mutacao2Shuffle(Q, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-//                MutacaoShuffle(Q, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-//                
-//                //Dominancia(Q,naoDominados);
-//                //FitnessMO(Q);
-//                //Normalizacao2(Q);
-//                //atualizaArquivo(Q,arquivo,TamMax);
-//                //Normalizacao2(arquivo);
-//                //System.out.println("Primeiro Arquivo");
-//                //ImprimePopulacao(arquivo);
-//                //Q.addAll(Pop);
-//                
-//                
-//                //Partilha(Pop,dist,sigmaSH,sigma,alfa);
-//                //OrdenaPopulacao(Pop);
-//                
-//                //System.out.println("Pareto");
-//                //ImprimePopulacao(naoDominados); 
-//                                              
-//                System.out.println("Execução = " + cont);
-//                int GerAtual = 0;
-//                while (GerAtual < MaxGer) {
-//                    //retiraIguais(Pop); 
-//                    //Passo 3.1 - Fi(Q) e Fi(A)
-//                    //Dominancia(Q,naoDominados);
-//                    //FitnessMO(Q);
-//                    //System.out.println("passou");
-//                    //FitnessMO(arquivo);
-//                    //Normalizacao2(Q);
-//                    //Normalizacao2(arquivo);
-//                    
-//                    
-//                    //Passo 3.2 - P'(t) <- P(t) U Q(t)                
-//                    Pop_linha.clear();
-//                    Pop_linha.addAll(Pop);
-//                    Pop_linha.addAll(Q);
-//                    
-//                    //ImprimePopulacao(Pop_linha);
-//                    //System.out.println("\n");
-//                    //naoDominados.clear();
-//                    Dominancia(Pop_linha,naoDominados);//é feito para calcular o número de indivíduos que a solução i domina
-//                    
-//                    //ImprimePopulacao(naoDominados);
-//                    
-//                    FNDS3(Pop_linha,fronts);
-//                    //System.out.println(Pop_linha.size());
-//                    //Passo 3.3 - Calcula Fi(P')                    
-//                    FitnessMO(Pop_linha);
-//                    
-//                    //Passo 3.4 - Atualizar Arquivo(P'(t),A(t),fi'(t),Fi_A(t))
-//                    //System.out.println(Pop_linha.size());
-//                    atualizaArquivoNSGAII2(Pop_linha,arquivo,TamMax);
-//                    //System.out.println(Pop_linha.size());
-//                    //Ordenação da população
-//                    OrdenaPopulacao(Pop_linha);
-//                    
-//                    //Passo 3.5 - Redução da População - usando os primeiros TamPop melhores
-//                    //System.out.println("Tamanho antes da redução = " + Pop_linha.size());
-//                    
-//                    //Redução ao tamanho original
-//                    //Pop_linha.subList(TamPop, Pop_linha.size()).clear();
-//                    //System.out.println("Tamanho depois da redução = " + Pop_linha.size());
-//                    //Pop.clear();
-//                    //Pop.addAll(Pop_linha);
-//                    
-//                    Reducao(Pop,fronts,TamMax);
-//                    
-//                    Q.clear();
-//                    Q.addAll(Pop);
-//                    /*
-//                    olhar se tem algo nessa parte aqui, uma vez que a seleção não é feita usando o arquivo
-//                    recalcular o fitness do arquivo + população para que todas tenham chances de cruzar?
-//                    */
-//                    
-//                    
-//                    
-//                    //System.out.println(Q.size()); 
-//                    //Passo 3.6 - Selecionar
-//                    Selecao(pais, Q);
-//
-//                    //Passo 3.7.1 - Cruzamento
-//                    Cruzamento(Q, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
-//
-//                    //Passo 3.7.2 - Mutação
-//                    MutacaoShuffle(Q, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-//                    Dominancia(Q,naoDominados);
-//                    FitnessMO(Q);
-//                    Normalizacao2(Q);
-//                    atualizaArquivoNSGAII2(Q,arquivo,TamMax);
-//                    
-//                    ImprimePopulacao(arquivo);
-//                    
-//                    //----------------------------------------------------------------------------------------------------------------------
-//                    //                                                   GRAVAÇÃO NO ARQUIVO
-//                    //----------------------------------------------------------------------------------------------------------------------
-//                    for (Solution s : arquivo) {
-//                        saida.print("\t" + s + "\n");
-//                        saida1.print("\t" + s.getF1n() + "\t" + s.getF2n() + "\n");
-//                        saida5.print("\t" + s.getF1n() + "\t" + s.getF2n() + "\n");
-//                    }
-//                    saida.print("\n\n");
-//                    saida1.print("\n\n");
-//                    saida5.print("\n\n");
-//                    saida2.print(arquivo.size() + "\n");
-//                    saida6.print(arquivo.size() + "\n");
-//                    //----------------------------------------------------------------------------------------------------------------------
-//                    //System.out.println(Q.size());            
-//                    System.out.println("Geração = " + GerAtual);
-//                    GerAtual++;
-//                    //ImprimePopulacao(Pop);
-//                }
-//                List<Solucao> melhores = new ArrayList<>();
-//                Dominancia(naoDominados,melhores);
-//                Normalizacao2(melhores);
-//                //melhores.addAll(naoDominados);
-//                System.out.println("Pareto final");
-//                //ImprimePopulacao(melhores);
-//                //ImprimePopulacao(arquivo);
-//                paretoCombinado.addAll(arquivo);
-//                Pop.clear();
-//                
-//            }
-//            List<Solucao> naoDominados = new ArrayList<>();
-//            Dominancia(paretoCombinado,naoDominados);
-//            for(Solution s: naoDominados){
-//                saida3.print("\t" + s +"\n");
-//                saida4.print("\t" + s.getF1() + "\t" + s.getF2() +"\n");
-//            }
-//            ImprimePopulacao(naoDominados);
-//            
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
-    public static void NSGAII(List<Solution> Pop, List<Solution> Q, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests, Map<Integer, List<Request>> Pin,
-            Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m,
-            List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
+    public static List<Solution> NonDominatedSortedGeneticAlgorithmII(Integer populationSize, Integer maximumNumberOfGenerations,
+            Integer maximumNumberOfExecutions, double probabilityOfMutation, double probabilityOfCrossover,
+            List<Request> listOfRequests, Map<Integer, List<Request>> requestsWhichBoardsInNode,
+            Map<Integer, List<Request>> requestsWhichLeavesInNode, Integer numberOfNodes, Integer vehicleCapacity,
+            Set<Integer> setOfVehicles, List<Request> listOfNonAttendedRequests, List<Request> requestList,
+            List<Integer> loadIndexList, List<List<Long>> timeBetweenNodes, List<List<Long>> distanceBetweenNodes,
+            Long timeWindows, Long currentTime, Integer lastNode) {
 
-        List<Solution> naoDominados = new ArrayList();
-        List<Solution> arquivo = new ArrayList();
-        List<Integer> pais = new ArrayList<>();
-        List<Solution> Pop_linha = new ArrayList();
-        List<Solution> Pop_2linha = new ArrayList();//P'(t) = P(t) U Q(t)
-        List<List<Solution>> fronts = new ArrayList<>();//fronteiras não dominadas
-        String diretorio, nomeArquivo;
-        diretorio = "\\home\\Multivariada";
-        nomeArquivo = "NSGAII-Puro";
-        boolean success = (new File(diretorio)).mkdirs();
+        List<Solution> offspring = new ArrayList<>();
+        List<Solution> population = new ArrayList<>();
+        List<Solution> finalPareto = new ArrayList<>();
+        List<Solution> nonDominatedSolutions = new ArrayList();
+        List<Solution> fileWithSolutions = new ArrayList();
+        List<Integer> parents = new ArrayList<>();
+        List<Solution> parentsAndOffspring = new ArrayList();
+        List<List<Solution>> nonDominatedFronts = new ArrayList<>();
+        String folderName, fileName;
+        folderName = "\\ResultsData";
+        fileName = "NSGAII";
+        boolean success = (new File(folderName)).mkdirs();
         if (!success) {
-            System.out.println("Diretórios ja existem!");
+            System.out.println("Folder already exists!");
         }
         try {
+            List<Solution> combinedPareto = new ArrayList<>();
+            for (int executionCounter = 0; executionCounter < maximumNumberOfExecutions; executionCounter++) {
+                String executionNumber;
+                executionNumber = Integer.toString(executionCounter);
+                PrintStream saida1 = new PrintStream(folderName + "\\" + fileName + "-Execucao-" + executionNumber + ".txt");
+                PrintStream saida2 = new PrintStream(folderName + "\\" + fileName + "-tamanho_arquivo-" + executionNumber + ".txt");
+                PrintStream saida3 = new PrintStream(folderName + "\\" + fileName + "-Execucao-Normalizada-" + executionNumber + ".txt");
+                int maximumSize;
+                
+                Methods.initializePopulation(population, populationSize, listOfRequests, requestsWhichBoardsInNode,
+                        requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests,
+                        requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 
-            List<Solution> paretoCombinado = new ArrayList<>();
-            for (int cont = 0; cont < 1; cont++) {
-                String numero;
-                numero = Integer.toString(cont);
-                PrintStream saida1 = new PrintStream(diretorio + "\\" + nomeArquivo + "-Execucao-" + numero + ".txt");
-                PrintStream saida2 = new PrintStream(diretorio + "\\" + nomeArquivo + "-tamanho_arquivo-" + numero + ".txt");
-                PrintStream saida3 = new PrintStream(diretorio + "\\" + nomeArquivo + "-Execucao-Normalizada-" + numero + ".txt");
-                int TamMax;
-                InicializaPopulacao(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-                ImprimePopulacao(Pop);
-                Normalizacao2(Pop);
-                Dominancia(Pop, naoDominados);
-                TamMax = Pop.size();
-                Q.addAll(Pop);
-                FNDS3(Q, fronts);
-                FitnessMO(Q);
+                printPopulation(population);
+                normalizeObjectiveFunctionsValues(population);
+                dominanceAlgorithm(population, nonDominatedSolutions);
+                maximumSize = population.size();
+                offspring.addAll(population);
+                nonDominatedFrontiersSortingAlgorithm(offspring, nonDominatedFronts);
+                fitnessEvaluationForMultiObjectiveOptimization(offspring);
 
-                Selecao(pais, Q, TamMax);
-                //Cruzamento2Pontos(Q, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
-                Cruzamento2Pontos(Q, Pop, TamMax, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
-                Mutacao2Shuffle(Q, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+                rouletteWheelSelectionAlgorithm(parents, offspring, maximumSize);
+                
+                twoPointsCrossover(offspring, population, maximumSize, probabilityOfCrossover, parents, listOfRequests,
+                        requestList, setOfVehicles, listOfNonAttendedRequests, requestsWhichBoardsInNode,
+                        requestsWhichLeavesInNode, timeBetweenNodes, distanceBetweenNodes, numberOfNodes,
+                        vehicleCapacity, timeWindows);
+                
+                mutation2Shuffle(offspring, probabilityOfMutation, listOfRequests, requestsWhichBoardsInNode,
+                        requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests,
+                        requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 
-                Normalizacao2(arquivo);
-                for (Solution s : arquivo) {
+                normalizeObjectiveFunctionsValues(fileWithSolutions);
+                
+                for (Solution s : fileWithSolutions) {
                     saida1.print("\t" + s.getAggregatedObjective1() + "\t" + s.getAggregatedObjective2() + "\n");
                     saida3.print("\t" + s.getAggregatedObjective1Normalized() + "\t" + s.getAggregatedObjective2Normalized() + "\n");
                 }
                 saida1.print("\n\n");
-                saida2.print(arquivo.size() + "\n");
+                saida2.print(fileWithSolutions.size() + "\n");
                 saida3.print("\n\n");
 
-                Dominancia(Q, naoDominados);
-                arquivo.addAll(naoDominados);
-                System.out.println("Execução = " + cont );
-                int gerAtual = 0;
-                while (gerAtual < MaxGer) {
-                    Dominancia(Q, naoDominados);
-                    FNDS3(Q, fronts);
-                    FitnessMO(Q);
-                    Pop_linha.clear();
+                dominanceAlgorithm(offspring, nonDominatedSolutions);
+                fileWithSolutions.addAll(nonDominatedSolutions);
+                System.out.println("Execution = " + executionCounter);
+                int actualGeneration = 0;
+                while (actualGeneration < maximumNumberOfGenerations) {
+                    dominanceAlgorithm(offspring, nonDominatedSolutions);
+                    nonDominatedFrontiersSortingAlgorithm(offspring, nonDominatedFronts);
+                    fitnessEvaluationForMultiObjectiveOptimization(offspring);
+                    parentsAndOffspring.clear();
                     //Pop_linha.addAll(arquivo);
-                    Pop_linha.addAll(Pop);
-                    Pop_linha.addAll(Q);
+                    parentsAndOffspring.addAll(population);
+                    parentsAndOffspring.addAll(offspring);
 
-                    FNDS3(Pop_linha, fronts);
-                    FitnessMO(Pop_linha);
-                    Dominancia(Pop_linha, naoDominados);
-//                if(gerAtual%5==0){
-//                    ImprimePopulacao(naoDominados);
-//                    System.out.println();
-//                }
+                    nonDominatedFrontiersSortingAlgorithm(parentsAndOffspring, nonDominatedFronts);
+                    fitnessEvaluationForMultiObjectiveOptimization(parentsAndOffspring);
+                    dominanceAlgorithm(parentsAndOffspring, nonDominatedSolutions);
 
-                    //atualizaArquivoNSGA(naoDominados, arquivo, TamMax);
-                    atualizaArquivoNSGA(Pop_linha, arquivo, TamMax);
-                    Normalizacao2(arquivo);
-                    Reducao(Pop, fronts, TamMax);
-                    Q.clear();
+                    updateNSGASolutionsFile(parentsAndOffspring, fileWithSolutions, maximumSize);
+                    normalizeObjectiveFunctionsValues(fileWithSolutions);
+                    populationReduction(population, nonDominatedFronts, maximumSize);
+                    offspring.clear();
 
-                    //Q.addAll(arquivo);
-                    Q.addAll(Pop);
-                    Selecao(pais, Q,TamMax);
+                    offspring.addAll(population);
+                    rouletteWheelSelectionAlgorithm(parents, offspring, maximumSize);
                     //Cruzamento2Pontos(Q, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
-                    Cruzamento2Pontos(Q, Pop, TamMax, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
-                    Mutacao2Shuffle(Q, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+                    twoPointsCrossover(offspring, population, maximumSize, probabilityOfCrossover, parents, listOfRequests, requestList, setOfVehicles, listOfNonAttendedRequests, requestsWhichBoardsInNode, requestsWhichLeavesInNode, timeBetweenNodes, distanceBetweenNodes, numberOfNodes, vehicleCapacity, timeWindows);
+                    mutation2Shuffle(offspring, probabilityOfMutation, listOfRequests, requestsWhichBoardsInNode, requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 
-//                if((gerAtual%200 == 0) && (gerAtual != 0)){
-//                    buscaLocal(arquivo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
-//                }
-                    //System.out.println("Geração = " + gerAtual + "\t" + arquivo.size());
-                    System.out.println("Geração = " + gerAtual + "\t" + arquivo.size());
-                    //System.out.println("Geração = " + gerAtual+" TamPop = " + Pop.size());
+                    System.out.println("Generation = " + actualGeneration + "\t" + fileWithSolutions.size());
 
-                    for (Solution s : arquivo) {
+                    for (Solution s : fileWithSolutions) {
                         saida1.print("\t" + s.getAggregatedObjective1() + "\t" + s.getAggregatedObjective2() + "\n");
                         saida3.print("\t" + s.getAggregatedObjective1Normalized() + "\t" + s.getAggregatedObjective2Normalized() + "\n");
                     }
                     saida1.print("\n\n");
-                    saida2.print(arquivo.size() + "\n");
+                    saida2.print(fileWithSolutions.size() + "\n");
                     saida3.print("\n\n");
-                    gerAtual++;
+                    actualGeneration++;
                 }
-                Q.clear();
-                Pop_linha.clear();
-                paretoCombinado.addAll(arquivo);
-                arquivo.clear();
-                Pop.clear();
-                fronts.clear();
+                offspring.clear();
+                parentsAndOffspring.clear();
+                combinedPareto.addAll(fileWithSolutions);
+                fileWithSolutions.clear();
+                population.clear();
+                nonDominatedFronts.clear();
             }
-            List<Solution> paretoFinal = new ArrayList<>();
-            Dominancia(paretoCombinado, paretoFinal);
 
-            ImprimePopulacao(paretoFinal);
+            dominanceAlgorithm(combinedPareto, finalPareto);
+            printPopulation(finalPareto);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        return finalPareto;
 
     }
 
@@ -621,39 +307,39 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 PrintStream saida1 = new PrintStream(diretorio + "\\" + nomeArquivo + "-Execucao-" + numero + ".txt");
                 PrintStream saida2 = new PrintStream(diretorio + "\\" + nomeArquivo + "-tamanho_arquivo-" + numero + ".txt");
                 PrintStream saida3 = new PrintStream(diretorio + "\\" + nomeArquivo + "-Execucao-Normalizada-" + numero + ".txt");
-                InicializaPopulacao(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-                Normalizacao2(Pop);
+                Methods.initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+                normalizeObjectiveFunctionsValues(Pop);
 
                 TamMax = Pop.size();
-                Dominancia(Pop, arquivo);
-                Distancia(Pop, dist);
+                dominanceAlgorithm(Pop, arquivo);
+                evaluateDistanceBetweenSolutions(Pop, dist);
 
                 System.out.println("Execução = " + cont);
                 int gerAtual = 0;
-                FitnessSPEA2(Pop, dist, TamPop, TamArq);
+                fitnessEvaluationForSPEA2(Pop, dist, TamPop, TamArq);
                 List<Solution> teste = new ArrayList<>();
                 while (gerAtual < MaxGer) {
-                    FitnessSPEA2(Pop, dist, TamPop, TamArq);
+                    fitnessEvaluationForSPEA2(Pop, dist, TamPop, TamArq);
                     System.out.println("Geração = " + gerAtual);
                     Pop_linha.addAll(Pop);
                     Pop_linha.addAll(arquivo);
                     //System.out.println("Tamanho Pop_linha = " + Pop_linha.size());
-                    Dominancia(Pop_linha, naoDominados);
+                    dominanceAlgorithm(Pop_linha, naoDominados);
                     //teste.addAll(naoDominados);
                     //retiraIguais(teste);
-                    atualizaArquivoSPEA2(Pop_linha, arquivo, TamArq);
+                    updateSPEA2SolutionsFile(Pop_linha, arquivo, TamArq);
 
-                    Dominancia(arquivo, naoDominados);
+                    dominanceAlgorithm(arquivo, naoDominados);
 
-                    Selecao(pais, arquivo, TamMax);//a seleção é feita somente no arquivo
+                    rouletteWheelSelectionAlgorithm(pais, arquivo, TamMax);//a seleção é feita somente no arquivo
                     //System.out.println("Pais = " + pais);
                     //A população P(t + 1) é gerada com base em A(t + 1)
                     //System.out.println(arquivo.size());
-                    Cruzamento(Pop, arquivo, TamMax, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
+                    onePointCrossover(Pop, arquivo, TamMax, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
                     //Cruzamento2Pontos(Pop, arquivo, TamMax, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
                     //System.out.println(arquivo.size());
                     //Mutacao(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-                    Mutacao2Opt(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+                    mutation2Opt(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                     //MutacaoShuffle(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                     //Mutacao2Shuffle(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
 
@@ -662,7 +348,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
 //                    }
                     gerAtual++;
                     Pop_linha.clear();
-                    gravaArquivo(naoDominados, saida1, saida2, saida3);
+                    saveDataInTextFile(naoDominados, saida1, saida2, saida3);
                     //gravaArquivo(arquivo, saida1, saida2, saida3);
                 }
                 //ImprimePopulacao(arquivo);
@@ -673,20 +359,20 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 System.out.println(arquivo.size());
             }
             List<Solution> paretoFinal = new ArrayList<>();
-            Dominancia(paretoCombinado, paretoFinal);
+            dominanceAlgorithm(paretoCombinado, paretoFinal);
             PrintStream saida4 = new PrintStream(diretorio + "\\ParetoCombinado.txt");
             PrintStream saida5 = new PrintStream(diretorio + "\\ParetoCombinadoFOs.txt");
             for (Solution s : paretoFinal) {
                 saida4.print(s + "\n");
                 saida5.print(s.getAggregatedObjective1() + "\t" + s.getAggregatedObjective2() + "\n");
             }
-            ImprimePopulacao(paretoFinal);
+            printPopulation(paretoFinal);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public static void gravaArquivo(List<Solution> arquivo, PrintStream saida1, PrintStream saida2, PrintStream saida3) {
+    public static void saveDataInTextFile(List<Solution> arquivo, PrintStream saida1, PrintStream saida2, PrintStream saida3) {
         for (Solution s : arquivo) {
             saida1.print("\t" + s.getAggregatedObjective1() + "\t" + s.getAggregatedObjective2() + "\n");
             saida3.print("\t" + s.getAggregatedObjective1Normalized() + "\t" + s.getAggregatedObjective2Normalized() + "\n");
@@ -696,7 +382,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         saida3.print("\n\n");
     }
 
-    public static void FitnessSPEA2(List<Solution> Pop, double[][] dist, Integer TamPop, Integer TamArq) {
+    public static void fitnessEvaluationForSPEA2(List<Solution> Pop, double[][] dist, Integer TamPop, Integer TamArq) {
         Integer k = (int) Math.sqrt(TamPop + TamArq);
         List<Double> lista = new ArrayList<>();
         double maximo = 0, minimo = 9999999;
@@ -726,7 +412,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static void Reducao(List<Solution> Pop, List<List<Solution>> fronts, int TamMax) {
+    public static void populationReduction(List<Solution> Pop, List<List<Solution>> fronts, int TamMax) {
         //OrdenaArquivo(Pop);
         //ImprimePopulacao(Pop);
         int contador = 0;
@@ -741,23 +427,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static void FitnessMOGA(List<Solution> Pop) {
-//        int soma = 0;
-//        for (int i = 0; i < Pop.size(); i++) {
-//            soma += Pop.get(i).geteDom();
-//        }
-//        List<Double> fit = new ArrayList<>();
-//
-//        for (int i = 0; i < Pop.size(); i++) {
-//            fit.add((double) Pop.get(i).geteDom()/ soma);
-//        }
-//        Collections.sort(fit);
-//        Collections.reverse(fit);
-//        
-//        for (int i = 0; i < Pop.size(); i++) {
-//            Pop.get(i).setFitness(fit.get(i));
-//        }
-
+    public static void fitnessEvalutaionForMOGA(List<Solution> Pop) {
         for (Solution s : Pop) {
             s.setFitness(s.getNumberOfSolutionsWichDomineThisSolution() + 1);
             //System.out.println(s.geteDom());
@@ -784,7 +454,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
     }
 
-    public static void FitnessMOGA2(List<Solution> Pop) {
+    public static void fitnessEvalutaionForMOGA2(List<Solution> Pop) {
         List<Integer> frequencia = new ArrayList<>();
         List<Integer> fa = new ArrayList<>();
         for (Solution s : Pop) {
@@ -872,28 +542,9 @@ public class AlgorithmsForMultiObjectiveOptimization {
         for (int i = 0; i < Pop.size(); i++) {
             Pop.get(i).setFitness(Pop.get(i).getFitness() / soma);
         }
-//        int soma = 0;
-//        for (int i = 0; i < Pop.size(); i++) {
-//            soma += Pop.get(i).getFitness();
-//        }
-//        List<Double> fit = new ArrayList<>();
-//
-//        for (int i = 0; i < Pop.size(); i++) {
-//            fit.add((double) Pop.get(i).getFitness()/ soma);
-//        }
-//        Collections.sort(fit);
-//        Collections.reverse(fit);
-//        
-//        for (int i = 0; i < Pop.size(); i++) {
-//            Pop.get(i).setFitness(fit.get(i));
-//        }
-//        for (int i = 0; i < Pop.size(); i++) {
-//           //System.out.println(Pop.get(i).getFitness());
-//        }
-
     }
 
-    public static void FitnessMOGA3(List<Solution> Pop) {
+    public static void fitnessEvalutaionForMOGA3(List<Solution> Pop) {
         List<Integer> mi = new ArrayList<>();
         List<Integer> frequencia = new ArrayList<>();
         List<Integer> fa = new ArrayList<>();
@@ -901,7 +552,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         for (Solution s : Pop) {
             s.setFitness(s.getNumberOfSolutionsWichDomineThisSolution() + 1);
         }
-        OrdenaPopulacao(Pop);
+        populationSorting(Pop);
 
         int soma = 0;
         for (int i = 0; i < Pop.size(); i++) {
@@ -967,27 +618,9 @@ public class AlgorithmsForMultiObjectiveOptimization {
         for (int i = 0; i < Pop.size(); i++) {
             somaTeste += Pop.get(i).getFitness();
         }
-        //System.out.println("Soma Total(normalizada) = " + somaTeste);
-
-//        double fitnessTotal;
-//        for (int i = 0; i < Pop.size(); i++) {
-//            fitnessTotal = 0;
-//            int nvezes = fa.get(i);
-//            //System.out.println(nvezes);
-//            if(nvezes!=0){
-//                for(int j=0;j<nvezes;j++){
-//                    fitnessTotal += Pop.get(i).getFitness();
-//                }
-//                //System.out.println(fitnessTotal);
-//            }else{
-//                fitnessTotal = Pop.get(i).getFitness();
-//                //System.out.println(fitnessTotal);
-//            }
-//            
-//        }
     }
 
-    public static void FitnessMOGA4(List<Solution> Pop) {
+    public static void fitnessEvalutaionForMOGA4(List<Solution> Pop) {
         List<Integer> mi = new ArrayList<>();
         List<Integer> frequencia = new ArrayList<>();
         List<Integer> fa = new ArrayList<>();
@@ -995,7 +628,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         for (Solution s : Pop) {
             s.setFitness(s.getNumberOfSolutionsWichDomineThisSolution() + 1);
         }
-        OrdenaPopulacao(Pop);
+        populationSorting(Pop);
 
         int soma = 0;
         for (int i = 0; i < Pop.size(); i++) {
@@ -1065,24 +698,19 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static void FitnessMO(List<Solution> Pop) {
+    public static void fitnessEvaluationForMultiObjectiveOptimization(List<Solution> Pop) {
         List<Integer> frequencia = new ArrayList<>();
         List<Integer> fa = new ArrayList<>();
         for (Solution s : Pop) {
             s.setFitness(s.getNumberOfSolutionsWichDomineThisSolution() + 1);
-            //System.out.println(s.geteDom());
         }
 
         Collections.sort(Pop);
-        //System.out.println("Populção Ordenada");
-        //ImprimePopulacao(Pop);
 
         for (int i = 0; i < Pop.size(); i++) {
             frequencia.add(i);
             fa.add(0);
         }
-        //System.out.println(frequencia);
-        //System.out.println(fa);
 
         for (int i = 0; i < frequencia.size(); i++) {
             int valor = frequencia.get(i);
@@ -1092,13 +720,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 }
             }
         }
-        //System.out.println(fa);
         frequencia.clear();
         for (int i = 0; i < Pop.size(); i++) {
             frequencia.add(i + 1);
         }
 
-        //System.out.println(frequencia);
         int posicao = 0;
         for (int i = 0; i < fa.size(); i++) {
             int nvezes = fa.get(i);
@@ -1107,20 +733,13 @@ public class AlgorithmsForMultiObjectiveOptimization {
             for (int j = 0; j < nvezes; j++) {
                 soma = soma + frequencia.get(j);
             }
-            //System.out.println("soma = "+soma);
-//           if(nvezes == 0){
-//               nvezes = 1;
-//               soma = frequencia.get(0);
-//           }
-            //System.out.println("soma = "+soma);
+
             double fitness;
             if (nvezes != 0) {
                 fitness = (double) soma / nvezes;
             } else {
                 fitness = (double) soma;
-                //System.out.println("Teve zero!!!");
             }
-            //System.out.println("fitness = "+ fitness);
             frequencia.subList(0, nvezes).clear();
             for (int k = posicao; k < (posicao + nvezes); k++) {
                 Pop.get(k).setFitness(fitness);
@@ -1156,30 +775,16 @@ public class AlgorithmsForMultiObjectiveOptimization {
         double sigma = 1;
         double alfa = 1;
 
-        Partilha(Pop, dist, sigmaSH, sigma, alfa);
-        NormalizaFitness(Pop);
+        fitnessValueSharing(Pop, dist, sigmaSH, sigma, alfa);
+        normalizeFitness(Pop);
 
         double soma2 = 0;
         for (int i = 0; i < Pop.size(); i++) {
             soma2 += Pop.get(i).getFitness();
         }
-        //System.out.println("Total = " + soma2);
-        //NormalizaFitness(Pop);
-
     }
 
-    public static void NormalizaFitness(List<Solution> Pop) {
-//        List<Double> lista = new ArrayList<>();
-//        for(int i=0; i<Pop.size(); i++){
-//            lista.add(Pop.get(i).getFitness());
-//        }
-//        double maximo, minimo;
-//        maximo = Collections.max(lista);
-//        minimo = Collections.min(lista);
-//        
-//        for(int i=0; i<Pop.size(); i++){
-//            Pop.get(i).setFitness((Pop.get(i).getFitness() - minimo)/(maximo - minimo));
-//        }
+    public static void normalizeFitness(List<Solution> Pop) {
         double soma = 0;
         for (int i = 0; i < Pop.size(); i++) {
             soma += Pop.get(i).getFitness();
@@ -1189,7 +794,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static void Dominancia(List<Solution> Pop, List<Solution> naoDominados) {
+    public static void dominanceAlgorithm(List<Solution> Pop, List<Solution> naoDominados) {
         //--------------------------------------------------------------------------------------------------------------
         //List<Solucao> naoDominados = new ArrayList<>();
         naoDominados.clear();
@@ -1235,10 +840,10 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 naoDominados.add(Pop.get(i));
             }
         }
-        retiraIguais(naoDominados);
+        removeEqualSolutions(naoDominados);
     }
 
-    public static void Normalizacao(List<Solution> Pop) {
+    public static void normalizeObjectiveFunctionsValues2(List<Solution> Pop) {
         double max = -999999999;
         double min = 999999999;
 
@@ -1282,7 +887,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static void Distancia(List<Solution> Pop, double dist[][]) {
+    public static void evaluateDistanceBetweenSolutions(List<Solution> Pop, double dist[][]) {
         //calcula a distancia entre os elementos - usa somente metada da matriz
         List<Double> linha = new ArrayList<>();
         for (int i = 0; i < Pop.size(); i++) {
@@ -1312,7 +917,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
 //        };
     }
 
-    public static void Partilha(List<Solution> Pop, double dist[][], double sigmaSH, double sigma, double alfa) {
+    public static void fitnessValueSharing(List<Solution> Pop, double dist[][], double sigmaSH, double sigma, double alfa) {
         for (int i = 0; i < Pop.size(); i++) {
             double soma = 0;
             List<Double> s = new ArrayList<>();
@@ -1337,7 +942,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static void Inicializa(List<Solution> Pop, int TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
+    public static void initializePopulation(List<Solution> Pop, int TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d,
             List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Solution s0 = new Solution();
@@ -1350,7 +955,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static void Normalizacao2(List<Solution> Pop) {
+    public static void normalizeObjectiveFunctionsValues(List<Solution> Pop) {
         double max = -999999999;
         double min = 999999999;
 
@@ -1395,7 +1000,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static void Normalizacao3(List<Solution> Pop) {
+    public static void normalizeObjectiveFunctionsValues3(List<Solution> Pop) {
         Solution maior = new Solution();
         Solution menor = new Solution();
 
@@ -1407,7 +1012,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static void atualizaArquivo(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
+    public static void updateSolutionsFile(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
 
         List<Solution> naoDominados = new ArrayList<>();
         List<Solution> Q = new ArrayList<>();
@@ -1423,10 +1028,10 @@ public class AlgorithmsForMultiObjectiveOptimization {
         arquivo.addAll(Pop);
 
         //ImprimePopulacao(Pop);
-        Dominancia(arquivo, naoDominados);
+        dominanceAlgorithm(arquivo, naoDominados);
         arquivo.clear();
         arquivo.addAll(naoDominados);
-        Normalizacao2(arquivo);
+        normalizeObjectiveFunctionsValues(arquivo);
         for (Solution s : arquivo) {
             s.setFitness(melhorFitness);
         }
@@ -1435,14 +1040,14 @@ public class AlgorithmsForMultiObjectiveOptimization {
         //System.out.println("Tamanho arquivo = " + arquivo.size());
 //        Q.addAll(Pop);
 //        Q.addAll(arquivo);
-//        Dominancia(arquivo,naoDominados);
+//        dominanceAlgorithm(arquivo,naoDominados);
 //        System.out.println("Q"+Q.size());
 //        //arquivo.clear();
 //        arquivo.addAll(naoDominados);
-//        Dominancia(Pop,naoDominados);
+//        dominanceAlgorithm(Pop,naoDominados);
 //        arquivo.addAll(naoDominados);
 //        naoDominados.clear();
-//        Dominancia(arquivo,naoDominados);
+//        dominanceAlgorithm(arquivo,naoDominados);
 //        arquivo.clear();
 //        arquivo.addAll(naoDominados);
         double sigmaSH = Math.sqrt(2) / 60;
@@ -1454,7 +1059,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 //Distancia(arquivo,dist);
                 // System.out.println("Ultrapassou o tamanho maximo do arquivo!!! Tem que reduzir");
                 //  System.out.println("Redução");
-                Normalizacao2(arquivo);
+                normalizeObjectiveFunctionsValues(arquivo);
                 for (int i = 0; i < arquivo.size(); i++) {
                     int soma = 0;
                     double dist[][] = new double[arquivo.size()][arquivo.size()];
@@ -1484,7 +1089,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         //
     }
 
-    public static void atualizaArquivoNSGAII(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
+    public static void updateNSGAIISolutionsFile(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
         //retiraIguais(Pop);        
 
         List<Solution> naoDominados = new ArrayList<>();
@@ -1503,11 +1108,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
         //System.out.println(Pop.size());
         //Pop.clear();
         //ImprimePopulacao(Pop);
-        Dominancia(arquivo, naoDominados);
+        dominanceAlgorithm(arquivo, naoDominados);
         arquivo.clear();
         arquivo.addAll(naoDominados);
-        retiraIguais(arquivo);
-        Normalizacao2(arquivo);
+        removeEqualSolutions(arquivo);
+        normalizeObjectiveFunctionsValues(arquivo);
         for (Solution s : arquivo) {
             s.setFitness(melhorFitness);
         }
@@ -1521,8 +1126,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
             while (arquivo.size() > TamMax) {
                 //System.out.println("Tamanho arquivo = " + arquivo.size());
                 double dist[][] = new double[arquivo.size()][arquivo.size()];
-                Normalizacao2(arquivo);
-                Distancia(arquivo, dist);
+                normalizeObjectiveFunctionsValues(arquivo);
+                evaluateDistanceBetweenSolutions(arquivo, dist);
                 List<Double> ci = new ArrayList<>();
                 List<Double> linha = new ArrayList<>();
                 for (int i = 0; i < arquivo.size(); i++) {
@@ -1550,10 +1155,10 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 arquivo.remove(pos);
             }
         }
-        OrdenaArquivo(arquivo);
+        fileSorting(arquivo);
     }
 
-    public static void atualizaArquivoNSGAII2(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
+    public static void updateNSGAIISolutionsFile2(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
         //retiraIguais(Pop);        
 
         List<Solution> naoDominados = new ArrayList<>();
@@ -1572,16 +1177,16 @@ public class AlgorithmsForMultiObjectiveOptimization {
         //System.out.println(Pop.size());
         //Pop.clear();
         //ImprimePopulacao(Pop);
-        Dominancia(Pop, naoDominados);
+        dominanceAlgorithm(Pop, naoDominados);
         //arquivo.clear();
         arquivo.addAll(naoDominados);
-        retiraIguais(arquivo);
+        removeEqualSolutions(arquivo);
         naoDominados.clear();
-        Dominancia(arquivo, naoDominados);
+        dominanceAlgorithm(arquivo, naoDominados);
         arquivo.clear();
         arquivo.addAll(naoDominados);
 
-        Normalizacao2(arquivo);
+        normalizeObjectiveFunctionsValues(arquivo);
 
         for (Solution s : arquivo) {
             s.setFitness(melhorFitness);
@@ -1596,8 +1201,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
             while (arquivo.size() > TamMax) {
                 //System.out.println("Tamanho arquivo = " + arquivo.size());
                 double dist[][] = new double[arquivo.size()][arquivo.size()];
-                Normalizacao2(arquivo);
-                Distancia(arquivo, dist);
+                normalizeObjectiveFunctionsValues(arquivo);
+                evaluateDistanceBetweenSolutions(arquivo, dist);
                 List<Double> ci = new ArrayList<>();
                 List<Double> linha = new ArrayList<>();
                 for (int i = 0; i < arquivo.size(); i++) {
@@ -1625,27 +1230,27 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 arquivo.remove(pos);
             }
         }
-        OrdenaArquivo(arquivo);
+        fileSorting(arquivo);
     }
-    
-    public static void atualizaArquivoTeste(List<Solution> Pop, List<Solution> arquivo, int TamMax){
+
+    public static void updateTestFile(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
         List<Solution> naoDominados = new ArrayList<>();
-        Dominancia(Pop, naoDominados);
+        dominanceAlgorithm(Pop, naoDominados);
         arquivo.addAll(naoDominados);
         naoDominados.clear();
-        Dominancia(arquivo, naoDominados);
+        dominanceAlgorithm(arquivo, naoDominados);
         arquivo.clear();
         arquivo.addAll(naoDominados);
         if (arquivo.size() > TamMax) {
             System.out.println("Reduzir");
         }
     }
-    
-    public static void atualizaArquivoSPEA2(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
+
+    public static void updateSPEA2SolutionsFile(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
         List<Solution> naoDominados = new ArrayList<>();
         arquivo.addAll(Pop);
-        retiraIguais(arquivo);
-        Dominancia(arquivo, naoDominados);
+        removeEqualSolutions(arquivo);
+        dominanceAlgorithm(arquivo, naoDominados);
         arquivo.clear();
         arquivo.addAll(naoDominados);
 
@@ -1666,33 +1271,15 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
         //ImprimePopulacao(arquivo);
         //System.out.println("Tamanho arquivo = " + arquivo.size());
-        OrdenaArquivo(arquivo);
+        fileSorting(arquivo);
     }
 
-    public static void atualizaArquivoNSGA(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
-//        List<Solucao> naoDominados = new ArrayList<>();
-//        List<Solucao> lista = new ArrayList<>();
-//        for(Solution s: Pop){
-//            for(Solution s_arquivo: arquivo){
-//                if(s != s_arquivo){
-//                    lista.add(s);
-//                    break;
-//                }            
-//            }
-//        }
-//        arquivo.addAll(lista);
-//        //arquivo.addAll(Pop);
-//        //retiraIguais(arquivo);
-//        Dominancia(arquivo,naoDominados);
-//        arquivo.clear();
-//        arquivo.addAll(naoDominados);
-        //ImprimePopulacao(arquivo);
+    public static void updateNSGASolutionsFile(List<Solution> Pop, List<Solution> arquivo, int TamMax) {
 
-        //arquivo.addAll(Pop);
         List<Solution> naoDominados = new ArrayList<>();
         arquivo.addAll(Pop);
-        retiraIguais(arquivo);
-        Dominancia(arquivo, naoDominados);
+        removeEqualSolutions(arquivo);
+        dominanceAlgorithm(arquivo, naoDominados);
         arquivo.clear();
         arquivo.addAll(naoDominados);
 
@@ -1703,8 +1290,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
             while (arquivo.size() > TamMax) {
                 //System.out.println("Tamanho arquivo = " + arquivo.size());
                 double dist[][] = new double[arquivo.size()][arquivo.size()];
-                Normalizacao2(arquivo);
-                Distancia(arquivo, dist);
+                normalizeObjectiveFunctionsValues(arquivo);
+                evaluateDistanceBetweenSolutions(arquivo, dist);
                 List<Double> ci = new ArrayList<>();
                 List<Double> linha = new ArrayList<>();
                 for (int i = 0; i < arquivo.size(); i++) {
@@ -1732,10 +1319,10 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 arquivo.remove(pos);
             }
         }
-        OrdenaArquivo(arquivo);
+        fileSorting(arquivo);
     }
 
-    public static void OrdenaArquivo(List<Solution> arquivo) {
+    public static void fileSorting(List<Solution> arquivo) {
         int tamanhoArquivo = arquivo.size();
 
         for (int i = 0; i < tamanhoArquivo; i++) {
@@ -1750,7 +1337,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static void retiraIguais(List<Solution> arquivo) {
+    public static void removeEqualSolutions(List<Solution> arquivo) {
         int tamanhoArquivo = arquivo.size();
         for (int i = 0; i < tamanhoArquivo; i++) {
             for (int j = i + 1; j < tamanhoArquivo; j++) {
@@ -1908,50 +1495,41 @@ public class AlgorithmsForMultiObjectiveOptimization {
         //System.out.println("Tamanho = " + fronts.size());
     }
 
-    public static void FNDS3(List<Solution> Pop, List<List<Solution>> fronts) {
-        List<Solution> PopAux = new ArrayList<>();//lista para remover soluções
-        PopAux.addAll(Pop);
-        fronts.clear();
-        List<Solution> front = new ArrayList<>();//lista com apenas uma fronteira
-        int contador = 0;
+    public static void nonDominatedFrontiersSortingAlgorithm(List<Solution> population, List<List<Solution>> frontiers) {
+        List<Solution> auxiliarPopulation = new ArrayList<>();//lista para remover soluções
+        auxiliarPopulation.addAll(population);
+        frontiers.clear();
+        List<Solution> front = new ArrayList<>();
+        int frontierCounter = 0;
 
-        while (PopAux.size() > 0) {
-            fronts.add(new ArrayList<>());
-            Dominancia(PopAux, front);
-            //System.out.println("front = ");
-            //ImprimePopulacao(front);
-
-            fronts.get(contador).addAll(front);
-            PopAux.removeAll(front);
+        while (auxiliarPopulation.size() > 0) {
+            frontiers.add(new ArrayList<>());
+            dominanceAlgorithm(auxiliarPopulation, front);
+            frontiers.get(frontierCounter).addAll(front);
+            auxiliarPopulation.removeAll(front);
             front.clear();
-            contador++;
+            frontierCounter++;
         }
 
-        //System.out.println(fronts);
-        //System.out.println("Tamanho de PopAux = " + PopAux.size());
-        //Dominancia(PopAux,front);
-        //ImprimePopulacao(front);
-        for (int i = 0; i < fronts.size(); i++) {
-            //System.out.println(i);
-            front.addAll(fronts.get(i));
-            for (Solution s : front) {
-                s.setNumberOfSolutionsWichDomineThisSolution(i);
+        for (int i = 0; i < frontiers.size(); i++) {
+
+            front.addAll(frontiers.get(i));
+            for (Solution solution : front) {
+                solution.setNumberOfSolutionsWichDomineThisSolution(i);
             }
-            //System.out.println(front.size());
             front.clear();
         }
-        //System.out.println("\n");
-        Pop.clear();
-        for (List<Solution> f : fronts) {
-            Pop.addAll(f);
-            //System.out.println(f);
+
+        population.clear();
+        for (List<Solution> frontInFrontiers : frontiers) {
+            population.addAll(frontInFrontiers);
         }
     }
 
     public static void ReduzPopulacao(List<Solution> Pop_linha, List<List<Solution>> fronts, int TamPop) {
         for (int i = 0; i < fronts.size(); i++) {
             Pop_linha.addAll(fronts.get(i));
-            ImprimePopulacao(Pop_linha);
+            printPopulation(Pop_linha);
             System.out.println("\n");
 
             if (Pop_linha.size() > TamPop) {//confere se ao adicinar a fronteira i, ultrapassa o tamanho original da populacao
@@ -1960,8 +1538,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static Solution MOVND(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U, 
-            Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d, List<List<Long>> c, 
+    public static Solution MOVND(Solution s_0, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U,
+            Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d, List<List<Long>> c,
             Integer n, Integer Qmax, Long TimeWindows) {
 
         Random rnd = new Random();
@@ -1976,9 +1554,9 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
         while (k <= r) {
             System.out.println("k = " + k);
-            s.setSolucao(primeiroMelhorVizinhoMO(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            s.setSolucao(firstImprovementInMultiObjectiveOptimization(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
             //System.out.println(s);
-            //s.setSolucao(melhorVizinho(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
+            //s.setSolucao(bestImprovementInMultiObjectiveOptimization(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
             if (((s.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (s.getAggregatedObjective2() < melhor.getAggregatedObjective2())) || ((s.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (s.getAggregatedObjective2() == melhor.getAggregatedObjective2()))
                     || ((s.getAggregatedObjective1() == melhor.getAggregatedObjective1()) && (s.getAggregatedObjective2() < melhor.getAggregatedObjective2()))) {
                 melhor.setSolucao(s);
@@ -1991,7 +1569,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         return melhor;
     }
 
-    public static void buscaLocal(List<Solution> arquivo, List<Request> listRequests, List<Request> P, Set<Integer> K, 
+    public static void buscaLocal(List<Solution> arquivo, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d,
             List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Random rnd = new Random();
@@ -2000,7 +1578,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         //System.out.println("Numero solucoes para busca = " + numeroSolucoes);
 
         List<Solution> naoDominados = new ArrayList<>();
-        Dominancia(arquivo, naoDominados);
+        dominanceAlgorithm(arquivo, naoDominados);
         numeroSolucoes = naoDominados.size() / 5;
         //ImprimePopulacao(naoDominados);
         for (int i = 0; i < numeroSolucoes; i++) {
@@ -2028,7 +1606,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
         //BuscaLocal
         s.setSolucao(MOVND(s_0, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-        //s.setSolucao(primeiroMelhorVizinho(s_0,2,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
+        //s.setSolucao(firstImprovementAlgorithm(s_0,2,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
         int cont = 0;
         while (cont < MAXITER) {
             //System.out.println("Entrou no laço do IteratedLocalSearch\tFO = " + s.getfObjetivo());
@@ -2041,7 +1619,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
             //BuscaLocal
             s_2linha.setSolucao(MOVND(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-            //s_2linha.setSolucao(primeiroMelhorVizinho(s_0,2,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
+            //s_2linha.setSolucao(firstImprovementAlgorithm(s_0,2,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
             //System.out.println("Apos busca local s'' = " + s_2linha);
             //CriterioAceitacao
             if ((s_2linha.getAggregatedObjective1() < s_0.getAggregatedObjective1()) && (s_2linha.getAggregatedObjective2() < s_0.getAggregatedObjective2())
@@ -2066,12 +1644,12 @@ public class AlgorithmsForMultiObjectiveOptimization {
         //System.out.println("Historico = ");
         System.out.println("Soluçao retornada do ILS = " + s_0);
         //ImprimePopulacao(historico);
-        //s.setSolucao(CopiaMelhorSolucao(historico,s));
+        //s.setSolucao(copyBestSolution(historico,s));
         //s.setSolucao(historico.get(1));
         return s_0;
     }
 
-    public static Solution primeiroMelhorVizinhoMO(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
+    public static Solution firstImprovementInMultiObjectiveOptimization(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution melhor = new Solution(s);
@@ -2284,7 +1862,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         return melhor;
     }
 
-    public static Solution melhorVizinho(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
+    public static Solution bestImprovementInMultiObjectiveOptimization(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution melhor = new Solution(s);

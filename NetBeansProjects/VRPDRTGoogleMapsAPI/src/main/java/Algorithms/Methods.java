@@ -19,9 +19,7 @@ import static Algorithms.Algorithms.FOagregados;
 import static Algorithms.Algorithms.FOp;
 import static Algorithms.Algorithms.FuncaoDeAvaliacao;
 import static Algorithms.Algorithms.PerturbacaoSemente;
-import static Algorithms.Algorithms.VND;
 import static Algorithms.Algorithms.greedyConstructive;
-import static Algorithms.AlgorithmsForMultiObjectiveOptimization.Inicializa;
 import InstanceReaderWithMySQL.AdjacenciesDAO;
 import InstanceReaderWithMySQL.NodeDAO;
 import InstanceReaderWithMySQL.RequestDAO;
@@ -47,6 +45,8 @@ import static java.util.stream.Collectors.toSet;
 import static Algorithms.Algorithms.IteratedLocalSearch;
 import static Algorithms.Algorithms.rebuildSolution;
 import static Algorithms.Algorithms.perturbation;
+import static Algorithms.AlgorithmsForMultiObjectiveOptimization.initializePopulation;
+import static Algorithms.Algorithms.VariableNeighborhoodDescend;
 
 /**
  *
@@ -506,14 +506,16 @@ public class Methods {
         }
     }
 
-    public static void InicializaPopulacao(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+    public static void initializePopulation(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U,
             List<Request> P, List<Integer> m, List<List<Long>> d, List<List<Long>> c,
             Long TimeWindows, Long currentTime, Integer lastNode) {
 
         for (int i = 0; i < TamPop; i++) {
             Solution S = new Solution();
+            Solution S_linha = new Solution();            
             S.setSolucao(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+            S_linha.setSolucao(perturbation(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
             Pop.add(S);
         }
 
@@ -521,7 +523,7 @@ public class Methods {
             Solution solucao = new Solution(Pop.get(i));
         }
         //Coloquei a linha de baixo, que estava no codigo principal dos algoritmos multi
-        Inicializa(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+        initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
     }
 
     public static void InicializaPopulacaoPerturbacao(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
@@ -697,7 +699,7 @@ public class Methods {
         return S;
     }
 
-    public static void Mutacao(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+    public static void mutationSwap(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
             List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Random rnd = new Random();
@@ -726,7 +728,7 @@ public class Methods {
         }
     }
 
-    public static void MutacaoShuffle(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+    public static void mutacaoShuffle(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
             List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Random rnd = new Random();
@@ -748,7 +750,7 @@ public class Methods {
         }
     }
 
-    public static void Mutacao2Opt(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+    public static void mutation2Opt(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
             List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Random rnd = new Random();
@@ -791,7 +793,7 @@ public class Methods {
         }
     }
 
-    public static void Mutacao2Shuffle(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+    public static void mutation2Shuffle(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
             List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Random rnd = new Random();
@@ -850,8 +852,8 @@ public class Methods {
 
                 Solution S = new Solution();
                 //S.setSolucao(IteratedLocalSearch(Pop.get(i), listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
-                //S.setSolucao(VND(Pop.get(i), listRequests,  P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                S.setSolucao(primeiroMelhorVizinho(Pop.get(i), 2, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                //S.setSolucao(VariableNeighborhoodDescend(Pop.get(i), listRequests,  P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                S.setSolucao(firstImprovementAlgorithm(Pop.get(i), 2, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                 Pop.get(i).setSolucao(S);
             }
         }
@@ -884,11 +886,11 @@ public class Methods {
         population.forEach(u -> u.setFitness(u.getFitness() / sum));
     }
 
-    public static void OrdenaPopulacao(List<Solution> Pop) {
+    public static void populationSorting(List<Solution> Pop) {
         Collections.sort(Pop);
     }
 
-    public static void ImprimePopulacao(List<Solution> Pop) {
+    public static void printPopulation(List<Solution> Pop) {
         for (int i = 0; i < Pop.size(); i++) {
             //System.out.println("Pop(" + i + ") = " + Pop.get(i));
             System.out.println(Pop.get(i));
@@ -896,7 +898,7 @@ public class Methods {
         }
     }
 
-    public static void Selecao(List<Integer> pais, List<Solution> Pop, Integer TamMax) {
+    public static void rouletteWheelSelectionAlgorithm(List<Integer> pais, List<Solution> Pop, Integer TamMax) {
         Random rnd = new Random();
         double valor;
         double soma;
@@ -924,7 +926,7 @@ public class Methods {
         }
     }
 
-    public static void Cruzamento(List<Solution> Pop_nova, List<Solution> Pop, Integer TamMax, double Pc,
+    public static void onePointCrossover(List<Solution> Pop_nova, List<Solution> Pop, Integer TamMax, double Pc,
             List<Integer> pais, List<Request> listRequests, List<Request> P, Set<Integer> K, List<Request> U,
             Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, List<List<Long>> d, List<List<Long>> c,
             Integer n, Integer Qmax, Long TimeWindows) {
@@ -980,10 +982,10 @@ public class Methods {
         Pop_nova.clear();
         Pop_nova.addAll(NewPop);
         NewPop.clear();
-        OrdenaPopulacao(Pop_nova);
+        populationSorting(Pop_nova);
     }
 
-    public static void Cruzamento2Pontos(List<Solution> Pop_nova, List<Solution> Pop, Integer TamMax, double Pc, List<Integer> pais, List<Request> listRequests,
+    public static void twoPointsCrossover(List<Solution> Pop_nova, List<Solution> Pop, Integer TamMax, double Pc, List<Integer> pais, List<Request> listRequests,
             List<Request> P, Set<Integer> K, List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         int pai;
@@ -1062,60 +1064,46 @@ public class Methods {
             //Fitness(Pop);
             //FitnessSPEA2(Pop_nova);
         } catch (IllegalArgumentException e) {
-            ImprimePopulacao(Pop);
+            printPopulation(Pop);
         }
     }
 
-    public static Solution CopiaMelhorSolucao(List<Solution> population, Solution SBest) {
-//        for (Solution S : population) {
-//            if (S.compareTo(SBest) == -1) {
-//                SBest.setSolucao(S);
-//                System.out.println(SBest);
-//                return SBest;
-//            }
-//        }
-//        return SBest;
-//        if(population.get(0).getFuncaoObjetivo() < SBest.getFuncaoObjetivo()){
-//            SBest.setSolucao(population.get(0));
-//        }
-//        //SBest.setSolucao(population.stream().collect(Collectors.maxBy(Solution::getFitness)));
-//        return SBest;
-        for (Solution S : population) {
-            if (S.getObjectiveFunction() < SBest.getObjectiveFunction()) {
-                SBest.setSolucao(S);
+    public static Solution copyBestSolution(List<Solution> population, Solution bestSolution) {
+        for (Solution solution : population) {
+            if (solution.getObjectiveFunction() < bestSolution.getObjectiveFunction()) {
+                bestSolution.setSolucao(solution);
             }
         }
-        return SBest;
+        return bestSolution;
     }
 
-    public static void InsereMelhorIndividuo(List<Solution> Pop, Solution SBest) {
-        Pop.get(Pop.size() - 1).setSolucao(SBest);
+    public static void insertBestIndividualInPopulation(List<Solution> population, Solution bestSolution) {
+        population.get(population.size() - 1).setSolucao(bestSolution);
     }
 
-    public static void SalvaPopulacao(List<Solution> Pop, Integer Geracao) {
-        String diretorio, nomeArquivo;
+    public static void savePopulation(List<Solution> population, Integer generationNumber) {
+        String folder, dataFileName;
         try {
-            diretorio = "\\home\\renan";
-            nomeArquivo = "Solucao";
-            boolean success = (new File(diretorio)).mkdirs();
+            folder = "\\home\\renan";
+            dataFileName = "Solution";
+            boolean success = (new File(folder)).mkdirs();
             if (!success) {
-                System.out.println("Diretórios ja existem!");
+                System.out.println("Folders already exists!");
             }
-            PrintStream saida;
-            saida = new PrintStream(diretorio + "\\GA-MESTRADO" + nomeArquivo + ".txt");
+            PrintStream printStream;
+            printStream = new PrintStream(folder + "\\GA-MESTRADO" + dataFileName + ".txt");
 
-            saida.print("\tGeração = " + Geracao + "\n");
-            for (Solution S : Pop) {
-                saida.print("\t" + S + "\n");
+            printStream.print("\tGeneration = " + generationNumber + "\n");
+            for (Solution solution : population) {
+                printStream.print("\t" + solution + "\n");
             }
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    public static Solution primeiroMelhorVizinho(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
+    public static Solution firstImprovementAlgorithm(Solution s, int movementType, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution melhor = new Solution(s);
@@ -1132,7 +1120,7 @@ public class Methods {
          * Aleatoria
          *
          */
-        switch (tipoMovimento) {
+        switch (movementType) {
             case 1: // troca						
 
                 for (int i = 0; i < original.size() - 1; i++) {
@@ -1144,7 +1132,7 @@ public class Methods {
 
                             aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getTotalDistance() < melhor.getTotalDistance()) {
+                            if (aux.getObjectiveFunction()< melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI TROCA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                                 melhor.setSolucao(aux);
                                 return melhor;
@@ -1166,7 +1154,7 @@ public class Methods {
 
                             aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getTotalDistance() < melhor.getTotalDistance()) {
+                            if (aux.getObjectiveFunction()< melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI INSERCAO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                                 melhor.setSolucao(aux);
                                 return melhor;
@@ -1189,7 +1177,7 @@ public class Methods {
 
                             aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getTotalDistance() < melhor.getTotalDistance()) {
+                            if (aux.getObjectiveFunction()< melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                                 melhor.setSolucao(aux);
                                 return melhor;
@@ -1258,7 +1246,7 @@ public class Methods {
 
                     aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                    if (aux.getTotalDistance() < melhor.getTotalDistance()) {
+                    if (aux.getObjectiveFunction()< melhor.getObjectiveFunction()) {
                         //System.out.println("ACHEI ALEATORIA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                         melhor.setSolucao(aux);
                         return melhor;
@@ -1285,7 +1273,7 @@ public class Methods {
 
                             aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getTotalDistance() < melhor.getTotalDistance()) {
+                            if (aux.getObjectiveFunction()< melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                                 melhor.setSolucao(aux);
                                 return melhor;
@@ -1312,7 +1300,7 @@ public class Methods {
 
                             aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
-                            if (aux.getTotalDistance() < melhor.getTotalDistance()) {
+                            if (aux.getObjectiveFunction()< melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
                                 melhor.setSolucao(aux);
                                 return melhor;
@@ -1328,7 +1316,7 @@ public class Methods {
         return melhor;
     }
 
-    public static Solution melhorVizinho(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
+    public static Solution bestImprovementAlgorithm(Solution s, int tipoMovimento, List<Request> listRequests, List<Request> P, Set<Integer> K,
             List<Request> U, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             List<List<Long>> d, List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution melhor = new Solution(s);
