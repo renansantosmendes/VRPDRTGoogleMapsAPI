@@ -514,7 +514,7 @@ public class Methods {
 
         for (int i = 0; i < TamPop; i++) {
             Solution S = new Solution();
-            S.setSolucao(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+            S.setSolution(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
             Pop.add(S);
         }
 
@@ -531,9 +531,9 @@ public class Methods {
             List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Solution s0 = new Solution();
         for (int i = 0; i < TamPop; i++) {
-            s0.setSolucao(geraPesos(i, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+            s0.setSolution(geraPesos(i, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
             //Pop.add(s0);
-            Pop.get(i).setSolucao(s0);
+            Pop.get(i).setSolution(s0);
             //System.out.println("s0 = " + s0);
 
         }
@@ -547,8 +547,8 @@ public class Methods {
         for (int i = 0; i < TamPop; i++) {
             Solution S = new Solution();
             Solution S_linha = new Solution();            
-            S.setSolucao(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
-            S_linha.setSolucao(perturbation(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+            S.setSolution(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+            S_linha.setSolution(perturbation(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
             Pop.add(S);
         }
 
@@ -567,9 +567,9 @@ public class Methods {
         for (int i = 0; i < TamPop; i++) {
             Solution S = new Solution();
             Solution S_linha = new Solution();
-            S.setSolucao(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
-            //S_linha.setSolucao(perturbation(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
-            S_linha.setSolucao(PerturbacaoSemente(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+            S.setSolution(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+            //S_linha.setSolution(perturbation(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+            S_linha.setSolution(PerturbacaoSemente(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
             Pop.add(S_linha);
         }
     }
@@ -589,9 +589,9 @@ public class Methods {
                 z = rnd.nextDouble();
                 w = 1 - x - y - z;
             } while (x + y + z > 1);
-            //S.setSolucao(greedyConstructive(x, y, z, w, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+            //S.setSolution(greedyConstructive(x, y, z, w, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
             //System.out.println("SolucaoGulosaAleatoria = "+ S);
-            //S.setSolucao(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+            //S.setSolution(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
             //Pop.add(S);
 
         }
@@ -755,8 +755,8 @@ public class Methods {
                 Collections.swap(individuo, posicao1, posicao2);
 
                 Solution S = new Solution();
-                S.setSolucao(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                Pop.get(i).setSolucao(S);
+                S.setSolution(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                Pop.get(i).setSolution(S);
             }
         }
     }
@@ -777,8 +777,8 @@ public class Methods {
                 List<Integer> individuo = new ArrayList<>(Pop.get(i).getLinkedRouteList());
                 Collections.shuffle(individuo);
                 Solution S = new Solution();
-                S.setSolucao(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                Pop.get(i).setSolucao(S);
+                S.setSolution(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                Pop.get(i).setSolution(S);
             }
         }
     }
@@ -820,8 +820,8 @@ public class Methods {
                 individuo.addAll(min, aux);
 
                 Solution S = new Solution();
-                S.setSolucao(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                Pop.get(i).setSolucao(S);
+                S.setSolution(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                Pop.get(i).setSolution(S);
             }
         }
     }
@@ -863,8 +863,8 @@ public class Methods {
                 individuo.addAll(min, aux);
 
                 Solution S = new Solution();
-                S.setSolucao(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                Pop.get(i).setSolucao(S);
+                S.setSolution(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                Pop.get(i).setSolution(S);
             }
         }
     }
@@ -884,10 +884,10 @@ public class Methods {
             if (prob < Pm) {
 
                 Solution S = new Solution();
-                //S.setSolucao(IteratedLocalSearch(Pop.get(i), listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
-                //S.setSolucao(VariableNeighborhoodDescend(Pop.get(i), listRequests,  P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                S.setSolucao(firstImprovementAlgorithm(Pop.get(i), 2, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                Pop.get(i).setSolucao(S);
+                //S.setSolution(IteratedLocalSearch(Pop.get(i), listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+                //S.setSolution(VariableNeighborhoodDescend(Pop.get(i), listRequests,  P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                S.setSolution(firstImprovementAlgorithm(Pop.get(i), 2, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                Pop.get(i).setSolution(S);
             }
         }
     }
@@ -992,12 +992,12 @@ public class Methods {
                 filho2.addAll(Pop.get(mae).getLinkedRouteList().subList(0, pontoCorte));
                 filho2.addAll((Pop.get(pai).getLinkedRouteList().subList(pontoCorte, Pop.get(pai).getLinkedRouteList().size())));
 
-                s1.setSolucao(rebuildSolution(filho1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                s2.setSolucao(rebuildSolution(filho2, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                s1.setSolution(rebuildSolution(filho1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                s2.setSolution(rebuildSolution(filho2, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
             } else {
-                s1.setSolucao(Pop.get(mae));
-                s2.setSolucao(Pop.get(pai));
+                s1.setSolution(Pop.get(mae));
+                s2.setSolution(Pop.get(pai));
             }
 
             NewPop.add(s1);
@@ -1074,12 +1074,12 @@ public class Methods {
                     filho1.addAll(min, parte2);
                     filho2.addAll(min, parte1);
 
-                    s1.setSolucao(rebuildSolution(filho1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                    s2.setSolucao(rebuildSolution(filho2, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    s1.setSolution(rebuildSolution(filho1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    s2.setSolution(rebuildSolution(filho2, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                 } else {
-                    s1.setSolucao(Pop.get(mae));
-                    s2.setSolucao(Pop.get(pai));
+                    s1.setSolution(Pop.get(mae));
+                    s2.setSolution(Pop.get(pai));
                 }
 
                 NewPop.add(s1);
@@ -1104,14 +1104,14 @@ public class Methods {
     public static Solution copyBestSolution(List<Solution> population, Solution bestSolution) {
         for (Solution solution : population) {
             if (solution.getObjectiveFunction() < bestSolution.getObjectiveFunction()) {
-                bestSolution.setSolucao(solution);
+                bestSolution.setSolution(solution);
             }
         }
         return bestSolution;
     }
 
     public static void insertBestIndividualInPopulation(List<Solution> population, Solution bestSolution) {
-        population.get(population.size() - 1).setSolucao(bestSolution);
+        population.get(population.size() - 1).setSolution(bestSolution);
     }
 
     public static void savePopulation(List<Solution> population, Integer generationNumber) {
@@ -1163,11 +1163,11 @@ public class Methods {
                         if (vizinho.get(i) != vizinho.get(j)) {
                             Collections.swap(vizinho, i, j);
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction()< melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI TROCA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 return melhor;
                             }
                         }
@@ -1185,11 +1185,11 @@ public class Methods {
                         if (vizinho.get(i) != j) {
                             vizinho.set(i, j);
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction()< melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI INSERCAO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 return melhor;
                             }
                         }
@@ -1208,11 +1208,11 @@ public class Methods {
                             vizinho.remove(i);
                             vizinho.add(j, original.get(i));
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction()< melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 return melhor;
                             }
                         }
@@ -1277,11 +1277,11 @@ public class Methods {
                         vizinho.add(posicao2, original.get(posicao1));
                     }
 
-                    aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                     if (aux.getObjectiveFunction()< melhor.getObjectiveFunction()) {
                         //System.out.println("ACHEI ALEATORIA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                        melhor.setSolucao(aux);
+                        melhor.setSolution(aux);
                         return melhor;
 
                     }
@@ -1304,11 +1304,11 @@ public class Methods {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction()< melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 return melhor;
 
                             }
@@ -1331,11 +1331,11 @@ public class Methods {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction()< melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 return melhor;
 
                             }
@@ -1376,11 +1376,11 @@ public class Methods {
                         if (vizinho.get(i) != vizinho.get(j)) {
                             Collections.swap(vizinho, i, j);
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI TROCA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
 
                             }
                         }
@@ -1398,11 +1398,11 @@ public class Methods {
                         if (vizinho.get(i) != j) {
                             vizinho.set(i, j);
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI INSERCAO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
 
                             }
                         }
@@ -1421,11 +1421,11 @@ public class Methods {
                             vizinho.remove(i);
                             vizinho.add(j, original.get(i));
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
 
                             }
                         }
@@ -1490,11 +1490,11 @@ public class Methods {
                         vizinho.add(posicao2, original.get(posicao1));
                     }
 
-                    aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                     if (aux.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                         //System.out.println("ACHEI ALEATORIA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                        melhor.setSolucao(aux);
+                        melhor.setSolution(aux);
 
                     }
 
@@ -1516,11 +1516,11 @@ public class Methods {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
 
                             }
                         }
@@ -1542,11 +1542,11 @@ public class Methods {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getObjectiveFunction() < melhor.getObjectiveFunction()) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
 
                             }
                         }
@@ -1600,11 +1600,11 @@ public class Methods {
                     } while (Objects.equals(vizinho.get(posicao1), vizinho.get(posicao2)));
 
                     Collections.swap(vizinho, posicao1, posicao2);
-                    aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     //System.out.println("Posições da troca = " + posicao1 + "\t" + posicao2);
                     //System.out.println("Solution gerada = " + aux);
                     if (aux.getTotalDistance() < melhor.getTotalDistance()) {
-                        melhor.setSolucao(aux);
+                        melhor.setSolution(aux);
                         return melhor;
                     }
                 }
@@ -1624,11 +1624,11 @@ public class Methods {
                     } while (elemento == 0 || elemento == vizinho.get(posicao));
 
                     vizinho.set(posicao, elemento);
-                    aux.setSolucao(rebuildSolution(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolution(rebuildSolution(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     //System.out.println("Posições da troca = " + posicao + "\t" + elemento);
                     //System.out.println("Solution gerada = " + aux);
                     if (aux.getTotalDistance() < melhor.getTotalDistance()) {
-                        melhor.setSolucao(aux);
+                        melhor.setSolution(aux);
                         return melhor;
                     }
                 }
@@ -1650,10 +1650,10 @@ public class Methods {
                     vizinho.remove(posicao1);
                     vizinho.add(posicao2, original.get(posicao1));
 
-                    aux.setSolucao(rebuildSolution(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolution(rebuildSolution(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     if (aux.getTotalDistance() < melhor.getTotalDistance()) {
                         //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                        melhor.setSolucao(aux);
+                        melhor.setSolution(aux);
                         return melhor;
                     }
                 }
@@ -1704,12 +1704,12 @@ public class Methods {
                     } while (Objects.equals(vizinho.get(posicao1), vizinho.get(posicao2)));
 
                     Collections.swap(vizinho, posicao1, posicao2);
-                    aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     return aux;
                     //System.out.println("Posições da troca = " + posicao1 + "\t" + posicao2);
                     //System.out.println("Solution gerada = " + aux);
 //                    if (aux.getfObjetivo() < melhor.getfObjetivo()) {
-//                        melhor.setSolucao(aux);
+//                        melhor.setSolution(aux);
 //                        return melhor;
 //                    }
                 }
@@ -1729,12 +1729,12 @@ public class Methods {
                     } while (elemento == 0 || elemento == vizinho.get(posicao));
 
                     vizinho.set(posicao, elemento);
-                    aux.setSolucao(rebuildSolution(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolution(rebuildSolution(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     //System.out.println("Posições da troca = " + posicao + "\t" + elemento);
                     //System.out.println("Solution gerada = " + aux);
                     return aux;
 //                    if (aux.getfObjetivo() < melhor.getfObjetivo()) {
-//                        melhor.setSolucao(aux);
+//                        melhor.setSolution(aux);
 //                        return melhor;
 //                    }
                 }
@@ -1756,11 +1756,11 @@ public class Methods {
                     vizinho.remove(posicao1);
                     vizinho.add(posicao2, original.get(posicao1));
 
-                    aux.setSolucao(rebuildSolution(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolution(rebuildSolution(new ArrayList<>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                     return aux;
 //                    if (aux.getfObjetivo() < melhor.getfObjetivo()) {
 //                        //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-//                        melhor.setSolucao(aux);
+//                        melhor.setSolution(aux);
 //                        return melhor;
 //                    }
                 }
@@ -1775,7 +1775,7 @@ public class Methods {
             List<List<Long>> c, Integer n, Integer Qmax, Long TimeWindows) {
         Solution estrela = new Solution();
         Solution s = new Solution(inicial);
-        estrela.setSolucao(s);
+        estrela.setSolution(s);
 
         int iteracao = 0, //contador do n�mero de itera��es
                 melhorIteracao = 0, //itera��o mais recente que forneceu s*
@@ -1814,10 +1814,10 @@ public class Methods {
         while (iteracao - melhorIteracao <= BTMAX) {
             iteracao++;
             //System.out.println(iteracao - melhorIteracao);
-            s.setSolucao(melhorVizinhoBT(s, estrela, tipoMovimento, listaTabuTroca, listaTabuSubstituicao, listaTabuMovimento, iteracao,
+            s.setSolution(melhorVizinhoBT(s, estrela, tipoMovimento, listaTabuTroca, listaTabuSubstituicao, listaTabuMovimento, iteracao,
                     listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
             if (s.getObjectiveFunction() < estrela.getObjectiveFunction()) {
-                estrela.setSolucao(s);
+                estrela.setSolution(s);
                 melhorIteracao = iteracao;
             }
 
@@ -1861,13 +1861,13 @@ public class Methods {
                         if (vizinho.get(posicao1) != vizinho.get(posicao2)) {
                             Collections.swap(vizinho, posicao1, posicao2);
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getTotalDistance() < melhor.getTotalDistance()
                                     && ((listaTabuTroca[posicao2][posicao1] <= iteracao && listaTabuTroca[posicao1][posicao2] <= iteracao)
                                     || aux.getTotalDistance() < estrela.getTotalDistance())) {
 
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 pos1 = posicao1;
                                 pos2 = posicao2;
                                 atualizaListaTabu = true;
@@ -1894,12 +1894,12 @@ public class Methods {
                         if (vizinho.get(posicao) != elemento) {
                             vizinho.set(posicao, elemento);
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getTotalDistance() < melhor.getTotalDistance()
                                     && (listaTabuSubstituicao[posicao][elemento] <= iteracao || aux.getTotalDistance() < estrela.getTotalDistance())) {
 
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 pos = posicao;
                                 elem = original.get(posicao);
                                 atualizaListaTabu = true;
@@ -1926,12 +1926,12 @@ public class Methods {
                             vizinho.remove(posicao1);
                             vizinho.add(posicao2, original.get(posicao1));
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if (aux.getTotalDistance() < melhor.getTotalDistance()
                                     && (listaTabuMovimento[posicao1][posicao2] <= iteracao || aux.getTotalDistance() < estrela.getTotalDistance())) {
 
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 pos1 = posicao1;
                                 pos2 = posicao2;
                                 atualizaListaTabu = true;
@@ -1980,13 +1980,13 @@ public class Methods {
 
                         Collections.swap(vizinho, posicao1, posicao2);
 
-                        aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                        aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                         if (aux.getTotalDistance() < melhor.getTotalDistance()
                                 && ((listaTabuTroca[posicao2][posicao1] <= iteracao && listaTabuTroca[posicao1][posicao2] <= iteracao)
                                 || aux.getTotalDistance() < estrela.getTotalDistance())) {
 
-                            melhor.setSolucao(aux);
+                            melhor.setSolution(aux);
                             pos1 = posicao1;
                             pos2 = posicao2;
 
@@ -2004,12 +2004,12 @@ public class Methods {
 
                         vizinho.set(posicao, elemento);
 
-                        aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                        aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                         if (aux.getTotalDistance() < melhor.getTotalDistance()
                                 && (listaTabuSubstituicao[posicao][elemento] <= iteracao || aux.getTotalDistance() < estrela.getTotalDistance())) {
 
-                            melhor.setSolucao(aux);
+                            melhor.setSolution(aux);
                             pos = posicao;
                             elem = original.get(posicao);
 
@@ -2027,12 +2027,12 @@ public class Methods {
                         vizinho.remove(posicao1);
                         vizinho.add(posicao2, original.get(posicao1));
 
-                        aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                        aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                         if (aux.getTotalDistance() < melhor.getTotalDistance()
                                 && (listaTabuMovimento[posicao1][posicao2] <= iteracao || aux.getTotalDistance() < estrela.getTotalDistance())) {
 
-                            melhor.setSolucao(aux);
+                            melhor.setSolution(aux);
                             pos1 = posicao1;
                             pos2 = posicao2;
 

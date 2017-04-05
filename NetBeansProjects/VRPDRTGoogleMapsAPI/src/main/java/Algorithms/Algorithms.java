@@ -836,7 +836,7 @@ public class Algorithms {
 //                y = 0.12127711977568245;
 //                z = 0.17712922815436938;
 //                w = 0.16132390629315074;
-//                S.setSolucao(greedyConstructive(x, y, z, w, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+//                S.setSolution(greedyConstructive(x, y, z, w, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
                 //MÉTODO NOVO DAS SOLUÇÕES MELHORES
                 //GeraPopGulosa(Pop,TamPop,listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                 //Fitness(Pop);
@@ -844,7 +844,7 @@ public class Algorithms {
                 printPopulation(Pop);
                 SBest.setObjectiveFunction(1000000000);
                 SBest.setTotalDeliveryDelay(1000000000);
-                //SBest.setSolucao(S);
+                //SBest.setSolution(S);
                 //System.out.println("População Inicial");
                 //ImprimePopulacao(Pop);
 
@@ -880,7 +880,7 @@ public class Algorithms {
                     //System.out.println("GerAtual = " + GerAtual);
 //                    if ((GerAtual % 150 == 0) && (GerAtual != 0)) {
 //                        Solution s = new Solution(SBest);
-//                        SBest.setSolucao(IteratedLocalSearch(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+//                        SBest.setSolution(IteratedLocalSearch(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
 //                    }
                     System.out.println("Geração = " + GerAtual + "\tMelhorFO = " + SBest.getObjectiveFunction());
                     GerAtual++;
@@ -905,8 +905,8 @@ public class Algorithms {
         List<Integer> lista = new ArrayList<>();
 
         Solution S = new Solution();
-        //S.setSolucao(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-        //Pop.get(i).setSolucao(S);
+        //S.setSolution(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+        //Pop.get(i).setSolution(S);
 
         try {
             FileReader arq = new FileReader("SolucaoInicial.txt");
@@ -924,9 +924,9 @@ public class Algorithms {
                 teste = linha[i];
             }
 
-            S.setSolucao(rebuildSolution(lista, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            S.setSolution(rebuildSolution(lista, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
             System.out.println("Solução = " + S);
-            Pop.get(cont).setSolucao(S);
+            Pop.get(cont).setSolution(S);
 
             //System.out.println("Pop(0) = " + Pop.get(0).getLinkedRoute());
             while (linha != null) {
@@ -941,9 +941,9 @@ public class Algorithms {
                     lista.add(no);
                     //System.out.println("Nó = " + no);
                 }
-                S.setSolucao(rebuildSolution(lista, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                S.setSolution(rebuildSolution(lista, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
                 System.out.println("Solução = " + S);
-                Pop.get(cont).setSolucao(S);
+                Pop.get(cont).setSolution(S);
                 //Pop.get(cont).setLinkedRoute(lista);
                 // System.out.println("Pop("+cont+") = " + Pop.get(cont).getLinkedRoute());
             }
@@ -972,10 +972,10 @@ public class Algorithms {
                 k++;
             }
             System.out.println("k = " + k);
-            s.setSolucao(firstImprovementAlgorithm(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
-            //s.setSolucao(bestImprovementAlgorithm(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            s.setSolution(firstImprovementAlgorithm(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
+            //s.setSolution(bestImprovementAlgorithm(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
             if (s.getObjectiveFunction() < melhor.getObjectiveFunction()) {
-                melhor.setSolucao(s);
+                melhor.setSolution(s);
                 k = 1;
             } else {
                 k = k + 1;
@@ -1009,10 +1009,10 @@ public class Algorithms {
 
             System.out.println("k = " + k + "\tN = " + vizinhanca.get(k - 1));
             //System.out.println("iteração VariableNeighborhoodDescend = " + cont1);
-            //s.setSolucao(firstImprovementAlgorithm(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
-            s.setSolucao(bestImprovementAlgorithm(s_0, vizinhanca.get(k - 1), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            //s.setSolution(firstImprovementAlgorithm(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
+            s.setSolution(bestImprovementAlgorithm(s_0, vizinhanca.get(k - 1), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
             if (s.getObjectiveFunction() < melhor.getObjectiveFunction()) {
-                melhor.setSolucao(s);
+                melhor.setSolution(s);
                 k = 1;
             } else {
                 k = k + 1;
@@ -1039,11 +1039,11 @@ public class Algorithms {
             k = 1;
             while ((k <= r)) {
 
-                //s_linha.setSolucao(vizinhoAleatorio(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                s_2linha.setSolucao(VariableNeighborhoodDescend(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                //s_linha.setSolution(vizinhoAleatorio(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                s_2linha.setSolution(VariableNeighborhoodDescend(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                 if (s_2linha.getObjectiveFunction() < melhor.getObjectiveFunction()) {
-                    melhor.setSolucao(s_2linha);
+                    melhor.setSolution(s_2linha);
                     k = 1;
 
                 } else {
@@ -1078,8 +1078,8 @@ public class Algorithms {
         original.add(posicao1, original.remove(posicao2));
         //}
         Solution S = new Solution();
-        S.setSolucao(rebuildSolution(original, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-        s.setSolucao(S);
+        S.setSolution(rebuildSolution(original, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+        s.setSolution(S);
 
         return s;
     }
@@ -1100,9 +1100,9 @@ public class Algorithms {
         } while (x + y + z > 1);
 
         //System.out.println(x + "\t" + y + "\t" + z + "\t" + w);
-        S.setSolucao(greedyConstructive(x, y, z, w, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+        S.setSolution(greedyConstructive(x, y, z, w, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
         //System.out.println("SolucaoGulosaAleatoria = "+ S);
-        //S.setSolucao(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+        //S.setSolution(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
         //Pop.add(S);
         return S;
         //}
@@ -1130,8 +1130,8 @@ public class Algorithms {
         original.add(posicao1, original.remove(posicao2));
         //}
         Solution S = new Solution();
-        S.setSolucao(rebuildSolution(original, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-        s.setSolucao(S);
+        S.setSolution(rebuildSolution(original, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+        s.setSolution(S);
 
         return s;
     }
@@ -1147,18 +1147,18 @@ public class Algorithms {
         List<Solution> historico = new ArrayList<>();
         int MAXITER = 4;
 
-        s.setSolucao(VariableNeighborhoodDescend(s_0, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+        s.setSolution(VariableNeighborhoodDescend(s_0, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
         System.out.println("After the first local search s = " + s);
         int cont = 0;
         while (cont < MAXITER) {
             System.out.println("Iteration ILS = " + cont);
-            s_linha.setSolucao(perturbation(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+            s_linha.setSolution(perturbation(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
             System.out.println("After pertubation s'= " + s_linha);
-            s_2linha.setSolucao(VariableNeighborhoodDescend(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            s_2linha.setSolution(VariableNeighborhoodDescend(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
  
             if (s_2linha.getObjectiveFunction() < s_0.getObjectiveFunction()) {
-                s.setSolucao(s_2linha);
-                s_0.setSolucao(s_2linha);
+                s.setSolution(s_2linha);
+                s_0.setSolution(s_2linha);
                 System.out.println("Actualized \tFO = " + s.getObjectiveFunction());
             }
             cont++;
@@ -1175,8 +1175,8 @@ public class Algorithms {
         List<Integer> lista = new ArrayList<>();
 
         Solution S = new Solution();
-        //S.setSolucao(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-        //Pop.get(i).setSolucao(S);
+        //S.setSolution(rebuildSolution(individuo, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+        //Pop.get(i).setSolution(S);
 
         try {
             Scanner scanner = new Scanner(new FileReader("Pesos.txt")).useDelimiter("\\t");
@@ -1208,10 +1208,10 @@ public class Algorithms {
         initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
 
         for (int i = 0; i < TamPop; i++) {
-            s.setSolucao(geraPesos(i, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+            s.setSolution(geraPesos(i, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
             //Pop.add(s);
             //System.out.println(s);
-            Pop.get(i).setSolucao(s);
+            Pop.get(i).setSolution(s);
         }
         //System.out.println("Tamanho da Pop = " + Pop.size());
         //Fitness(Pop);
@@ -1822,13 +1822,13 @@ public class Algorithms {
             tempoFim = (System.nanoTime() * 0.000001);
             tempo += (tempoFim - tempoInicio);
 
-            original.setSolucao(S);
-            S.setSolucao(busca);
+            original.setSolution(S);
+            S.setSolution(busca);
 
             if (S.getObjectiveFunction() < SStar.getObjectiveFunction()) {
                 //System.out.println("ACHEI: "+solutionCost+" -> "+S);
-                SStar.setSolucao(S);
-                originalFinal.setSolucao(original);
+                SStar.setSolution(S);
+                originalFinal.setSolution(original);
                 /*logStar = log;
 
                  SStarCost = solutionCost;
@@ -1912,9 +1912,9 @@ public class Algorithms {
 
             do {
 
-                melhor.setSolucao(s);
-                //s.setSolucao(bestImprovementAlgorithm(melhor,tipoMovimento, listRequests));
-                s.setSolucao(bestImprovementAlgorithm(melhor, tipoMovimento, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                melhor.setSolution(s);
+                //s.setSolution(bestImprovementAlgorithm(melhor,tipoMovimento, listRequests));
+                s.setSolution(bestImprovementAlgorithm(melhor, tipoMovimento, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
             } while (!s.equals(melhor));
 
@@ -1922,9 +1922,9 @@ public class Algorithms {
 
             do {
 
-                melhor.setSolucao(s);
-                //s.setSolucao(firstImprovementAlgorithm(melhor,tipoMovimento, listRequests));
-                s.setSolucao(firstImprovementAlgorithm(melhor, tipoMovimento, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                melhor.setSolution(s);
+                //s.setSolution(firstImprovementAlgorithm(melhor,tipoMovimento, listRequests));
+                s.setSolution(firstImprovementAlgorithm(melhor, tipoMovimento, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
             } while (!s.equals(melhor));
 
@@ -1947,12 +1947,12 @@ public class Algorithms {
         Solution solution1 = new Solution();
         List<Solution> population = new ArrayList<>();
         for (int i = 0; i < populationSize; i++) {
-            solution1.setSolucao(perturbation(solution, listOfRequests,requestsWichBoardsInNode,requestsWichLeavesInNode,
+            solution1.setSolution(perturbation(solution, listOfRequests,requestsWichBoardsInNode,requestsWichLeavesInNode,
                     numberOfNodes, vehicleCapacity,setOfVehicles, listOfNonAttendedRequests, requestList,loadIndexList, timeBetweenNodes,
                     distanceBetweenNodes,timeWindows));
-            //System.out.println(solution1.getStringWIthObjectives());
-            System.out.println(solution1);
-            population.add(solution1);
+            Solution solution2 = new Solution();
+            solution2.setSolution(solution1);
+            population.add(solution2);
         }
         return population;
     }
@@ -1980,7 +1980,7 @@ public class Algorithms {
         PrintStream printStreamForObjectives = new PrintStream(destinationFileForObjectives);
         PrintStream printStreamForSolutions = new PrintStream(destinationFileForSolutions);
         for (int i = 0; i < numberOfRandomSolutions; i++) {
-            solution1.setSolucao(perturbation(solution, listOfRequests,requestsWichBoardsInNode,requestsWichLeavesInNode,
+            solution1.setSolution(perturbation(solution, listOfRequests,requestsWichBoardsInNode,requestsWichLeavesInNode,
                     numberOfNodes, vehicleCapacity,setOfVehicles, listOfNonAttendedRequests, requestList,loadIndexList, timeBetweenNodes,
                     distanceBetweenNodes,timeWindows));
             //System.out.println(solution1.getStringWIthObjectives());
@@ -2007,7 +2007,7 @@ public class Algorithms {
         PrintStream printStreamForObjectives = new PrintStream(destinationFileForObjectives);
         PrintStream printStreamForSolutions = new PrintStream(destinationFileForSolutions);
         for (int i = 0; i < numberOfRandomSolutions; i++) {
-            solution1.setSolucao(geraPesos(i, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes,
+            solution1.setSolution(geraPesos(i, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes,
                     vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
                     distanceBetweenNodes, timeWindows, currentTime, lastNode));
             System.out.println(solution1.getStringWIthObjectives());

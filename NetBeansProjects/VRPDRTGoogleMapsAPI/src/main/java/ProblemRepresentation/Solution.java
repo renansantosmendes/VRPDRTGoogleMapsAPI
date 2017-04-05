@@ -95,7 +95,7 @@ public class Solution implements Comparable<Solution> {
         logger = new String(solution.getLogger());
     }
 
-    public void setSolucao(Solution solution) {
+    public void setSolution(Solution solution) {
         setSetOfRoutes(solution.getSetOfRoutes());
         setListOfSolutionsDominatedByThisSolution(solution.getListOfSolutionsDominatedByThisSolution());
         setObjectiveFunction(solution.getObjectiveFunction());

@@ -23,6 +23,7 @@ import java.util.Set;
 import ProblemRepresentation.Request;
 import ProblemRepresentation.Solution;
 import static Algorithms.Algorithms.IteratedLocalSearch;
+import static Algorithms.Algorithms.generateInitialPopulation;
 import static Algorithms.Algorithms.rebuildSolution;
 import static Algorithms.Algorithms.perturbation;
 import static Algorithms.Methods.initializePopulation;
@@ -81,8 +82,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 //initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                 for (int i = 0; i < TamPop; i++) {
                     Solution s = new Solution();
-                    s.setSolucao(vizinhoAleatorio(Pop.get(i), i, i + 1, 1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-                    Pop.get(i).setSolucao(s);
+                    s.setSolution(vizinhoAleatorio(Pop.get(i), i, i + 1, 1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    Pop.get(i).setSolution(s);
                 }
 
                 dominanceAlgorithm(Pop, naoDominados);
@@ -192,14 +193,14 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 PrintStream saida2 = new PrintStream(folderName + "\\" + fileName + "-tamanho_arquivo-" + executionNumber + ".txt");
                 PrintStream saida3 = new PrintStream(folderName + "\\" + fileName + "-Execucao-Normalizada-" + executionNumber + ".txt");
                 int maximumSize;
-                
+
                 //Methods.initializePopulation(population, populationSize, listOfRequests, requestsWhichBoardsInNode,
-                        //requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests,
-                        //requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
-                Methods.InicializaPopulacao(population, populationSize, listOfRequests, requestsWhichLeavesInNode, 
-                        requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, 
-                        requestList, loadIndexList,  timeBetweenNodes,distanceBetweenNodes, timeWindows, currentTime, lastNode);
-                
+                //requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests,
+                //requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
+                population = generateInitialPopulation(populationSize, vehicleCapacity, listOfRequests,
+                        requestsWhichBoardsInNode, requestsWhichLeavesInNode, numberOfNodes, setOfVehicles, listOfNonAttendedRequests,
+                        requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
+
                 printPopulation(population);
                 normalizeObjectiveFunctionsValues(population);
                 dominanceAlgorithm(population, nonDominatedSolutions);
@@ -209,18 +210,18 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 fitnessEvaluationForMultiObjectiveOptimization(offspring);
 
                 rouletteWheelSelectionAlgorithm(parents, offspring, maximumSize);
-                
+
                 twoPointsCrossover(offspring, population, maximumSize, probabilityOfCrossover, parents, listOfRequests,
                         requestList, setOfVehicles, listOfNonAttendedRequests, requestsWhichBoardsInNode,
                         requestsWhichLeavesInNode, timeBetweenNodes, distanceBetweenNodes, numberOfNodes,
                         vehicleCapacity, timeWindows);
-                
+
                 mutation2Shuffle(offspring, probabilityOfMutation, listOfRequests, requestsWhichBoardsInNode,
                         requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests,
                         requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 
                 normalizeObjectiveFunctionsValues(fileWithSolutions);
-                
+
                 for (Solution s : fileWithSolutions) {
                     saida1.print("\t" + s.getAggregatedObjective1() + "\t" + s.getAggregatedObjective2() + "\n");
                     saida3.print("\t" + s.getAggregatedObjective1Normalized() + "\t" + s.getAggregatedObjective2Normalized() + "\n");
@@ -585,8 +586,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
         Solution maior = new Solution();
         Solution menor = new Solution();
 
-        maior.setSolucao(Collections.max(Pop));
-        menor.setSolucao(Collections.min(Pop));
+        maior.setSolution(Collections.max(Pop));
+        menor.setSolution(Collections.min(Pop));
         //System.out.println(melhor);
         //System.out.println(pior);
 
@@ -661,8 +662,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
         Solution maior = new Solution();
         Solution menor = new Solution();
 
-        maior.setSolucao(Collections.max(Pop));
-        menor.setSolucao(Collections.min(Pop));
+        maior.setSolution(Collections.max(Pop));
+        menor.setSolution(Collections.min(Pop));
         //System.out.println(melhor);
         //System.out.println(pior);
 
@@ -950,9 +951,9 @@ public class AlgorithmsForMultiObjectiveOptimization {
             List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Solution s0 = new Solution();
         for (int i = 0; i < TamPop; i++) {
-            s0.setSolucao(geraPesos(i, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+            s0.setSolution(geraPesos(i, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
             //Pop.add(s0);
-            Pop.get(i).setSolucao(s0);
+            Pop.get(i).setSolution(s0);
             //System.out.println("s0 = " + s0);
 
         }
@@ -1007,8 +1008,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
         Solution maior = new Solution();
         Solution menor = new Solution();
 
-        maior.setSolucao(Collections.max(Pop));
-        menor.setSolucao(Collections.min(Pop));
+        maior.setSolution(Collections.max(Pop));
+        menor.setSolution(Collections.min(Pop));
 
         for (Solution s : Pop) {
             s.setFitness((maior.getFitness() - s.getFitness()) / (maior.getFitness() - menor.getFitness()));
@@ -1332,9 +1333,9 @@ public class AlgorithmsForMultiObjectiveOptimization {
             for (int j = 0; j < tamanhoArquivo; j++) {
                 if (arquivo.get(i).getAggregatedObjective1() < arquivo.get(j).getAggregatedObjective1()) {
                     Solution s = new Solution();
-                    s.setSolucao(arquivo.get(i));
-                    arquivo.get(i).setSolucao(arquivo.get(j));
-                    arquivo.get(j).setSolucao(s);
+                    s.setSolution(arquivo.get(i));
+                    arquivo.get(i).setSolution(arquivo.get(j));
+                    arquivo.get(j).setSolution(s);
                 }
             }
         }
@@ -1557,12 +1558,12 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
         while (k <= r) {
             System.out.println("k = " + k);
-            s.setSolucao(firstImprovementInMultiObjectiveOptimization(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            s.setSolution(firstImprovementInMultiObjectiveOptimization(s_0, k, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
             //System.out.println(s);
-            //s.setSolucao(bestImprovementInMultiObjectiveOptimization(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
+            //s.setSolution(bestImprovementInMultiObjectiveOptimization(s_0,k,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
             if (((s.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (s.getAggregatedObjective2() < melhor.getAggregatedObjective2())) || ((s.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (s.getAggregatedObjective2() == melhor.getAggregatedObjective2()))
                     || ((s.getAggregatedObjective1() == melhor.getAggregatedObjective1()) && (s.getAggregatedObjective2() < melhor.getAggregatedObjective2()))) {
-                melhor.setSolucao(s);
+                melhor.setSolution(s);
                 k = 1;
             } else {
                 k = k + 1;
@@ -1588,7 +1589,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
 //            int posicao = rnd.nextInt(arquivo.size());
 //            System.out.println(posicao);
 //            Solution s = new Solution(MOVND(arquivo.get(posicao), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-//            arquivo.get(posicao).setSolucao(s);
+//            arquivo.get(posicao).setSolution(s);
             int posicao = rnd.nextInt(naoDominados.size());
             System.out.println(posicao);
             Solution s = new Solution(MOVND(naoDominados.get(posicao), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
@@ -1608,8 +1609,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
         int MAXITER = 20;
 
         //BuscaLocal
-        s.setSolucao(MOVND(s_0, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-        //s.setSolucao(firstImprovementAlgorithm(s_0,2,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
+        s.setSolution(MOVND(s_0, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+        //s.setSolution(firstImprovementAlgorithm(s_0,2,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
         int cont = 0;
         while (cont < MAXITER) {
             //System.out.println("Entrou no laço do IteratedLocalSearch\tFO = " + s.getfObjetivo());
@@ -1617,12 +1618,12 @@ public class AlgorithmsForMultiObjectiveOptimization {
             System.out.println("Interação MOILS = " + cont);
 
             //Perturbação
-            s_linha.setSolucao(perturbation(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+            s_linha.setSolution(perturbation(s, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
             //System.out.println("Apos perturbação s'= " + s_linha);
 
             //BuscaLocal
-            s_2linha.setSolucao(MOVND(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
-            //s_2linha.setSolucao(firstImprovementAlgorithm(s_0,2,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
+            s_2linha.setSolution(MOVND(s_linha, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+            //s_2linha.setSolution(firstImprovementAlgorithm(s_0,2,listRequests,P,K,U,Pin,Pout, d, c, n, Qmax,TimeWindows));
             //System.out.println("Apos busca local s'' = " + s_2linha);
             //CriterioAceitacao
             if ((s_2linha.getAggregatedObjective1() < s_0.getAggregatedObjective1()) && (s_2linha.getAggregatedObjective2() < s_0.getAggregatedObjective2())
@@ -1631,8 +1632,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 //System.out.println("s_0 = " + s_0.getfObjetivo());
 
                 //System.out.println("s_0 = " + s_0.getfObjetivo());//System.out.println("s_2linha = "+s_2linha.getfObjetivo());
-                s.setSolucao(s_2linha);
-                s_0.setSolucao(s_2linha);
+                s.setSolution(s_2linha);
+                s_0.setSolution(s_2linha);
                 //historico.add(s_2linha);
                 System.out.println("s_0 = " + s_0);
                 //System.out.println("Atualizou\tFO = " + s.getfObjetivo1() );
@@ -1647,8 +1648,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
         //System.out.println("Historico = ");
         System.out.println("Soluçao retornada do ILS = " + s_0);
         //ImprimePopulacao(historico);
-        //s.setSolucao(copyBestSolution(historico,s));
-        //s.setSolucao(historico.get(1));
+        //s.setSolution(copyBestSolution(historico,s));
+        //s.setSolution(historico.get(1));
         return s_0;
     }
 
@@ -1679,11 +1680,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         if (vizinho.get(i) != vizinho.get(j)) {
                             Collections.swap(vizinho, i, j);
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI TROCA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 return melhor;
                             }
                         }
@@ -1701,11 +1702,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         if (vizinho.get(i) != j) {
                             vizinho.set(i, j);
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI INSERCAO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 return melhor;
                             }
                         }
@@ -1724,11 +1725,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                             vizinho.remove(i);
                             vizinho.add(j, original.get(i));
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 return melhor;
                             }
                         }
@@ -1793,11 +1794,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         vizinho.add(posicao2, original.get(posicao1));
                     }
 
-                    aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                     if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                         //System.out.println("ACHEI ALEATORIA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                        melhor.setSolucao(aux);
+                        melhor.setSolution(aux);
                         return melhor;
 
                     }
@@ -1820,11 +1821,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 return melhor;
 
                             }
@@ -1847,11 +1848,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
                                 return melhor;
 
                             }
@@ -1892,11 +1893,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         if (vizinho.get(i) != vizinho.get(j)) {
                             Collections.swap(vizinho, i, j);
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI TROCA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
 
                             }
                         }
@@ -1914,11 +1915,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         if (vizinho.get(i) != j) {
                             vizinho.set(i, j);
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI INSERCAO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
 
                             }
                         }
@@ -1937,11 +1938,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                             vizinho.remove(i);
                             vizinho.add(j, original.get(i));
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
 
                             }
                         }
@@ -2006,11 +2007,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         vizinho.add(posicao2, original.get(posicao1));
                     }
 
-                    aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                    aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                     if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                         //System.out.println("ACHEI ALEATORIA-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                        melhor.setSolucao(aux);
+                        melhor.setSolution(aux);
 
                     }
 
@@ -2032,11 +2033,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
 
                             }
                         }
@@ -2058,11 +2059,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
                             vizinho.addAll(contador, nosRetirados);
                             contador++;
 
-                            aux.setSolucao(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
+                            aux.setSolution(rebuildSolution(new ArrayList<Integer>(vizinho), listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
 
                             if ((aux.getAggregatedObjective1() < melhor.getAggregatedObjective1()) && (aux.getAggregatedObjective2() < melhor.getAggregatedObjective2())) {
                                 //System.out.println("ACHEI MOVIMENTO-> "+aux.getfObjetivo()+" "+ aux.getNonAttendedRequestsList().size());
-                                melhor.setSolucao(aux);
+                                melhor.setSolution(aux);
 
                             }
                         }

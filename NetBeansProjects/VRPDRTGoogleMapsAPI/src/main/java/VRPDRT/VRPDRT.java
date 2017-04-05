@@ -60,8 +60,8 @@ public class VRPDRT {
         String adjacenciesData = "adjacencies_bh_nodes_little_test";
         final Integer numberOfVehicles = 50;
         final Integer vehicleCapacity = 10;
-        Integer populationSize = 10;
-        Integer maximumNumberOfGenerations = 5;
+        Integer populationSize = 100;
+        Integer maximumNumberOfGenerations = 15;
         Integer maximumNumberOfExecutions = 1;
         double probabilityOfMutation = 0.02;
         double probabilityOfCrossover = 0.7;
@@ -75,33 +75,17 @@ public class VRPDRT {
         Algorithms.printProblemInformations(listOfRequests, numberOfVehicles, vehicleCapacity, instanceName, adjacenciesData, nodesData);
 
         Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
-
-        Solution solution = greedyConstructive(0.2, 0.15, 0.55, 0.10, listOfRequests, requestsWichBoardsInNode,
-                requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList,
-                loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
-
-        System.out.println(solution);
-        
-        //solution.getSetOfRoutes().forEach(System.out::println);
-        //IteratedLocalSearch(solution, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity,
-        //        setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows);
-        //solution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
-        //solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
-        //System.out.println(solution);
+       
 //        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
 //                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
 //                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
 //                distanceBetweenNodes, timeWindows, currentTime, lastNode);
         
-//        int numberOfRandomSolutions = 20;
-//        generateRandomSolutionsUsingPerturbation(numberOfRandomSolutions,vehicleCapacity, listOfRequests,
-//                requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes,  setOfVehicles,  listOfNonAttendedRequests, 
-//                 requestList,  loadIndexList,  timeBetweenNodes,  distanceBetweenNodes, timeWindows, currentTime,  lastNode);
-
-        generateInitialPopulation(populationSize,vehicleCapacity, listOfRequests,
+        int numberOfRandomSolutions = 20;
+        generateRandomSolutionsUsingPerturbation(numberOfRandomSolutions,vehicleCapacity, listOfRequests,
                 requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes,  setOfVehicles,  listOfNonAttendedRequests, 
-                 requestList,  loadIndexList,  timeBetweenNodes,  distanceBetweenNodes, timeWindows, currentTime,  lastNode)
-                .forEach(System.out::println);
+                 requestList,  loadIndexList,  timeBetweenNodes,  distanceBetweenNodes, timeWindows, currentTime,  lastNode);
+
     }
 
 }
