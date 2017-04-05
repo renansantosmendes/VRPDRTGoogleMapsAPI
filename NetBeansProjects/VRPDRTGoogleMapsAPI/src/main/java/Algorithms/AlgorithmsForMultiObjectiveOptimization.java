@@ -193,10 +193,13 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 PrintStream saida3 = new PrintStream(folderName + "\\" + fileName + "-Execucao-Normalizada-" + executionNumber + ".txt");
                 int maximumSize;
                 
-                Methods.initializePopulation(population, populationSize, listOfRequests, requestsWhichBoardsInNode,
-                        requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests,
-                        requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
-
+                //Methods.initializePopulation(population, populationSize, listOfRequests, requestsWhichBoardsInNode,
+                        //requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests,
+                        //requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
+                Methods.InicializaPopulacao(population, populationSize, listOfRequests, requestsWhichLeavesInNode, 
+                        requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, 
+                        requestList, loadIndexList,  timeBetweenNodes,distanceBetweenNodes, timeWindows, currentTime, lastNode);
+                
                 printPopulation(population);
                 normalizeObjectiveFunctionsValues(population);
                 dominanceAlgorithm(population, nonDominatedSolutions);

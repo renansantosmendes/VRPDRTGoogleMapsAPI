@@ -66,6 +66,7 @@ import static Algorithms.Methods.mutation2Shuffle;
 import static Algorithms.Methods.mutation2Opt;
 import static Algorithms.Methods.mutacaoShuffle;
 import static Algorithms.Methods.mutationSwap;
+import java.util.OptionalLong;
 
 public class Algorithms {
 
@@ -106,8 +107,8 @@ public class Algorithms {
 
         for (Route r : S.getSetOfRoutes()) {
             totalCost += W;
-            for (int i = 0, j = r.getListaVisitacao().size(); i < j - 1; i++) {
-                totalCost += c.get(r.getListaVisitacao().get(i)).get(r.getListaVisitacao().get(i + 1));
+            for (int i = 0, j = r.getNodesVisitationList().size(); i < j - 1; i++) {
+                totalCost += c.get(r.getNodesVisitationList().get(i)).get(r.getNodesVisitationList().get(i + 1));
             }
         }
 
@@ -125,8 +126,8 @@ public class Algorithms {
 
         for (Route r : S.getSetOfRoutes()) {
             totalCost += W;
-            for (int i = 0, j = r.getListaVisitacao().size(); i < j - 1; i++) {
-                totalCost += c.get(r.getListaVisitacao().get(i)).get(r.getListaVisitacao().get(i + 1));
+            for (int i = 0, j = r.getNodesVisitationList().size(); i < j - 1; i++) {
+                totalCost += c.get(r.getNodesVisitationList().get(i)).get(r.getNodesVisitationList().get(i + 1));
             }
         }
 
@@ -136,7 +137,7 @@ public class Algorithms {
         for (Route r : S.getSetOfRoutes()) {
             int soma = 0;
 
-            for (Request request : r.getListaAtendimento()) {
+            for (Request request : r.getRequestAttendanceList()) {
                 //System.out.println("Solicitação = " + request);
                 if (request.getDeliveryTime() > request.getDeliveryL()) {
                     long dif = request.getDeliveryTime() - request.getDeliveryL();
@@ -163,8 +164,8 @@ public class Algorithms {
 
         for (Route r : S.getSetOfRoutes()) {
             totalCost += W;
-            for (int i = 0, j = r.getListaVisitacao().size(); i < j - 1; i++) {
-                totalCost += c.get(r.getListaVisitacao().get(i)).get(r.getListaVisitacao().get(i + 1));
+            for (int i = 0, j = r.getNodesVisitationList().size(); i < j - 1; i++) {
+                totalCost += c.get(r.getNodesVisitationList().get(i)).get(r.getNodesVisitationList().get(i + 1));
             }
         }
 
@@ -179,7 +180,7 @@ public class Algorithms {
         for (Route r : S.getSetOfRoutes()) {
             int soma = 0;
 
-            for (Request request : r.getListaAtendimento()) {
+            for (Request request : r.getRequestAttendanceList()) {
                 //System.out.println("Solicitação = " + request);
                 if (request.getDeliveryTime() > request.getDeliveryL()) {
                     long dif = request.getDeliveryTime() - request.getDeliveryL();
@@ -197,71 +198,74 @@ public class Algorithms {
         return somaTotal;
     }
 
-    public static int FO3(Solution S) {
+    public static int FO3(Solution solution) {
         int diferenca;
-        Route maiorRota = new Route(Collections.max(S.getSetOfRoutes()));
-        Route menorRota = new Route(Collections.min(S.getSetOfRoutes()));
-        diferenca = maiorRota.getListaAtendimento().size() - menorRota.getListaAtendimento().size();
+        Route maiorRota = new Route(Collections.max(solution.getSetOfRoutes()));
+        Route menorRota = new Route(Collections.min(solution.getSetOfRoutes()));
+        diferenca = maiorRota.getNodesVisitationList().size() - menorRota.getNodesVisitationList().size();
 
         return diferenca;
-        //S.setDif(maiorRota.getListaAtendimento().size() - menorRota.getListaAtendimento().size());
-
     }
 
-    public static int FO4(Solution S) {
-        return S.getNonAttendedRequestsList().size();
+    public static int FO4(Solution solution) {
+        return solution.getNonAttendedRequestsList().size();
     }
 
-    public static int FO5(Solution S) {
-        return S.getSetOfRoutes().size();
+    public static int FO5(Solution solution) {
+        return solution.getSetOfRoutes().size();
     }
 
-    public static int FO6(Solution S) {
+    public static int FO6(Solution solution) {
         Set<Route> rotas = new HashSet<>();
-        rotas.addAll(S.getSetOfRoutes());
+        rotas.addAll(solution.getSetOfRoutes());
         int soma = 0;
         for (Route r : rotas) {
-            for (Request request : r.getListaAtendimento()) {
+            for (Request request : r.getRequestAttendanceList()) {
                 soma += request.getDeliveryTime() - request.getPickupTime();
             }
         }
         return soma;
     }
 
-    public static int FO7(Solution S) {
+    public static int FO7(Solution solution) {
         Set<Route> rotas = new HashSet<>();
-        rotas.addAll(S.getSetOfRoutes());
+        rotas.addAll(solution.getSetOfRoutes());
         int soma = 0;
         for (Route r : rotas) {
-            for (Request request : r.getListaAtendimento()) {
+            for (Request request : r.getRequestAttendanceList()) {
                 soma += request.getPickupTime() - request.getPickupE();
             }
         }
         return soma;
     }
 
-    public static int FO8(Solution S) {
+    public static int FO8(Solution solution) {
         Set<Route> rotas = new HashSet<>();
-        rotas.addAll(S.getSetOfRoutes());
+        rotas.addAll(solution.getSetOfRoutes());
         int soma = 0;
         for (Route r : rotas) {
-            for (Request request : r.getListaAtendimento()) {
+            for (Request request : r.getRequestAttendanceList()) {
                 soma += Math.abs(Math.max(request.getDeliveryE() - request.getDeliveryTime(), 0));
             }
         }
         return soma;
     }
 
-    public static int FO9(Solution S) {
-        Set<Route> rotas = new HashSet<>();
-        rotas.addAll(S.getSetOfRoutes());
+    public static long FO9(Solution solution) {
+        Set<Route> routes = new HashSet<>();
+        routes.addAll(solution.getSetOfRoutes());
+        List<Long> routeEndTime = new ArrayList<>();
         int soma = 0;
-        for (Route r : rotas) {
-            for (Request request : r.getListaAtendimento()) {
-                soma += Math.max(request.getDeliveryTime() - request.getDeliveryL(), 0);
-            }
+        for (Route route : routes) {
+            long time = route.getTimeListTheVehicleLeavesTheNode().get(route.getNodesVisitationList().size() - 2);
+            routeEndTime.add(time);
         }
-        return soma;
+        routeEndTime.sort(Comparator.naturalOrder());
+        
+        Long greaterRoute = routeEndTime.get(routeEndTime.size() - 1);
+        Long smallerRoute = routeEndTime.get(0);  
+              
+        return greaterRoute - smallerRoute;
     }
 
     public static void FOagregados(Solution S, double alfa, double beta, double gama, double delta, double epslon) {
@@ -274,7 +278,7 @@ public class Algorithms {
 
         //Agregação feita com base na análise de cluster, utilizando a matriz de correlação amostral Rij
         S.setAggregatedObjective1(800 * S.getNumberOfVehicles() + 500 * S.getNumberOfNonAttendedRequests() + S.getTotalTravelTime() + 20 * S.getTotalWaintingTime());
-        S.setAggregatedObjective2(S.getTotalDistance() + S.getTotalDelay() + 20 * S.getChargeBalance());
+        S.setAggregatedObjective2(S.getTotalDistance() + S.getTotalDeliveryDelay() + 20 * S.getNumberOfStopPointsChargeBalance());
 
 //        S.setF1(alfa * S.getfObjetivo2() + /*beta**/ 10 * S.getfObjetivo3() + /*delta**/ 50 * S.getfObjetivo4());
 //        S.setF2(gama * S.getfObjetivo1() +/*epslon*/ 800 * S.getfObjetivo5());
@@ -410,14 +414,14 @@ public class Algorithms {
         //S.setFuncaoObjetivo(FuncaoObjetivo(S,c));
         solution.setNonAttendedRequestsList(listOfNonAttendedRequests);
         solution.setTotalDistance(FO1(solution, distanceBetweenNodes));
-        solution.setTotalDelay(FO2(solution, distanceBetweenNodes));
-        solution.setChargeBalance(FO3(solution));
+        solution.setTotalDeliveryDelay(FO2(solution, distanceBetweenNodes));
+        solution.setNumberOfStopPointsChargeBalance(FO3(solution));
         solution.setNumberOfNonAttendedRequests(FO4(solution));
         solution.setNumberOfVehicles(FO5(solution));
         solution.setTotalTravelTime(FO6(solution));
         solution.setTotalWaintingTime(FO7(solution));
         solution.setDeliveryTimeWindowAntecipation(FO8(solution));
-        solution.setDeliveryTimeWindowDelay(FO9(solution));
+        solution.setTotalRouteTimeChargeBanlance(FO9(solution));
         FOagregados(solution, 1, 1, 1, 1, 1);
         solution.setLogger(log);
         solution.linkTheRoutes();
@@ -438,8 +442,8 @@ public class Algorithms {
         P.addAll(listRequests);
 
         //Step 1
-        Solution S = new Solution();
-        S.setLinkedRouteList(vizinho);
+        Solution solution = new Solution();
+        solution.setLinkedRouteList(vizinho);
         String log = "";
 
         int currentK;
@@ -741,7 +745,7 @@ public class Algorithms {
                     //log += R.toString()+"\n";
                     //System.out.println("Route "+R+" - "+currentTime);
                     currentTime += d.get(lastNode).get(0);
-                    S.getSetOfRoutes().add(R);
+                    solution.getSetOfRoutes().add(R);
                 }
 
             }
@@ -760,26 +764,26 @@ public class Algorithms {
             /*}while(!U.isEmpty());*/
         }
         //System.out.print("Usize = "+U.size()+"\n"+FO(S,U.size())+" -> ");
-        S.setNonAttendedRequestsList(U);
-        S.setTotalDistance(FO1(S, c));
-        S.setTotalDelay(FO2(S, c));
-        S.setChargeBalance(FO3(S));
-        S.setNumberOfNonAttendedRequests(FO4(S));
-        S.setNumberOfVehicles(FO5(S));
-        S.setTotalTravelTime(FO6(S));
-        S.setTotalWaintingTime(FO7(S));
-        S.setDeliveryTimeWindowAntecipation(FO8(S));
-        S.setDeliveryTimeWindowDelay(FO9(S));
-        FOagregados(S, 1, 1, 1, 1, 1);
-        S.setLogger(log);
+        solution.setNonAttendedRequestsList(U);
+        solution.setTotalDistance(FO1(solution, c));
+        solution.setTotalDeliveryDelay(FO2(solution, c));
+        solution.setNumberOfStopPointsChargeBalance(FO3(solution));
+        solution.setNumberOfNonAttendedRequests(FO4(solution));
+        solution.setNumberOfVehicles(FO5(solution));
+        solution.setTotalTravelTime(FO6(solution));
+        solution.setTotalWaintingTime(FO7(solution));
+        solution.setDeliveryTimeWindowAntecipation(FO8(solution));
+        solution.setTotalRouteTimeChargeBanlance(FO9(solution));
+        FOagregados(solution, 1, 1, 1, 1, 1);
+        solution.setLogger(log);
         //S.setfObjetivo1((int) FuncaoObjetivo(S, c));
-        S.setObjectiveFunction(FuncaoDeAvaliacao(S, listRequests, c));
+        solution.setObjectiveFunction(FuncaoDeAvaliacao(solution, listRequests, c));
         //System.out.println(FO(S,U.size())+"\t"+U.size());
         //System.out.println(FO(S)+"\t"+S.getNonAttendedRequestsList().size());
         //if(ativaLog)
         //	System.out.println(S.getLogger());
 
-        return S;
+        return solution;
     }
 
     public static void GeneticAlgorithm(List<Solution> Pop, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests,
@@ -799,7 +803,7 @@ public class Algorithms {
             Solution SBest = new Solution();
             SBest.setObjectiveFunction(1000000000);
             SBest.setTotalDistance(1000000000);
-            SBest.setTotalDelay(1000000000);
+            SBest.setTotalDeliveryDelay(1000000000);
 
             //System.out.println("Teste do elitismo, SBest = "+ SBest);
             List<Integer> pais = new ArrayList<>();
@@ -839,7 +843,7 @@ public class Algorithms {
                 //OrdenaPopulacao(Pop);
                 printPopulation(Pop);
                 SBest.setObjectiveFunction(1000000000);
-                SBest.setTotalDelay(1000000000);
+                SBest.setTotalDeliveryDelay(1000000000);
                 //SBest.setSolucao(S);
                 //System.out.println("População Inicial");
                 //ImprimePopulacao(Pop);
@@ -1055,9 +1059,9 @@ public class Algorithms {
     public static Solution perturbation(Solution s, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
             List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows) {
-        Random rnd = new Random();
-        Random p1 = new Random();
-        Random p2 = new Random();
+        Random rnd = new Random(1);
+        Random p1 = new Random(2);
+        Random p2 = new Random(3);
         int posicao1, posicao2;
         int NUMPERT = 2;//número de perturções
 
@@ -1078,6 +1082,30 @@ public class Algorithms {
         s.setSolucao(S);
 
         return s;
+    }
+    
+     public static Solution geraPesos(Integer semente, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
+            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d,
+            List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
+        //for (int i = 0; i < 1; i++) {
+        Solution S = new Solution();
+        Random rnd = new Random(semente);
+        //Random rnd = new Random();
+        double x, y, z, w;
+        do {
+            x = rnd.nextDouble();
+            y = rnd.nextDouble();
+            z = rnd.nextDouble();
+            w = 1 - x - y - z;
+        } while (x + y + z > 1);
+
+        //System.out.println(x + "\t" + y + "\t" + z + "\t" + w);
+        S.setSolucao(greedyConstructive(x, y, z, w, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+        //System.out.println("SolucaoGulosaAleatoria = "+ S);
+        //S.setSolucao(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+        //Pop.add(S);
+        return S;
+        //}
     }
 
     public static Solution PerturbacaoSemente(Solution s, List<Request> listRequests, Map<Integer, List<Request>> Pin,
@@ -1139,29 +1167,7 @@ public class Algorithms {
         return s_0;
     }
 
-    public static Solution geraPesos(Integer semente, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
-            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d,
-            List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
-        //for (int i = 0; i < 1; i++) {
-        Solution S = new Solution();
-        Random rnd = new Random(semente);
-        //Random rnd = new Random();
-        double x, y, z, w;
-        do {
-            x = rnd.nextDouble();
-            y = rnd.nextDouble();
-            z = rnd.nextDouble();
-            w = 1 - x - y - z;
-        } while (x + y + z > 1);
-
-        //System.out.println(x + "\t" + y + "\t" + z + "\t" + w);
-        S.setSolucao(greedyConstructive(x, y, z, w, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
-        //System.out.println("SolucaoGulosaAleatoria = "+ S);
-        //S.setSolucao(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
-        //Pop.add(S);
-        return S;
-        //}
-    }
+    
 
     public static void LeituraPesosArquivo(List<Solution> Pop, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
             Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Integer>> d,
@@ -1225,7 +1231,7 @@ public class Algorithms {
         Solution originalFinal = new Solution();
 
         SStar.setTotalDistance(9999999);
-        SStar.setTotalDelay(9999999);
+        SStar.setTotalDeliveryDelay(9999999);
         double tempoInicio, tempoFim, tempo = 0;
      
 
@@ -1292,7 +1298,7 @@ public class Algorithms {
                 auxProbAcumulada += e.getValue().get(2);
             }
 
-            S.resetSolucao(99999999, 9999999, 9999999, 9999999, 9999999, 9999999, 9999999, 9999999, 9999999, 9999999);
+            //S.resetSolucao(99999999, 9999999, 9999999, 9999999, 9999999, 9999999, 9999999, 9999999,  9999999);
 
             itK = K.iterator();
             //construction phase
@@ -1780,14 +1786,13 @@ public class Algorithms {
             //solutionCost = FO(S,U.size());
             S.setNonAttendedRequestsList(U);
             S.setTotalDistance(FO1(S, c));
-            S.setTotalDelay(FO2(S, c));
-            S.setChargeBalance(FO3(S));
+            S.setTotalDeliveryDelay(FO2(S, c));
+            S.setNumberOfStopPointsChargeBalance(FO3(S));
             S.setNumberOfNonAttendedRequests(FO4(S));
             S.setNumberOfVehicles(FO5(S));
             S.setTotalTravelTime(FO6(S));
             S.setTotalWaintingTime(FO7(S));
             S.setDeliveryTimeWindowAntecipation(FO8(S));
-            S.setDeliveryTimeWindowDelay(FO9(S));
             S.setObjectiveFunction(FuncaoDeAvaliacao(S, listRequests, c));
 
             FOagregados(S, 1, 1, 1, 1, 1);
@@ -1927,6 +1932,30 @@ public class Algorithms {
 
         return melhor;
     }
+    
+    public static List<Solution> generateInitialPopulation(int populationSize, final Integer vehicleCapacity, 
+            List<Request> listOfRequests, Map<Integer, List<Request>> requestsWichBoardsInNode, 
+            Map<Integer, List<Request>> requestsWichLeavesInNode, Integer numberOfNodes, 
+            Set<Integer> setOfVehicles, List<Request> listOfNonAttendedRequests, List<Request> requestList, 
+            List<Integer> loadIndexList, List<List<Long>> timeBetweenNodes, List<List<Long>> distanceBetweenNodes, 
+            Long timeWindows, Long currentTime, Integer lastNode){
+        
+        Solution solution = greedyConstructive(0.2, 0.15, 0.55, 0.1,listOfRequests,requestsWichBoardsInNode, 
+                requestsWichLeavesInNode, numberOfNodes, vehicleCapacity,setOfVehicles, listOfNonAttendedRequests, requestList,
+                loadIndexList,timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime,lastNode);
+        
+        Solution solution1 = new Solution();
+        List<Solution> population = new ArrayList<>();
+        for (int i = 0; i < populationSize; i++) {
+            solution1.setSolucao(perturbation(solution, listOfRequests,requestsWichBoardsInNode,requestsWichLeavesInNode,
+                    numberOfNodes, vehicleCapacity,setOfVehicles, listOfNonAttendedRequests, requestList,loadIndexList, timeBetweenNodes,
+                    distanceBetweenNodes,timeWindows));
+            //System.out.println(solution1.getStringWIthObjectives());
+            System.out.println(solution1);
+            population.add(solution1);
+        }
+        return population;
+    }
 
     public static void generateRandomSolutionsUsingPerturbation(int numberOfRandomSolutions, final Integer vehicleCapacity, 
             List<Request> listOfRequests, Map<Integer, List<Request>> requestsWichBoardsInNode, 
@@ -1954,7 +1983,8 @@ public class Algorithms {
             solution1.setSolucao(perturbation(solution, listOfRequests,requestsWichBoardsInNode,requestsWichLeavesInNode,
                     numberOfNodes, vehicleCapacity,setOfVehicles, listOfNonAttendedRequests, requestList,loadIndexList, timeBetweenNodes,
                     distanceBetweenNodes,timeWindows));
-            System.out.println(solution1.getStringWIthObjectives());
+            //System.out.println(solution1.getStringWIthObjectives());
+            System.out.println(solution1);
             printStreamForObjectives.print(solution1.getStringWIthObjectives() + "\n");
             printStreamForSolutions.print(solution1 + "\n");
         }

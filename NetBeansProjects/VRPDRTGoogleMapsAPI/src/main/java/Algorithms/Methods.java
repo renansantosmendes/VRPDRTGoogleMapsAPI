@@ -47,6 +47,7 @@ import static Algorithms.Algorithms.rebuildSolution;
 import static Algorithms.Algorithms.perturbation;
 import static Algorithms.AlgorithmsForMultiObjectiveOptimization.initializePopulation;
 import static Algorithms.Algorithms.VariableNeighborhoodDescend;
+import static Algorithms.Algorithms.geraPesos;
 
 /**
  *
@@ -314,10 +315,10 @@ public class Methods {
                     R.addDesembarque((Request) request.clone(), currentTime);
                 } catch (Exception e) {
                     //System.out.print("solucao vigente: " + S + " R problema\n");
-                    System.out.println("L Atend (" + R.getListaAtendimento().size() + ") " + R.getListaAtendimento());
-                    System.out.println("L Visit (" + R.getListaVisitacao().size() + ") " + R.getListaVisitacao());
-                    System.out.println("Qik (" + R.getQik().size() + ") " + R.getQik());
-                    System.out.println("Tempoik (" + R.getTempoik().size() + ") " + R.getTempoik());
+                    System.out.println("L Atend (" + R.getRequestAttendanceList().size() + ") " + R.getRequestAttendanceList());
+                    System.out.println("L Visit (" + R.getNodesVisitationList().size() + ") " + R.getNodesVisitationList());
+                    System.out.println("Qik (" + R.getVehicleOccupationWhenLeavesNode().size() + ") " + R.getVehicleOccupationWhenLeavesNode());
+                    System.out.println("Tempoik (" + R.getTimeListTheVehicleLeavesTheNode().size() + ") " + R.getTimeListTheVehicleLeavesTheNode());
                     System.exit(-1);
                 }
                 //EXTRA
@@ -505,6 +506,38 @@ public class Methods {
             }
         }
     }
+    
+    public static void InicializaPopulacao(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+            Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U,
+            List<Request> P, List<Integer> m, List<List<Long>> d, List<List<Long>> c,
+            Long TimeWindows, Long currentTime, Integer lastNode) {
+
+        for (int i = 0; i < TamPop; i++) {
+            Solution S = new Solution();
+            S.setSolucao(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+            Pop.add(S);
+        }
+
+        for (int i = 0; i < TamPop; i++) {
+            Solution solucao = new Solution(Pop.get(i));
+        }
+        //Coloquei a linha de baixo, que estava no codigo principal dos algoritmos multi
+        Inicializa(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+    }
+    
+    
+     public static void Inicializa(List<Solution> Pop, int TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout,
+            Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d,
+            List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
+        Solution s0 = new Solution();
+        for (int i = 0; i < TamPop; i++) {
+            s0.setSolucao(geraPesos(i, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+            //Pop.add(s0);
+            Pop.get(i).setSolucao(s0);
+            //System.out.println("s0 = " + s0);
+
+        }
+    }
 
     public static void initializePopulation(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U,
@@ -523,7 +556,7 @@ public class Methods {
             Solution solucao = new Solution(Pop.get(i));
         }
         //Coloquei a linha de baixo, que estava no codigo principal dos algoritmos multi
-        initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+        //initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
     }
 
     public static void InicializaPopulacaoPerturbacao(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
@@ -535,7 +568,8 @@ public class Methods {
             Solution S = new Solution();
             Solution S_linha = new Solution();
             S.setSolucao(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
-            S_linha.setSolucao(perturbation(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+            //S_linha.setSolucao(perturbation(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+            S_linha.setSolucao(PerturbacaoSemente(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
             Pop.add(S_linha);
         }
     }
@@ -682,14 +716,13 @@ public class Methods {
         //S.setFuncaoObjetivo(FuncaoObjetivo(S,c));
         S.setNonAttendedRequestsList(U);
         S.setTotalDistance(FO1(S, c));
-        S.setTotalDelay(FO2(S, c));
-        S.setChargeBalance(FO3(S));
+        S.setTotalDeliveryDelay(FO2(S, c));
+        S.setNumberOfStopPointsChargeBalance(FO3(S));
         S.setNumberOfNonAttendedRequests(FO4(S));
         S.setNumberOfVehicles(FO5(S));
         S.setTotalTravelTime(FO6(S));
         S.setTotalWaintingTime(FO7(S));
         S.setDeliveryTimeWindowAntecipation(FO8(S));
-        S.setDeliveryTimeWindowDelay(FO9(S));
         FOagregados(S, 1, 1, 1, 1, 1);
         S.setLogger(log);
         S.linkTheRoutes();
@@ -969,7 +1002,7 @@ public class Methods {
 
             NewPop.add(s1);
             NewPop.add(s2);
-            //s1.resetSolucao(-1);
+            //s1.resetSolution(-1);
             //System.out.println("Pai = "+ pai +" Mae = " + mae);
             filho1.clear();
             filho2.clear();
@@ -1051,7 +1084,7 @@ public class Methods {
 
                 NewPop.add(s1);
                 NewPop.add(s2);
-                //s1.resetSolucao(-1);
+                //s1.resetSolution(-1);
                 //System.out.println("Pai = "+ pai +" Mae = " + mae);
                 filho1.clear();
                 filho2.clear();

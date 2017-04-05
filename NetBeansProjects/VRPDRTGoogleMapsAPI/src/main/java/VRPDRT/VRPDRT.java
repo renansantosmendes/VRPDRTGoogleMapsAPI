@@ -7,6 +7,8 @@ package VRPDRT;
 
 import Algorithms.Algorithms;
 import static Algorithms.Algorithms.IteratedLocalSearch;
+import static Algorithms.Algorithms.generateInitialPopulation;
+import static Algorithms.Algorithms.generateRandomSolutionsUsingPerturbation;
 import static Algorithms.Algorithms.greedyConstructive;
 import Algorithms.Methods;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class VRPDRT {
     static List<Integer> loadIndexList = new LinkedList<>();
     static Set<Integer> setOfVehicles = new HashSet<>();
     static List<Request> listOfNonAttendedRequests = new ArrayList<>();
-    static List<Request> P = new ArrayList<>();
+    static List<Request> requestList = new ArrayList<>();
 
     //-------------------Test--------------------------------
     static Long currentTime;
@@ -53,7 +55,7 @@ public class VRPDRT {
 
     public static void main(String[] args) throws ApiException, InterruptedException, IOException {
 
-        String instanceName = "r050n12tw10";
+        String instanceName = "r250n12tw10";
         String nodesData = "bh_nodes_little";
         String adjacenciesData = "adjacencies_bh_nodes_little_test";
         final Integer numberOfVehicles = 50;
@@ -75,21 +77,31 @@ public class VRPDRT {
         Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
 
         Solution solution = greedyConstructive(0.2, 0.15, 0.55, 0.10, listOfRequests, requestsWichBoardsInNode,
-                requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, P,
+                requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList,
                 loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 
-        //System.out.println(solution);
+        System.out.println(solution);
+        
+        //solution.getSetOfRoutes().forEach(System.out::println);
         //IteratedLocalSearch(solution, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity,
-        //        setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows);
+        //        setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows);
         //solution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         //solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         //System.out.println(solution);
+//        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
+//                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
+//                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
+//                distanceBetweenNodes, timeWindows, currentTime, lastNode);
         
-        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
-                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
-                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, P, loadIndexList, timeBetweenNodes,
-                distanceBetweenNodes, timeWindows, currentTime, lastNode);
-        
+//        int numberOfRandomSolutions = 20;
+//        generateRandomSolutionsUsingPerturbation(numberOfRandomSolutions,vehicleCapacity, listOfRequests,
+//                requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes,  setOfVehicles,  listOfNonAttendedRequests, 
+//                 requestList,  loadIndexList,  timeBetweenNodes,  distanceBetweenNodes, timeWindows, currentTime,  lastNode);
+
+        generateInitialPopulation(populationSize,vehicleCapacity, listOfRequests,
+                requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes,  setOfVehicles,  listOfNonAttendedRequests, 
+                 requestList,  loadIndexList,  timeBetweenNodes,  distanceBetweenNodes, timeWindows, currentTime,  lastNode)
+                .forEach(System.out::println);
     }
 
 }

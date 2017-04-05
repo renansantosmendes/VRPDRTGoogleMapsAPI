@@ -5,83 +5,83 @@ import java.util.List;
 
 public class Route implements Comparable<Route>{
 	//rota - sequencia de visita��o
-	private List<Integer> listaVisitacao;
+	private List<Integer> nodesVisitationList;
 	
-	//Vetor Qik carga(lotacao) do veiculo k ao deixar o vertice i
-	private List<Integer> Qik;
+	//Vetor vehicleOccupationWhenLeavesNode carga(lotacao) do veiculo k ao deixar o vertice i
+	private List<Integer> vehicleOccupationWhenLeavesNode;
 	
-	// Vetor Tempoik do veiculo k ao deixar o vertice i
-	private List<Long> Tempoik;
+	// Vetor timeListTheVehicleLeavesTheNode do veiculo k ao deixar o vertice i
+	private List<Long> timeListTheVehicleLeavesTheNode;
 	
 	// Lista de solicitacoes atendidas	
-	private List<Request> listaAtendimento;
+	private List<Request> requestAttendanceList;
         
         private Integer tempoExtra;
 	
 	public Route(){
-		listaVisitacao = new ArrayList<Integer>();
-		Qik = new ArrayList<Integer>();
-		Tempoik = new ArrayList<Long>();	
-		listaAtendimento = new ArrayList<Request>();
+		nodesVisitationList = new ArrayList<Integer>();
+		vehicleOccupationWhenLeavesNode = new ArrayList<Integer>();
+		timeListTheVehicleLeavesTheNode = new ArrayList<Long>();	
+		requestAttendanceList = new ArrayList<Request>();
 	}
 	
-	public Route(Route rota2){
-		listaVisitacao = new ArrayList<Integer>(rota2.getListaVisitacao());
-		Qik = new ArrayList<Integer>(rota2.getQik());
-		Tempoik = new ArrayList<Long>(rota2.getTempoik());
-		listaAtendimento = new ArrayList<Request>(rota2.getListaAtendimento());
+	public Route(Route route){
+		nodesVisitationList = new ArrayList<Integer>(route.getNodesVisitationList());
+		vehicleOccupationWhenLeavesNode = new ArrayList<Integer>(route.getVehicleOccupationWhenLeavesNode());
+		timeListTheVehicleLeavesTheNode = new ArrayList<Long>(route.getTimeListTheVehicleLeavesTheNode());
+		requestAttendanceList = new ArrayList<Request>(route.getRequestAttendanceList());
 	}
 	
-	public List<Integer> getListaVisitacao() {
-		return listaVisitacao;
+	public List<Integer> getNodesVisitationList() {
+		return nodesVisitationList;
 	}
 	
-	public void setListaVisitacao(List<Integer> listaVisitacao) {
-		this.listaVisitacao.clear();
-		this.listaVisitacao.addAll(listaVisitacao);
+	public void setNodesVisitationList(List<Integer> nodesVisitationList) {
+		this.nodesVisitationList.clear();
+		this.nodesVisitationList.addAll(nodesVisitationList);
 	}
 	
-	public List<Integer> getQik() {
-		return Qik;
+	public List<Integer> getVehicleOccupationWhenLeavesNode() {
+		return vehicleOccupationWhenLeavesNode;
 	}
 
-	public void setQik(List<Integer> qik) {
-		this.Qik.clear();
-		this.Qik.addAll(qik);
+	public void setVehicleOccupationWhenLeavesNode(List<Integer> vehicleOccupationWhenLeavesNode) {
+		this.vehicleOccupationWhenLeavesNode.clear();
+		this.vehicleOccupationWhenLeavesNode.addAll(vehicleOccupationWhenLeavesNode);
 	}
 
-	public List<Long> getTempoik() {
-		return Tempoik;
+	public List<Long> getTimeListTheVehicleLeavesTheNode() {
+		return timeListTheVehicleLeavesTheNode;
 	}
 
-	public void setTempoik(List<Long> tempoik) {
-		this.Tempoik.clear();
-		this.Tempoik.addAll(tempoik);
+	public void setTimeListTheVehicleLeavesTheNode(List<Long> timeListTheVehicleLeavesTheNode) {
+		this.timeListTheVehicleLeavesTheNode.clear();
+		this.timeListTheVehicleLeavesTheNode.addAll(timeListTheVehicleLeavesTheNode);
 	}
 
-	public List<Request> getListaAtendimento() {
-		return listaAtendimento;
+	public List<Request> getRequestAttendanceList() {
+		return requestAttendanceList;
 	}
 	
-	public void setListaAtendimento(List<Request> listaAtendimento) {
-		this.listaAtendimento.clear();
-		this.listaAtendimento.addAll(new ArrayList<Request>(listaAtendimento));
+	public void setRequestAttendanceList(List<Request> requestAttendanceList) {
+		this.requestAttendanceList.clear();
+		this.requestAttendanceList.addAll(new ArrayList<Request>(requestAttendanceList));
 	}
 	
 
 	public Integer getLastNode(){
-		int posicao = listaVisitacao.size()-1;
-		return listaVisitacao.get(posicao);
+		int position = nodesVisitationList.size()-1;
+		return nodesVisitationList.get(position);
 	}
 	
 	public Integer getLotacaoAtual(){
-		int posicao = Qik.size()-1;
-		return Qik.get(posicao);
+		int posicao = vehicleOccupationWhenLeavesNode.size()-1;
+		return vehicleOccupationWhenLeavesNode.get(posicao);
 	}
 	
 	public Long getTempoAtual(){
-		int posicao = Tempoik.size()-1;
-		return Tempoik.get(posicao);
+		int position = timeListTheVehicleLeavesTheNode.size()-1;
+		return timeListTheVehicleLeavesTheNode.get(position);
 	}
 	
         public Integer getTempoExtra(){
@@ -93,71 +93,71 @@ public class Route implements Comparable<Route>{
         }
         
 	public void setTempoikDeposito(long horario){
-		Tempoik.set(0, horario);
+		timeListTheVehicleLeavesTheNode.set(0, horario);
 	}
 	
 	public void addVisitedNodes(Integer visitacao){
-		listaVisitacao.add(visitacao);
+		nodesVisitationList.add(visitacao);
 		
-		int posicao = Qik.size()-1;
+		int posicao = vehicleOccupationWhenLeavesNode.size()-1;
 		int lotacao;
 		
 		if(posicao >= 0){
-			lotacao = Qik.get(posicao);
-			Qik.add(lotacao);
+			lotacao = vehicleOccupationWhenLeavesNode.get(posicao);
+			vehicleOccupationWhenLeavesNode.add(lotacao);
 		}
 		else
-			Qik.add(0);
+			vehicleOccupationWhenLeavesNode.add(0);
 		
-		Tempoik.add((long) -1);
+		timeListTheVehicleLeavesTheNode.add((long) -1);
 	}
 	
 	public void addEmbarque(Request request, Long horario){
-		int posicao = Qik.size()-1;
-		int lotacao = Qik.get(posicao);
+		int posicao = vehicleOccupationWhenLeavesNode.size()-1;
+		int lotacao = vehicleOccupationWhenLeavesNode.get(posicao);
 		
-		Qik.set(posicao, lotacao+1);
+		vehicleOccupationWhenLeavesNode.set(posicao, lotacao+1);
 		
-		Tempoik.set(posicao, horario);
+		timeListTheVehicleLeavesTheNode.set(posicao, horario);
 		
 		request.setPickupTime(horario);
 		addAtendimento(request);		
 	}
 	
 	public void addDesembarque(Request request, long horario){
-		int posicao = Qik.size()-1;
-		if(posicao == -1 || posicao != Tempoik.size()-1)
+		int posicao = vehicleOccupationWhenLeavesNode.size()-1;
+		if(posicao == -1 || posicao != timeListTheVehicleLeavesTheNode.size()-1)
 			System.out.println("POSICAO INVALIDA");
-		int lotacao = Qik.get(posicao);
+		int lotacao = vehicleOccupationWhenLeavesNode.get(posicao);
 		
-		Qik.set(posicao, lotacao-1);
+		vehicleOccupationWhenLeavesNode.set(posicao, lotacao-1);
 		
-		Tempoik.set(posicao, horario);
+		timeListTheVehicleLeavesTheNode.set(posicao, horario);
 		
-		int posListaAtendimento = getListaAtendimento().indexOf(request);
+		int posListaAtendimento = getRequestAttendanceList().indexOf(request);
 		if(posListaAtendimento == -1 )
 			System.out.println("O CARA "+request);//EIN???????
-		Request reqArmazenada = getListaAtendimento().get(posListaAtendimento);
+		Request reqArmazenada = getRequestAttendanceList().get(posListaAtendimento);
 		
 		reqArmazenada.setDeliveryTime(horario);
-		getListaAtendimento().set(posListaAtendimento, reqArmazenada);
+		getRequestAttendanceList().set(posListaAtendimento, reqArmazenada);
 		//System.out.println();
 	}
 	
 	public void addAtendimento(Request request){
-		listaAtendimento.add((Request)request.clone());
+		requestAttendanceList.add((Request)request.clone());
 	}
 	
 	public void removeAtendimento(Request request){
-		listaAtendimento.remove((Request)request.clone());
+		requestAttendanceList.remove((Request)request.clone());
 	}
 	
 	@Override
 	public String toString(){
 		String s = "";
 		
-		//if(listaVisitacao != null){// como impedir a chamada do m�todo para listaVisitacao == null ???
-			for(Integer v : listaVisitacao)
+		//if(nodesVisitationList != null){// como impedir a chamada do m�todo para nodesVisitationList == null ???
+			for(Integer v : nodesVisitationList)
 				s += v+" ";
 		//}
 		return s;
@@ -175,11 +175,11 @@ public class Route implements Comparable<Route>{
 		if(rota2 == null)
 			return false;
 		
-		if(listaVisitacao.size() != rota2.getListaVisitacao().size())
+		if(nodesVisitationList.size() != rota2.getNodesVisitationList().size())
 			return false;
 		
-		for(int i = 0; i < listaVisitacao.size(); i++)
-			if(listaVisitacao.get(i)!= rota2.getListaVisitacao().get(i))
+		for(int i = 0; i < nodesVisitationList.size(); i++)
+			if(nodesVisitationList.get(i)!= rota2.getNodesVisitationList().get(i))
                 		return false;
 		
 		return true;
@@ -188,28 +188,28 @@ public class Route implements Comparable<Route>{
 	@Override
 	public int hashCode(){
 		
-		if(listaVisitacao == null)
+		if(nodesVisitationList == null)
 			return -1;
 		
 		int hash = 0;
 		String s = "";
 		
-		for(Integer i : listaVisitacao)
+		for(Integer i : nodesVisitationList)
 			s += i.toString();
 		
 		hash = s.hashCode();
-		/*for(int i = 0; i < listaVisitacao.size(); i++)
-				s += listaVisitacao.get(i)*(i+1);*/
+		/*for(int i = 0; i < nodesVisitationList.size(); i++)
+				s += nodesVisitationList.get(i)*(i+1);*/
 		
 		return hash;
 	}
         
         @Override
         public int compareTo(Route r){
-            if(this.getListaAtendimento().size() > r.getListaAtendimento().size()){
+            if(this.getRequestAttendanceList().size() > r.getRequestAttendanceList().size()){
                 return 1;
             }
-            if(this.getListaAtendimento().size() < r.getListaAtendimento().size()){
+            if(this.getRequestAttendanceList().size() < r.getRequestAttendanceList().size()){
                 return -1;
             }
             return 0;
