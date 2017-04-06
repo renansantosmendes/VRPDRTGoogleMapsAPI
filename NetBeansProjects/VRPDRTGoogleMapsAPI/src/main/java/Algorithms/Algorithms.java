@@ -28,6 +28,7 @@ import static Algorithms.Methods.Embarca;
 import static Algorithms.Methods.EmbarcaRelaxacao;
 import static Algorithms.Methods.FinalizaRota;
 import static Algorithms.Methods.Fitness;
+import static Algorithms.Methods.GeraSolucaoAleatoria;
 import static Algorithms.Methods.ProcuraSolicitacaoParaAtender;
 import static Algorithms.Methods.RetiraSolicitacaoNaoSeraAtendida;
 import static Algorithms.Methods.RetiraSolicitacoesInviaveis;
@@ -52,7 +53,6 @@ import java.util.TreeMap;
 import static Algorithms.Methods.findFeasibleNodes;
 import static Algorithms.Methods.separateOriginFromDestination;
 import VRPDRT.VRPDRT;
-import static Algorithms.Methods.initializePopulation;
 import static Algorithms.Methods.printPopulation;
 import static Algorithms.Methods.rouletteWheelSelectionAlgorithm;
 import static Algorithms.Methods.populationSorting;
@@ -268,7 +268,7 @@ public class Algorithms {
         return greaterRoute - smallerRoute;
     }
 
-    public static void FOagregados(Solution S, double alfa, double beta, double gama, double delta, double epslon) {
+    public static void evaluateAggregatedObjectiveFunctions(Solution S, double alfa, double beta, double gama, double delta, double epslon) {
         //Agregações feitas (combinações lineares) com base na Análise de Componentes Principais
 //        S.setF1(0.0066222948*S.getfObjetivo1() + 0.6240729533*S.getfObjetivo2() + 0.0005134346*S.getfObjetivo3() + 0.0001470923*S.getfObjetivo4() 
 //                - 0.0005010187*S.getfObjetivo5() + 0.7813356030*S.getfObjetivo6() + 0.0017981648*S.getfObjetivo7());
@@ -422,7 +422,7 @@ public class Algorithms {
         solution.setTotalWaintingTime(FO7(solution));
         solution.setDeliveryTimeWindowAntecipation(FO8(solution));
         solution.setTotalRouteTimeChargeBanlance(FO9(solution));
-        FOagregados(solution, 1, 1, 1, 1, 1);
+        evaluateAggregatedObjectiveFunctions(solution, 1, 1, 1, 1, 1);
         solution.setLogger(log);
         solution.linkTheRoutes();
         //S.setfObjetivo1((int) FuncaoObjetivo(S, c));
@@ -573,29 +573,7 @@ public class Algorithms {
                 R.addVisitedNodes(newNode);
                 lastNode = R.getLastNode();
 
-                //Step 7
-                /**
-                 * SOLICITA��ES J� ATENDIDAS *
-                 */
-                /*
-                 *  se Qik > 0
-                 *  	para cada request in P
-                 *  		se request.destination == lastNode && R.getListaVisitacao().contains(request.origin) && currentTime > request.pickupL
-                 * 				Qik--
-                 * 				Pout.remove(request)
-                 * 				P.remove(request)
-                 * 				atualizar vari�veis que dependam de P
-                 * 	
-                 * 	se Qik < Qmax
-                 * 		para cada request in P
-                 *  		se request.origin == lastNode && 
-                 *  			( (currentTime >= request.pickupE && currentTime <= request.pickupL) ||
-                 *  				(currentTime+TimeWindows >= request.pickupE && currentTime+TimeWindows <= request.pickupL) )
-                 * 				Qik++
-                 * 				Pin.remove(request)
-                 * 				atualizar vari�veis que dependam de P
-                 * */
-                List<Request> listRequestAux = new LinkedList<>(Pout.get(lastNode));
+                    List<Request> listRequestAux = new LinkedList<>(Pout.get(lastNode));
 
                 for (Request request : listRequestAux) {
 
@@ -620,18 +598,8 @@ public class Algorithms {
                 for (Request request : listRequestAux) {
                     if (R.getLotacaoAtual() < Qmax && currentTime >= request.getPickupE() && currentTime <= request.getPickupL() && vizinho.contains(request.getDestination())) {
                         Pin.get(lastNode).remove((Request) request.clone());
-
-                        //if(currentK == 1){
-                        /**
-                         * ** Anexado a classe Rota
-                         * S.addAtendimento((Request)request.clone()); **
-                         */
                         log += "COLETA: " + currentTime + ": " + (Request) request.clone() + " ";
-                        //}
-
                         R.addEmbarque((Request) request.clone(), currentTime);
-
-                        //EXTRA
                         log += "Q=" + R.getLotacaoAtual() + " ";
                     }
                 }
@@ -649,36 +617,19 @@ public class Algorithms {
                         aux = currentTime + waitTime - request.getPickupE();
                         currentTime = Math.min(currentTime + waitTime, request.getPickupE());
                         waitTime = aux;
-
                         Pin.get(lastNode).remove((Request) request.clone());
-
-                        //if(currentK == 1){
-                        /**
-                         * ** Anexado a classe Rota
-                         * S.addAtendimento((Request)request.clone()); **
-                         */
                         log += "COLETAw: " + currentTime + ": " + (Request) request.clone() + " ";
-                        //}
-
                         R.addEmbarque((Request) request.clone(), currentTime);
-
-                        //EXTRA
                         log += "Q=" + R.getLotacaoAtual() + " ";
                     }
                 }
 
-                /**
-                 * SOLICITA��ES INVI�VEIS *
-                 */
                 listRequestAux.clear();
 
                 for (Integer key : Pin.keySet()) {
-
                     listRequestAux.addAll(Pin.get(key));
-
                     for (Integer i = 0, k = listRequestAux.size(); i < k; i++) {
                         Request request = listRequestAux.get(i);
-
                         if (currentTime > request.getPickupL() || !vizinho.contains(request.getOrigin()) || !vizinho.contains(request.getDestination())) {
                             U.add((Request) request.clone());
                             P.remove((Request) request.clone());
@@ -706,9 +657,6 @@ public class Algorithms {
                             }
                         }
 
-                        /**
-                         * E OS N�S DE ENTREGA? DEVEM SER VI�VEIS TAMB�M?*
-                         */
                         if (!encontrado && R.getLotacaoAtual() > 0) {
                             for (Request request : Pout.get(i)) {
                                 if (!Pin.get(request.getOrigin()).contains(request)) {
@@ -742,8 +690,6 @@ public class Algorithms {
                 //Step 8
                 if (P.isEmpty()) {
                     R.addVisitedNodes(0);
-                    //log += R.toString()+"\n";
-                    //System.out.println("Route "+R+" - "+currentTime);
                     currentTime += d.get(lastNode).get(0);
                     solution.getSetOfRoutes().add(R);
                 }
@@ -761,9 +707,8 @@ public class Algorithms {
                 }
             }
 
-            /*}while(!U.isEmpty());*/
+           
         }
-        //System.out.print("Usize = "+U.size()+"\n"+FO(S,U.size())+" -> ");
         solution.setNonAttendedRequestsList(U);
         solution.setTotalDistance(FO1(solution, c));
         solution.setTotalDeliveryDelay(FO2(solution, c));
@@ -774,15 +719,9 @@ public class Algorithms {
         solution.setTotalWaintingTime(FO7(solution));
         solution.setDeliveryTimeWindowAntecipation(FO8(solution));
         solution.setTotalRouteTimeChargeBanlance(FO9(solution));
-        FOagregados(solution, 1, 1, 1, 1, 1);
+        evaluateAggregatedObjectiveFunctions(solution, 1, 1, 1, 1, 1);
         solution.setLogger(log);
-        //S.setfObjetivo1((int) FuncaoObjetivo(S, c));
         solution.setObjectiveFunction(FuncaoDeAvaliacao(solution, listRequests, c));
-        //System.out.println(FO(S,U.size())+"\t"+U.size());
-        //System.out.println(FO(S)+"\t"+S.getNonAttendedRequestsList().size());
-        //if(ativaLog)
-        //	System.out.println(S.getLogger());
-
         return solution;
     }
 
@@ -1059,11 +998,11 @@ public class Algorithms {
     public static Solution perturbation(Solution s, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P,
             List<Integer> m, List<List<Long>> d, List<List<Long>> c, Long TimeWindows) {
-        Random rnd = new Random(1);
-        Random p1 = new Random(2);
-        Random p2 = new Random(3);
+        Random rnd = new Random();
+        Random p1 = new Random();
+        Random p2 = new Random();
         int posicao1, posicao2;
-        int NUMPERT = 2;//número de perturções
+        int NUMPERT = 4;//número de perturções
 
         List<Integer> original = new ArrayList<>(s.getLinkedRouteList());
         //for (int i = 0; i < NUMPERT; i++) {
@@ -1205,7 +1144,7 @@ public class Algorithms {
             List<List<Long>> c, Long TimeWindows, Long currentTime, Integer lastNode) {
         Solution s = new Solution();
         //Pop.clear();
-        initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+        //initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
 
         for (int i = 0; i < TamPop; i++) {
             s.setSolution(geraPesos(i, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
@@ -1795,7 +1734,7 @@ public class Algorithms {
             S.setDeliveryTimeWindowAntecipation(FO8(S));
             S.setObjectiveFunction(FuncaoDeAvaliacao(S, listRequests, c));
 
-            FOagregados(S, 1, 1, 1, 1, 1);
+            evaluateAggregatedObjectiveFunctions(S, 1, 1, 1, 1, 1);
             S.setLogger(log);
             S.linkTheRoutes();
             //solutionCost = FO(S);// ???IMPORTANTE?????
@@ -1956,6 +1895,43 @@ public class Algorithms {
         }
         return population;
     }
+    
+    public static List<Solution> generateInitialPopulation2(int populationSize, final Integer vehicleCapacity, 
+            List<Request> listOfRequests, Map<Integer, List<Request>> requestsWichBoardsInNode, 
+            Map<Integer, List<Request>> requestsWichLeavesInNode, Integer numberOfNodes, 
+            Set<Integer> setOfVehicles, List<Request> listOfNonAttendedRequests, List<Request> requestList, 
+            List<Integer> loadIndexList, List<List<Long>> timeBetweenNodes, List<List<Long>> distanceBetweenNodes, 
+            Long timeWindows, Long currentTime, Integer lastNode){
+        
+//        Solution solution = greedyConstructive(0.2, 0.15, 0.55, 0.1,listOfRequests,requestsWichBoardsInNode, 
+//                requestsWichLeavesInNode, numberOfNodes, vehicleCapacity,setOfVehicles, listOfNonAttendedRequests, requestList,
+//                loadIndexList,timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime,lastNode);
+        
+        Solution solution1 = new Solution();
+        List<Solution> population = new ArrayList<>();
+        
+        for (int i = 0; i < populationSize; i++) {
+            Solution solution = new Solution();
+            solution.setSolution(GeraSolucaoAleatoria(population, populationSize, listOfRequests,requestsWichBoardsInNode, 
+                    requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, 
+                    requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode));
+            System.out.println(solution);
+            population.add(solution);
+        }
+        
+        
+        
+//        for (int i = 0; i < populationSize; i++) {
+//            solution1.setSolution(perturbation(solution, listOfRequests,requestsWichBoardsInNode,requestsWichLeavesInNode,
+//                    numberOfNodes, vehicleCapacity,setOfVehicles, listOfNonAttendedRequests, requestList,loadIndexList, timeBetweenNodes,
+//                    distanceBetweenNodes,timeWindows));
+//            Solution solution2 = new Solution();
+//            solution2.setSolution(solution1);
+//            population.add(solution2);
+//        }
+        return population;
+    }
+    
 
     public static void generateRandomSolutionsUsingPerturbation(int numberOfRandomSolutions, final Integer vehicleCapacity, 
             List<Request> listOfRequests, Map<Integer, List<Request>> requestsWichBoardsInNode, 

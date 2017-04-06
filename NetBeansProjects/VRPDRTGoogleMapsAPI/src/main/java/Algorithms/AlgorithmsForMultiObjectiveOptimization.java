@@ -24,9 +24,9 @@ import ProblemRepresentation.Request;
 import ProblemRepresentation.Solution;
 import static Algorithms.Algorithms.IteratedLocalSearch;
 import static Algorithms.Algorithms.generateInitialPopulation;
+import static Algorithms.Algorithms.generateInitialPopulation2;
 import static Algorithms.Algorithms.rebuildSolution;
 import static Algorithms.Algorithms.perturbation;
-import static Algorithms.Methods.initializePopulation;
 import static Algorithms.Methods.printPopulation;
 import static Algorithms.Methods.rouletteWheelSelectionAlgorithm;
 import static Algorithms.Methods.populationSorting;
@@ -40,6 +40,9 @@ import static Algorithms.Methods.mutation2Shuffle;
 import static Algorithms.Methods.mutation2Opt;
 import static Algorithms.Methods.mutacaoShuffle;
 import static Algorithms.Methods.mutationSwap;
+import static Algorithms.Methods.inicializePopulation;
+import AlgorithmsResults.ResultsGraphicsForMultiObjectiveOptimization;
+import java.io.IOException;
 
 /**
  *
@@ -77,9 +80,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 double sigma = 1;
                 double alfa = 1;
                 int TamMax = 60;
-                Methods.initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-                //CarregaSolucao(Pop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-                //initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+                initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                 for (int i = 0; i < TamPop; i++) {
                     Solution s = new Solution();
                     s.setSolution(vizinhoAleatorio(Pop.get(i), i, i + 1, 1, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows));
@@ -87,62 +88,27 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 }
 
                 dominanceAlgorithm(Pop, naoDominados);
-                //ImprimePopulacao(Pop);
                 System.out.println("Primeira Fronteira");
                 printPopulation(naoDominados);
                 System.out.println("\n\n\n");
                 fitnessEvaluationForMultiObjectiveOptimization(Pop);
                 normalizeObjectiveFunctionsValues(Pop);
                 evaluateDistanceBetweenSolutions(Pop, dist);
-                //Partilha(Pop,dist,sigmaSH,sigma,alfa);
-
                 printPopulation(Pop);
 
-                //Partilha(Pop,dist,sigmaSH,sigma,alfa);
-                //OrdenaPopulacao(Pop);
-                //System.out.println("Pareto");
-                //ImprimePopulacao(naoDominados); 
                 System.out.println("Execução = " + cont);
                 int GerAtual = 0;
                 while (GerAtual < MaxGer) {
-                    //Atualiza arquivo
                     updateSolutionsFile(Pop, arquivo, TamMax);
-                    //System.out.println("Tamanho da população = " + Pop.size());
-                    //ImprimePopulacao(Pop);
-                    //Ordenação da população
                     populationSorting(Pop);
-
-                    //Selecionar
-                    //Selecao(pais, Pop);
-                    //System.out.println(pais);
-                    //System.out.println("Pais.size = " + pais.size());    
-                    //Cruzamento
-                    //Cruzamento2Pontos(Pop, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
-                    //Mutação
                     mutation2Shuffle(Pop, Pm, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-                    //ImprimePopulacao(Pop);
-                    //Normalizacao2(Pop);
-                    //ImprimePopulacao(Pop);
-
                     dominanceAlgorithm(Pop, naoDominados);
-
                     updateSolutionsFile(Pop, arquivo, TamMax);
-
-                    //Partilha(Pop,dist,sigmaSH,sigma,alfa);
-                    //System.out.println("Tamanho da população antes = " + Pop.size());
                     fitnessEvaluationForMultiObjectiveOptimization(Pop);
-                    //System.out.println("Tamanho da população depois = " + Pop.size());
-
                     normalizeObjectiveFunctionsValues(Pop);
-
                     evaluateDistanceBetweenSolutions(Pop, dist);
-
-                    //Partilha(Pop,dist,sigmaSH,sigma,alfa);
-                    //System.out.println("Popsize = " + Pop.size());
-                    //Normalizacao(Pop);
                     System.out.println("Geração = " + GerAtual);
                     GerAtual++;
-                    //ImprimePopulacao(Pop);
                 }
                 List<Solution> melhores = new ArrayList<>();
                 dominanceAlgorithm(arquivo, melhores);
@@ -167,7 +133,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
             Map<Integer, List<Request>> requestsWhichLeavesInNode, Integer numberOfNodes, Integer vehicleCapacity,
             Set<Integer> setOfVehicles, List<Request> listOfNonAttendedRequests, List<Request> requestList,
             List<Integer> loadIndexList, List<List<Long>> timeBetweenNodes, List<List<Long>> distanceBetweenNodes,
-            Long timeWindows, Long currentTime, Integer lastNode) {
+            Long timeWindows, Long currentTime, Integer lastNode) throws IOException {
 
         List<Solution> offspring = new ArrayList<>();
         List<Solution> population = new ArrayList<>();
@@ -178,7 +144,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
         List<Solution> parentsAndOffspring = new ArrayList();
         List<List<Solution>> nonDominatedFronts = new ArrayList<>();
         String folderName, fileName;
-        folderName = "\\ResultsData";
+        folderName = "AlgorithmsResults";
         fileName = "NSGAII";
         boolean success = (new File(folderName)).mkdirs();
         if (!success) {
@@ -189,19 +155,17 @@ public class AlgorithmsForMultiObjectiveOptimization {
             for (int executionCounter = 0; executionCounter < maximumNumberOfExecutions; executionCounter++) {
                 String executionNumber;
                 executionNumber = Integer.toString(executionCounter);
-                PrintStream saida1 = new PrintStream(folderName + "\\" + fileName + "-Execucao-" + executionNumber + ".txt");
-                PrintStream saida2 = new PrintStream(folderName + "\\" + fileName + "-tamanho_arquivo-" + executionNumber + ".txt");
-                PrintStream saida3 = new PrintStream(folderName + "\\" + fileName + "-Execucao-Normalizada-" + executionNumber + ".txt");
+                PrintStream saida1 = new PrintStream(folderName + "/" + fileName + "-Execucao-" + executionNumber + ".txt");
+                PrintStream saida2 = new PrintStream(folderName + "/" + fileName + "-tamanho_arquivo-" + executionNumber + ".txt");
+                PrintStream saida3 = new PrintStream(folderName + "/" + fileName + "-Execucao-Normalizada-" + executionNumber + ".txt");
                 int maximumSize;
 
-                //Methods.initializePopulation(population, populationSize, listOfRequests, requestsWhichBoardsInNode,
-                //requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests,
-                //requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
-                population = generateInitialPopulation(populationSize, vehicleCapacity, listOfRequests,
-                        requestsWhichBoardsInNode, requestsWhichLeavesInNode, numberOfNodes, setOfVehicles, listOfNonAttendedRequests,
+
+                inicializePopulation(population, populationSize, listOfRequests,
+                        requestsWhichBoardsInNode, requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests,
                         requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 
-                printPopulation(population);
+                //printPopulation(population);
                 normalizeObjectiveFunctionsValues(population);
                 dominanceAlgorithm(population, nonDominatedSolutions);
                 maximumSize = population.size();
@@ -230,16 +194,17 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 saida2.print(fileWithSolutions.size() + "\n");
                 saida3.print("\n\n");
 
-                dominanceAlgorithm(offspring, nonDominatedSolutions);
-                fileWithSolutions.addAll(nonDominatedSolutions);
+                //dominanceAlgorithm(offspring, nonDominatedSolutions);
+                //fileWithSolutions.addAll(nonDominatedSolutions);
                 System.out.println("Execution = " + executionCounter);
                 int actualGeneration = 0;
                 while (actualGeneration < maximumNumberOfGenerations) {
                     dominanceAlgorithm(offspring, nonDominatedSolutions);
+                    fileWithSolutions.addAll(nonDominatedSolutions);
                     nonDominatedFrontiersSortingAlgorithm(offspring, nonDominatedFronts);
                     fitnessEvaluationForMultiObjectiveOptimization(offspring);
                     parentsAndOffspring.clear();
-                    //Pop_linha.addAll(arquivo);
+
                     parentsAndOffspring.addAll(population);
                     parentsAndOffspring.addAll(offspring);
 
@@ -254,7 +219,6 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
                     offspring.addAll(population);
                     rouletteWheelSelectionAlgorithm(parents, offspring, maximumSize);
-                    //Cruzamento2Pontos(Q, Pc, pais, listRequests, P, K, U, Pin, Pout, d, c, n, Qmax, TimeWindows);
                     twoPointsCrossover(offspring, population, maximumSize, probabilityOfCrossover, parents, listOfRequests, requestList, setOfVehicles, listOfNonAttendedRequests, requestsWhichBoardsInNode, requestsWhichLeavesInNode, timeBetweenNodes, distanceBetweenNodes, numberOfNodes, vehicleCapacity, timeWindows);
                     mutation2Shuffle(offspring, probabilityOfMutation, listOfRequests, requestsWhichBoardsInNode, requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 
@@ -279,6 +243,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
             dominanceAlgorithm(combinedPareto, finalPareto);
             printPopulation(finalPareto);
+            
+            new ResultsGraphicsForMultiObjectiveOptimization(finalPareto,"ResultGraphics","CombinedParetoSet");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -311,7 +277,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
                 PrintStream saida1 = new PrintStream(diretorio + "\\" + nomeArquivo + "-Execucao-" + numero + ".txt");
                 PrintStream saida2 = new PrintStream(diretorio + "\\" + nomeArquivo + "-tamanho_arquivo-" + numero + ".txt");
                 PrintStream saida3 = new PrintStream(diretorio + "\\" + nomeArquivo + "-Execucao-Normalizada-" + numero + ".txt");
-                Methods.initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+                initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
                 normalizeObjectiveFunctionsValues(Pop);
 
                 TamMax = Pop.size();
@@ -1524,10 +1490,10 @@ public class AlgorithmsForMultiObjectiveOptimization {
             front.clear();
         }
 
-        population.clear();
-        for (List<Solution> frontInFrontiers : frontiers) {
-            population.addAll(frontInFrontiers);
-        }
+//        population.clear();
+//        for (List<Solution> frontInFrontiers : frontiers) {
+//            population.addAll(frontInFrontiers);
+//        }
     }
 
     public static void ReduzPopulacao(List<Solution> Pop_linha, List<List<Solution>> fronts, int TamPop) {

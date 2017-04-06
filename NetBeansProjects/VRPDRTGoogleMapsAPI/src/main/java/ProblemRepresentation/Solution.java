@@ -412,26 +412,13 @@ public class Solution implements Comparable<Solution> {
     @Override
     public String toString() {
         DecimalFormat df = new DecimalFormat("0.000");
-        //System.out.println(NumberFormat.getCurrencyInstance().format(12345678.908874));
-        //if(conjRotas != null){// como impedir a chamada do metodo para conjRotas == null ???
-        //String s = "FO1 = " + totalDistance + "\t FO2 = " + totalDeliveryDelay + "\t FO3 = " +  numberOfStopPointsChargeBalance +/*"\t Fit = "+ fitness +*/"\t U = "+listaNaoAtendimento.size() + "\t N = " + conjRotas.size() + "\t";
-        //String s = totalDistance + "\t" + totalDeliveryDelay + "\t" +  numberOfStopPointsChargeBalance +"\t"+listaNaoAtendimento.size() + "\t" + conjRotas.size() + ";\t";
-        //String s = totalDistance + "\t" + totalDeliveryDelay + "\t" +  numberOfStopPointsChargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
-        //String s = objectiveFunction + "\t"+ aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t" + totalDistance + "\t" + totalDeliveryDelay + "\t" +  numberOfStopPointsChargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t";
-        //String s = objectiveFunction + "\t" + totalDistance + "\t" + totalDeliveryDelay + "\t" + numberOfStopPointsChargeBalance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" + deliveryTimeWindowDelay + "\t";
-        String s = totalDistance + "\t" + totalDeliveryDelay + "\t" + numberOfStopPointsChargeBalance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" + totalRouteTimeChargeBanlance + "\t";
-        //String s = objectiveFunction + "\t" + totalDistance + "\t"  + numberOfNonAttendedRequests + "\t";
-
-        //String s = objectiveFunction + "\t" + totalDistance + "\t" + numberOfNonAttendedRequests + "\t" + deliveryTimeWindowAntecipation + "\t" + deliveryTimeWindowDelay + "\t";
-        //String s = totalDistance + "\t" + totalDeliveryDelay + "\t" +  numberOfStopPointsChargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t";
-        //String s = "aggregatedObjective1 = "+ aggregatedObjective1 + "\tF2 = "+ aggregatedObjective2 + "\tFit = " + fitness +"\tf1 = " + totalDistance + "\tf2 = " + totalDeliveryDelay + "\tf3 = " +  numberOfStopPointsChargeBalance +"\tf4 = "+numberOfNonAttendedRequests + "\tf5 = " + numberOfVehicles + ";\t";
-        //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ aggregatedObjective1Normalized + "\t"+ aggregatedObjective2Normalized + "\t" + numberOfSolutionsWichDomineThisSolution +"\t" + fitness +"\t" + totalDistance + "\t" + totalDeliveryDelay + "\t" +  numberOfStopPointsChargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
-        //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t" + numberOfSolutionsWichDomineThisSolution +"\t" + fitness +"\t" + totalDistance + "\t" + totalDeliveryDelay + "\t" +  numberOfStopPointsChargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
-        //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t" + numberOfSolutionsWichDomineThisSolution +"\t"+ listOfSolutionsDominatedByThisSolution +";\t";
-        //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ df.format(aggregatedObjective1Normalized) + "\t"+ df.format(aggregatedObjective2Normalized) + "\t" + numberOfSolutionsWichDomineThisSolution +"\t" + df.format(fitness) +"\t" + listOfSolutionsDominatedByThisSolution +" \t "+ S +" \t "+ R +" \t" + totalDistance + "\t" + totalDeliveryDelay + "\t" +  numberOfStopPointsChargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
-        //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ listOfSolutionsDominatedByThisSolution + "\t" + numberOfDominatedSolutionsByThisSolution +"\t" + " \t "+ S +" \t "+ R +" \t" + totalDistance + "\t" + totalDeliveryDelay + "\t" +  numberOfStopPointsChargeBalance +"\t"+numberOfNonAttendedRequests + "\t" + numberOfVehicles + ";\t";
-        //String s = aggregatedObjective1 + "\t"+ aggregatedObjective2;
-        //String s = df.format(aggregatedObjective1Normalized) + "\t"+ df.format(aggregatedObjective2Normalized)+";\t";
+        
+        String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ aggregatedObjective1Normalized + "\t"+ 
+                aggregatedObjective2Normalized + "\t"+ totalDistance + "\t" + totalDeliveryDelay + 
+                "\t"  + numberOfStopPointsChargeBalance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + 
+                "\t"  + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" 
+                + totalRouteTimeChargeBanlance + "\t";
+        
         int indice = 1;
         String listaAtendimento = " ";
         for (Route r : setOfRoutes) {

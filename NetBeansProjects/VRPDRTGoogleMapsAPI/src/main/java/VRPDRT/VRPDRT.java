@@ -59,9 +59,9 @@ public class VRPDRT {
         String nodesData = "bh_nodes_little";
         String adjacenciesData = "adjacencies_bh_nodes_little_test";
         final Integer numberOfVehicles = 50;
-        final Integer vehicleCapacity = 10;
+        final Integer vehicleCapacity = 35;
         Integer populationSize = 100;
-        Integer maximumNumberOfGenerations = 15;
+        Integer maximumNumberOfGenerations = 10;
         Integer maximumNumberOfExecutions = 1;
         double probabilityOfMutation = 0.02;
         double probabilityOfCrossover = 0.7;
@@ -76,15 +76,15 @@ public class VRPDRT {
 
         Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
        
-//        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
-//                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
-//                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
-//                distanceBetweenNodes, timeWindows, currentTime, lastNode);
+        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
+                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
+                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
+                distanceBetweenNodes, timeWindows, currentTime, lastNode);
         
-        int numberOfRandomSolutions = 20;
-        generateRandomSolutionsUsingPerturbation(numberOfRandomSolutions,vehicleCapacity, listOfRequests,
-                requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes,  setOfVehicles,  listOfNonAttendedRequests, 
-                 requestList,  loadIndexList,  timeBetweenNodes,  distanceBetweenNodes, timeWindows, currentTime,  lastNode);
+//        int numberOfRandomSolutions = 20;
+//        generateRandomSolutionsUsingPerturbation(numberOfRandomSolutions,vehicleCapacity, listOfRequests,
+//                requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes,  setOfVehicles,  listOfNonAttendedRequests, 
+//                 requestList,  loadIndexList,  timeBetweenNodes,  distanceBetweenNodes, timeWindows, currentTime,  lastNode);
 
     }
 

@@ -15,7 +15,6 @@ import static Algorithms.Algorithms.FO6;
 import static Algorithms.Algorithms.FO7;
 import static Algorithms.Algorithms.FO8;
 import static Algorithms.Algorithms.FO9;
-import static Algorithms.Algorithms.FOagregados;
 import static Algorithms.Algorithms.FOp;
 import static Algorithms.Algorithms.FuncaoDeAvaliacao;
 import static Algorithms.Algorithms.PerturbacaoSemente;
@@ -48,6 +47,7 @@ import static Algorithms.Algorithms.perturbation;
 import static Algorithms.AlgorithmsForMultiObjectiveOptimization.initializePopulation;
 import static Algorithms.Algorithms.VariableNeighborhoodDescend;
 import static Algorithms.Algorithms.geraPesos;
+import static Algorithms.Algorithms.evaluateAggregatedObjectiveFunctions;
 
 /**
  *
@@ -507,9 +507,9 @@ public class Methods {
         }
     }
     
-    public static void InicializaPopulacao(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
-            Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U,
-            List<Request> P, List<Integer> m, List<List<Long>> d, List<List<Long>> c,
+    public static void inicializePopulation(List<Solution> Pop, Integer TamPop, List<Request> listRequests, 
+            Map<Integer, List<Request>> Pin, Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, 
+            List<Request> U, List<Request> P, List<Integer> m, List<List<Long>> d, List<List<Long>> c,
             Long TimeWindows, Long currentTime, Integer lastNode) {
 
         for (int i = 0; i < TamPop; i++) {
@@ -539,25 +539,25 @@ public class Methods {
         }
     }
 
-    public static void initializePopulation(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
-            Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U,
-            List<Request> P, List<Integer> m, List<List<Long>> d, List<List<Long>> c,
-            Long TimeWindows, Long currentTime, Integer lastNode) {
-
-        for (int i = 0; i < TamPop; i++) {
-            Solution S = new Solution();
-            Solution S_linha = new Solution();            
-            S.setSolution(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
-            S_linha.setSolution(perturbation(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
-            Pop.add(S);
-        }
-
-        for (int i = 0; i < TamPop; i++) {
-            Solution solucao = new Solution(Pop.get(i));
-        }
-        //Coloquei a linha de baixo, que estava no codigo principal dos algoritmos multi
-        //initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
-    }
+//    public static void initializePopulation(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
+//            Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U,
+//            List<Request> P, List<Integer> m, List<List<Long>> d, List<List<Long>> c,
+//            Long TimeWindows, Long currentTime, Integer lastNode) {
+//
+//        for (int i = 0; i < TamPop; i++) {
+//            Solution S = new Solution();
+//            Solution S_linha = new Solution();            
+//            S.setSolution(GeraSolucaoAleatoria(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode));
+//            S_linha.setSolution(perturbation(S, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows));
+//            Pop.add(S);
+//        }
+//
+//        for (int i = 0; i < TamPop; i++) {
+//            Solution solucao = new Solution(Pop.get(i));
+//        }
+//        //Coloquei a linha de baixo, que estava no codigo principal dos algoritmos multi
+//        //initializePopulation(Pop, TamPop, listRequests, Pin, Pout, n, Qmax, K, U, P, m, d, c, TimeWindows, currentTime, lastNode);
+//    }
 
     public static void InicializaPopulacaoPerturbacao(List<Solution> Pop, Integer TamPop, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U,
@@ -610,7 +610,7 @@ public class Methods {
         P.addAll(listRequests);
 
         //Step 1
-        Solution S = new Solution();
+        Solution solution = new Solution();
         String log = "";
 
         int currentK;
@@ -702,7 +702,7 @@ public class Methods {
                 RetiraSolicitacaoNaoSeraAtendida(encontrado, Pin, Pout, listRequestAux, currentTime, P, U);
 
                 //Step 8
-                currentTime = FinalizaRota(P, R, currentTime, lastNode, d, S);
+                currentTime = FinalizaRota(P, R, currentTime, lastNode, d, solution);
             }
 
             //Step 9
@@ -714,22 +714,23 @@ public class Methods {
 //        S.setLogger(log);
 //        S.linkTheRoutes();
         //S.setFuncaoObjetivo(FuncaoObjetivo(S,c));
-        S.setNonAttendedRequestsList(U);
-        S.setTotalDistance(FO1(S, c));
-        S.setTotalDeliveryDelay(FO2(S, c));
-        S.setNumberOfStopPointsChargeBalance(FO3(S));
-        S.setNumberOfNonAttendedRequests(FO4(S));
-        S.setNumberOfVehicles(FO5(S));
-        S.setTotalTravelTime(FO6(S));
-        S.setTotalWaintingTime(FO7(S));
-        S.setDeliveryTimeWindowAntecipation(FO8(S));
-        FOagregados(S, 1, 1, 1, 1, 1);
-        S.setLogger(log);
-        S.linkTheRoutes();
+        solution.setNonAttendedRequestsList(U);
+        solution.setTotalDistance(FO1(solution, c));
+        solution.setTotalDeliveryDelay(FO2(solution, c));
+        solution.setNumberOfStopPointsChargeBalance(FO3(solution));
+        solution.setNumberOfNonAttendedRequests(FO4(solution));
+        solution.setNumberOfVehicles(FO5(solution));
+        solution.setTotalTravelTime(FO6(solution));
+        solution.setTotalWaintingTime(FO7(solution));
+        solution.setDeliveryTimeWindowAntecipation(FO8(solution));
+        solution.setTotalRouteTimeChargeBanlance(FO9(solution));
+        evaluateAggregatedObjectiveFunctions(solution, 1, 1, 1, 1, 1);
+        solution.setLogger(log);
+        solution.linkTheRoutes();
         //S.setfObjetivo1((int) FuncaoObjetivo(S, c));
-        S.setObjectiveFunction(FuncaoDeAvaliacao(S, listRequests, c));
+        solution.setObjectiveFunction(FuncaoDeAvaliacao(solution, listRequests, c));
 
-        return S;
+        return solution;
     }
 
     public static void mutationSwap(List<Solution> Pop, double Pm, List<Request> listRequests, Map<Integer, List<Request>> Pin,
