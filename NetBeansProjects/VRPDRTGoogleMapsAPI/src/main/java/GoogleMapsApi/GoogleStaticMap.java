@@ -145,7 +145,7 @@ public class GoogleStaticMap {
 
     private void buildMapInWindow() throws IOException {
         JFrame frame = new JFrame("Google Maps");
-
+        //frame.setAlwaysOnTop(true);
         try {
             String imageUrl = this.buildURL().toString();
             //System.out.println("URL");

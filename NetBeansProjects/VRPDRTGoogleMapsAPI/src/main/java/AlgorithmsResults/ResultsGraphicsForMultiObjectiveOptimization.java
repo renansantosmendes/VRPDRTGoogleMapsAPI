@@ -6,6 +6,8 @@
 package AlgorithmsResults;
 
 import ProblemRepresentation.Solution;
+import java.awt.Color;
+import java.awt.Shape;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,12 +22,15 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardXYItemLabelGenerator;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.util.ShapeUtilities;
 
 /**
  *
@@ -48,8 +53,24 @@ public class ResultsGraphicsForMultiObjectiveOptimization {
     }
 
     public void buildParetoGraphic() throws FileNotFoundException, IOException {
-        this.paretoCombined = ChartFactory.createScatterPlot("Combined Pareto Set", "F1", "F2", createDataset(),
+        this.paretoCombined = ChartFactory.createScatterPlot("Combined Pareto Set", "Objective Function 1",
+                "Objective Function 2", createDataset(),
                 PlotOrientation.VERTICAL, true, true, false);
+        Shape serieShape = ShapeUtilities.createDiagonalCross(3, 1);
+
+        XYPlot xyPlot = (XYPlot) paretoCombined.getPlot();
+        xyPlot.setDomainCrosshairVisible(true);
+        xyPlot.setRangeCrosshairVisible(true);
+        xyPlot.setRangeGridlinesVisible(true);
+        xyPlot.setRangeGridlinePaint(Color.gray);
+        xyPlot.setDomainGridlinesVisible(true);
+        xyPlot.setDomainGridlinePaint(Color.gray);
+        xyPlot.setBackgroundPaint(Color.white);
+        
+        XYItemRenderer renderer = xyPlot.getRenderer();
+        renderer.setSeriesShape(0, serieShape);
+        renderer.setSeriesPaint(0, Color.red);
+
         this.saveGraphicInFile(new FileOutputStream(folder + "/" + paretoCombinedFileName));
     }
 
@@ -77,16 +98,7 @@ public class ResultsGraphicsForMultiObjectiveOptimization {
         frame.setSize(800, 600);
         frame.pack();
         frame.setVisible(true);
-
-//        byte[] b = new byte[2048];
-//        int length;
-//        InputStream is
-//        OutputStream os = new FileOutputStream(folder + "/" + paretoCombinedFileName);
-//        while ((length = is.read(b)) != -1) {
-//            os.write(b, 0, length);
-//        }
-//        is.close();
-//        os.close();
+        frame.setLocationRelativeTo(null);
     }
 
     public JPanel getPanel() {

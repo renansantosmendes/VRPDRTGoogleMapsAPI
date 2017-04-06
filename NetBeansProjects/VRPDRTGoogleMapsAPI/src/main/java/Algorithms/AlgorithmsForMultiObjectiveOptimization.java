@@ -42,6 +42,7 @@ import static Algorithms.Methods.mutacaoShuffle;
 import static Algorithms.Methods.mutationSwap;
 import static Algorithms.Methods.inicializePopulation;
 import AlgorithmsResults.ResultsGraphicsForMultiObjectiveOptimization;
+import InstanceReaderWithMySQL.NodeDAO;
 import java.io.IOException;
 
 /**
@@ -245,6 +246,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
             printPopulation(finalPareto);
             
             new ResultsGraphicsForMultiObjectiveOptimization(finalPareto,"ResultGraphics","CombinedParetoSet");
+//            finalPareto.get(0).getStaticMapForEveryRoute(new NodeDAO("bh_nodes_little").getListOfNodes(),
+//                    "adjacencies_bh_nodes_little_test", "bh_nodes_little");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
