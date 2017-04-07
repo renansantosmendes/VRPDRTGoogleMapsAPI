@@ -8,6 +8,9 @@ package AlgorithmsResults;
 import ProblemRepresentation.Solution;
 import java.awt.Color;
 import java.awt.Shape;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,12 +19,23 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartMouseEvent;
+import org.jfree.chart.ChartMouseListener;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.event.ChartChangeEvent;
+import org.jfree.chart.event.ChartChangeListener;
+import org.jfree.chart.event.ChartProgressEvent;
+import org.jfree.chart.event.ChartProgressListener;
+import org.jfree.chart.event.PlotChangeEvent;
+import org.jfree.chart.event.PlotChangeListener;
 import org.jfree.chart.labels.StandardXYItemLabelGenerator;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
@@ -42,6 +56,7 @@ public class ResultsGraphicsForMultiObjectiveOptimization {
     private JFreeChart paretoCombined;
     private String folder;
     private String paretoCombinedFileName;
+    private ChartMouseListener chartMouseListener;
 
     public ResultsGraphicsForMultiObjectiveOptimization(List<Solution> population, String folder, String paretoCombinedFileName) throws IOException {
         this.population = population;
@@ -59,6 +74,7 @@ public class ResultsGraphicsForMultiObjectiveOptimization {
         Shape serieShape = ShapeUtilities.createDiagonalCross(3, 1);
 
         XYPlot xyPlot = (XYPlot) paretoCombined.getPlot();
+        
         xyPlot.setDomainCrosshairVisible(true);
         xyPlot.setRangeCrosshairVisible(true);
         xyPlot.setRangeGridlinesVisible(true);
@@ -66,6 +82,14 @@ public class ResultsGraphicsForMultiObjectiveOptimization {
         xyPlot.setDomainGridlinesVisible(true);
         xyPlot.setDomainGridlinePaint(Color.gray);
         xyPlot.setBackgroundPaint(Color.white);
+        xyPlot.setDomainCrosshairLockedOnData(true);
+        
+        xyPlot.addChangeListener(new PlotChangeListener() {
+            @Override
+            public void plotChanged(PlotChangeEvent pce) {
+                System.out.println(pce.getType());
+            }
+        });
         
         XYItemRenderer renderer = xyPlot.getRenderer();
         renderer.setSeriesShape(0, serieShape);
@@ -92,7 +116,15 @@ public class ResultsGraphicsForMultiObjectiveOptimization {
 
     private void showGraphic() throws FileNotFoundException, IOException {
         JFrame frame = new JFrame("Combined Pareto Set");
-        frame.add(this.getPanel());
+        JPanel graphic = this.getPanel();
+        graphic.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //JOptionPane.showMessageDialog(null, "Test - Clicked Point = " + e.getPoint());
+            }
+        });
+
+        frame.add(graphic);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
