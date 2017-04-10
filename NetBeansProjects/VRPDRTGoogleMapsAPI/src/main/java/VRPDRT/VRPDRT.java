@@ -26,6 +26,7 @@ import InstanceReaderWithMySQL.NodeDAO;
 import com.google.maps.errors.ApiException;
 import java.io.IOException;
 import static Algorithms.AlgorithmsForMultiObjectiveOptimization.NonDominatedSortedGeneticAlgorithmII;
+import GoogleMapsApi.GoogleStaticMap;
 
 /**
  *
@@ -54,10 +55,10 @@ public class VRPDRT {
     static Integer lastNode;
 
     public static void main(String[] args) throws ApiException, InterruptedException, IOException {
-
-        String instanceName = "r250n12tw10";
-        String nodesData = "bh_nodes_little";
-        String adjacenciesData = "adjacencies_bh_nodes_little_test";
+        String directionsApiKey = "AIzaSyD9W0em7H723uVOMD6QFe_1Mns71XAi5JU";
+        String instanceName = "r150n12tw10";
+        String nodesData = "bh_n12m";
+        String adjacenciesData = "bh_adj_n12m";
         final Integer numberOfVehicles = 50;
         final Integer vehicleCapacity = 11;
         Integer populationSize = 100;
@@ -66,8 +67,9 @@ public class VRPDRT {
         double probabilityOfMutation = 0.02;
         double probabilityOfCrossover = 0.7;
 
-        //new DataUpdaterUsingGoogleMapsApi(directionsApiKey, distanceMatrixApiKey, new NodeDAO(nodesData).getListOfNodes(),
-        //        adjacenciesData).updateAdjacenciesData();
+//        new DataUpdaterUsingGoogleMapsApi(directionsApiKey, new NodeDAO(nodesData).getListOfNodes(),
+//                adjacenciesData).updateAdjacenciesData();
+        
         numberOfNodes = readProblemData(instanceName, nodesData, adjacenciesData, listOfRequests, distanceBetweenNodes,
                 timeBetweenNodes, Pmais, Pmenos, requestsWichBoardsInNode, requestsWichLeavesInNode, setOfNodes,
                 numberOfNodes, loadIndexList);
@@ -75,12 +77,23 @@ public class VRPDRT {
         Algorithms.printProblemInformations(listOfRequests, numberOfVehicles, vehicleCapacity, instanceName, adjacenciesData, nodesData);
 
         Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
-       
-        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
-                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
-                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
-                distanceBetweenNodes, timeWindows, currentTime, lastNode);
         
+        Solution solution = new Solution(Algorithms.greedyConstructive(0.25, 0.25, 0.25, 0.25, listOfRequests, 
+                requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, 
+                listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, 
+                timeWindows, currentTime, lastNode));
+       
+        //solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
+        
+        new GoogleStaticMap(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData).getStaticMapForInstance();
+        //solution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
+        System.out.println(solution);
+        //System.out.println(distanceBetweenNodes);
+//        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
+//                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
+//                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
+//                distanceBetweenNodes, timeWindows, currentTime, lastNode);
+//        
 //        int numberOfRandomSolutions = 20;
 //        generateRandomSolutionsUsingPerturbation(numberOfRandomSolutions,vehicleCapacity, listOfRequests,
 //                requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes,  setOfVehicles,  listOfNonAttendedRequests, 

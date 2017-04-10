@@ -35,16 +35,16 @@ public class GoogleStaticMap {
     private StringBuilder stringOfNodes = new StringBuilder();
     private StringBuilder polylines = new StringBuilder();
     private StringBuilder polylinesForAllRotes = new StringBuilder();
-    private String mapCenter = "Galeria+Ouvidor";
+    private String mapCenter = "Terminal+Rodoviario";//"Galeria+Ouvidor";
     private String city = "Belo+Horizonte";
     private String state = "Minas+Gerais";
     private String country = "Brasil";
-    private int zoom = 15;
+    private int zoom = 12;//s -> 15
     private int scale = 2;
     private int width = 1200;
     private int height = 1200;
     private String mapType = "roadmap";
-    private int weight = 4;
+    private int weight = 5;
     private StringBuilder waypoints = new StringBuilder();
     private StringBuilder encodedPolylines = new StringBuilder();
     //private List<GoogleMapsRoute> listOfGoogleMapsRoutes = new ArrayList<>();
@@ -55,6 +55,21 @@ public class GoogleStaticMap {
     private List<Integer> route;
     private String adjacenciesTable;
     private String nodesTable;
+    
+    
+    public GoogleStaticMap(List<Node> nodesList, String adjacenciesTable, String nodesTable)
+            throws IOException {
+        this.nodesList = nodesList;
+        this.route = route;
+        String folder;
+        folder = "RouteDataForStaticMap";
+
+        boolean successForCreateDataFolder = (new File(folder)).mkdirs();
+        boolean successForCreateStaticMapsFolder = (new File(staticMapsFolder)).mkdirs();
+
+        buildStringWithNodeMarkets();
+
+    }
 
     public GoogleStaticMap(List<Node> nodesList, List<Integer> route, String adjacenciesTable, String nodesTable)
             throws IOException {
@@ -105,7 +120,6 @@ public class GoogleStaticMap {
 
     private void buildPathForMapWithOneRoute(String adjacenciesTable, String nodesTable) {
         String color = new ColorGenerator().generatesColor();
-
         correctRouteAddingTheDepot(this.route);
 
         for (int i = 0; i < route.size() - 1; i++) {
@@ -127,9 +141,7 @@ public class GoogleStaticMap {
                 String polyline = new AdjacenciesDAO(adjacenciesTable, nodesTable).getPolylineBetweenNodes(origin, destination);
                 pathGeneratedForAllRoutes.append("&path=weight:" + weight + "|color:" + color + "|enc:" + polyline);
             }
-
         }
-
     }
 
     private void correctRouteAddingTheDepot(List<Integer> route) {
@@ -146,18 +158,20 @@ public class GoogleStaticMap {
     private void buildMapInWindow() throws IOException {
         JFrame frame = new JFrame("Google Maps");
         //frame.setAlwaysOnTop(true);
+        //frame.setLocationRelativeTo(null);
+
+        String destinationFile;
+        if (this.routes == null) {
+            destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_" + this.route + ".jpg";
+        } else {
+            destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_" + ".jpg";
+        }
+
         try {
             String imageUrl = this.buildURL().toString();
             //System.out.println("URL");
             System.out.println(imageUrl);
-            String destinationFile;
-            if(this.routes == null){
-                 destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_"+this.route+".jpg";
-            }else{
-                 destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_"+".jpg";
-            }
-           
-            String str = destinationFile;
+
             URL url = new URL(imageUrl);
             InputStream is = url.openStream();
             OutputStream os = new FileOutputStream(destinationFile);
@@ -175,11 +189,66 @@ public class GoogleStaticMap {
             System.exit(1);
         }
 
-        frame.add(new JLabel(new ImageIcon((new ImageIcon(staticMapsFolder + "/Route_" + totalOfRoutes + "_Static_Map.jpg"))
-                .getImage().getScaledInstance(730, 700, java.awt.Image.SCALE_SMOOTH))));
+        if (this.routes == null) {
+            frame.add(new JLabel(new ImageIcon((new ImageIcon(destinationFile)).getImage()
+                    .getScaledInstance(730, 700, java.awt.Image.SCALE_SMOOTH))));
+            System.out.println(destinationFile);
+        } else {
+            frame.add(new JLabel(new ImageIcon(new ImageIcon(destinationFile).getImage()
+                    .getScaledInstance(730, 700, java.awt.Image.SCALE_SMOOTH))));
+        }
+
         frame.setVisible(true);
         frame.pack();
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    public void getStaticMapForInstance() {
+        JFrame frame = new JFrame("Google Maps");
+        //frame.setAlwaysOnTop(true);
+        //frame.setLocationRelativeTo(null);
+
+        String destinationFile;
+        if (this.routes == null) {
+            destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_" + this.route + ".jpg";
+        } else {
+            destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_" + ".jpg";
+        }
+
+        try {
+            String imageUrl = this.buildURLForInstanceMap().toString();
+            //System.out.println("URL");
+            System.out.println(imageUrl);
+
+            URL url = new URL(imageUrl);
+            InputStream is = url.openStream();
+            OutputStream os = new FileOutputStream(destinationFile);
+
+            byte[] b = new byte[2048];
+            int length;
+
+            while ((length = is.read(b)) != -1) {
+                os.write(b, 0, length);
+            }
+            is.close();
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        frame.add(new JLabel(new ImageIcon(new ImageIcon(destinationFile).getImage()
+                .getScaledInstance(730, 700, java.awt.Image.SCALE_SMOOTH))));
+
+        frame.setVisible(true);
+        frame.pack();
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    private URL buildURLForInstanceMap() throws MalformedURLException, IOException {
+        URL url = new URL(URLRoot + mapCenter + "," + city + "," + state + "," + country + "&zoom=" + zoom + "&scale=" + scale
+                + "&size=" + width + "x" + height + "&maptype=" + mapType + stringOfNodes.toString()
+                + "&key=" + staticMapKey + "&format=jpg");
+        return url;
+    }
 }

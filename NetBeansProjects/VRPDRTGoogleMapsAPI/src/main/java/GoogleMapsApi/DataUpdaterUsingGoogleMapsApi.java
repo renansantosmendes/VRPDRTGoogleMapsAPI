@@ -37,13 +37,12 @@ public class DataUpdaterUsingGoogleMapsApi {
     private Connection connection;
     private String adjacenciesTableInDataBase;
 
-    public DataUpdaterUsingGoogleMapsApi(String directionsApiKey, String distanceMatrixApiKey, List<Node> nodesList,
-            String adjacenciesTableInDataBase) {
+    public DataUpdaterUsingGoogleMapsApi(String directionsApiKey, List<Node> nodesList, String adjacenciesTableInDataBase) {
         this.connection = new ConnectionFactory().getConnection();
         this.directionsApiKey = directionsApiKey;
         this.distanceMatrixApiKey = distanceMatrixApiKey;
         this.nodesList = nodesList;
-        this.adjacenciesTableInDataBase = "adjacencies_bh_nodes_little_test";
+        this.adjacenciesTableInDataBase = adjacenciesTableInDataBase;
     }
 
     private void deleteAllDataInAdjacenciesTable() {
