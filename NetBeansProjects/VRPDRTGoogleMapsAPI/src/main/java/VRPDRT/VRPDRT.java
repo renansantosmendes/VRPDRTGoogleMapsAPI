@@ -56,9 +56,9 @@ public class VRPDRT {
 
     public static void main(String[] args) throws ApiException, InterruptedException, IOException {
         String directionsApiKey = "AIzaSyD9W0em7H723uVOMD6QFe_1Mns71XAi5JU";
-        String instanceName = "r150n12tw10";
-        String nodesData = "bh_n12m";
-        String adjacenciesData = "bh_adj_n12m";
+        String instanceName = "r100n12tw10";
+        String nodesData = "bh_n12l";
+        String adjacenciesData = "bh_adj_n12l";
         final Integer numberOfVehicles = 50;
         final Integer vehicleCapacity = 11;
         Integer populationSize = 100;
@@ -78,14 +78,14 @@ public class VRPDRT {
 
         Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
         
-        Solution solution = new Solution(Algorithms.greedyConstructive(0.25, 0.25, 0.25, 0.25, listOfRequests, 
+        Solution solution = new Solution(Algorithms.greedyConstructive(0.25, 0.25, 0.25, 0.25, listOfRequests.subList(0, 20), 
                 requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, 
                 listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, 
                 timeWindows, currentTime, lastNode));
        
-        //solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
+        solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         
-        new GoogleStaticMap(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData).getStaticMapForInstance();
+        //new GoogleStaticMap(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData).getStaticMapForInstance();
         //solution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         System.out.println(solution);
         //System.out.println(distanceBetweenNodes);
@@ -94,11 +94,6 @@ public class VRPDRT {
 //                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
 //                distanceBetweenNodes, timeWindows, currentTime, lastNode);
 //        
-//        int numberOfRandomSolutions = 20;
-//        generateRandomSolutionsUsingPerturbation(numberOfRandomSolutions,vehicleCapacity, listOfRequests,
-//                requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes,  setOfVehicles,  listOfNonAttendedRequests, 
-//                 requestList,  loadIndexList,  timeBetweenNodes,  distanceBetweenNodes, timeWindows, currentTime,  lastNode);
-
     }
 
 }

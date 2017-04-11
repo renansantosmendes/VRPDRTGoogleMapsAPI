@@ -35,11 +35,11 @@ public class GoogleStaticMap {
     private StringBuilder stringOfNodes = new StringBuilder();
     private StringBuilder polylines = new StringBuilder();
     private StringBuilder polylinesForAllRotes = new StringBuilder();
-    private String mapCenter = "Terminal+Rodoviario";//"Galeria+Ouvidor";
-    private String city = "Belo+Horizonte";
-    private String state = "Minas+Gerais";
-    private String country = "Brasil";
-    private int zoom = 12;//s -> 15
+    private String mapCenter;
+    private String city;
+    private String state;
+    private String country;
+    private int zoom;
     private int scale = 2;
     private int width = 1200;
     private int height = 1200;
@@ -47,7 +47,6 @@ public class GoogleStaticMap {
     private int weight = 5;
     private StringBuilder waypoints = new StringBuilder();
     private StringBuilder encodedPolylines = new StringBuilder();
-    //private List<GoogleMapsRoute> listOfGoogleMapsRoutes = new ArrayList<>();
     private StringBuilder pathGeneratedForAllRoutes = new StringBuilder();
     private static int totalOfRoutes = 0;
     private String staticMapsFolder = "StaticMaps";
@@ -55,12 +54,11 @@ public class GoogleStaticMap {
     private List<Integer> route;
     private String adjacenciesTable;
     private String nodesTable;
-    
-    
-    public GoogleStaticMap(List<Node> nodesList, String adjacenciesTable, String nodesTable)
-            throws IOException {
+
+    public GoogleStaticMap(List<Node> nodesList, String adjacenciesTable, String nodesTable) throws IOException {
         this.nodesList = nodesList;
         this.route = route;
+        this.nodesTable = nodesTable;
         String folder;
         folder = "RouteDataForStaticMap";
 
@@ -68,7 +66,6 @@ public class GoogleStaticMap {
         boolean successForCreateStaticMapsFolder = (new File(staticMapsFolder)).mkdirs();
 
         buildStringWithNodeMarkets();
-
     }
 
     public GoogleStaticMap(List<Node> nodesList, List<Integer> route, String adjacenciesTable, String nodesTable)
@@ -76,11 +73,18 @@ public class GoogleStaticMap {
         totalOfRoutes++;
         this.nodesList = nodesList;
         this.route = route;
+        this.nodesTable = nodesTable;
         String folder;
         folder = "RouteDataForStaticMap";
 
         boolean successForCreateDataFolder = (new File(folder)).mkdirs();
         boolean successForCreateStaticMapsFolder = (new File(staticMapsFolder)).mkdirs();
+        if (totalOfRoutes == 0) {
+            if (!successForCreateStaticMapsFolder) {
+                deleteDir(new File(staticMapsFolder));
+                successForCreateStaticMapsFolder = (new File(staticMapsFolder)).mkdirs();
+            }
+        }
 
         buildStringWithNodeMarkets();
 
@@ -93,6 +97,7 @@ public class GoogleStaticMap {
         totalOfRoutes++;
         this.nodesList = nodesList;
         this.routes = routes;
+        this.nodesTable = nodesTable;
         String folder;
         folder = "RouteDataForStaticMap";
 
@@ -112,9 +117,19 @@ public class GoogleStaticMap {
     }
 
     private URL buildURL() throws MalformedURLException, IOException {
+        setStaticMapParameters();
+
         URL url = new URL(URLRoot + mapCenter + "," + city + "," + state + "," + country + "&zoom=" + zoom + "&scale=" + scale
                 + "&size=" + width + "x" + height + "&maptype=" + mapType + stringOfNodes.toString()
                 + pathGeneratedForAllRoutes + "&key=" + staticMapKey + "&format=jpg");
+        return url;
+    }
+
+    private URL buildURLForInstanceMap() throws MalformedURLException, IOException {
+        setStaticMapParameters();
+        URL url = new URL(URLRoot + mapCenter + "," + city + "," + state + "," + country + "&zoom=" + zoom + "&scale=" + scale
+                + "&size=" + width + "x" + height + "&maptype=" + mapType + stringOfNodes.toString()
+                + "&key=" + staticMapKey + "&format=jpg");
         return url;
     }
 
@@ -245,10 +260,54 @@ public class GoogleStaticMap {
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    private URL buildURLForInstanceMap() throws MalformedURLException, IOException {
-        URL url = new URL(URLRoot + mapCenter + "," + city + "," + state + "," + country + "&zoom=" + zoom + "&scale=" + scale
-                + "&size=" + width + "x" + height + "&maptype=" + mapType + stringOfNodes.toString()
-                + "&key=" + staticMapKey + "&format=jpg");
-        return url;
+    private void setStaticMapParameters() {
+
+        if (this.nodesTable.charAt(this.nodesTable.length() - 1) == 's') {
+            setParameterForSmallInstances();
+        } else if (this.nodesTable.charAt(this.nodesTable.length() - 1) == 'm') {
+            setParametersForMediumInstances();
+        } else if (this.nodesTable.charAt(this.nodesTable.length() - 1) == 'l') {
+            setParametersForLargeInstances();
+        }
+    }
+
+    private void setParametersForMediumInstances() {
+        this.mapCenter = "Terminal+Rodoviario";
+        this.city = "Belo+Horizonte";
+        this.state = "Minas+Gerais";
+        this.country = "Brasil";
+        this.zoom = 12;
+        this.scale = 2;
+    }
+
+    private void setParametersForLargeInstances() {
+        this.mapCenter = "Hospital+Odilon+Behrens";
+        this.city = "Belo+Horizonte";
+        this.state = "Minas+Gerais";
+        this.country = "Brasil";
+        this.zoom = 12;
+        this.scale = 2;
+    }
+
+    private void setParameterForSmallInstances() {
+        this.mapCenter = "Galeria+Ouvidor";
+        this.city = "Belo+Horizonte";
+        this.state = "Minas+Gerais";
+        this.country = "Brasil";
+        this.zoom = 15;
+        this.scale = 2;
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        return dir.delete();
     }
 }
