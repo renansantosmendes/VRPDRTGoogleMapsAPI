@@ -70,7 +70,7 @@ public class GoogleStaticMap {
 
     public GoogleStaticMap(List<Node> nodesList, List<Integer> route, String adjacenciesTable, String nodesTable)
             throws IOException {
-        totalOfRoutes++;
+        
         this.nodesList = nodesList;
         this.route = route;
         this.nodesTable = nodesTable;
@@ -85,7 +85,7 @@ public class GoogleStaticMap {
                 successForCreateStaticMapsFolder = (new File(staticMapsFolder)).mkdirs();
             }
         }
-
+        totalOfRoutes++;
         buildStringWithNodeMarkets();
 
         this.buildPathForMapWithOneRoute(adjacenciesTable, nodesTable);

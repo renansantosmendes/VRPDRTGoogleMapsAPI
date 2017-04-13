@@ -267,6 +267,16 @@ public class Algorithms {
               
         return greaterRoute - smallerRoute;
     }
+    
+    public static double FO10(Solution solution, int vehicleCapacity) {
+        //falta implementar uma forma correta de avaliar a taxa de ocupação do veículo
+        solution.getSetOfRoutes()
+                .forEach(r -> System.out.println(r.getVehicleOccupationWhenLeavesNode()
+                .stream()
+                .mapToDouble(Integer::valueOf)
+                .average().getAsDouble() / vehicleCapacity));
+        return 0;
+    }
 
     public static void evaluateAggregatedObjectiveFunctions(Solution S, double alfa, double beta, double gama, double delta, double epslon) {
         //Agregações feitas (combinações lineares) com base na Análise de Componentes Principais
