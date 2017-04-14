@@ -716,7 +716,7 @@ public class Methods {
         //S.setFuncaoObjetivo(FuncaoObjetivo(S,c));
         solution.setNonAttendedRequestsList(U);
         solution.setTotalDistance(FO1(solution, c));
-        solution.setTotalDeliveryDelay(FO2(solution, c));
+        solution.setTotalDeliveryDelay(FO2(solution));
         solution.setNumberOfStopPointsChargeBalance(FO3(solution));
         solution.setNumberOfNonAttendedRequests(FO4(solution));
         solution.setNumberOfVehicles(FO5(solution));

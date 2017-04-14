@@ -56,11 +56,11 @@ public class VRPDRT {
 
     public static void main(String[] args) throws ApiException, InterruptedException, IOException {
         String directionsApiKey = "AIzaSyD9W0em7H723uVOMD6QFe_1Mns71XAi5JU";
-        String instanceName = "r100n12tw10";
+        String instanceName = "r150n12tw10";
         String nodesData = "bh_n12s";
         String adjacenciesData = "bh_adj_n12s";
         final Integer numberOfVehicles = 50;
-        final Integer vehicleCapacity = 4;
+        final Integer vehicleCapacity = 11;
         Integer populationSize = 100;
         Integer maximumNumberOfGenerations = 15;
         Integer maximumNumberOfExecutions = 1;
@@ -82,20 +82,11 @@ public class VRPDRT {
                 listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes,
                 timeWindows, currentTime, lastNode));
 
-        //solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
+        solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         //new GoogleStaticMap(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData).getStaticMapForInstance();
         //solution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         System.out.println(solution);
-
-        solution.getSetOfRoutes()
-                .forEach(r -> System.out.println(r.getVehicleOccupationWhenLeavesNode()
-                .stream()
-                .mapToDouble(Integer::valueOf)
-                .average().getAsDouble() / vehicleCapacity));
         
-        //solution.getSetOfRoutes().stream().flatMap(r -> r.getVehicleOccupationWhenLeavesNode().stream()).distinct().forEach(System.out::println);
-
-        //System.out.println(distanceBetweenNodes);
 //        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
 //                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
 //                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,

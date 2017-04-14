@@ -26,6 +26,7 @@ public class Solution implements Comparable<Solution> {
     private long totalWaintingTime;//f7
     private long deliveryTimeWindowAntecipation;//f8
     private long totalRouteTimeChargeBanlance;//f9
+    private double totalOccupationRate;//f10
 
     private double aggregatedObjective1;
     private double aggregatedObjective2;
@@ -56,6 +57,7 @@ public class Solution implements Comparable<Solution> {
         totalWaintingTime = -1;
         deliveryTimeWindowAntecipation = -1;
         totalRouteTimeChargeBanlance = -1;
+        totalOccupationRate = -1;
         aggregatedObjective1 = -1;
         aggregatedObjective2 = -1;
         aggregatedObjective1Normalized = -1;
@@ -84,6 +86,7 @@ public class Solution implements Comparable<Solution> {
         totalWaintingTime = solution.getTotalWaintingTime();
         deliveryTimeWindowAntecipation = solution.getDeliveryTimeWindowAntecipation();
         totalRouteTimeChargeBanlance = solution.getTotalRouteTimeChargeBanlance();
+        totalOccupationRate = solution.getTotalOccupationRate();
         aggregatedObjective1 = solution.getAggregatedObjective1();
         aggregatedObjective2 = solution.getAggregatedObjective2();
         aggregatedObjective1Normalized = solution.getAggregatedObjective1Normalized();
@@ -108,6 +111,7 @@ public class Solution implements Comparable<Solution> {
         setTotalWaintingTime(solution.getTotalWaintingTime());
         setDeliveryTimeWindowAntecipation(solution.getDeliveryTimeWindowAntecipation());
         setTotalRouteTimeChargeBanlance(solution.getTotalRouteTimeChargeBanlance());
+        setTotalOccupationRate(solution.getTotalOccupationRate());
         setAggregatedObjective1(solution.getAggregatedObjective1());
         setAggregatedObjective2(solution.getAggregatedObjective2());
         setAggregatedObjective1Normalized(solution.getAggregatedObjective1Normalized());
@@ -121,7 +125,8 @@ public class Solution implements Comparable<Solution> {
         setTempoExtraTotal(solution.getTempoExtraTotal());
     }
 
-    public void resetSolution(double FO, int FO1, int FO2, int FO3, int FO4, int FO5, int FO6, int FO7, int FO8, long FO9) {
+    public void resetSolution(double FO, int FO1, int FO2, int FO3, int FO4, int FO5, int FO6,
+            int FO7, int FO8, long FO9, double F10) {
         setOfRoutes.clear();
         listOfSolutionsDominatedByThisSolution.clear();
         objectiveFunction = FO;
@@ -134,6 +139,7 @@ public class Solution implements Comparable<Solution> {
         totalWaintingTime = FO7;
         deliveryTimeWindowAntecipation = FO8;
         totalRouteTimeChargeBanlance = FO9;
+        totalOccupationRate = F10;
         aggregatedObjective1 = 99999999;
         aggregatedObjective2 = 99999999;
         aggregatedObjective1Normalized = 99999999;
@@ -262,6 +268,10 @@ public class Solution implements Comparable<Solution> {
     public long getTotalRouteTimeChargeBanlance(){
         return totalRouteTimeChargeBanlance;
     }
+    
+    public double getTotalOccupationRate(){
+        return totalOccupationRate;
+    }
 
     public double getAggregatedObjective1() {
         return this.aggregatedObjective1;
@@ -338,6 +348,10 @@ public class Solution implements Comparable<Solution> {
     public void setTotalRouteTimeChargeBanlance(long totalRouteTimeChargeBanlance){
         this.totalRouteTimeChargeBanlance = totalRouteTimeChargeBanlance;
     }
+    
+    public void setTotalOccupationRate(double totalOccupationRate){
+        this.totalOccupationRate = totalOccupationRate;
+    }
 
     public void setAggregatedObjective1(double aggregatedObjective1) {
         this.aggregatedObjective1 = aggregatedObjective1;
@@ -413,11 +427,11 @@ public class Solution implements Comparable<Solution> {
     public String toString() {
         DecimalFormat df = new DecimalFormat("0.000");
         
-        String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ aggregatedObjective1Normalized + "\t"+ 
-                aggregatedObjective2Normalized + "\t"+ totalDistance + "\t" + totalDeliveryDelay + 
+        String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ /*aggregatedObjective1Normalized + "\t"+ 
+                aggregatedObjective2Normalized + "\t"+*/ totalDistance + "\t" + totalDeliveryDelay + 
                 "\t"  + numberOfStopPointsChargeBalance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + 
                 "\t"  + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" 
-                + totalRouteTimeChargeBanlance + "\t";
+                + totalRouteTimeChargeBanlance + "\t" + totalOccupationRate + "\t";
         
         int indice = 1;
         String listaAtendimento = " ";

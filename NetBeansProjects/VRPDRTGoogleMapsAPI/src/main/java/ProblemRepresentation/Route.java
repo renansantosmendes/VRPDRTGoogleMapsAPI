@@ -4,19 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Route implements Comparable<Route>{
-	//rota - sequencia de visita��o
 	private List<Integer> nodesVisitationList;
-	
-	//Vetor vehicleOccupationWhenLeavesNode carga(lotacao) do veiculo k ao deixar o vertice i
 	private List<Integer> vehicleOccupationWhenLeavesNode;
-	
-	// Vetor timeListTheVehicleLeavesTheNode do veiculo k ao deixar o vertice i
 	private List<Long> timeListTheVehicleLeavesTheNode;
-	
-	// Lista de solicitacoes atendidas	
 	private List<Request> requestAttendanceList;
-        
         private Integer tempoExtra;
+        private double occupationRate;
 	
 	public Route(){
 		nodesVisitationList = new ArrayList<Integer>();
@@ -30,6 +23,7 @@ public class Route implements Comparable<Route>{
 		vehicleOccupationWhenLeavesNode = new ArrayList<Integer>(route.getVehicleOccupationWhenLeavesNode());
 		timeListTheVehicleLeavesTheNode = new ArrayList<Long>(route.getTimeListTheVehicleLeavesTheNode());
 		requestAttendanceList = new ArrayList<Request>(route.getRequestAttendanceList());
+                occupationRate = route.getOccupationRate();
 	}
 	
 	public List<Integer> getNodesVisitationList() {
@@ -88,13 +82,27 @@ public class Route implements Comparable<Route>{
             return tempoExtra;
         }
         
+        public double getOccupationRate(){
+            return occupationRate;
+        }
+        
         public void setTempoExtra(Integer tempo){
             tempoExtra = tempo;
+        }
+        
+        public void setOccupationRate(double occupationRate){
+            this.occupationRate = occupationRate;
         }
         
 	public void setTempoikDeposito(long horario){
 		timeListTheVehicleLeavesTheNode.set(0, horario);
 	}
+        
+        public void calculateOccupationRate(int vehicleCapacity){
+            this.setOccupationRate(this.getVehicleOccupationWhenLeavesNode().stream()
+                    .mapToDouble(Integer::valueOf).average()
+                    .getAsDouble()/vehicleCapacity);          
+        }
 	
 	public void addVisitedNodes(Integer visitacao){
 		nodesVisitationList.add(visitacao);
