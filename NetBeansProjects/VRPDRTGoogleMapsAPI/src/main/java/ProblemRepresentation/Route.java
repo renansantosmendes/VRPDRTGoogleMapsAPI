@@ -99,8 +99,11 @@ public class Route implements Comparable<Route>{
 	}
         
         public void calculateOccupationRate(int vehicleCapacity){
+//            this.setOccupationRate(this.getVehicleOccupationWhenLeavesNode().stream()
+//                    .mapToDouble(Integer::valueOf).average()
+//                    .getAsDouble()/vehicleCapacity); 
             this.setOccupationRate(this.getVehicleOccupationWhenLeavesNode().stream()
-                    .mapToDouble(Integer::valueOf).average()
+                    .mapToDouble(Integer::valueOf).max()
                     .getAsDouble()/vehicleCapacity);          
         }
 	

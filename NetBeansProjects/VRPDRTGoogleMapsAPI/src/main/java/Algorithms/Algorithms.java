@@ -1929,12 +1929,9 @@ public class Algorithms {
         Solution solution1 = new Solution();
         String folder = "RandomSolutionsUsingPerturbation";
         boolean success = (new File(folder)).mkdirs();
-        if (!success) {
-            System.out.println("Folder already exist!");
-        }
-
         String destinationFileForObjectives = folder + "/Random_Solutions_" + numberOfRandomSolutions + "_Objectives.txt";
         String destinationFileForSolutions = folder + "/Random_Solutions_" + numberOfRandomSolutions + "_Solutions.txt";
+        
         PrintStream printStreamForObjectives = new PrintStream(destinationFileForObjectives);
         PrintStream printStreamForSolutions = new PrintStream(destinationFileForSolutions);
         for (int i = 0; i < numberOfRandomSolutions; i++) {
