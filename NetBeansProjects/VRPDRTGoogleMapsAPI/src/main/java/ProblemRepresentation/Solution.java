@@ -418,8 +418,11 @@ public class Solution implements Comparable<Solution> {
         nonAttendedRequestsList.remove(request);
     }
 
-    public String getStringWIthObjectives() {
-        String stringWithObjectives = totalDistance + "\t" + totalDeliveryDelay + "\t" + numberOfStopPointsChargeBalance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" ;
+    public String getStringWithObjectives() {
+        String stringWithObjectives = totalDistance + "\t" + totalDeliveryDelay + "\t" + numberOfStopPointsChargeBalance + 
+                "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" 
+                + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" + totalRouteTimeChargeBanlance  
+                + "\t" + totalOccupationRate + "\t" ;
         return stringWithObjectives;
     }
 

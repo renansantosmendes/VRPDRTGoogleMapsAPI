@@ -1938,9 +1938,9 @@ public class Algorithms {
             solution1.setSolution(perturbation(solution, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
                     numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
                     distanceBetweenNodes, timeWindows));
-            //System.out.println(solution1.getStringWIthObjectives());
+            //System.out.println(solution1.getStringWithObjectives());
             System.out.println(solution1);
-            printStreamForObjectives.print(solution1.getStringWIthObjectives() + "\n");
+            printStreamForObjectives.print(solution1.getStringWithObjectives() + "\n");
             printStreamForSolutions.print(solution1 + "\n");
         }
     }
@@ -1965,8 +1965,8 @@ public class Algorithms {
             solution1.setSolution(geraPesos(i, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes,
                     vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
                     distanceBetweenNodes, timeWindows, currentTime, lastNode));
-            System.out.println(solution1.getStringWIthObjectives());
-            printStreamForObjectives.print(solution1.getStringWIthObjectives() + "\n");
+            System.out.println(solution1.getStringWithObjectives());
+            printStreamForObjectives.print(solution1.getStringWithObjectives() + "\n");
             printStreamForSolutions.print(solution1 + "\n");
         }
     }

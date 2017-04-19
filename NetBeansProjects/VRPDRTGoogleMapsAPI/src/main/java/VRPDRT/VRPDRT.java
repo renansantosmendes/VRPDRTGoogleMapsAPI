@@ -83,19 +83,17 @@ public class VRPDRT {
                 listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes,
                 timeWindows, currentTime, lastNode));
 
-        solution.getSetOfRoutes().forEach( r -> System.out.println(r.getVehicleOccupationWhenLeavesNode()
-                .stream().mapToDouble(Integer::valueOf).max().getAsDouble()));
         //solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         //new GoogleStaticMap(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData).getStaticMapForInstance();
         //solution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
-        System.out.println(solution);
+        //System.out.println(solution);
         //        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
         //                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
         //                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
         //                distanceBetweenNodes, timeWindows, currentTime, lastNode);
         //        
 
-        //new SolutionGeneratorForAggregationTree().generateSolutionsForAggregationTree();
+        new SolutionGeneratorForAggregationTree().generateSolutionsForAggregationTree();
     }
 
 }

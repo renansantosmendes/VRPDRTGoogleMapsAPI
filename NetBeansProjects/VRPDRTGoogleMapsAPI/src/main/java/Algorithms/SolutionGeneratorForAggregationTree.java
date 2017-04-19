@@ -6,10 +6,14 @@
 package Algorithms;
 
 import static Algorithms.Algorithms.generateRandomSolutionsUsingPerturbation;
+import static Algorithms.Algorithms.greedyConstructive;
+import static Algorithms.Algorithms.perturbation;
 import static Algorithms.Methods.readProblemData;
 import ProblemRepresentation.Request;
 import ProblemRepresentation.Solution;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,6 +42,16 @@ public class SolutionGeneratorForAggregationTree {
                 * this.numberOfRequests.length * this.timeWindows.length;
         this.numberOfSolutionsPerInstance = 10000 / this.numberOfInstances + 1;
 
+        String folder = "RandomSolutionsForAggregationTree";
+        boolean success = (new File(folder)).mkdirs();
+        String destinationFileForObjectives = folder + "/Random_Solutions_AT_Objectives.txt";
+        String destinationFileForSolutions = folder + "/Random_Solutions_AT_Solutions.txt";
+
+        PrintStream printStreamForObjectives = new PrintStream(destinationFileForObjectives);
+        PrintStream printStreamForSolutions = new PrintStream(destinationFileForSolutions);
+        
+        System.out.println("Number of solutions per instance = " + this.numberOfSolutionsPerInstance);
+        
         for (int i = 0; i < vehicleCapacities.length; i++) {
             for (int j = 0; j < nodesDistance.length; j++) {
                 for (int k = 0; k < numberOfRequests.length; k++) {
@@ -47,7 +61,10 @@ public class SolutionGeneratorForAggregationTree {
                         String nodesInstance = "bh_n" + numberOfNodes + nodesDistance[j];
                         String adjacenciesInstance = "bh_adj_n" + numberOfNodes + nodesDistance[j];
 
-                        generateSolution(requestsInstance, vehicleCapacityForInstance, nodesInstance, adjacenciesInstance);
+                        System.out.println("Instance configuration = " + requestsInstance + "-" + vehicleCapacityForInstance
+                                + "-" + nodesInstance + "-" + adjacenciesInstance);
+                        generateSolution(requestsInstance, vehicleCapacityForInstance, nodesInstance, adjacenciesInstance,
+                                printStreamForObjectives, printStreamForSolutions);
 
                     }
                 }
@@ -55,7 +72,9 @@ public class SolutionGeneratorForAggregationTree {
         }
     }
 
-    private void generateSolution(String requestsInstance, int vehicleCapacityForInstance, String nodesInstance, String adjacenciesInstance) throws FileNotFoundException {
+    private void generateSolution(String requestsInstance, int vehicleCapacityForInstance, String nodesInstance,
+            String adjacenciesInstance, PrintStream printStreamForObjectives, PrintStream printStreamForSolutions)
+            throws FileNotFoundException {
         final Long timeWindows = (long) 3;
         List<Request> listOfRequests = new ArrayList<>();
         List<List<Integer>> listOfAdjacencies = new LinkedList<>();
@@ -73,24 +92,37 @@ public class SolutionGeneratorForAggregationTree {
         List<Request> requestList = new ArrayList<>();
         Long currentTime = (long) 0;
         Integer lastNode = 0;
-        
+
         String instanceName = requestsInstance;
         String nodesData = nodesInstance;
         String adjacenciesData = adjacenciesInstance;
         final Integer numberOfVehicles = 50;
         final Integer vehicleCapacity = vehicleCapacityForInstance;
-        
+
         numberOfNodes = readProblemData(instanceName, nodesData, adjacenciesData, listOfRequests, distanceBetweenNodes,
                 timeBetweenNodes, Pmais, Pmenos, requestsWichBoardsInNode, requestsWichLeavesInNode, setOfNodes,
                 numberOfNodes, loadIndexList);
 
         Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
-        
-        generateRandomSolutionsUsingPerturbation(1, vehicleCapacity, listOfRequests,requestsWichBoardsInNode,
-            requestsWichLeavesInNode, numberOfNodes, setOfVehicles, listOfNonAttendedRequests, requestList,
-            loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
-        
-        
+
+        Solution solution = greedyConstructive(0.2, 0.15, 0.55, 0.1, listOfRequests, requestsWichBoardsInNode,
+                requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList,
+                loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
+
+        Solution solution1 = new Solution();
+
+        for (int i = 0; i < numberOfSolutionsPerInstance; i++) {//numberOfSolutionsPerInstance
+            solution1.setSolution(perturbation(solution, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
+                    numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
+                    distanceBetweenNodes, timeWindows));
+            //System.out.println(solution1);
+            printStreamForObjectives.print(solution1.getStringWithObjectives() + "\n");
+            printStreamForSolutions.print(solution1 + "\n");
+        }
+
+//        generateRandomSolutionsUsingPerturbation(1, vehicleCapacity, listOfRequests,requestsWichBoardsInNode,
+//            requestsWichLeavesInNode, numberOfNodes, setOfVehicles, listOfNonAttendedRequests, requestList,
+//            loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 //        Solution solution = new Solution(Algorithms.greedyConstructive(0.20, 0.15, 0.55, 0.10, listOfRequests,
 //                requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles,
 //                listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes,
