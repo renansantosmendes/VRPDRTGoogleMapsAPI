@@ -18,7 +18,7 @@ public class Main {
         VRPDRTSD problem = new VRPDRTSD(instanceName, nodesData, adjacenciesData);
         
         problem.buildGreedySolution();
-        problem.getData().getInstanceRequests().forEach(System.out::println);
+        //problem.getData().getInstanceRequests().forEach(System.out::println);
     }
 
 }
