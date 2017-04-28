@@ -2,6 +2,7 @@ package VRPDRTSD;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+
 /**
  *
  * @author renansantos The Request Class represents the request for transport
@@ -14,6 +15,7 @@ public class Request {
     private final Node passengerDestination;
     private LocalDateTime dayRequestWasMade;
     private LocalDateTime pickUpTime;
+    private LocalDateTime deliveryTime;
     private LocalDateTime deliveryTimeWindowLower;
     private LocalDateTime deliveryTimeWindowUpper;
     private boolean feasible;
@@ -54,6 +56,10 @@ public class Request {
         this.pickUpTime = pickUpTime;
     }
 
+    public void setDeliveryTime(LocalDateTime deliveryTime) {
+        this.deliveryTime = deliveryTime;
+    }
+    
     public void setDeliveryTimeWindowLower(LocalDateTime deliveryTimeWindowLower) {
         this.deliveryTimeWindowLower = deliveryTimeWindowLower;
     }
@@ -130,6 +136,10 @@ public class Request {
         return pickUpTime;
     }
 
+    public LocalDateTime getDeliveryTime() {
+        return deliveryTime;
+    }
+    
     public LocalDateTime getDeliveryTimeWindowLower() {
         return deliveryTimeWindowLower;
     }
@@ -181,7 +191,6 @@ public class Request {
     public double getDestinationNodeRankingFunction() {
         return destinationNodeRankingFunction;
     }
-
 
     public void determineFeasibility(LocalDateTime currentTime, Node currentNode, Duration timeMatrix[][]) {
 

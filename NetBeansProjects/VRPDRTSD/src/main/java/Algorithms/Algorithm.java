@@ -15,30 +15,24 @@ public interface Algorithm<ProblemSolution, ProblemData, Candidates, Candidate> 
 
     void readInstance();
 
-    public <Candidates> Candidates initializeCandidatesElementsSet();
-
-    public <Candidates> Candidates actualizeCandidatesElementsSet();
-
-    public <Candidate> Candidate findBestCandidate();
-
-    public <Candidate, ProblemSolution> void addCandidateIntoSolution(ProblemSolution solution, Candidate candidate);
-
     default <Candidates, Candidate, ProblemSolution> ProblemSolution buildGreedySolution() {
-        ProblemSolution solution = null;
+        ProblemSolution solution = initializeSolution();
         List<Candidates> candidatesList = initializeCandidatesElementsSet();
         while (!candidatesList.isEmpty()) {
             Candidate candidate = findBestCandidate();
-            addCandidateIntoSolution(solution, candidate);
+            addCandidateIntoSolution(candidate);
             candidatesList = actualizeCandidatesElementsSet();
         }
         return solution;
     }
 
-//    Object builRandomSoltution();
-//    
-//    Object reBuildSolution();
-//    
-//    void evaluateSolution();
-//    
-//    Object localSeach();   
+    public <ProblemSolution> ProblemSolution initializeSolution();
+
+    public <Candidates> Candidates initializeCandidatesElementsSet();
+
+    public <Candidate> Candidate findBestCandidate();
+
+    public <Candidate, ProblemSolution> void addCandidateIntoSolution(Candidate candidate);
+
+    public <Candidates> Candidates actualizeCandidatesElementsSet();
 }

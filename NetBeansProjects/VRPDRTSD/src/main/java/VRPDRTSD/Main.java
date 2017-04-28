@@ -19,6 +19,8 @@ public class Main {
         
         problem.buildGreedySolution();
         //problem.getData().getInstanceRequests().forEach(System.out::println);
+        
+        Solution solution = new Solution();
     }
 
 }

@@ -33,6 +33,7 @@ public class VRPDRTSD implements Algorithm<Solution, Duration, List<Request>, Re
     Map<Node, List<Request>> requestsWichLeavesInNode;
     int maxLoadIndex;
     int minLoadIndex;
+    Solution solution;
 
     public VRPDRTSD(String instanceName, String nodesInstanceName, String adjacenciesInstanceName) {
         this.instanceName = instanceName;
@@ -49,9 +50,74 @@ public class VRPDRTSD implements Algorithm<Solution, Duration, List<Request>, Re
         this.data = data;
     }
 
+    private void requestsFeasibilityAnalysis() {
+        for (Request request : data.getRequests()) {
+            request.determineFeasibility(data.getCurrentTime(), data.getCurrentNode(), data.getDuration());
+        }
+    }
+
+    private void setDistanceToAttendEveryRequest() {
+        data.getRequests().forEach(r -> r.setDistanceToAttendThisRequest(data.getCurrentNode(), data.getDistance()));
+    }
+
+    private void findMaxAndMinDistance() {
+        maxDistance = data.getRequests().stream()
+                .mapToDouble(Request::getDistanceToAttendThisRequest).max().getAsDouble();
+        minDistance = data.getRequests().stream()
+                .mapToDouble(Request::getDistanceToAttendThisRequest).min().getAsDouble();
+    }
+
+    private void findMaxAndMinTimeWindowLower() {
+        minTimeWindowLower = data.getRequests().stream()
+                .mapToInt(Request::getDeliveryTimeWindowLowerInMinutes).min().getAsInt();
+        maxTimeWindowLower = data.getRequests().stream()
+                .mapToInt(Request::getDeliveryTimeWindowLowerInMinutes).max().getAsInt();
+    }
+
+    private void findMaxAndMinTimeWindowUpper() {
+        minTimeWindowUpper = data.getRequests().stream()
+                .mapToInt(Request::getDeliveryTimeWindowUpperInMinutes).min().getAsInt();
+        maxTimeWindowUpper = data.getRequests().stream()
+                .mapToInt(Request::getDeliveryTimeWindowUpperInMinutes).max().getAsInt();
+    }
+
+    private void separateRequestsWhichBoardsAndLeavesInNodes() {
+        requestsWichBoardsInNode = data.getRequests().stream().collect(Collectors.groupingBy(Request::getPassengerOrigin));
+        requestsWichLeavesInNode = data.getRequests().stream().collect(Collectors.groupingBy(Request::getPassengerDestination));
+    }
+
+    private void setLoadIndexForEveryNode() {
+        data.getNodes().forEach(n -> n.setLoadIndex(requestsWichBoardsInNode, requestsWichLeavesInNode));
+    }
+
+    private void findMaxAndMinLoadIndex() {
+        maxLoadIndex = data.getNodes().stream().mapToInt(Node::getLoadIndex).max().getAsInt();
+        minLoadIndex = data.getNodes().stream().mapToInt(Node::getLoadIndex).min().getAsInt();
+    }
+
+    private void setRequestFeasibilityParameters() {
+        for (Request request : data.getRequests()) {
+            request.setDistanceRankingFunction(maxDistance, minDistance);
+            request.setDeliveryTimeWindowLowerRankingFunction(maxTimeWindowLower, minTimeWindowLower);
+            request.setDeliveryTimeWindowUpperRankingFunction(maxTimeWindowUpper, minTimeWindowUpper);
+            request.setOriginNodeRankingFunction(maxLoadIndex, minLoadIndex);
+            request.setDestinationNodeRankingFunction(maxLoadIndex, minLoadIndex);
+            request.setRequestRankingFunction(0.2, 0.2, 0.2, 0.2, 0.2);
+        }
+    }
+
+    private ArrayList<Request> getListOfFeasibleRequests() {
+        return data.getRequests().stream().filter(Request::isFeasible).collect(Collectors.toCollection(ArrayList::new));
+    }
+
     @Override
     public void readInstance() {
         data = new ProblemData(instanceName, nodesInstanceName, adjacenciesInstanceName);
+    }
+
+    @Override
+    public <ProblemSolution> ProblemSolution initializeSolution() {
+        return (ProblemSolution) new Solution();
     }
 
     @Override
@@ -68,64 +134,15 @@ public class VRPDRTSD implements Algorithm<Solution, Duration, List<Request>, Re
         return (Candidates) getListOfFeasibleRequests();
     }
 
-    private ArrayList<Request> getListOfFeasibleRequests() {
-        return data.getRequests().stream().filter(Request::isFeasible).collect(Collectors.toCollection(ArrayList::new));
+    @Override
+    public <Candidate> Candidate findBestCandidate() {
+        data.getRequests().sort(Comparator.comparing(Request::getRequestRankingFunction).reversed());
+        return (Candidate) data.getRequests().get(0);
     }
 
-    private void setRequestFeasibilityParameters() {
-        for (Request request : data.getRequests()) {
-            request.setDistanceRankingFunction(maxDistance, minDistance);
-            request.setDeliveryTimeWindowLowerRankingFunction(maxTimeWindowLower, minTimeWindowLower);
-            request.setDeliveryTimeWindowUpperRankingFunction(maxTimeWindowUpper, minTimeWindowUpper);
-            request.setOriginNodeRankingFunction(maxLoadIndex, minLoadIndex);
-            request.setDestinationNodeRankingFunction(maxLoadIndex, minLoadIndex);
-            request.setRequestRankingFunction(0.2, 0.2, 0.2, 0.2, 0.2);
-        }
-    }
+    @Override
+    public <Candidate, ProblemSolution> void addCandidateIntoSolution(Candidate candidate) {
 
-    private void findMaxAndMinLoadIndex() {
-        maxLoadIndex = data.getNodes().stream().mapToInt(Node::getLoadIndex).max().getAsInt();
-        minLoadIndex = data.getNodes().stream().mapToInt(Node::getLoadIndex).min().getAsInt();
-    }
-
-    private void setLoadIndexForEveryNode() {
-        data.getNodes().forEach(n -> n.setLoadIndex(requestsWichBoardsInNode, requestsWichLeavesInNode));
-    }
-
-    private void setDistanceToAttendEveryRequest() {
-        data.getRequests().forEach(r -> r.setDistanceToAttendThisRequest(data.getCurrentNode(), data.getDistance()));
-    }
-
-    private void separateRequestsWhichBoardsAndLeavesInNodes() {
-        requestsWichBoardsInNode = data.getRequests().stream().collect(Collectors.groupingBy(Request::getPassengerOrigin));
-        requestsWichLeavesInNode = data.getRequests().stream().collect(Collectors.groupingBy(Request::getPassengerDestination));
-    }
-
-    private void findMaxAndMinTimeWindowUpper() {
-        minTimeWindowUpper = data.getRequests().stream()
-                .mapToInt(Request::getDeliveryTimeWindowUpperInMinutes).min().getAsInt();
-        maxTimeWindowUpper = data.getRequests().stream()
-                .mapToInt(Request::getDeliveryTimeWindowUpperInMinutes).max().getAsInt();
-    }
-
-    private void findMaxAndMinTimeWindowLower() {
-        minTimeWindowLower = data.getRequests().stream()
-                .mapToInt(Request::getDeliveryTimeWindowLowerInMinutes).min().getAsInt();
-        maxTimeWindowLower = data.getRequests().stream()
-                .mapToInt(Request::getDeliveryTimeWindowLowerInMinutes).max().getAsInt();
-    }
-
-    private void findMaxAndMinDistance() {
-        maxDistance = data.getRequests().stream()
-                .mapToDouble(Request::getDistanceToAttendThisRequest).max().getAsDouble();
-        minDistance = data.getRequests().stream()
-                .mapToDouble(Request::getDistanceToAttendThisRequest).min().getAsDouble();
-    }
-
-    private void requestsFeasibilityAnalysis() {
-        for (Request request : data.getRequests()) {
-            request.determineFeasibility(data.getCurrentTime(), data.getCurrentNode(), data.getDuration());
-        }
     }
 
     @Override
@@ -138,17 +155,6 @@ public class VRPDRTSD implements Algorithm<Solution, Duration, List<Request>, Re
 
         System.out.println(data.getCurrentNode());
         return (Candidates) data.getRequests();
-    }
-
-    @Override
-    public <Candidate> Candidate findBestCandidate() {
-        data.getRequests().sort(Comparator.comparing(Request::getRequestRankingFunction).reversed());
-        return (Candidate) data.getRequests().get(0);
-    }
-
-    @Override
-    public <Candidate, ProblemSolution> void addCandidateIntoSolution(ProblemSolution solution, Candidate candidate) {
-
     }
 
 }
