@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
+import View.WaitScreen;
 
 /**
  *
@@ -215,11 +216,15 @@ public class GoogleStaticMap {
 
         frame.setVisible(true);
         frame.pack();
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     public void getStaticMapForInstance() {
         JFrame frame = new JFrame("Google Maps");
+        
+//        WaitScreen waitScreen = new WaitScreen();
+//        waitScreen.showScreen();
+        
         //frame.setAlwaysOnTop(true);
         //frame.setLocationRelativeTo(null);
 
@@ -251,13 +256,16 @@ public class GoogleStaticMap {
             e.printStackTrace();
             System.exit(1);
         }
-
+        
+        //waitScreen.hideScreen();
+        
         frame.add(new JLabel(new ImageIcon(new ImageIcon(destinationFile).getImage()
                 .getScaledInstance(730, 700, java.awt.Image.SCALE_SMOOTH))));
 
         frame.setVisible(true);
         frame.pack();
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        //frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     private void setStaticMapParameters() {

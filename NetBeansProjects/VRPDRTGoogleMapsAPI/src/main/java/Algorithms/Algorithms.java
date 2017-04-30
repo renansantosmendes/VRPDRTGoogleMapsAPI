@@ -66,11 +66,24 @@ import static Algorithms.Methods.mutation2Shuffle;
 import static Algorithms.Methods.mutation2Opt;
 import static Algorithms.Methods.mutacaoShuffle;
 import static Algorithms.Methods.mutationSwap;
+import ProblemRepresentation.InstanceData;
 import java.util.OptionalLong;
 import java.util.stream.Collectors;
 
 public class Algorithms {
 
+    public InstanceData data;
+    private String instanceName = "r050n12tw10";
+    private String nodesData = "bh_n12s";
+    private String adjacenciesData = "bh_adj_n12s";
+    
+    public Algorithms(InstanceData data) {
+        this.data = new InstanceData(instanceName, nodesData, adjacenciesData);
+        this.data.readProblemData();
+    }
+    
+    
+    
     public static void floydWarshall(List<List<Integer>> c, List<List<Integer>> d, Integer n) {
         for (int k = 0; k < n; k++) {
             for (int i = 0; i < n; i++) {
@@ -421,6 +434,138 @@ public class Algorithms {
         return solution;
     }
 
+//    
+//    public Solution greedyConstructiveRefactoring(Double alphaD, Double alphaP, Double alphaV, Double alphaT) {
+//
+//        data.getRequestList().clear();
+//        data.getListOfNonAttendedRequests().clear();
+//        data.getRequestList().addAll(data.getListOfRequests());
+//
+//        //Step 1
+//        Solution solution = new Solution();
+//        String log = "";
+//
+//        int currentVehicle;
+//        Map<Integer, Double> costRankList = new HashMap<>(data.getNumberOfNodes());
+//        Map<Integer, Double> numberOfPassengersRankList = new HashMap<>(data.getNumberOfNodes());
+//        Map<Integer, Double> deliveryTimeWindowRankList = new HashMap<>(data.getNumberOfNodes());
+//        Map<Integer, Double> timeWindowRankList = new HashMap<>(data.getNumberOfNodes());
+//        Map<Integer, Double> nodeRankingFunction = new HashMap<>(data.getNumberOfNodes());
+//
+//        Iterator<Integer> vehicleIterator = data.getSetOfVehicles().iterator();
+//        data.getListOfNonAttendedRequests().clear();
+//        while (!data.getRequestList().isEmpty() && vehicleIterator.hasNext()) {
+//
+//            separateOriginFromDestination(data.getListOfNonAttendedRequests(), data.getRequestsWichBoardsInNode(),
+//                    data.getRequestsWichLeavesInNode(), data.getNumberOfNodes(), data.getRequestList());
+//
+//            //Step 2
+//            Route route = new Route();
+//            currentVehicle = vehicleIterator.next();
+//            log += "\tGROute " + (currentVehicle + 1) + " ";
+//
+//            //Step 3
+//            route.addVisitedNodes(0);
+//
+//            data.setCurrentTime((long) 0);
+//            //-------------------------------------------------------------------
+//            double max, min;
+//            //Integer  lastNode = R.getLastNode();
+//            data.setLastNode(route.getLastNode());
+//
+//            boolean feasibleNodeIsFound;
+//
+//            while (!data.getRequestList().isEmpty()) {
+//                feasibleNodeIsFound = false;
+//                data.getLoadIndexList().clear();
+//                for (int i = 0; i < data.getNumberOfNodes(); i++) {
+//                    data.getLoadIndexList().add(data.getRequestsWichBoardsInNode().get(i).size() 
+//                            - data.getRequestsWichLeavesInNode().get(i).size());
+//                }
+//
+//                //Step 4
+//                Set<Integer> feasibleNode = new HashSet<>();
+//                List<Long> earliestTime = new ArrayList<>();
+//
+//                findFeasibleNodes(data.getNumberOfNodes(), data.getLastNode(), feasibleNodeIsFound,vehicleCapacity, route,
+//                        requestsWichBoardsInNode, requestsWichLeavesInNode, feasibleNode, timeBetweenNodes,
+//                        currentTime, timeWindows);
+//
+//                //System.out.println("FEASIBLE NODES = "+ FeasibleNode);			
+//                if (feasibleNode.size() > 1) {
+//                    //Step 4.1
+//                    CalculaCRL(feasibleNode, costRankList, distanceBetweenNodes, lastNode);
+//                    //Step 4.2
+//                    CalculaNRL(feasibleNode, numberOfPassengersRankList, loadIndex, lastNode);
+//                    //Step 4.3
+//                    CalculaDRL(feasibleNode, deliveryTimeWindowRankList, requestsWichLeavesInNode, lastNode,
+//                            timeBetweenNodes, earliestTime);
+//                    //Step 4.4
+//                    CalculaTRL(feasibleNode, timeWindowRankList, requestsWichBoardsInNode, lastNode, timeBetweenNodes,
+//                            earliestTime);
+//                } else {
+//                    //Step 4.1
+//                    CalculaListaSemNosViaveis(costRankList, feasibleNode);
+//                    //Step 4.2
+//                    CalculaListaSemNosViaveis(numberOfPassengersRankList, feasibleNode);
+//                    //Step 4.3
+//                    CalculaListaSemNosViaveis(deliveryTimeWindowRankList, feasibleNode);
+//                    //Step 4.4
+//                    CalculaListaSemNosViaveis(timeWindowRankList, feasibleNode);
+//                }
+//
+//                //Step 5
+//                CalculaNRF(nodeRankingFunction, costRankList, numberOfPassengersRankList, deliveryTimeWindowRankList,
+//                        timeWindowRankList, alphaD, alphaP, alphaV, alphaT, feasibleNode);
+//
+//                //Step 6              
+//                //System.out.println("Tamanho da NRF = " + NRF.size());              
+//                max = Collections.max(nodeRankingFunction.values());
+//
+//                currentTime = AdicionaNo(nodeRankingFunction, costRankList, numberOfPassengersRankList,
+//                        deliveryTimeWindowRankList, timeWindowRankList, max, lastNode, requestsWichBoardsInNode,
+//                        timeBetweenNodes, earliestTime, currentTime, route);
+//
+//                lastNode = route.getLastNode();
+//
+//                //Step 7
+//                //RETIRAR A LINHA DE BAIXO DEPOIS - inicialização de listRequestAux
+//                List<Request> listRequestAux = new LinkedList<>();
+//                //Desembarca as solicitações no nó 
+//                Desembarca(requestsWichBoardsInNode, requestsWichLeavesInNode, lastNode, currentTime, requestList,
+//                        listRequestAux, route, log);
+//                //Embarca as solicitações sem tempo de espera
+//                Embarca(requestsWichBoardsInNode, lastNode, currentTime, requestList, listRequestAux, route, log, vehicleCapacity);
+//                //Embarca agora as solicitações onde o veículo precisar esperar e guarda atualiza o tempo (currentTime)                               
+//                currentTime = EmbarcaRelaxacao(requestsWichBoardsInNode, lastNode, currentTime, requestList,
+//                        listRequestAux, route, log, vehicleCapacity, timeWindows);
+//
+//                //---------- Trata as solicitações inviáveis -----------
+//                RetiraSolicitacoesInviaveis(requestsWichBoardsInNode, requestsWichLeavesInNode, listRequestAux,
+//                        currentTime, requestList, listOfNonAttendedRequests);
+//                feasibleNodeIsFound = ProcuraSolicitacaoParaAtender(route, vehicleCapacity, requestsWichBoardsInNode,
+//                        requestsWichLeavesInNode, currentTime, numberOfNodes, timeBetweenNodes, lastNode, timeWindows,
+//                        feasibleNodeIsFound);
+//                RetiraSolicitacaoNaoSeraAtendida(feasibleNodeIsFound, requestsWichBoardsInNode, requestsWichLeavesInNode,
+//                        listRequestAux, currentTime, requestList, listOfNonAttendedRequests);
+//
+//                //Step 8
+//                currentTime = FinalizaRota(requestList, route, currentTime, lastNode, timeBetweenNodes, solution);
+//            }
+//
+//            //Step 9
+//            AnaliseSolicitacoesViaveisEmU(listOfNonAttendedRequests, requestList, vehicleIterator, timeBetweenNodes);
+//        }
+//
+//        solution.setNonAttendedRequestsList(listOfNonAttendedRequests);
+//        evaluateSolution(solution, distanceBetweenNodes, vehicleCapacity, listOfRequests);
+//        solution.setLogger(log);
+//        solution.linkTheRoutes();
+//
+//        return solution;
+//    }
+//
+    
     private static void evaluateSolution(Solution solution, List<List<Long>> distanceBetweenNodes, Integer vehicleCapacity, List<Request> listOfRequests) {
         solution.setTotalDistance(FO1(solution, distanceBetweenNodes));
         solution.setTotalDeliveryDelay(FO2(solution));
