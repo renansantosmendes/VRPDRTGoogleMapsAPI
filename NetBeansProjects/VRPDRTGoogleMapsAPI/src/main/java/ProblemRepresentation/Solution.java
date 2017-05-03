@@ -19,7 +19,7 @@ public class Solution implements Comparable<Solution> {
     private double objectiveFunction;
     private long totalDistance;//f1
     private long totalDeliveryDelay;//f2
-    private int numberOfStopPointsChargeBalance;//f3
+
     private int numberOfNonAttendedRequests;//f4
     private int numberOfVehicles;//f5
     private long totalTravelTime;//f6
@@ -50,7 +50,6 @@ public class Solution implements Comparable<Solution> {
         objectiveFunction = -1;
         totalDistance = -1;
         totalDeliveryDelay = -1;
-        numberOfStopPointsChargeBalance = -1;
         numberOfNonAttendedRequests = -1;
         numberOfVehicles = -1;
         totalTravelTime = -1;
@@ -79,7 +78,6 @@ public class Solution implements Comparable<Solution> {
         objectiveFunction = solution.getObjectiveFunction();
         totalDistance = solution.getTotalDistance();
         totalDeliveryDelay = solution.getTotalDeliveryDelay();
-        numberOfStopPointsChargeBalance = solution.getNumberOfStopPointsChargeBalance();
         numberOfNonAttendedRequests = solution.getNumberOfNonAttendedRequests();
         numberOfVehicles = solution.getNumberOfVehicles();
         totalTravelTime = solution.getTotalTravelTime();
@@ -104,13 +102,12 @@ public class Solution implements Comparable<Solution> {
         setObjectiveFunction(solution.getObjectiveFunction());
         setTotalDistance(solution.getTotalDistance());
         setTotalDeliveryDelay(solution.getTotalDeliveryDelay());
-        setNumberOfStopPointsChargeBalance(solution.getNumberOfStopPointsChargeBalance());
+        setTotalRouteTimeChargeBanlance(solution.getTotalRouteTimeChargeBanlance());
         setNumberOfNonAttendedRequests(solution.getNumberOfNonAttendedRequests());
         setNumberOfVehicles(solution.getNumberOfVehicles());
         setTotalTravelTime(solution.getTotalTravelTime());
         setTotalWaintingTime(solution.getTotalWaintingTime());
         setDeliveryTimeWindowAntecipation(solution.getDeliveryTimeWindowAntecipation());
-        setTotalRouteTimeChargeBanlance(solution.getTotalRouteTimeChargeBanlance());
         setTotalOccupationRate(solution.getTotalOccupationRate());
         setAggregatedObjective1(solution.getAggregatedObjective1());
         setAggregatedObjective2(solution.getAggregatedObjective2());
@@ -125,21 +122,20 @@ public class Solution implements Comparable<Solution> {
         setTempoExtraTotal(solution.getTempoExtraTotal());
     }
 
-    public void resetSolution(double FO, int FO1, int FO2, int FO3, int FO4, int FO5, int FO6,
-            int FO7, int FO8, long FO9, double F10) {
+    public void resetSolution(double FO, int FO1, int FO2, long FO3, int FO4, int FO5, int FO6,
+            int FO7, int FO8, double F9) {
         setOfRoutes.clear();
         listOfSolutionsDominatedByThisSolution.clear();
         objectiveFunction = FO;
         totalDistance = FO1;
         totalDeliveryDelay = FO2;
-        numberOfStopPointsChargeBalance = FO3;
+        totalRouteTimeChargeBanlance = FO3;
         numberOfNonAttendedRequests = FO4;
         numberOfVehicles = FO5;
         totalTravelTime = FO6;
         totalWaintingTime = FO7;
         deliveryTimeWindowAntecipation = FO8;
-        totalRouteTimeChargeBanlance = FO9;
-        totalOccupationRate = F10;
+        totalOccupationRate = F9;
         aggregatedObjective1 = 99999999;
         aggregatedObjective2 = 99999999;
         aggregatedObjective1Normalized = 99999999;
@@ -241,10 +237,6 @@ public class Solution implements Comparable<Solution> {
         return totalDeliveryDelay;
     }
 
-    public int getNumberOfStopPointsChargeBalance() {
-        return numberOfStopPointsChargeBalance;
-    }
-
     public int getNumberOfNonAttendedRequests() {
         return numberOfNonAttendedRequests;
     }
@@ -319,10 +311,6 @@ public class Solution implements Comparable<Solution> {
 
     public void setTotalDeliveryDelay(long totalDeliveryDelay) {
         this.totalDeliveryDelay = totalDeliveryDelay;
-    }
-
-    public void setNumberOfStopPointsChargeBalance(int numberOfStopPointsChargeBalance) {
-        this.numberOfStopPointsChargeBalance = numberOfStopPointsChargeBalance;
     }
 
     public void setNumberOfNonAttendedRequests(int numberOfNonAttendedRequests) {
@@ -419,10 +407,9 @@ public class Solution implements Comparable<Solution> {
     }
 
     public String getStringWithObjectives() {
-        String stringWithObjectives = totalDistance + "\t" + totalDeliveryDelay + "\t" + numberOfStopPointsChargeBalance + 
+        String stringWithObjectives = totalDistance + "\t" + totalDeliveryDelay + "\t" + totalRouteTimeChargeBanlance + 
                 "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" 
-                + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" + totalRouteTimeChargeBanlance  
-                + "\t" + totalOccupationRate + "\t" ;
+                + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" +  totalOccupationRate + "\t" ;
         return stringWithObjectives;
     }
 
@@ -432,9 +419,9 @@ public class Solution implements Comparable<Solution> {
         
         String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ /*aggregatedObjective1Normalized + "\t"+ 
                 aggregatedObjective2Normalized + "\t"+*/ totalDistance + "\t" + totalDeliveryDelay + 
-                "\t"  + numberOfStopPointsChargeBalance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + 
+                "\t"  + totalRouteTimeChargeBanlance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + 
                 "\t"  + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" 
-                + totalRouteTimeChargeBanlance + "\t" + totalOccupationRate + "\t";
+                + "\t" + totalOccupationRate + "\t";
         
         int indice = 1;
         String listaAtendimento = " ";

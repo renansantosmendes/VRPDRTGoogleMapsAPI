@@ -14,7 +14,6 @@ import static Algorithms.Algorithms.FO5;
 import static Algorithms.Algorithms.FO6;
 import static Algorithms.Algorithms.FO7;
 import static Algorithms.Algorithms.FO8;
-import static Algorithms.Algorithms.FO9;
 import static Algorithms.Algorithms.FOp;
 import static Algorithms.Algorithms.FuncaoDeAvaliacao;
 import static Algorithms.Algorithms.PerturbacaoSemente;
@@ -48,6 +47,8 @@ import static Algorithms.AlgorithmsForMultiObjectiveOptimization.initializePopul
 import static Algorithms.Algorithms.VariableNeighborhoodDescend;
 import static Algorithms.Algorithms.geraPesos;
 import static Algorithms.Algorithms.evaluateAggregatedObjectiveFunctions;
+import static Algorithms.Algorithms.FO3;
+import static Algorithms.Algorithms.FO9;
 
 /**
  *
@@ -717,14 +718,15 @@ public class Methods {
         solution.setNonAttendedRequestsList(U);
         solution.setTotalDistance(FO1(solution, c));
         solution.setTotalDeliveryDelay(FO2(solution));
-        solution.setNumberOfStopPointsChargeBalance(FO3(solution));
+        solution.setTotalRouteTimeChargeBanlance(FO3(solution));
         solution.setNumberOfNonAttendedRequests(FO4(solution));
         solution.setNumberOfVehicles(FO5(solution));
         solution.setTotalTravelTime(FO6(solution));
         solution.setTotalWaintingTime(FO7(solution));
         solution.setDeliveryTimeWindowAntecipation(FO8(solution));
-        solution.setTotalRouteTimeChargeBanlance(FO9(solution));
+        solution.setTotalOccupationRate(FO9(solution, Qmax));
         evaluateAggregatedObjectiveFunctions(solution, 1, 1, 1, 1, 1);
+        solution.setObjectiveFunction(FuncaoDeAvaliacao(solution, listRequests, c));
         solution.setLogger(log);
         solution.linkTheRoutes();
         //S.setfObjetivo1((int) FuncaoObjetivo(S, c));

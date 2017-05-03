@@ -102,10 +102,15 @@ public class VRPDRT {
 //        data.readProblemData();
 //        data.getListOfRequests().forEach(System.out::println);
         //new Controller(args);
-        MainScreen.main(args);
+        //MainScreen.main(args);
 //        MainScreen ms = new MainScreen();
 //        ms.setVisible(true);
 //        ms.setLocationRelativeTo(null);
+
+//        MainScreen mainScreen = new MainScreen();
+//        new Controller(mainScreen);
+//        mainScreen.setVisible(true);
+//        mainScreen.configureMainScreen();
     }
 
 }

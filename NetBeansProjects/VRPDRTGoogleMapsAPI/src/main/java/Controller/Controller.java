@@ -24,11 +24,12 @@ public class Controller {
     private InstanceData data;
     private String numberOfRequests;
     private String timeWindowsSize;
+    private MainScreen mainScreen;
 
-    public Controller() {
+    public Controller(MainScreen mainScreen) {
         data = new InstanceData(instanceName, nodesData, adjacenciesData);
         data.readProblemData();
-        //this.startUI(args);
+        this.mainScreen = mainScreen;
     }
 
     public void startUI(String[] args) {

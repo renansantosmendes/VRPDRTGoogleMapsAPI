@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class MainScreen extends javax.swing.JFrame {
 
-    private Controller controller = new Controller();
+    //private Controller controller = new Controller();
     private WaitScreen waitScreen = new WaitScreen();
 
     /**
@@ -217,11 +217,11 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            controller.generateMapForInstance();
-        } catch (IOException ex) {
-            Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            //controller.generateMapForInstance();
+//        } catch (IOException ex) {
+//            Logger.getLogger(MainScreen.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -259,12 +259,34 @@ public class MainScreen extends javax.swing.JFrame {
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
 //                //Controller controller = new Controller(args);
-
-                MainScreen ms = new MainScreen();
-                ms.setVisible(true);
-                ms.setLocationRelativeTo(null);
+        MainScreen ms = new MainScreen();
+        ms.setVisible(true);
+        ms.setLocationRelativeTo(null);
 //            }
 //        });
+    }
+
+    public void configureMainScreen() {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+     
+//        MainScreen ms = new MainScreen();
+//        ms.setVisible(true);
+//        ms.setLocationRelativeTo(null);
     }
 
     public void quitSystem() {
