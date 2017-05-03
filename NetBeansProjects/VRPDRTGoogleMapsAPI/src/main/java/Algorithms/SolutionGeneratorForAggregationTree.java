@@ -28,10 +28,10 @@ import java.util.Set;
  */
 public class SolutionGeneratorForAggregationTree {
 
-    String vehicleCapacities[] = {"4", "11", "13", "16"};
+    String vehicleCapacities[] = {"4", "11", "16"};//"13" -> removed
     String nodesDistance[] = {"s", "m", "l"};
     String numberOfRequests[] = {"050", "100", "150", "200", "250"};
-    String timeWindows[] = {"03", "05", "10"};
+    String timeWindows[] = {"05", "10"};// "03"-> removed
     String numberOfNodes = "12";
     int numberOfInstances;
     int numberOfSolutionsPerInstance;
@@ -119,16 +119,5 @@ public class SolutionGeneratorForAggregationTree {
             printStreamForObjectives.print(solution1.getStringWithObjectives() + "\n");
             printStreamForSolutions.print(solution1 + "\n");
         }
-
-//        generateRandomSolutionsUsingPerturbation(1, vehicleCapacity, listOfRequests,requestsWichBoardsInNode,
-//            requestsWichLeavesInNode, numberOfNodes, setOfVehicles, listOfNonAttendedRequests, requestList,
-//            loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
-//        Solution solution = new Solution(Algorithms.greedyConstructive(0.20, 0.15, 0.55, 0.10, listOfRequests,
-//                requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles,
-//                listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes,
-//                timeWindows, currentTime, lastNode));
-//
-//
-//        System.out.println(solution);
     }
 }

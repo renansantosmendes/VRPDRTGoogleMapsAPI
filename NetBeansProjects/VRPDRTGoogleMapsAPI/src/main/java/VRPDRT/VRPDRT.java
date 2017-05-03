@@ -27,7 +27,10 @@ import com.google.maps.errors.ApiException;
 import java.io.IOException;
 import static Algorithms.AlgorithmsForMultiObjectiveOptimization.NonDominatedSortedGeneticAlgorithmII;
 import Algorithms.SolutionGeneratorForAggregationTree;
+import Controller.Controller;
 import GoogleMapsApi.GoogleStaticMap;
+import ProblemRepresentation.InstanceData;
+import View.MainScreen;
 
 /**
  *
@@ -78,22 +81,36 @@ public class VRPDRT {
 
         Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
 
-        Solution solution = new Solution(Algorithms.greedyConstructive(0.20, 0.15, 0.55, 0.10, listOfRequests,
+        Solution solution = new Solution(Algorithms.greedyConstructive(0.20, 0.15, 0.55, 0.10, listOfRequests.subList(0, 10),
                 requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles,
                 listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes,
                 timeWindows, currentTime, lastNode));
 
+        //solution.getSetOfRoutes().forEach(route -> System.out.println(route.getRequestAttendanceList()));
         //solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         //new GoogleStaticMap(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData).getStaticMapForInstance();
         //solution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
-        //System.out.println(solution);
+        System.out.println(solution);
         //        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
         //                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
         //                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
         //                distanceBetweenNodes, timeWindows, currentTime, lastNode);
         //        
 
-        new SolutionGeneratorForAggregationTree().generateSolutionsForAggregationTree();
+        //new SolutionGeneratorForAggregationTree().generateSolutionsForAggregationTree();
+//        InstanceData data = new InstanceData(instanceName, nodesData, adjacenciesData);
+//        data.readProblemData();
+//        data.getListOfRequests().forEach(System.out::println);
+        //new Controller(args);
+        //MainScreen.main(args);
+//        MainScreen ms = new MainScreen();
+//        ms.setVisible(true);
+//        ms.setLocationRelativeTo(null);
+
+//        MainScreen mainScreen = new MainScreen();
+//        new Controller(mainScreen);
+//        mainScreen.setVisible(true);
+//        mainScreen.configureMainScreen();
     }
 
 }

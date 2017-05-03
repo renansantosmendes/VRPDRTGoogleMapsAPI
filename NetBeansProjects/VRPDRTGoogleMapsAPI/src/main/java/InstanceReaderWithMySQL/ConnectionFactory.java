@@ -14,9 +14,13 @@ import java.sql.SQLException;
  * @author renansantos
  */
 public class ConnectionFactory {
+    private String password = "";
+    private String database = "VRPDRT";
+    private String user = "root";
     public Connection getConnection(){
         try{
-            return DriverManager.getConnection("jdbc:mysql://localhost/instances?useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
+            return DriverManager.getConnection("jdbc:mysql://localhost/"+ database +"?useLegacyDatetimeCode=false"
+                    + "&serverTimezone=UTC",user,password);
             //return DriverManager.getConnection("jdbc:mysql://localhost/instances","root","");
         }catch(SQLException e){
             throw new RuntimeException(e);
