@@ -1,83 +1,22 @@
 package Algorithms;
 
-import static Algorithms.Methods.AdicionaNo;
-import static Algorithms.Methods.AnaliseSolicitacoesViaveisEmU;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.Map;
-//import static principal.PrincipalRenan.buscaLocal;
-//import static principal.PrincipalRenan.buscaTabu;
-
-import ProblemRepresentation.Request;
-import ProblemRepresentation.Route;
-import ProblemRepresentation.Solution;
-import static Algorithms.Methods.CalculaCRL;
-import static Algorithms.Methods.CalculaDRL;
-import static Algorithms.Methods.CalculaListaSemNosViaveis;
-import static Algorithms.Methods.CalculaNRF;
-import static Algorithms.Methods.CalculaNRL;
-import static Algorithms.Methods.CalculaTRL;
-import static Algorithms.Methods.Desembarca;
-import static Algorithms.Methods.Embarca;
-import static Algorithms.Methods.EmbarcaRelaxacao;
-import static Algorithms.Methods.FinalizaRota;
-import static Algorithms.Methods.Fitness;
-import static Algorithms.Methods.GeraSolucaoAleatoria;
-import static Algorithms.Methods.ProcuraSolicitacaoParaAtender;
-import static Algorithms.Methods.RetiraSolicitacaoNaoSeraAtendida;
-import static Algorithms.Methods.RetiraSolicitacoesInviaveis;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.Objects;
-import java.util.Random;
-import static Algorithms.Methods.InicializaPopulacaoPerturbacao;
-import static Algorithms.Methods.MutacaoILS;
-import static Algorithms.Methods.NewFitness;
-import static Algorithms.Methods.buscaTabu;
-import static Algorithms.Methods.primeiroMelhorVizinhoAleatorio;
-import static Algorithms.Methods.vizinhoAleatorio;
+import static Algorithms.Methods.*;
+import java.util.*;
+import ProblemRepresentation.*;
+import java.io.*;
+import static Algorithms.Methods.*;
 import java.time.Clock;
-import java.util.Comparator;
-import java.util.Scanner;
-import java.util.TreeMap;
-import static Algorithms.Methods.findFeasibleNodes;
-import static Algorithms.Methods.separateOriginFromDestination;
 import VRPDRT.VRPDRT;
-import static Algorithms.Methods.printPopulation;
-import static Algorithms.Methods.rouletteWheelSelectionAlgorithm;
-import static Algorithms.Methods.populationSorting;
-import static Algorithms.Methods.onePointCrossover;
-import static Algorithms.Methods.twoPointsCrossover;
-import static Algorithms.Methods.copyBestSolution;
-import static Algorithms.Methods.insertBestIndividualInPopulation;
-import static Algorithms.Methods.firstImprovementAlgorithm;
-import static Algorithms.Methods.bestImprovementAlgorithm;
-import static Algorithms.Methods.mutation2Shuffle;
-import static Algorithms.Methods.mutation2Opt;
-import static Algorithms.Methods.mutacaoShuffle;
-import static Algorithms.Methods.mutationSwap;
-import ProblemRepresentation.InstanceData;
-import java.util.OptionalLong;
 import java.util.stream.Collectors;
 
 public class Algorithms {
 
-    public InstanceData data;
+    private static InstanceData data;
     private String instanceName = "r050n12tw10";
     private String nodesData = "bh_n12s";
     private String adjacenciesData = "bh_adj_n12s";
 
-    public Algorithms(InstanceData data) {
+    public Algorithms() {
         this.data = new InstanceData(instanceName, nodesData, adjacenciesData);
         this.data.readProblemData();
     }
@@ -423,6 +362,29 @@ public class Algorithms {
         solution.setLogger(log);
         solution.linkTheRoutes();
 
+        return solution;
+    }
+    
+    public static Solution individualConstructive(){
+        Solution solution = new Solution();
+        List<Request> requestList = new ArrayList<>();
+        requestList.addAll(data.getListOfRequests());
+        int currentVehicle;
+        String log = "";
+        Iterator<Integer> vehicleIterator = data.getSetOfVehicles().iterator();
+        while (!requestList.isEmpty()){
+            Route route = new Route();
+            currentVehicle = vehicleIterator.next();
+            log += "\tGROute " + (currentVehicle + 1) + " ";
+
+            route.addVisitedNodes(0);
+
+            data.setCurrentTime((long) 0);
+            data.setLastNode(route.getLastNode());
+            
+            
+        }
+                
         return solution;
     }
 

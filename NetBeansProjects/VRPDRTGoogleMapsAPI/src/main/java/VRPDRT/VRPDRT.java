@@ -5,31 +5,18 @@
  */
 package VRPDRT;
 
-import Algorithms.Algorithms;
-import static Algorithms.Algorithms.IteratedLocalSearch;
-import static Algorithms.Algorithms.generateInitialPopulation;
-import static Algorithms.Algorithms.generateRandomSolutionsUsingPerturbation;
-import static Algorithms.Algorithms.greedyConstructive;
-import Algorithms.Methods;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import ProblemRepresentation.Request;
-import ProblemRepresentation.Solution;
+import Algorithms.*;
+import static Algorithms.Algorithms.*;
+import java.util.*;
+import ProblemRepresentation.*;
 import static Algorithms.Methods.readProblemData;
-import GoogleMapsApi.DataUpdaterUsingGoogleMapsApi;
-import InstanceReaderWithMySQL.NodeDAO;
+import GoogleMapsApi.*;
+import InstanceReaderWithMySQL.*;
 import com.google.maps.errors.ApiException;
 import java.io.IOException;
 import static Algorithms.AlgorithmsForMultiObjectiveOptimization.NonDominatedSortedGeneticAlgorithmII;
-import Algorithms.SolutionGeneratorForAggregationTree;
+import Algorithms.*;
 import Controller.Controller;
-import GoogleMapsApi.GoogleStaticMap;
-import ProblemRepresentation.InstanceData;
 import View.MainScreen;
 
 /**
@@ -60,11 +47,11 @@ public class VRPDRT {
 
     public static void main(String[] args) throws ApiException, InterruptedException, IOException {
         String directionsApiKey = "AIzaSyD9W0em7H723uVOMD6QFe_1Mns71XAi5JU";
-        String instanceName = "r050n12tw10";
+        String instanceName = "r250n12tw10";
         String nodesData = "bh_n12s";
         String adjacenciesData = "bh_adj_n12s";
-        final Integer numberOfVehicles = 50;
-        final Integer vehicleCapacity = 4;
+        final Integer numberOfVehicles = 500;
+        final Integer vehicleCapacity = 1;
         Integer populationSize = 100;
         Integer maximumNumberOfGenerations = 15;
         Integer maximumNumberOfExecutions = 1;
@@ -81,16 +68,21 @@ public class VRPDRT {
 
         Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
 
-        Solution solution = new Solution(Algorithms.greedyConstructive(0.20, 0.15, 0.55, 0.10, listOfRequests.subList(0, 10),
+        Solution solution = new Solution(Algorithms.greedyConstructive(0.20, 0.15, 0.55, 0.10, listOfRequests,
                 requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles,
                 listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes,
                 timeWindows, currentTime, lastNode));
-
+        System.out.println(solution);
         //solution.getSetOfRoutes().forEach(route -> System.out.println(route.getRequestAttendanceList()));
         //solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         //new GoogleStaticMap(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData).getStaticMapForInstance();
         //solution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
-        System.out.println(solution);
+        
+        Algorithms algorithms = new Algorithms();
+        
+        Solution individualSolution = new Solution(algorithms.individualConstructive());
+        
+        
         //        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
         //                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
         //                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,

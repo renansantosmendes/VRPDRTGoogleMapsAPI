@@ -37,7 +37,7 @@ public class RequestDAO {
 
     public void addRequestIntoDataBase(Request request) {
         //r250n12tw03
-        String sql = "insert into r250n12tw10 values (?,?,?,?,?,?,?)";
+        String sql = "insert into " + this.instanceName + " values (?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement statement = this.connection.prepareStatement(sql);
@@ -133,7 +133,7 @@ public class RequestDAO {
                 Integer deliveryTimeWindowUpper = 60 * (resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime().getHour())
                         + resultSetForRequests.getTime("deliveryTimeWindowUpper").toLocalTime().getMinute() + valueAdded;
                 Request request = new Request(requestId, passengerOrigin, passengerDestination, pickUpTimeWindowLower,
-                        pickUpTimeWindowUpper,deliveryTimeWindowLower ,deliveryTimeWindowUpper);
+                        pickUpTimeWindowUpper, deliveryTimeWindowLower, deliveryTimeWindowUpper);
 //                Request request = new Request(requestId, passengerOrigin, passengerDestination, pickUpTimeWindowLower,
 //                        deliveryTimeWindowLower);
                 listOfRequests.add(request);

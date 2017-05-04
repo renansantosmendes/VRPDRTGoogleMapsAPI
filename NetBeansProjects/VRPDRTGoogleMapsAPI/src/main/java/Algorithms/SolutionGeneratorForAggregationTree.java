@@ -28,14 +28,14 @@ import java.util.Set;
  */
 public class SolutionGeneratorForAggregationTree {
 
-    String vehicleCapacities[] = {"4", "11", "16"};//"13" -> removed
-    String nodesDistance[] = {"s", "m", "l"};
-    String numberOfRequests[] = {"050", "100", "150", "200", "250"};
-    String timeWindows[] = {"05", "10"};// "03"-> removed
-    String numberOfNodes = "12";
-    int numberOfInstances;
-    int numberOfSolutionsPerInstance;
-    int idealNumberOfSolutions = 10000;
+    private String vehicleCapacities[] = {"4", "11", "16"};//"13" -> removed
+    private String nodesDistance[] = {"s", "m", "l"};
+    private String numberOfRequests[] = {"050", "100", "150", "200", "250"};
+    private String timeWindows[] = {"05", "10"};// "03"-> removed
+    private String numberOfNodes = "12";
+    private int numberOfInstances;
+    private int numberOfSolutionsPerInstance;
+    private int idealNumberOfSolutions = 10000;
 
     public void generateSolutionsForAggregationTree() throws FileNotFoundException {
         this.numberOfInstances = this.vehicleCapacities.length * this.nodesDistance.length
