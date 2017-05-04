@@ -5,6 +5,7 @@
  */
 package ProblemRepresentation;
 
+import Algorithms.Methods;
 import InstanceReaderWithMySQL.AdjacenciesDAO;
 import InstanceReaderWithMySQL.NodeDAO;
 import InstanceReaderWithMySQL.RequestDAO;
@@ -42,11 +43,13 @@ public class InstanceData {
     private String instanceName;
     private String nodesData;
     private String adjacenciesData;
+    private int numberOfVehicles = 500;
 
     public InstanceData(String instanceName, String nodesData, String adjacenciesData) {
         this.instanceName = instanceName;
         this.nodesData = nodesData;
         this.adjacenciesData = adjacenciesData;
+        Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
     }
 
     public List<Request> getListOfRequests() {

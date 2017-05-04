@@ -371,18 +371,43 @@ public class Algorithms {
         requestList.addAll(data.getListOfRequests());
         int currentVehicle;
         String log = "";
+        int requestCounter = 0;
         Iterator<Integer> vehicleIterator = data.getSetOfVehicles().iterator();
         while (!requestList.isEmpty()){
             Route route = new Route();
             currentVehicle = vehicleIterator.next();
-            log += "\tGROute " + (currentVehicle + 1) + " ";
+            log += "\tGRoute " + (currentVehicle + 1) + " ";
 
             route.addVisitedNodes(0);
-
             data.setCurrentTime((long) 0);
             data.setLastNode(route.getLastNode());
+            route.setTempoikDeposito(data.getCurrentTime());//conferir uma forma de colocar a janela de tempo na
+                                                            //definição do horario de partida do veículo do deposito
             
+            int origin = requestList.get(requestCounter).getOrigin();
+            route.addVisitedNodes(origin);
+            data.setCurrentTime(data.getCurrentTime() + data.getTimeBetweenNodes()
+                    .get(data.getLastNode()).get(origin));
+            data.setLastNode(route.getLastNode());
+            int destination = requestList.get(requestCounter).getDestination();
             
+            data.setCurrentTime(data.getCurrentTime() + data.getTimeBetweenNodes()
+                    .get(data.getLastNode()).get(destination));
+            route.addVisitedNodes(destination);
+            data.setLastNode(route.getLastNode());
+            
+//                    currentTime = Math.max(Collections.min(EarliestTime) - d.get(lastNode).get(newNode), 0);
+//                    route.setTempoikDeposito(currentTime);
+//                    EarliestTime.clear();
+//                }
+//
+//                currentTime += d.get(lastNode).get(newNode);
+//
+//                R.addVisitedNodes(newNode);
+//                lastNode = R.getLastNode();
+
+            route.addVisitedNodes(0);
+            requestCounter++;
         }
                 
         return solution;
