@@ -157,24 +157,24 @@ public class Solution implements Comparable<Solution> {
         return routes;
     }
 
+    public List<List<Integer>> getRoutesListForMap() {
+        List<List<Integer>> routes = new ArrayList<>();
+        for (Route route : this.getSetOfRoutes()) {
+            routes.add(new ArrayList<>(route.getNodesVisitationList()));
+        }
+        return routes;
+    }
+
     public void getStaticMapWithAllRoutes(List<Node> nodesList, String adjacenciesTable, String nodesTable) throws IOException {
-        //new GoogleStaticMap(nodesList, this.getLinkedRouteList(), adjacenciesTable, nodesTable);
         new GoogleStaticMap(nodesList, this.getRoutesForMap(), adjacenciesTable, nodesTable);
     }
 
-//    public void getStaticMapForEveryRoute(List<Node> nodesList, String adjacenciesTable, String nodesTable) throws IOException {
-//        for (List<Integer> route : this.getRoutesForMap()) {
-//            new GoogleStaticMap(nodesList, route, adjacenciesTable, nodesTable);
-//        }
-//    }
-    
     public void getStaticMapForEveryRoute(List<Node> nodesList, String adjacenciesTable, String nodesTable) throws IOException {
-        //Iterator<Integer> vehicleIterator = data.getSetOfVehicles().iterator();
-        //Iterator<List<Integer>> routeIterator = this.getSetOfRoutes().iterator();
-        for (List<Integer> route : this.getRoutesForMap()) {
+        for (List<Integer> route : this.getRoutesListForMap()) {
             new GoogleStaticMap(nodesList, route, adjacenciesTable, nodesTable);
         }
     }
+
     public List<Integer> getListOfSolutionsDominatedByThisSolution() {
         return this.listOfSolutionsDominatedByThisSolution;
     }
@@ -260,12 +260,12 @@ public class Solution implements Comparable<Solution> {
     public long getDeliveryTimeWindowAntecipation() {
         return deliveryTimeWindowAntecipation;
     }
-    
-    public long getTotalRouteTimeChargeBanlance(){
+
+    public long getTotalRouteTimeChargeBanlance() {
         return totalRouteTimeChargeBanlance;
     }
-    
-    public double getTotalOccupationRate(){
+
+    public double getTotalOccupationRate() {
         return totalOccupationRate;
     }
 
@@ -336,12 +336,12 @@ public class Solution implements Comparable<Solution> {
     public void setDeliveryTimeWindowAntecipation(long deliveryTimeWindowAntecipation) {
         this.deliveryTimeWindowAntecipation = deliveryTimeWindowAntecipation;
     }
-    
-    public void setTotalRouteTimeChargeBanlance(long totalRouteTimeChargeBanlance){
+
+    public void setTotalRouteTimeChargeBanlance(long totalRouteTimeChargeBanlance) {
         this.totalRouteTimeChargeBanlance = totalRouteTimeChargeBanlance;
     }
-    
-    public void setTotalOccupationRate(double totalOccupationRate){
+
+    public void setTotalOccupationRate(double totalOccupationRate) {
         this.totalOccupationRate = totalOccupationRate;
     }
 
@@ -411,22 +411,22 @@ public class Solution implements Comparable<Solution> {
     }
 
     public String getStringWithObjectives() {
-        String stringWithObjectives = totalDistance + "\t" + totalDeliveryDelay + "\t" + totalRouteTimeChargeBanlance + 
-                "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t" 
-                + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" +  totalOccupationRate + "\t" ;
+        String stringWithObjectives = totalDistance + "\t" + totalDeliveryDelay + "\t" + totalRouteTimeChargeBanlance
+                + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t"
+                + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" + totalOccupationRate + "\t";
         return stringWithObjectives;
     }
 
     @Override
     public String toString() {
         DecimalFormat df = new DecimalFormat("0.000");
-        
-        String s = aggregatedObjective1 + "\t"+ aggregatedObjective2 + "\t"+ /*aggregatedObjective1Normalized + "\t"+ 
-                aggregatedObjective2Normalized + "\t"+*/ totalDistance + "\t" + totalDeliveryDelay + 
-                "\t"  + totalRouteTimeChargeBanlance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + 
-                "\t"  + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t" 
+
+        String s = aggregatedObjective1 + "\t" + aggregatedObjective2 + "\t" + /*aggregatedObjective1Normalized + "\t"+ 
+                aggregatedObjective2Normalized + "\t"+*/ totalDistance + "\t" + totalDeliveryDelay
+                + "\t" + totalRouteTimeChargeBanlance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles
+                + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t"
                 + "\t" + totalOccupationRate + "\t";
-        
+
         int indice = 1;
         String listaAtendimento = " ";
         for (Route r : setOfRoutes) {
