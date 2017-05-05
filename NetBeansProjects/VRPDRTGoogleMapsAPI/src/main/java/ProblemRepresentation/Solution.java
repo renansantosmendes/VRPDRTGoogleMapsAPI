@@ -162,15 +162,19 @@ public class Solution implements Comparable<Solution> {
         new GoogleStaticMap(nodesList, this.getRoutesForMap(), adjacenciesTable, nodesTable);
     }
 
+//    public void getStaticMapForEveryRoute(List<Node> nodesList, String adjacenciesTable, String nodesTable) throws IOException {
+//        for (List<Integer> route : this.getRoutesForMap()) {
+//            new GoogleStaticMap(nodesList, route, adjacenciesTable, nodesTable);
+//        }
+//    }
+    
     public void getStaticMapForEveryRoute(List<Node> nodesList, String adjacenciesTable, String nodesTable) throws IOException {
-
-        Set<List<Integer>> routes = new HashSet<>();
+        //Iterator<Integer> vehicleIterator = data.getSetOfVehicles().iterator();
+        //Iterator<List<Integer>> routeIterator = this.getSetOfRoutes().iterator();
         for (List<Integer> route : this.getRoutesForMap()) {
             new GoogleStaticMap(nodesList, route, adjacenciesTable, nodesTable);
         }
-
     }
-
     public List<Integer> getListOfSolutionsDominatedByThisSolution() {
         return this.listOfSolutionsDominatedByThisSolution;
     }

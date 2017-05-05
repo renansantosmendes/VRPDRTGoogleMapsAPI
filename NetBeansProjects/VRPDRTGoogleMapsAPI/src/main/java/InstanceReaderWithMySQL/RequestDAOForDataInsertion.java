@@ -36,15 +36,15 @@ public class RequestDAOForDataInsertion {
             LocalDateTime pickUpTimeWindowLower, pickUpTimeWindowUpper, deliveryTimeWindowLower, deliveryTimeWindowUpper;
             LocalDateTime pickUpTime = null;
             LocalDateTime requestDay = null;
-            //pickUpTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getPickupE()/60, (int) request.getPickupE()%60);
-            pickUpTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getPickupE() / 60,
-                    (int) request.getPickupE() % 60);
-            pickUpTimeWindowUpper = LocalDateTime.of(2017, 1, 1, (int) request.getPickupL() / 60,
-                    (int) request.getPickupL() % 60);
-            deliveryTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getDeliveryE() / 60,
-                    (int) request.getDeliveryE() % 60);
-            deliveryTimeWindowUpper = LocalDateTime.of(2017, 1, 1, (int) request.getDeliveryL() / 60,
-                    (int) request.getDeliveryL() % 60);
+            //pickUpTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getPickupTimeWIndowLower()/60, (int) request.getPickupTimeWIndowLower()%60);
+            pickUpTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getPickupTimeWIndowLower() / 60,
+                    (int) request.getPickupTimeWIndowLower() % 60);
+            pickUpTimeWindowUpper = LocalDateTime.of(2017, 1, 1, (int) request.getPickupTimeWindowUpper() / 60,
+                    (int) request.getPickupTimeWindowUpper() % 60);
+            deliveryTimeWindowLower = LocalDateTime.of(2017, 1, 1, (int) request.getDeliveryTimeWindowLower() / 60,
+                    (int) request.getDeliveryTimeWindowLower() % 60);
+            deliveryTimeWindowUpper = LocalDateTime.of(2017, 1, 1, (int) request.getDeliveryTimeWindowUpper() / 60,
+                    (int) request.getDeliveryTimeWindowUpper() % 60);
 
             statement.setString(4, pickUpTimeWindowLower.toLocalTime().toString());
             statement.setString(5, pickUpTimeWindowUpper.toLocalTime().toString());

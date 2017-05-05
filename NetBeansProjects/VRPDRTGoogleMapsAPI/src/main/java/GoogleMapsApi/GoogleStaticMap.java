@@ -71,7 +71,7 @@ public class GoogleStaticMap {
 
     public GoogleStaticMap(List<Node> nodesList, List<Integer> route, String adjacenciesTable, String nodesTable)
             throws IOException {
-        
+
         this.nodesList = nodesList;
         this.route = route;
         this.nodesTable = nodesTable;
@@ -119,7 +119,6 @@ public class GoogleStaticMap {
 
     private URL buildURL() throws MalformedURLException, IOException {
         setStaticMapParameters();
-
         URL url = new URL(URLRoot + mapCenter + "," + city + "," + state + "," + country + "&zoom=" + zoom + "&scale=" + scale
                 + "&size=" + width + "x" + height + "&maptype=" + mapType + stringOfNodes.toString()
                 + pathGeneratedForAllRoutes + "&key=" + staticMapKey + "&format=jpg");
@@ -136,8 +135,10 @@ public class GoogleStaticMap {
 
     private void buildPathForMapWithOneRoute(String adjacenciesTable, String nodesTable) {
         String color = new ColorGenerator().generatesColor();
-        correctRouteAddingTheDepot(this.route);
-
+        color = "0xb30b47";
+        if (this.route.get(0) != 0) {
+            correctRouteAddingTheDepot(this.route);
+        }
         for (int i = 0; i < route.size() - 1; i++) {
             int origin = this.route.get(i);
             int destination = this.route.get(i + 1);
@@ -150,7 +151,9 @@ public class GoogleStaticMap {
     private void buildPathForMapWithAllRoutes(String adjacenciesTable, String nodesTable) {
         for (List<Integer> route : routes) {
             String color = new ColorGenerator().generatesColor();
-            correctRouteAddingTheDepot(route);
+            if (route.get(0) != 0) {
+                correctRouteAddingTheDepot(this.route);
+            }
             for (int i = 0; i < route.size() - 1; i++) {
                 int origin = route.get(i);
                 int destination = route.get(i + 1);
@@ -173,8 +176,6 @@ public class GoogleStaticMap {
 
     private void buildMapInWindow() throws IOException {
         JFrame frame = new JFrame("Google Maps");
-        //frame.setAlwaysOnTop(true);
-        //frame.setLocationRelativeTo(null);
 
         String destinationFile;
         if (this.routes == null) {
@@ -185,7 +186,6 @@ public class GoogleStaticMap {
 
         try {
             String imageUrl = this.buildURL().toString();
-            //System.out.println("URL");
             System.out.println(imageUrl);
 
             URL url = new URL(imageUrl);
@@ -216,17 +216,12 @@ public class GoogleStaticMap {
 
         frame.setVisible(true);
         frame.pack();
-        //frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     public void getStaticMapForInstance() {
         JFrame frame = new JFrame("Google Maps");
-        
-//        WaitScreen waitScreen = new WaitScreen();
-//        waitScreen.showScreen();
-        
-        //frame.setAlwaysOnTop(true);
-        //frame.setLocationRelativeTo(null);
 
         String destinationFile;
         if (this.routes == null) {
@@ -237,7 +232,6 @@ public class GoogleStaticMap {
 
         try {
             String imageUrl = this.buildURLForInstanceMap().toString();
-            //System.out.println("URL");
             System.out.println(imageUrl);
 
             URL url = new URL(imageUrl);
@@ -256,12 +250,10 @@ public class GoogleStaticMap {
             e.printStackTrace();
             System.exit(1);
         }
-        
+
         //waitScreen.hideScreen();
-        
         frame.add(new JLabel(new ImageIcon(new ImageIcon(destinationFile).getImage()
                 .getScaledInstance(730, 700, java.awt.Image.SCALE_SMOOTH))));
-
         frame.setVisible(true);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -269,7 +261,6 @@ public class GoogleStaticMap {
     }
 
     private void setStaticMapParameters() {
-
         if (this.nodesTable.charAt(this.nodesTable.length() - 1) == 's') {
             setParameterForSmallInstances();
         } else if (this.nodesTable.charAt(this.nodesTable.length() - 1) == 'm') {

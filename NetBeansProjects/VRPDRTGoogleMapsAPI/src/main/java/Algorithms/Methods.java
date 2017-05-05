@@ -180,7 +180,7 @@ public class Methods {
         for (Integer i : FeasibleNode) {
             if (Pout.get(i).size() > 0) {
                 for (Request request : Pout.get(i)) {
-                    EarliestTime.add(request.getDeliveryE());
+                    EarliestTime.add(request.getDeliveryTimeWindowLower());
                 }
                 DRL.put(i, (double) (Collections.min(EarliestTime) + d.get(lastNode).get(i)));
                 EarliestTime.clear();
@@ -217,7 +217,7 @@ public class Methods {
         for (Integer i : FeasibleNode) {
             if (Pin.get(i).size() > 0) {
                 for (Request request : Pin.get(i)) {
-                    EarliestTime.add(request.getPickupE());
+                    EarliestTime.add(request.getPickupTimeWIndowLower());
                 }
 
                 TRL.put(i, (double) (Collections.min(EarliestTime) + d.get(lastNode).get(i)));
@@ -277,12 +277,12 @@ public class Methods {
             if (Objects.equals(max, value)) {
                 if (lastNode == 0) {
                     for (Request request : Pin.get(newNode)) {
-                        if (d.get(lastNode).get(newNode) <= request.getPickupL()) {
-                            EarliestTime.add(request.getPickupE());
+                        if (d.get(lastNode).get(newNode) <= request.getPickupTimeWindowUpper()) {
+                            EarliestTime.add(request.getPickupTimeWIndowLower());
                         }
                     }
                     currentTime = Math.max(Collections.min(EarliestTime) - d.get(lastNode).get(newNode), 0);
-                    R.setTempoikDeposito(currentTime);
+                    R.setDepartureTimeFromDepot(currentTime);
                     EarliestTime.clear();
                 }
 
@@ -313,7 +313,7 @@ public class Methods {
                 P.remove((Request) request.clone());
                 log += "ENTREGA: " + currentTime + ": " + (Request) request.clone() + " ";
                 try {
-                    R.addDesembarque((Request) request.clone(), currentTime);
+                    R.leavePassenger((Request) request.clone(), currentTime);
                 } catch (Exception e) {
                     //System.out.print("solucao vigente: " + S + " R problema\n");
                     System.out.println("L Atend (" + R.getRequestAttendanceList().size() + ") " + R.getRequestAttendanceList());
@@ -323,7 +323,7 @@ public class Methods {
                     System.exit(-1);
                 }
                 //EXTRA
-                log += "Q=" + R.getLotacaoAtual() + " ";
+                log += "Q=" + R.getActualOccupation() + " ";
             }
         }
         listRequestAux.clear();
@@ -335,12 +335,12 @@ public class Methods {
         listRequestAux.addAll(Pin.get(lastNode));
 
         for (Request request : listRequestAux) {
-            if (R.getLotacaoAtual() < Qmax && currentTime >= request.getPickupE() && currentTime <= request.getPickupL()) {
+            if (R.getActualOccupation() < Qmax && currentTime >= request.getPickupTimeWIndowLower() && currentTime <= request.getPickupTimeWindowUpper()) {
                 Pin.get(lastNode).remove((Request) request.clone());
                 log += "COLETA: " + currentTime + ": " + (Request) request.clone() + " ";
-                R.addEmbarque((Request) request.clone(), currentTime);
+                R.boardPassenger((Request) request.clone(), currentTime);
                 //EXTRA
-                log += "Q =" + R.getLotacaoAtual() + " ";
+                log += "Q =" + R.getActualOccupation() + " ";
             }
         }
 
@@ -356,20 +356,20 @@ public class Methods {
         long aux;
 
         for (Request request : listRequestAux) {
-            if (R.getLotacaoAtual() < Qmax && currentTime + waitTime >= request.getPickupE() && currentTime + waitTime <= request.getPickupL()) {
+            if (R.getActualOccupation() < Qmax && currentTime + waitTime >= request.getPickupTimeWIndowLower() && currentTime + waitTime <= request.getPickupTimeWindowUpper()) {
 
-                aux = currentTime + waitTime - request.getPickupE();
-                currentTime = Math.min(currentTime + waitTime, request.getPickupE());
+                aux = currentTime + waitTime - request.getPickupTimeWIndowLower();
+                currentTime = Math.min(currentTime + waitTime, request.getPickupTimeWIndowLower());
                 waitTime = aux;
 
                 Pin.get(lastNode).remove((Request) request.clone());
 
                 log += "COLETAw: " + currentTime + ": " + (Request) request.clone() + " ";
 
-                R.addEmbarque((Request) request.clone(), currentTime);
+                R.boardPassenger((Request) request.clone(), currentTime);
 
                 //EXTRA
-                log += "Q=" + R.getLotacaoAtual() + " ";
+                log += "Q=" + R.getActualOccupation() + " ";
             }
         }
         return currentTime;
@@ -385,7 +385,7 @@ public class Methods {
             Integer n2;
             for (i = 0, n2 = listRequestAux.size(); i < n2; i++) {//percorre todas as requisições que embarcariam em lastNode
                 Request request = listRequestAux.get(i);
-                if (currentTime > request.getPickupL()) {
+                if (currentTime > request.getPickupTimeWindowUpper()) {
                     U.add((Request) request.clone());
                     P.remove((Request) request.clone());
                     Pin.get(key).remove((Request) request.clone());
@@ -405,17 +405,17 @@ public class Methods {
             if (i != lastNode) {
 
                 //Procura solicitação para embarcar
-                if (R.getLotacaoAtual() < Qmax) {//se tiver lugar, ele tenta embarcar alguem no veículo
+                if (R.getActualOccupation() < Qmax) {//se tiver lugar, ele tenta embarcar alguem no veículo
                     for (Request request : Pin.get(i)) {//percorre todos os nós menos o nó que acabou de ser adicionado (por causa da restrição)
-                        if (currentTime + d.get(lastNode).get(i) >= request.getPickupE() - TimeWindows
-                                && currentTime + d.get(lastNode).get(i) <= request.getPickupL()) {
+                        if (currentTime + d.get(lastNode).get(i) >= request.getPickupTimeWIndowLower() - TimeWindows
+                                && currentTime + d.get(lastNode).get(i) <= request.getPickupTimeWindowUpper()) {
                             encontrado = true;
                             break;
                         }
                     }
                 }
                 //Procura solicitação para desembarcar
-                if (!encontrado && R.getLotacaoAtual() > 0) {
+                if (!encontrado && R.getActualOccupation() > 0) {
                     for (Request request : Pout.get(i)) {
                         if (!Pin.get(request.getOrigin()).contains(request)) {
                             encontrado = true;
@@ -463,7 +463,7 @@ public class Methods {
             boolean encontrado = false;
             List<Request> auxU = new ArrayList<Request>(U);
             for (Request request : auxU) {
-                if (d.get(0).get(request.getOrigin()) <= request.getPickupL()) {
+                if (d.get(0).get(request.getOrigin()) <= request.getPickupTimeWindowUpper()) {
                     encontrado = true;
                 }
             }
@@ -477,16 +477,16 @@ public class Methods {
             Map<Integer, List<Request>> Pout, Set<Integer> FeasibleNode, List<List<Long>> d, Long currentTime, Long timeWindows) {
         if (i != lastNode) {
             encontrado = false;
-            if (R.getLotacaoAtual() < Qmax) {
+            if (R.getActualOccupation() < Qmax) {
                 for (Request request : Pin.get(i)) {//retorna uma lista com as requisições que embarcam em i
-                    if (lastNode == 0 && d.get(lastNode).get(i) <= request.getPickupL()) { //d.get(lastNode).get(i) � o tempo de chegar de lastNode ate o no i?
+                    if (lastNode == 0 && d.get(lastNode).get(i) <= request.getPickupTimeWindowUpper()) { //d.get(lastNode).get(i) � o tempo de chegar de lastNode ate o no i?
                         FeasibleNode.add(i);
                         encontrado = true;
                         break;
                     }
                     //para lastNode que não seja a origem - faz cair dentro da janela de tempo de pelo menos uma requisição
-                    if (!encontrado && currentTime + d.get(lastNode).get(i) >= request.getPickupE() - timeWindows
-                            && currentTime + d.get(lastNode).get(i) <= request.getPickupL()) {
+                    if (!encontrado && currentTime + d.get(lastNode).get(i) >= request.getPickupTimeWIndowLower() - timeWindows
+                            && currentTime + d.get(lastNode).get(i) <= request.getPickupTimeWindowUpper()) {
                         FeasibleNode.add(i);
                         encontrado = true;
                         break;
@@ -497,7 +497,7 @@ public class Methods {
             /**
              * E OS NÓS DE ENTREGA? DEVEM SER VIÁVEIS TAMBÉM?*
              */
-            if (!encontrado && R.getLotacaoAtual() > 0) {//ou seja, se não encontrou um nó viavel e há pessoas dentro do veículo
+            if (!encontrado && R.getActualOccupation() > 0) {//ou seja, se não encontrou um nó viavel e há pessoas dentro do veículo
                 for (Request request : Pout.get(i)) {//retorna uma lista com as requisições que desembarcam em i
                     if (!Pin.get(request.getOrigin()).contains(request)) {
                         FeasibleNode.add(i);

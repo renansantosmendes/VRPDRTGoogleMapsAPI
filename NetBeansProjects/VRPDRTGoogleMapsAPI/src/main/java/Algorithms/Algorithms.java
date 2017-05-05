@@ -21,6 +21,18 @@ public class Algorithms {
         this.data.readProblemData();
     }
 
+    public Algorithms(String instanceName, String nodesData, String adjacenciesData) {
+        this.instanceName = instanceName;
+        this.nodesData = nodesData;
+        this.adjacenciesData = adjacenciesData;
+        this.data = new InstanceData(this.instanceName, this.nodesData, this.adjacenciesData);
+        this.data.readProblemData();
+    }
+
+    public static InstanceData getData() {
+        return data;
+    }
+
     public static void floydWarshall(List<List<Integer>> c, List<List<Integer>> d, Integer n) {
         for (int k = 0; k < n; k++) {
             for (int i = 0; i < n; i++) {
@@ -90,8 +102,8 @@ public class Algorithms {
 
             for (Request request : r.getRequestAttendanceList()) {
                 //System.out.println("Solicitação = " + request);
-                if (request.getDeliveryTime() > request.getDeliveryL()) {
-                    long dif = request.getDeliveryTime() - request.getDeliveryL();
+                if (request.getDeliveryTime() > request.getDeliveryTimeWindowUpper()) {
+                    long dif = request.getDeliveryTime() - request.getDeliveryTimeWindowUpper();
                     if (dif < tempoMaximo) {
                         totalCost += dif * PENALIDADE;
                     } else {
@@ -132,8 +144,8 @@ public class Algorithms {
             int soma = 0;
 
             for (Request request : r.getRequestAttendanceList()) {
-                if (request.getDeliveryTime() > request.getDeliveryL()) {
-                    long dif = request.getDeliveryTime() - request.getDeliveryL();
+                if (request.getDeliveryTime() > request.getDeliveryTimeWindowUpper()) {
+                    long dif = request.getDeliveryTime() - request.getDeliveryTimeWindowUpper();
                     soma += dif;
                 }
             }
@@ -186,7 +198,7 @@ public class Algorithms {
         int soma = 0;
         for (Route r : rotas) {
             for (Request request : r.getRequestAttendanceList()) {
-                soma += request.getPickupTime() - request.getPickupE();
+                soma += request.getPickupTime() - request.getPickupTimeWIndowLower();
             }
         }
         return soma;
@@ -198,20 +210,20 @@ public class Algorithms {
         int soma = 0;
         for (Route r : rotas) {
             for (Request request : r.getRequestAttendanceList()) {
-                soma += Math.abs(Math.max(request.getDeliveryE() - request.getDeliveryTime(), 0));
+                soma += Math.abs(Math.max(request.getDeliveryTimeWindowLower() - request.getDeliveryTime(), 0));
             }
         }
         return soma;
     }
 
     public static double FO9(Solution solution, int vehicleCapacity) {
-        
+
         solution.getSetOfRoutes().forEach(route -> route.calculateOccupationRate(vehicleCapacity));
         List<Double> routesOccupationRate = solution.getSetOfRoutes().stream().map(Route::getOccupationRate)
                 .collect(Collectors.toCollection(ArrayList::new));
-        
+
         double totalOccupationRate = routesOccupationRate.stream().mapToDouble(Double::valueOf).average().getAsDouble();
-        
+
         return totalOccupationRate;
     }
 
@@ -364,8 +376,8 @@ public class Algorithms {
 
         return solution;
     }
-    
-    public static Solution individualConstructive(){
+
+    public static Solution individualConstructive() {
         Solution solution = new Solution();
         List<Request> requestList = new ArrayList<>();
         requestList.addAll(data.getListOfRequests());
@@ -373,43 +385,46 @@ public class Algorithms {
         String log = "";
         int requestCounter = 0;
         Iterator<Integer> vehicleIterator = data.getSetOfVehicles().iterator();
-        while (!requestList.isEmpty()){
+        int counter = 0;
+        while (!requestList.isEmpty()) {
+            counter++;
             Route route = new Route();
             currentVehicle = vehicleIterator.next();
             log += "\tGRoute " + (currentVehicle + 1) + " ";
 
             route.addVisitedNodes(0);
-            data.setCurrentTime((long) 0);
+
             data.setLastNode(route.getLastNode());
-            route.setTempoikDeposito(data.getCurrentTime());//conferir uma forma de colocar a janela de tempo na
-                                                            //definição do horario de partida do veículo do deposito
-            
+
+            data.setCurrentTime(Math.max(requestList.get(requestCounter).getPickupTimeWIndowLower()
+                    - data.getTimeBetweenNodes().get(0).get(requestList.get(requestCounter).getOrigin()), (long) 0));
+            route.setDepartureTimeFromDepot(data.getCurrentTime());
+
             int origin = requestList.get(requestCounter).getOrigin();
             route.addVisitedNodes(origin);
-            data.setCurrentTime(data.getCurrentTime() + data.getTimeBetweenNodes()
-                    .get(data.getLastNode()).get(origin));
+            data.setCurrentTime(data.getCurrentTime() + data.getTimeBetweenNodes().get(data.getLastNode()).get(origin));
+            route.boardPassenger(requestList.get(requestCounter), data.getCurrentTime());
             data.setLastNode(route.getLastNode());
+
             int destination = requestList.get(requestCounter).getDestination();
-            
-            data.setCurrentTime(data.getCurrentTime() + data.getTimeBetweenNodes()
-                    .get(data.getLastNode()).get(destination));
             route.addVisitedNodes(destination);
+            data.setCurrentTime(data.getCurrentTime() + data.getTimeBetweenNodes().get(data.getLastNode()).get(destination));
+            route.leavePassenger(requestList.get(requestCounter), data.getCurrentTime());
             data.setLastNode(route.getLastNode());
-            
-//                    currentTime = Math.max(Collections.min(EarliestTime) - d.get(lastNode).get(newNode), 0);
-//                    route.setTempoikDeposito(currentTime);
-//                    EarliestTime.clear();
-//                }
-//
-//                currentTime += d.get(lastNode).get(newNode);
-//
-//                R.addVisitedNodes(newNode);
-//                lastNode = R.getLastNode();
+
+            data.setCurrentTime(data.getCurrentTime() + data.getTimeBetweenNodes().get(data.getLastNode()).get(0));
+            solution.getSetOfRoutes().add(route);
 
             route.addVisitedNodes(0);
-            requestCounter++;
+            requestList.remove(0);
+
+            evaluateSolution(solution, data.getDistanceBetweenNodes(), data.getVehicleCapacity(), data.getListOfRequests());
+            solution.setLogger(log);
+            solution.linkTheRoutes();
+
+            //requestCounter++;
         }
-                
+
         return solution;
     }
 
@@ -578,7 +593,7 @@ public class Algorithms {
 
         List<Request> auxP = new LinkedList<>(P);
         for (Request request : auxP) {//para cada solicitação, olha se apos o movimento nn contem os nos de embarque, desembarque e a janela de tempo
-            if (!vizinho.contains(request.getOrigin()) || !vizinho.contains(request.getDestination()) || !(d.get(0).get(request.getOrigin()) <= request.getPickupL())) {
+            if (!vizinho.contains(request.getOrigin()) || !vizinho.contains(request.getDestination()) || !(d.get(0).get(request.getOrigin()) <= request.getPickupTimeWindowUpper())) {
                 U.add((Request) request.clone());
                 P.remove((Request) request.clone());
             }
@@ -639,16 +654,16 @@ public class Algorithms {
                     int i = vizinho.get(k);
 
                     if (i != lastNode) {
-                        if (R.getLotacaoAtual() < Qmax) {
+                        if (R.getActualOccupation() < Qmax) {
                             for (Request request : Pin.get(i)) {
-                                if (lastNode == 0 && d.get(lastNode).get(i) <= request.getPickupL() && vizinho.contains(request.getDestination())) {
+                                if (lastNode == 0 && d.get(lastNode).get(i) <= request.getPickupTimeWindowUpper() && vizinho.contains(request.getDestination())) {
                                     newNode = vizinho.remove(k);
                                     encontrado = true;
                                     break;
                                 }
-                                //if( (currentTime + d.get(lastNode).get(i)) <= request.getPickupL()){
-                                if (currentTime + d.get(lastNode).get(i) >= request.getPickupE() - TimeWindows
-                                        && currentTime + d.get(lastNode).get(i) <= request.getPickupL() && vizinho.contains(request.getDestination())) {
+                                //if( (currentTime + d.get(lastNode).get(i)) <= request.getPickupTimeWindowUpper()){
+                                if (currentTime + d.get(lastNode).get(i) >= request.getPickupTimeWIndowLower() - TimeWindows
+                                        && currentTime + d.get(lastNode).get(i) <= request.getPickupTimeWindowUpper() && vizinho.contains(request.getDestination())) {
                                     newNode = vizinho.remove(k);
                                     encontrado = true;
                                     break;
@@ -659,7 +674,7 @@ public class Algorithms {
                         /**
                          * E OS N�S DE ENTREGA? DEVEM SER VI�VEIS TAMB�M?*
                          */
-                        if (!encontrado && R.getLotacaoAtual() > 0) {
+                        if (!encontrado && R.getActualOccupation() > 0) {
                             for (Request request : Pout.get(i)) {
                                 if (!Pin.get(request.getOrigin()).contains(request)) {
                                     newNode = vizinho.remove(k);
@@ -680,13 +695,13 @@ public class Algorithms {
                 if (lastNode == 0) {
                     //System.out.println("VIZINHO PROBLEMATICO "+vizinho);
                     for (Request request : Pin.get(newNode)) {
-                        if (d.get(lastNode).get(newNode) <= request.getPickupL() && vizinho.contains(request.getDestination())) {
-                            EarliestTime.add(request.getPickupE());
+                        if (d.get(lastNode).get(newNode) <= request.getPickupTimeWindowUpper() && vizinho.contains(request.getDestination())) {
+                            EarliestTime.add(request.getPickupTimeWIndowLower());
                         }
                     }
 
                     currentTime = Math.max(Collections.min(EarliestTime) - d.get(lastNode).get(newNode), 0);
-                    R.setTempoikDeposito(currentTime);
+                    R.setDepartureTimeFromDepot(currentTime);
 
                     EarliestTime.clear();
                 }
@@ -708,10 +723,10 @@ public class Algorithms {
                         log += "ENTREGA: " + currentTime + ": " + (Request) request.clone() + " ";
                         //}
 
-                        R.addDesembarque((Request) request.clone(), currentTime);
+                        R.leavePassenger((Request) request.clone(), currentTime);
 
                         //EXTRA
-                        log += "Q=" + R.getLotacaoAtual() + " ";
+                        log += "Q=" + R.getActualOccupation() + " ";
                     }
                 }
                 listRequestAux.clear();
@@ -719,11 +734,11 @@ public class Algorithms {
                 listRequestAux.addAll(Pin.get(lastNode));
 
                 for (Request request : listRequestAux) {
-                    if (R.getLotacaoAtual() < Qmax && currentTime >= request.getPickupE() && currentTime <= request.getPickupL() && vizinho.contains(request.getDestination())) {
+                    if (R.getActualOccupation() < Qmax && currentTime >= request.getPickupTimeWIndowLower() && currentTime <= request.getPickupTimeWindowUpper() && vizinho.contains(request.getDestination())) {
                         Pin.get(lastNode).remove((Request) request.clone());
                         log += "COLETA: " + currentTime + ": " + (Request) request.clone() + " ";
-                        R.addEmbarque((Request) request.clone(), currentTime);
-                        log += "Q=" + R.getLotacaoAtual() + " ";
+                        R.boardPassenger((Request) request.clone(), currentTime);
+                        log += "Q=" + R.getActualOccupation() + " ";
                     }
                 }
 
@@ -735,15 +750,15 @@ public class Algorithms {
                 long aux;
 
                 for (Request request : listRequestAux) {
-                    if (R.getLotacaoAtual() < Qmax && currentTime + waitTime >= request.getPickupE() && currentTime + waitTime <= request.getPickupL() && vizinho.contains(request.getDestination())) {
+                    if (R.getActualOccupation() < Qmax && currentTime + waitTime >= request.getPickupTimeWIndowLower() && currentTime + waitTime <= request.getPickupTimeWindowUpper() && vizinho.contains(request.getDestination())) {
 
-                        aux = currentTime + waitTime - request.getPickupE();
-                        currentTime = Math.min(currentTime + waitTime, request.getPickupE());
+                        aux = currentTime + waitTime - request.getPickupTimeWIndowLower();
+                        currentTime = Math.min(currentTime + waitTime, request.getPickupTimeWIndowLower());
                         waitTime = aux;
                         Pin.get(lastNode).remove((Request) request.clone());
                         log += "COLETAw: " + currentTime + ": " + (Request) request.clone() + " ";
-                        R.addEmbarque((Request) request.clone(), currentTime);
-                        log += "Q=" + R.getLotacaoAtual() + " ";
+                        R.boardPassenger((Request) request.clone(), currentTime);
+                        log += "Q=" + R.getActualOccupation() + " ";
                     }
                 }
 
@@ -753,7 +768,7 @@ public class Algorithms {
                     listRequestAux.addAll(Pin.get(key));
                     for (Integer i = 0, k = listRequestAux.size(); i < k; i++) {
                         Request request = listRequestAux.get(i);
-                        if (currentTime > request.getPickupL() || !vizinho.contains(request.getOrigin()) || !vizinho.contains(request.getDestination())) {
+                        if (currentTime > request.getPickupTimeWindowUpper() || !vizinho.contains(request.getOrigin()) || !vizinho.contains(request.getDestination())) {
                             U.add((Request) request.clone());
                             P.remove((Request) request.clone());
                             Pin.get(key).remove((Request) request.clone());
@@ -770,17 +785,17 @@ public class Algorithms {
 
                     if (i != lastNode) {
 
-                        if (R.getLotacaoAtual() < Qmax) {
+                        if (R.getActualOccupation() < Qmax) {
                             for (Request request : Pin.get(i)) {
-                                if (currentTime + d.get(lastNode).get(i) >= request.getPickupE() - TimeWindows
-                                        && currentTime + d.get(lastNode).get(i) <= request.getPickupL() && vizinho.contains(request.getDestination())) {
+                                if (currentTime + d.get(lastNode).get(i) >= request.getPickupTimeWIndowLower() - TimeWindows
+                                        && currentTime + d.get(lastNode).get(i) <= request.getPickupTimeWindowUpper() && vizinho.contains(request.getDestination())) {
                                     encontrado = true;
                                     break;
                                 }
                             }
                         }
 
-                        if (!encontrado && R.getLotacaoAtual() > 0) {
+                        if (!encontrado && R.getActualOccupation() > 0) {
                             for (Request request : Pout.get(i)) {
                                 if (!Pin.get(request.getOrigin()).contains(request)) {
                                     encontrado = true;
@@ -823,7 +838,7 @@ public class Algorithms {
             if (!U.isEmpty() && itK.hasNext()) {
                 List<Request> auxU = new LinkedList<>(U);
                 for (Request request : auxU) {
-                    if (vizinho.contains(request.getOrigin()) && vizinho.contains(request.getDestination()) && d.get(0).get(request.getOrigin()) <= request.getPickupL()) {
+                    if (vizinho.contains(request.getOrigin()) && vizinho.contains(request.getDestination()) && d.get(0).get(request.getOrigin()) <= request.getPickupTimeWindowUpper()) {
                         P.add((Request) request.clone());
                         U.remove((Request) request.clone());
                     }
@@ -1407,16 +1422,16 @@ public class Algorithms {
                         if (i != lastNode) {
                             encontrado = false;
 
-                            if (R.getLotacaoAtual() < Qmax) {
+                            if (R.getActualOccupation() < Qmax) {
                                 for (Request request : Pin.get(i)) {
-                                    if (lastNode == 0 && d.get(lastNode).get(i) <= request.getPickupL()) {
+                                    if (lastNode == 0 && d.get(lastNode).get(i) <= request.getPickupTimeWindowUpper()) {
                                         FeasibleNode.add(i);
                                         encontrado = true;
                                         break;
                                     }
-                                    //if( (currentTime + d.get(lastNode).get(i)) <= request.getPickupL()){
-                                    if (!encontrado && currentTime + d.get(lastNode).get(i) >= request.getPickupE() - TimeWindows
-                                            && currentTime + d.get(lastNode).get(i) <= request.getPickupL()) {
+                                    //if( (currentTime + d.get(lastNode).get(i)) <= request.getPickupTimeWindowUpper()){
+                                    if (!encontrado && currentTime + d.get(lastNode).get(i) >= request.getPickupTimeWIndowLower() - TimeWindows
+                                            && currentTime + d.get(lastNode).get(i) <= request.getPickupTimeWindowUpper()) {
                                         FeasibleNode.add(i);
                                         encontrado = true;
                                         break;
@@ -1427,7 +1442,7 @@ public class Algorithms {
                             /**
                              * E OS N�S DE ENTREGA? DEVEM SER VI�VEIS TAMB�M?*
                              */
-                            if (!encontrado && R.getLotacaoAtual() > 0) {
+                            if (!encontrado && R.getActualOccupation() > 0) {
                                 for (Request request : Pout.get(i)) {
                                     if (!Pin.get(request.getOrigin()).contains(request)) {
                                         FeasibleNode.add(i);
@@ -1495,7 +1510,7 @@ public class Algorithms {
                         for (Integer i : FeasibleNode) {
                             if (Pout.get(i).size() > 0) {
                                 for (Request request : Pout.get(i)) {
-                                    EarliestTime.add(request.getDeliveryE());
+                                    EarliestTime.add(request.getDeliveryTimeWindowLower());
                                 }
 
                                 DRL.put(i, (double) (Collections.min(EarliestTime) + d.get(lastNode).get(i)));
@@ -1530,7 +1545,7 @@ public class Algorithms {
                         for (Integer i : FeasibleNode) {
                             if (Pin.get(i).size() > 0) {
                                 for (Request request : Pin.get(i)) {
-                                    EarliestTime.add(request.getPickupE());
+                                    EarliestTime.add(request.getPickupTimeWIndowLower());
                                 }
 
                                 TRL.put(i, (double) (Collections.min(EarliestTime) + d.get(lastNode).get(i)));
@@ -1629,13 +1644,13 @@ public class Algorithms {
                     Integer newNode = RCL.get(position);
                     if (lastNode == 0) {
                         for (Request request : Pin.get(newNode)) {
-                            if (d.get(lastNode).get(newNode) <= request.getPickupL()) {
-                                EarliestTime.add(request.getPickupE());
+                            if (d.get(lastNode).get(newNode) <= request.getPickupTimeWindowUpper()) {
+                                EarliestTime.add(request.getPickupTimeWIndowLower());
                             }
                         }
 
                         currentTime = Math.max(Collections.min(EarliestTime) - d.get(lastNode).get(newNode), 0);
-                        R.setTempoikDeposito(currentTime);
+                        R.setDepartureTimeFromDepot(currentTime);
 
                         EarliestTime.clear();
                     }
@@ -1667,10 +1682,10 @@ public class Algorithms {
                             log += "ENTREGA: " + currentTime + ": " + (Request) request.clone() + " ";
                             //}
 
-                            R.addDesembarque((Request) request.clone(), currentTime);
+                            R.leavePassenger((Request) request.clone(), currentTime);
 
                             //EXTRA
-                            log += "Q=" + R.getLotacaoAtual() + " ";
+                            log += "Q=" + R.getActualOccupation() + " ";
                         }
                     }
                     listRequestAux.clear();
@@ -1678,7 +1693,7 @@ public class Algorithms {
                     listRequestAux.addAll(Pin.get(lastNode));
 
                     for (Request request : listRequestAux) {
-                        if (R.getLotacaoAtual() < Qmax && currentTime >= request.getPickupE() && currentTime <= request.getPickupL()) {
+                        if (R.getActualOccupation() < Qmax && currentTime >= request.getPickupTimeWIndowLower() && currentTime <= request.getPickupTimeWindowUpper()) {
                             Pin.get(lastNode).remove((Request) request.clone());
 
                             //if(currentK == 1){
@@ -1689,10 +1704,10 @@ public class Algorithms {
                             log += "COLETA: " + currentTime + ": " + (Request) request.clone() + " ";
                             //}
 
-                            R.addEmbarque((Request) request.clone(), currentTime);
+                            R.boardPassenger((Request) request.clone(), currentTime);
 
                             //EXTRA
-                            log += "Q=" + R.getLotacaoAtual() + " ";
+                            log += "Q=" + R.getActualOccupation() + " ";
                         }
                     }
 
@@ -1704,10 +1719,10 @@ public class Algorithms {
                     long aux;
 
                     for (Request request : listRequestAux) {
-                        if (R.getLotacaoAtual() < Qmax && currentTime + waitTime >= request.getPickupE() && currentTime + waitTime <= request.getPickupL()) {
+                        if (R.getActualOccupation() < Qmax && currentTime + waitTime >= request.getPickupTimeWIndowLower() && currentTime + waitTime <= request.getPickupTimeWindowUpper()) {
 
-                            aux = currentTime + waitTime - request.getPickupE();
-                            currentTime = Math.min(currentTime + waitTime, request.getPickupE());
+                            aux = currentTime + waitTime - request.getPickupTimeWIndowLower();
+                            currentTime = Math.min(currentTime + waitTime, request.getPickupTimeWIndowLower());
                             waitTime = aux;
 
                             Pin.get(lastNode).remove((Request) request.clone());
@@ -1720,10 +1735,10 @@ public class Algorithms {
                             log += "COLETAw: " + currentTime + ": " + (Request) request.clone() + " ";
                             //}
 
-                            R.addEmbarque((Request) request.clone(), currentTime);
+                            R.boardPassenger((Request) request.clone(), currentTime);
 
                             //EXTRA
-                            log += "Q=" + R.getLotacaoAtual() + " ";
+                            log += "Q=" + R.getActualOccupation() + " ";
                         }
                     }
 
@@ -1739,7 +1754,7 @@ public class Algorithms {
                         for (Integer i = 0, n1 = listRequestAux.size(); i < n1; i++) {
                             Request request = listRequestAux.get(i);
 
-                            if (currentTime > request.getPickupL()) {
+                            if (currentTime > request.getPickupTimeWindowUpper()) {
                                 U.add((Request) request.clone());
                                 P.remove((Request) request.clone());
                                 Pin.get(key).remove((Request) request.clone());
@@ -1753,10 +1768,10 @@ public class Algorithms {
                     for (int i = 1; !encontrado && i < n; i++) {
                         if (i != lastNode) {
 
-                            if (R.getLotacaoAtual() < Qmax) {
+                            if (R.getActualOccupation() < Qmax) {
                                 for (Request request : Pin.get(i)) {
-                                    if (currentTime + d.get(lastNode).get(i) >= request.getPickupE() - TimeWindows
-                                            && currentTime + d.get(lastNode).get(i) <= request.getPickupL()) {
+                                    if (currentTime + d.get(lastNode).get(i) >= request.getPickupTimeWIndowLower() - TimeWindows
+                                            && currentTime + d.get(lastNode).get(i) <= request.getPickupTimeWindowUpper()) {
                                         encontrado = true;
                                         break;
                                     }
@@ -1766,7 +1781,7 @@ public class Algorithms {
                             /**
                              * E OS N�S DE ENTREGA? DEVEM SER VI�VEIS TAMB�M?*
                              */
-                            if (!encontrado && R.getLotacaoAtual() > 0) {
+                            if (!encontrado && R.getActualOccupation() > 0) {
                                 for (Request request : Pout.get(i)) {
                                     if (!Pin.get(request.getOrigin()).contains(request)) {
                                         encontrado = true;
@@ -1814,7 +1829,7 @@ public class Algorithms {
                     encontrado = false;
                     List<Request> auxU = new ArrayList<Request>(U);
                     for (Request request : auxU) {
-                        if (d.get(0).get(request.getOrigin()) <= request.getPickupL()) {
+                        if (d.get(0).get(request.getOrigin()) <= request.getPickupTimeWindowUpper()) {
                             encontrado = true;
                         }
                     }

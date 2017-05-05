@@ -44,6 +44,7 @@ public class InstanceData {
     private String nodesData;
     private String adjacenciesData;
     private int numberOfVehicles = 500;
+    private int vehicleCapacity = 1;
 
     public InstanceData(String instanceName, String nodesData, String adjacenciesData) {
         this.instanceName = instanceName;
@@ -203,9 +204,31 @@ public class InstanceData {
     public static void setLastNode(Integer lastNode) {
         InstanceData.lastNode = lastNode;
     }
+
+    public int getNumberOfVehicles() {
+        return numberOfVehicles;
+    }
+
+    public void setNumberOfVehicles(int numberOfVehicles) {
+        this.numberOfVehicles = numberOfVehicles;
+    }
+
+    public int getVehicleCapacity() {
+        return vehicleCapacity;
+    }
+
+    public void setVehicleCapacity(int vehicleCapacity) {
+        this.vehicleCapacity = vehicleCapacity;
+    }
+    
+    
     
     public Integer readProblemData() {
         listOfRequests.addAll(new RequestDAO(instanceName).getListOfRequest());
+        List<Request> requests = new ArrayList<>();
+        requests.addAll(listOfRequests);
+        listOfRequests.clear();
+        listOfRequests.addAll(requests.subList(0, 8));
         setOfNodes.addAll(new NodeDAO(nodesData).getSetOfNodes());
         distanceBetweenNodes.addAll(new AdjacenciesDAO(adjacenciesData, nodesData).getAdjacenciesListOfDistances());
         timeBetweenNodes.addAll(new AdjacenciesDAO(adjacenciesData, nodesData).getAdjacenciesListOfTimes());

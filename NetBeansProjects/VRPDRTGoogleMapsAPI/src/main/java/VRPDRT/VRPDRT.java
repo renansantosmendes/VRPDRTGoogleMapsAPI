@@ -47,7 +47,7 @@ public class VRPDRT {
 
     public static void main(String[] args) throws ApiException, InterruptedException, IOException {
         String directionsApiKey = "AIzaSyD9W0em7H723uVOMD6QFe_1Mns71XAi5JU";
-        String instanceName = "r250n12tw10";
+        String instanceName = "r050n12tw10";
         String nodesData = "bh_n12s";
         String adjacenciesData = "bh_adj_n12s";
         final Integer numberOfVehicles = 500;
@@ -77,18 +77,20 @@ public class VRPDRT {
         //solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         //new GoogleStaticMap(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData).getStaticMapForInstance();
         //solution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
-        
-        Algorithms algorithms = new Algorithms();
-        
+
+        Algorithms algorithms = new Algorithms(instanceName, nodesData, adjacenciesData);
+        //algorithms.getData().getListOfRequests().forEach(System.out::println);
         Solution individualSolution = new Solution(algorithms.individualConstructive());
+        System.out.println(individualSolution);
+        //individualSolution.getSetOfRoutes().forEach(System.out::println);
+        //individualSolution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
+        individualSolution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         
-        
-        //        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
+//        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
         //                probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
         //                numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
         //                distanceBetweenNodes, timeWindows, currentTime, lastNode);
         //        
-
         //new SolutionGeneratorForAggregationTree().generateSolutionsForAggregationTree();
 //        InstanceData data = new InstanceData(instanceName, nodesData, adjacenciesData);
 //        data.readProblemData();
@@ -98,7 +100,6 @@ public class VRPDRT {
 //        MainScreen ms = new MainScreen();
 //        ms.setVisible(true);
 //        ms.setLocationRelativeTo(null);
-
 //        MainScreen mainScreen = new MainScreen();
 //        new Controller(mainScreen);
 //        mainScreen.setVisible(true);
