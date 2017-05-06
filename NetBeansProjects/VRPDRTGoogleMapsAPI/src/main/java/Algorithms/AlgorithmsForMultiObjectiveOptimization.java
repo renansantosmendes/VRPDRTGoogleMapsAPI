@@ -44,6 +44,7 @@ import static Algorithms.Methods.inicializePopulation;
 import AlgorithmsResults.ResultsGraphicsForMultiObjectiveOptimization;
 import InstanceReaderWithMySQL.NodeDAO;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -145,22 +146,25 @@ public class AlgorithmsForMultiObjectiveOptimization {
         List<Solution> parentsAndOffspring = new ArrayList();
         List<List<Solution>> nonDominatedFronts = new ArrayList<>();
         String folderName, fileName;
-        folderName = "AlgorithmsResults";
+        LocalDateTime time = LocalDateTime.now();
+        folderName = "AlgorithmsResults_" + time.getYear() + "_" + time.getMonthValue() + "_" + time.getDayOfMonth();
         fileName = "NSGAII";
+
         boolean success = (new File(folderName)).mkdirs();
         if (!success) {
             System.out.println("Folder already exists!");
         }
         try {
             List<Solution> combinedPareto = new ArrayList<>();
+            PrintStream printStreamForCombinedPareto = new PrintStream(folderName + "/" + fileName + "-Pareto_Combinado.txt");
             for (int executionCounter = 0; executionCounter < maximumNumberOfExecutions; executionCounter++) {
                 String executionNumber;
                 executionNumber = Integer.toString(executionCounter);
                 PrintStream saida1 = new PrintStream(folderName + "/" + fileName + "-Execucao-" + executionNumber + ".txt");
                 PrintStream saida2 = new PrintStream(folderName + "/" + fileName + "-tamanho_arquivo-" + executionNumber + ".txt");
                 PrintStream saida3 = new PrintStream(folderName + "/" + fileName + "-Execucao-Normalizada-" + executionNumber + ".txt");
-                int maximumSize;
 
+                int maximumSize;
 
                 inicializePopulation(population, populationSize, listOfRequests,
                         requestsWhichBoardsInNode, requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests,
@@ -244,8 +248,11 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
             dominanceAlgorithm(combinedPareto, finalPareto);
             printPopulation(finalPareto);
-            
-            new ResultsGraphicsForMultiObjectiveOptimization(finalPareto,"ResultGraphics","CombinedParetoSet");
+            for (Solution individual : finalPareto) {
+                printStreamForCombinedPareto.print(individual + "\n");
+            }
+
+            new ResultsGraphicsForMultiObjectiveOptimization(finalPareto, "ResultGraphics", "CombinedParetoSet");
 //            finalPareto.get(0).getStaticMapForEveryRoute(new NodeDAO("bh_nodes_little").getListOfNodes(),
 //                    "adjacencies_bh_nodes_little_test", "bh_nodes_little");
         } catch (FileNotFoundException e) {

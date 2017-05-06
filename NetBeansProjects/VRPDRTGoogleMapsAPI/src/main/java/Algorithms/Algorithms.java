@@ -236,11 +236,13 @@ public class Algorithms {
 //                + 0.0007717224*S.getfObjetivo5() + 0.6241041415*S.getfObjetivo6() - 0.0051142916*S.getfObjetivo7());
 
         //Agregação feita com base na análise de cluster, utilizando a matriz de correlação amostral Rij
-        S.setAggregatedObjective1(800 * S.getNumberOfVehicles() + 500 * S.getNumberOfNonAttendedRequests() + S.getTotalTravelTime() + 20 * S.getTotalWaintingTime());
-        S.setAggregatedObjective2(S.getTotalDistance() + S.getTotalDeliveryDelay() + 20 * S.getTotalRouteTimeChargeBanlance());
-
+//        S.setAggregatedObjective1(800 * S.getNumberOfVehicles() + 500 * S.getNumberOfNonAttendedRequests() + S.getTotalTravelTime() + 20 * S.getTotalWaintingTime());
+//        S.setAggregatedObjective2(S.getTotalDistance() + S.getTotalDeliveryDelay() + 20 * S.getTotalRouteTimeChargeBanlance());
 //        S.setF1(alfa * S.getfObjetivo2() + /*beta**/ 10 * S.getfObjetivo3() + /*delta**/ 50 * S.getfObjetivo4());
 //        S.setF2(gama * S.getfObjetivo1() +/*epslon*/ 800 * S.getfObjetivo5());
+        S.setAggregatedObjective1(S.getTotalDistance() + S.getTotalDeliveryDelay() + 20 * S.getTotalRouteTimeChargeBanlance()
+                + 800 * S.getNumberOfVehicles() + 500 * S.getNumberOfNonAttendedRequests() + S.getTotalTravelTime());
+        S.setAggregatedObjective2(S.getTotalWaintingTime());
     }
 
     public static Solution greedyConstructive(Double alphaD, Double alphaP, Double alphaV, Double alphaT,
