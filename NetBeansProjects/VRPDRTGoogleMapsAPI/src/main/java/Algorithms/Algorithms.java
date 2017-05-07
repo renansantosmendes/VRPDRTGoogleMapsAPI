@@ -2120,5 +2120,9 @@ public class Algorithms {
         System.out.println("Nodes instance = " + nodesData);
         System.out.println();
     }
+    
+    public static void testMethod(){
+        System.out.println();
+    }
 
 }

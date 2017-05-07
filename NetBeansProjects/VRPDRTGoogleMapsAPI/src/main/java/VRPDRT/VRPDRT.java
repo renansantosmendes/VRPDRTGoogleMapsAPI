@@ -83,9 +83,9 @@ public class VRPDRT {
         Solution individualSolution = new Solution(algorithms.individualConstructive());
         System.out.println(individualSolution);
         //individualSolution.getSetOfRoutes().forEach(System.out::println);
-        individualSolution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
+       //individualSolution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         //individualSolution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
-        
+         
 //        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
 //                        probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
 //                        numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
@@ -100,10 +100,10 @@ public class VRPDRT {
 //        MainScreen ms = new MainScreen();
 //        ms.setVisible(true);
 //        ms.setLocationRelativeTo(null);
-//        MainScreen mainScreen = new MainScreen();
-//        new Controller(mainScreen);
-//        mainScreen.setVisible(true);
-//        mainScreen.configureMainScreen();
+        MainScreen mainScreen = new MainScreen();
+        new Controller(mainScreen);
+        mainScreen.setVisible(true);
+        mainScreen.configureMainScreen();
     }
 
 }
