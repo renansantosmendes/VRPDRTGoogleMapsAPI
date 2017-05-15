@@ -223,7 +223,7 @@ public class EvolutionaryAlgorithms {
                     updateNSGASolutionsFile(parentsAndOffspring, fileWithSolutions, maximumSize);
                     //normalizeObjectiveFunctionsValues(fileWithSolutions);
                     normalizeObjectiveFunctions(fileWithSolutions);
-                    populationReduction(population, nonDominatedFronts, maximumSize);
+                    reducePopulation(population, nonDominatedFronts, maximumSize);
                     offspring.clear();
 
                     offspring.addAll(population);
@@ -397,16 +397,21 @@ public class EvolutionaryAlgorithms {
         }
     }
 
-    public static void populationReduction(List<Solution> population, List<List<Solution>> fronts, int TamMax) {
+    public static void reducePopulation(List<Solution> population, List<List<Solution>> fronts, int populationSize) {
         try {
-            int contador = 0;
+            int frontsCounter = 0;
             population.clear();
-            while (population.size() < TamMax) {
-                population.addAll(fronts.get(contador));
-                contador++;
-                if ((population.size() + fronts.get(contador).size() > TamMax) && (population.size() < TamMax)) {
-                    crowdDistance(fronts.get(contador), population);
-                    fronts.get(contador).subList(0, TamMax - population.size());
+            while (population.size() < populationSize) {
+                population.addAll(fronts.get(frontsCounter));
+                frontsCounter++;
+                if (frontsCounter < fronts.size()) {
+                    if ((population.size() + fronts.get(frontsCounter).size() > populationSize) && 
+                            (population.size() < populationSize)) {
+                        crowdDistance(fronts.get(frontsCounter), population);
+                        fronts.get(frontsCounter).subList(0, populationSize - population.size() - 1);
+//                    System.out.println("\nfront size = " + fronts.get(contador).size());
+//                    System.out.println("Number of Solutions added = " + (TamMax - population.size() - 1));
+                    }
                 }
             }
         } catch (IndexOutOfBoundsException e) {
@@ -452,6 +457,11 @@ public class EvolutionaryAlgorithms {
 
             front.get(i).setCrowdDistance(crowdDistance1 + crowdDistance2);
         }
+        front.sort(Comparator.comparing(Solution::getCrowdDistance).reversed());
+//        if (front.size() > 2) {
+//            front.remove(0);
+//            front.remove(1);
+//        }
     }
 
     public static void fitnessEvalutaionForMOGA(List<Solution> Pop) {

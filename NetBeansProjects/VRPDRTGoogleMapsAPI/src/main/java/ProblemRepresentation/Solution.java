@@ -75,8 +75,8 @@ public class Solution implements Comparable<Solution> {
         
         aggregatedObjective1 = -1;
         aggregatedObjective2 = -1;
-        aggregatedObjective1Normalized = -1;
-        aggregatedObjective2Normalized = -1;
+        aggregatedObjective1Normalized = 0;
+        aggregatedObjective2Normalized = 0;
         
         R = 0;
         S = 0;
@@ -546,7 +546,7 @@ public class Solution implements Comparable<Solution> {
     public String toString() {
         DecimalFormat df = new DecimalFormat("0.000");
 
-        String s = aggregatedObjective1 + "\t" + aggregatedObjective2 + "\t" + /*aggregatedObjective1Normalized + "\t"+ 
+        String s = aggregatedObjective1 + "\t" + aggregatedObjective2 + "\t" + crowdDistance + "\t" +/*aggregatedObjective1Normalized + "\t"+ 
                 aggregatedObjective2Normalized + "\t"+*/ totalDistance + "\t" + totalDeliveryDelay
                 + "\t" + totalRouteTimeChargeBanlance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles
                 + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t"
