@@ -202,8 +202,6 @@ public class Route implements Comparable<Route> {
         if (nodesVisitationList == null) {
             return -1;
         }
-        
-        
 
         int hash = 0;
         String s = "";

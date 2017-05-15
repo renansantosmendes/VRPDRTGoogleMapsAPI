@@ -4,9 +4,6 @@ import static Algorithms.Methods.*;
 import java.util.*;
 import ProblemRepresentation.*;
 import java.io.*;
-import static Algorithms.Methods.*;
-import java.time.Clock;
-import VRPDRT.VRPDRT;
 import java.util.stream.Collectors;
 
 public class Algorithms {
@@ -225,6 +222,12 @@ public class Algorithms {
         double totalOccupationRate = routesOccupationRate.stream().mapToDouble(Double::valueOf).average().getAsDouble();
 
         return totalOccupationRate;
+    }
+
+    public static void normalizeObjectiveFunctions(List<Solution> solutions) {
+//        minTimeWindowUpper = data.getRequests().stream()
+//                .mapToInt(Request::getDeliveryTimeWindowUpperInMinutes)
+//                .min().getAsInt();
     }
 
     public static void evaluateAggregatedObjectiveFunctions(Solution S, double alfa, double beta, double gama, double delta, double epslon) {
@@ -2120,8 +2123,8 @@ public class Algorithms {
         System.out.println("Nodes instance = " + nodesData);
         System.out.println();
     }
-    
-    public static void testMethod(){
+
+    public static void testMethod() {
         System.out.println();
     }
 

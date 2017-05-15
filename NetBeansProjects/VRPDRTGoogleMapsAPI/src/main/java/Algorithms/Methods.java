@@ -43,7 +43,7 @@ import static java.util.stream.Collectors.toSet;
 import static Algorithms.Algorithms.IteratedLocalSearch;
 import static Algorithms.Algorithms.rebuildSolution;
 import static Algorithms.Algorithms.perturbation;
-import static Algorithms.AlgorithmsForMultiObjectiveOptimization.initializePopulation;
+import static Algorithms.EvolutionaryAlgorithms.initializePopulation;
 import static Algorithms.Algorithms.VariableNeighborhoodDescend;
 import static Algorithms.Algorithms.geraPesos;
 import static Algorithms.Algorithms.evaluateAggregatedObjectiveFunctions;

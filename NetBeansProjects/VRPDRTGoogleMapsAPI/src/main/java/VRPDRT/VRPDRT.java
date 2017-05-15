@@ -14,10 +14,10 @@ import GoogleMapsApi.*;
 import InstanceReaderWithMySQL.*;
 import com.google.maps.errors.ApiException;
 import java.io.IOException;
-import static Algorithms.AlgorithmsForMultiObjectiveOptimization.NonDominatedSortedGeneticAlgorithmII;
 import Algorithms.*;
 import Controller.Controller;
 import View.MainScreen;
+import static Algorithms.EvolutionaryAlgorithms.NSGAII;
 
 /**
  *
@@ -50,11 +50,11 @@ public class VRPDRT {
         String instanceName = "r050n12tw10";
         String nodesData = "bh_n12s";
         String adjacenciesData = "bh_adj_n12s";
-        final Integer numberOfVehicles = 500;
-        final Integer vehicleCapacity = 1;
+        final Integer numberOfVehicles = 50;
+        final Integer vehicleCapacity = 4;
         Integer populationSize = 100;
-        Integer maximumNumberOfGenerations = 15;
-        Integer maximumNumberOfExecutions = 1;
+        Integer maximumNumberOfGenerations = 1000;
+        Integer maximumNumberOfExecutions = 30;
         double probabilityOfMutation = 0.02;
         double probabilityOfCrossover = 0.7;
 
@@ -81,16 +81,16 @@ public class VRPDRT {
         Algorithms algorithms = new Algorithms(instanceName, nodesData, adjacenciesData);
         //algorithms.getData().getListOfRequests().forEach(System.out::println);
         Solution individualSolution = new Solution(algorithms.individualConstructive());
-        System.out.println(individualSolution);
+        //System.out.println(individualSolution);
+
         //individualSolution.getSetOfRoutes().forEach(System.out::println);
-       //individualSolution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
+        //individualSolution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         //individualSolution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
-         
-//        NonDominatedSortedGeneticAlgorithmII(populationSize, maximumNumberOfGenerations,maximumNumberOfExecutions,
-//                        probabilityOfMutation,  probabilityOfCrossover, listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode,
-//                        numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes,
-//                        distanceBetweenNodes, timeWindows, currentTime, lastNode);
-        //        
+        NSGAII(populationSize, maximumNumberOfGenerations, maximumNumberOfExecutions, probabilityOfMutation, probabilityOfCrossover,
+                listOfRequests, requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles,
+                listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, 
+                timeWindows, currentTime, lastNode);
+
         //new SolutionGeneratorForAggregationTree().generateSolutionsForAggregationTree();
 //        InstanceData data = new InstanceData(instanceName, nodesData, adjacenciesData);
 //        data.readProblemData();
@@ -100,10 +100,10 @@ public class VRPDRT {
 //        MainScreen ms = new MainScreen();
 //        ms.setVisible(true);
 //        ms.setLocationRelativeTo(null);
-        MainScreen mainScreen = new MainScreen();
-        new Controller(mainScreen);
-        mainScreen.setVisible(true);
-        mainScreen.configureMainScreen();
+//        MainScreen mainScreen = new MainScreen();
+//        new Controller(mainScreen);
+//        mainScreen.setVisible(true);
+//        mainScreen.configureMainScreen();
     }
 
 }

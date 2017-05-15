@@ -45,12 +45,14 @@ import AlgorithmsResults.ResultsGraphicsForMultiObjectiveOptimization;
 import InstanceReaderWithMySQL.NodeDAO;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 /**
  *
  * @author Renan
  */
-public class AlgorithmsForMultiObjectiveOptimization {
+public class EvolutionaryAlgorithms {
 
     public static void MOGA(List<Solution> Pop, Integer TamPop, Integer MaxGer, double Pm, double Pc, List<Request> listRequests, Map<Integer, List<Request>> Pin,
             Map<Integer, List<Request>> Pout, Integer n, Integer Qmax, Set<Integer> K, List<Request> U, List<Request> P, List<Integer> m,
@@ -129,7 +131,7 @@ public class AlgorithmsForMultiObjectiveOptimization {
 
     }
 
-    public static List<Solution> NonDominatedSortedGeneticAlgorithmII(Integer populationSize, Integer maximumNumberOfGenerations,
+    public static List<Solution> NSGAII(Integer populationSize, Integer maximumNumberOfGenerations,
             Integer maximumNumberOfExecutions, double probabilityOfMutation, double probabilityOfCrossover,
             List<Request> listOfRequests, Map<Integer, List<Request>> requestsWhichBoardsInNode,
             Map<Integer, List<Request>> requestsWhichLeavesInNode, Integer numberOfNodes, Integer vehicleCapacity,
@@ -171,7 +173,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 
                 //printPopulation(population);
-                normalizeObjectiveFunctionsValues(population);
+                //normalizeObjectiveFunctionsValues(population);
+                normalizeObjectiveFunctions(population);
                 dominanceAlgorithm(population, nonDominatedSolutions);
                 maximumSize = population.size();
                 offspring.addAll(population);
@@ -189,8 +192,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
                         requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests,
                         requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 
-                normalizeObjectiveFunctionsValues(fileWithSolutions);
-
+                //normalizeObjectiveFunctionsValues(fileWithSolutions);
+                normalizeObjectiveFunctions(fileWithSolutions);
                 for (Solution s : fileWithSolutions) {
                     saida1.print("\t" + s.getAggregatedObjective1() + "\t" + s.getAggregatedObjective2() + "\n");
                     saida3.print("\t" + s.getAggregatedObjective1Normalized() + "\t" + s.getAggregatedObjective2Normalized() + "\n");
@@ -218,7 +221,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
                     dominanceAlgorithm(parentsAndOffspring, nonDominatedSolutions);
 
                     updateNSGASolutionsFile(parentsAndOffspring, fileWithSolutions, maximumSize);
-                    normalizeObjectiveFunctionsValues(fileWithSolutions);
+                    //normalizeObjectiveFunctionsValues(fileWithSolutions);
+                    normalizeObjectiveFunctions(fileWithSolutions);
                     populationReduction(population, nonDominatedFronts, maximumSize);
                     offspring.clear();
 
@@ -226,7 +230,8 @@ public class AlgorithmsForMultiObjectiveOptimization {
                     rouletteWheelSelectionAlgorithm(parents, offspring, maximumSize);
                     twoPointsCrossover(offspring, population, maximumSize, probabilityOfCrossover, parents, listOfRequests, requestList, setOfVehicles, listOfNonAttendedRequests, requestsWhichBoardsInNode, requestsWhichLeavesInNode, timeBetweenNodes, distanceBetweenNodes, numberOfNodes, vehicleCapacity, timeWindows);
                     mutation2Shuffle(offspring, probabilityOfMutation, listOfRequests, requestsWhichBoardsInNode, requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
-
+                    //normalizeObjectiveFunctionsValues(offspring);
+                    normalizeObjectiveFunctions(offspring);
                     System.out.println("Generation = " + actualGeneration + "\t" + fileWithSolutions.size());
 
                     for (Solution s : fileWithSolutions) {
@@ -392,25 +397,66 @@ public class AlgorithmsForMultiObjectiveOptimization {
         }
     }
 
-    public static void populationReduction(List<Solution> Pop, List<List<Solution>> fronts, int TamMax) {
-        //OrdenaArquivo(Pop);
-        //ImprimePopulacao(Pop);
-        int contador = 0;
-        Pop.clear();
-        while (Pop.size() < TamMax) {
-            //System.out.println("Tamanho fronteiras = " + fronts.size());
-            Pop.addAll(fronts.get(contador));
-            contador++;
+    public static void populationReduction(List<Solution> population, List<List<Solution>> fronts, int TamMax) {
+        try {
+            int contador = 0;
+            population.clear();
+            while (population.size() < TamMax) {
+                population.addAll(fronts.get(contador));
+                contador++;
+                if ((population.size() + fronts.get(contador).size() > TamMax) && (population.size() < TamMax)) {
+                    crowdDistance(fronts.get(contador), population);
+                    fronts.get(contador).subList(0, TamMax - population.size());
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
         }
-        if (Pop.size() > TamMax) {//inserir nessa parte o cálculo de crowd distance
-            Pop.subList(TamMax, Pop.size()).clear();
+    }
+
+    public static void crowdDistance(List<Solution> front, List<Solution> population) {
+
+        front.sort(Comparator.comparing(Solution::getAggregatedObjective1Normalized)
+                .thenComparing(Solution::getAggregatedObjective2Normalized)
+                .reversed());
+
+        double maxObjective1 = population.stream()
+                .mapToDouble(Solution::getAggregatedObjective1Normalized)
+                .max().getAsDouble();
+        double minObjective1 = population.stream()
+                .mapToDouble(Solution::getAggregatedObjective1Normalized)
+                .min().getAsDouble();
+        double maxObjective2 = population.stream()
+                .mapToDouble(Solution::getAggregatedObjective2Normalized)
+                .max().getAsDouble();
+        double minObjective2 = population.stream()
+                .mapToDouble(Solution::getAggregatedObjective2Normalized)
+                .min().getAsDouble();
+
+        front.get(0).setCrowdDistance(1000000000);
+        front.get(front.size() - 1).setCrowdDistance(1000000000);
+
+        for (int i = 1; i < front.size() - 1; i++) {
+            int previousIndividual = i - 1;
+            int posteriorIndividual = i + 1;
+
+            double crowdDistance1 = front.get(i).getCrowdDistance()
+                    + (front.get(posteriorIndividual).getAggregatedObjective1Normalized()
+                    - front.get(previousIndividual).getAggregatedObjective1Normalized())
+                    / (maxObjective1 - minObjective1);
+
+            double crowdDistance2 = front.get(i).getCrowdDistance()
+                    + (front.get(posteriorIndividual).getAggregatedObjective2Normalized()
+                    - front.get(previousIndividual).getAggregatedObjective2Normalized())
+                    / (maxObjective2 - minObjective2);
+
+            front.get(i).setCrowdDistance(crowdDistance1 + crowdDistance2);
         }
     }
 
     public static void fitnessEvalutaionForMOGA(List<Solution> Pop) {
         for (Solution s : Pop) {
             s.setFitness(s.getNumberOfSolutionsWichDomineThisSolution() + 1);
-            //System.out.println(s.geteDom());
         }
 
         int soma = 0;
@@ -428,10 +474,6 @@ public class AlgorithmsForMultiObjectiveOptimization {
         for (int i = 0; i < Pop.size(); i++) {
             Pop.get(i).setFitness(fit.get(i));
         }
-        for (int i = 0; i < Pop.size(); i++) {
-            //System.out.println(Pop.get(i).getFitness());
-        }
-
     }
 
     public static void fitnessEvalutaionForMOGA2(List<Solution> Pop) {
@@ -439,19 +481,14 @@ public class AlgorithmsForMultiObjectiveOptimization {
         List<Integer> fa = new ArrayList<>();
         for (Solution s : Pop) {
             s.setFitness(s.getNumberOfSolutionsWichDomineThisSolution() + 1);
-            //System.out.println(s.geteDom());
         }
 
         Collections.sort(Pop);
-        //System.out.println("Populção Ordenada");
-        //ImprimePopulacao(Pop);
 
         for (int i = 0; i < Pop.size(); i++) {
             frequencia.add(i);
             fa.add(0);
         }
-        //System.out.println(frequencia);
-        //System.out.println(fa);
 
         for (int i = 0; i < frequencia.size(); i++) {
             int valor = frequencia.get(i);
@@ -932,6 +969,30 @@ public class AlgorithmsForMultiObjectiveOptimization {
             Pop.get(i).setSolution(s0);
             //System.out.println("s0 = " + s0);
 
+        }
+    }
+
+    public static void normalizeObjectiveFunctions(List<Solution> population) {
+        if (population.size() != 0) {
+            double maxObjective1 = population.stream()
+                    .mapToDouble(Solution::getAggregatedObjective1)
+                    .max().getAsDouble();
+            double minObjective1 = population.stream()
+                    .mapToDouble(Solution::getAggregatedObjective1)
+                    .min().getAsDouble();
+
+            double maxObjective2 = population.stream()
+                    .mapToDouble(Solution::getAggregatedObjective2)
+                    .max().getAsDouble();
+            double minObjective2 = population.stream()
+                    .mapToDouble(Solution::getAggregatedObjective2)
+                    .min().getAsDouble();
+            population.forEach(individual -> {
+                individual.setAggregatedObjective1Normalized((individual.getAggregatedObjective1() - minObjective1)
+                        / (maxObjective1 - minObjective1));
+                individual.setAggregatedObjective2Normalized((individual.getAggregatedObjective2() - minObjective2)
+                        / (maxObjective2 - minObjective2));
+            });
         }
     }
 
