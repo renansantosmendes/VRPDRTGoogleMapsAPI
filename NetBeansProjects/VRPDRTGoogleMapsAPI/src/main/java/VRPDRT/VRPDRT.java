@@ -53,8 +53,8 @@ public class VRPDRT {
         final Integer numberOfVehicles = 50;
         final Integer vehicleCapacity = 4;
         Integer populationSize = 100;
-        Integer maximumNumberOfGenerations = 1000;
-        Integer maximumNumberOfExecutions = 30;
+        Integer maximumNumberOfGenerations = 50;
+        Integer maximumNumberOfExecutions = 1;
         double probabilityOfMutation = 0.02;
         double probabilityOfCrossover = 0.7;
 
@@ -68,19 +68,19 @@ public class VRPDRT {
 
         Methods.initializeFleetOfVehicles(setOfVehicles, numberOfVehicles);
 
-        Solution solution = new Solution(Algorithms.greedyConstructive(0.20, 0.15, 0.55, 0.10, listOfRequests,
-                requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles,
-                listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes,
-                timeWindows, currentTime, lastNode));
-        System.out.println(solution);
+//        Solution solution = new Solution(Algorithms.greedyConstructive(0.20, 0.15, 0.55, 0.10, listOfRequests,
+//                requestsWichBoardsInNode, requestsWichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles,
+//                listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes,
+//                timeWindows, currentTime, lastNode));
+//        System.out.println(solution);
         //solution.getSetOfRoutes().forEach(route -> System.out.println(route.getRequestAttendanceList()));
         //solution.getStaticMapForEveryRoute(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
         //new GoogleStaticMap(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData).getStaticMapForInstance();
         //solution.getStaticMapWithAllRoutes(new NodeDAO(nodesData).getListOfNodes(), adjacenciesData, nodesData);
 
-        Algorithms algorithms = new Algorithms(instanceName, nodesData, adjacenciesData);
+        //Algorithms algorithms = new Algorithms(instanceName, nodesData, adjacenciesData);
         //algorithms.getData().getListOfRequests().forEach(System.out::println);
-        Solution individualSolution = new Solution(algorithms.individualConstructive());
+        //Solution individualSolution = new Solution(algorithms.individualConstructive());
         //System.out.println(individualSolution);
 
         //individualSolution.getSetOfRoutes().forEach(System.out::println);

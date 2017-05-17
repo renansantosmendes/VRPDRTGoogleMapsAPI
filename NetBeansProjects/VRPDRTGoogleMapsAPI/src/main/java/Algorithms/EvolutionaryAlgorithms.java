@@ -23,8 +23,10 @@ import java.util.Set;
 import ProblemRepresentation.Request;
 import ProblemRepresentation.Solution;
 import static Algorithms.Algorithms.IteratedLocalSearch;
+import static Algorithms.Algorithms.evaluateAggregatedObjectiveFunctionsNormalized;
 import static Algorithms.Algorithms.generateInitialPopulation;
 import static Algorithms.Algorithms.generateInitialPopulation2;
+import static Algorithms.Algorithms.normalizeObjectiveFunctions;
 import static Algorithms.Algorithms.rebuildSolution;
 import static Algorithms.Algorithms.perturbation;
 import static Algorithms.Methods.printPopulation;
@@ -174,7 +176,10 @@ public class EvolutionaryAlgorithms {
 
                 //printPopulation(population);
                 //normalizeObjectiveFunctionsValues(population);
+                normalizeAggregatedObjectiveFunctions(population);
                 normalizeObjectiveFunctions(population);
+                evaluateAggregatedObjectiveFunctionsNormalized(population);
+
                 dominanceAlgorithm(population, nonDominatedSolutions);
                 maximumSize = population.size();
                 offspring.addAll(population);
@@ -193,7 +198,10 @@ public class EvolutionaryAlgorithms {
                         requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
 
                 //normalizeObjectiveFunctionsValues(fileWithSolutions);
-                normalizeObjectiveFunctions(fileWithSolutions);
+                normalizeAggregatedObjectiveFunctions(fileWithSolutions);
+                //normalizeObjectiveFunctions(fileWithSolutions);
+                //evaluateAggregatedObjectiveFunctionsNormalized(fileWithSolutions);
+                //normalizeObjectiveFunctions(fileWithSolutions);
                 for (Solution s : fileWithSolutions) {
                     saida1.print("\t" + s.getAggregatedObjective1() + "\t" + s.getAggregatedObjective2() + "\n");
                     saida3.print("\t" + s.getAggregatedObjective1Normalized() + "\t" + s.getAggregatedObjective2Normalized() + "\n");
@@ -222,7 +230,10 @@ public class EvolutionaryAlgorithms {
 
                     updateNSGASolutionsFile(parentsAndOffspring, fileWithSolutions, maximumSize);
                     //normalizeObjectiveFunctionsValues(fileWithSolutions);
+                    normalizeAggregatedObjectiveFunctions(fileWithSolutions);
                     normalizeObjectiveFunctions(fileWithSolutions);
+                    evaluateAggregatedObjectiveFunctionsNormalized(fileWithSolutions);
+                    //normalizeObjectiveFunctions(fileWithSolutions);
                     reducePopulation(population, nonDominatedFronts, maximumSize);
                     offspring.clear();
 
@@ -231,7 +242,9 @@ public class EvolutionaryAlgorithms {
                     twoPointsCrossover(offspring, population, maximumSize, probabilityOfCrossover, parents, listOfRequests, requestList, setOfVehicles, listOfNonAttendedRequests, requestsWhichBoardsInNode, requestsWhichLeavesInNode, timeBetweenNodes, distanceBetweenNodes, numberOfNodes, vehicleCapacity, timeWindows);
                     mutation2Shuffle(offspring, probabilityOfMutation, listOfRequests, requestsWhichBoardsInNode, requestsWhichLeavesInNode, numberOfNodes, vehicleCapacity, setOfVehicles, listOfNonAttendedRequests, requestList, loadIndexList, timeBetweenNodes, distanceBetweenNodes, timeWindows, currentTime, lastNode);
                     //normalizeObjectiveFunctionsValues(offspring);
+                    normalizeAggregatedObjectiveFunctions(offspring);
                     normalizeObjectiveFunctions(offspring);
+                    evaluateAggregatedObjectiveFunctionsNormalized(offspring);
                     System.out.println("Generation = " + actualGeneration + "\t" + fileWithSolutions.size());
 
                     for (Solution s : fileWithSolutions) {
@@ -385,7 +398,6 @@ public class EvolutionaryAlgorithms {
                 minimo = fitness;
             }
         }
-        //Normalizar o Fitness
         double soma = 0;
         for (Solution s : Pop) {
             double fitness = (maximo - s.getFitness()) / (maximo - minimo);
@@ -405,12 +417,10 @@ public class EvolutionaryAlgorithms {
                 population.addAll(fronts.get(frontsCounter));
                 frontsCounter++;
                 if (frontsCounter < fronts.size()) {
-                    if ((population.size() + fronts.get(frontsCounter).size() > populationSize) && 
-                            (population.size() < populationSize)) {
+                    if ((population.size() + fronts.get(frontsCounter).size() > populationSize)
+                            && (population.size() < populationSize)) {
                         crowdDistance(fronts.get(frontsCounter), population);
                         fronts.get(frontsCounter).subList(0, populationSize - population.size() - 1);
-//                    System.out.println("\nfront size = " + fronts.get(contador).size());
-//                    System.out.println("Number of Solutions added = " + (TamMax - population.size() - 1));
                     }
                 }
             }
@@ -458,10 +468,6 @@ public class EvolutionaryAlgorithms {
             front.get(i).setCrowdDistance(crowdDistance1 + crowdDistance2);
         }
         front.sort(Comparator.comparing(Solution::getCrowdDistance).reversed());
-//        if (front.size() > 2) {
-//            front.remove(0);
-//            front.remove(1);
-//        }
     }
 
     public static void fitnessEvalutaionForMOGA(List<Solution> Pop) {
@@ -982,7 +988,7 @@ public class EvolutionaryAlgorithms {
         }
     }
 
-    public static void normalizeObjectiveFunctions(List<Solution> population) {
+    public static void normalizeAggregatedObjectiveFunctions(List<Solution> population) {
         if (population.size() != 0) {
             double maxObjective1 = population.stream()
                     .mapToDouble(Solution::getAggregatedObjective1)

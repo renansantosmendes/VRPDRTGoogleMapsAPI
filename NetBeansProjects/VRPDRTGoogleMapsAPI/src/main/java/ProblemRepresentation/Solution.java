@@ -20,7 +20,7 @@ public class Solution implements Comparable<Solution> {
     private long deliveryTimeWindowAntecipation;//f8
     private long totalRouteTimeChargeBanlance;//f3
     private double totalOccupationRate;//f9
-    
+
     private double totalDistanceNormalized;//f1
     private double totalDeliveryDelayNormalized;//f2
     private double numberOfNonAttendedRequestsNormalized;//f4
@@ -35,7 +35,7 @@ public class Solution implements Comparable<Solution> {
     private double aggregatedObjective2;
     private double aggregatedObjective1Normalized;
     private double aggregatedObjective2Normalized;
-    
+
     private int numberOfDominatedSolutionsByThisSolution;
     private int numberOfSolutionsWichDomineThisSolution;
     private List<Integer> listOfSolutionsDominatedByThisSolution;
@@ -62,7 +62,7 @@ public class Solution implements Comparable<Solution> {
         deliveryTimeWindowAntecipation = -1;
         totalRouteTimeChargeBanlance = -1;
         totalOccupationRate = -1;
-        
+
         totalDistanceNormalized = -1;
         totalDeliveryDelayNormalized = -1;
         numberOfNonAttendedRequestsNormalized = -1;
@@ -72,12 +72,12 @@ public class Solution implements Comparable<Solution> {
         deliveryTimeWindowAntecipationNormalized = -1;
         totalRouteTimeChargeBanlanceNormalized = -1;
         totalOccupationRateNormalized = -1;
-        
+
         aggregatedObjective1 = -1;
         aggregatedObjective2 = -1;
         aggregatedObjective1Normalized = 0;
         aggregatedObjective2Normalized = 0;
-        
+
         R = 0;
         S = 0;
         fitness = -0.9;
@@ -103,7 +103,7 @@ public class Solution implements Comparable<Solution> {
         deliveryTimeWindowAntecipation = solution.getDeliveryTimeWindowAntecipation();
         totalRouteTimeChargeBanlance = solution.getTotalRouteTimeChargeBanlance();
         totalOccupationRate = solution.getTotalOccupationRate();
-        
+
         totalDistanceNormalized = solution.getTotalDistanceNormalized();
         totalDeliveryDelayNormalized = solution.getTotalDeliveryDelayNormalized();
         numberOfNonAttendedRequestsNormalized = solution.getNumberOfNonAttendedRequestsNormalized();
@@ -113,13 +113,13 @@ public class Solution implements Comparable<Solution> {
         deliveryTimeWindowAntecipationNormalized = solution.getDeliveryTimeWindowAntecipationNormalized();
         totalRouteTimeChargeBanlanceNormalized = solution.getTotalRouteTimeChargeBanlanceNormalized();
         totalOccupationRateNormalized = solution.getTotalOccupationRateNormalized();
-        
+
         aggregatedObjective1 = solution.getAggregatedObjective1();
         aggregatedObjective2 = solution.getAggregatedObjective2();
         aggregatedObjective1Normalized = solution.getAggregatedObjective1Normalized();
         aggregatedObjective2Normalized = solution.getAggregatedObjective2Normalized();
         fitness = solution.getFitness();
-        
+
         tempoExtraTotal = solution.getTempoExtraTotal();
         nonAttendedRequestsList = new ArrayList<Request>(solution.getNonAttendedRequestsList());
         linkedRouteList = new ArrayList<Integer>(solution.getLinkedRouteList());
@@ -130,7 +130,7 @@ public class Solution implements Comparable<Solution> {
         setSetOfRoutes(solution.getSetOfRoutes());
         setListOfSolutionsDominatedByThisSolution(solution.getListOfSolutionsDominatedByThisSolution());
         setObjectiveFunction(solution.getObjectiveFunction());
-        
+
         setTotalDistance(solution.getTotalDistance());
         setTotalDeliveryDelay(solution.getTotalDeliveryDelay());
         setTotalRouteTimeChargeBanlance(solution.getTotalRouteTimeChargeBanlance());
@@ -140,7 +140,7 @@ public class Solution implements Comparable<Solution> {
         setTotalWaintingTime(solution.getTotalWaintingTime());
         setDeliveryTimeWindowAntecipation(solution.getDeliveryTimeWindowAntecipation());
         setTotalOccupationRate(solution.getTotalOccupationRate());
-        
+
         setTotalDistanceNormalized(solution.getTotalDistanceNormalized());
         setTotalDeliveryDelayNormalized(solution.getTotalDeliveryDelayNormalized());
         setTotalRouteTimeChargeBanlanceNormalized(solution.getTotalRouteTimeChargeBanlanceNormalized());
@@ -149,14 +149,14 @@ public class Solution implements Comparable<Solution> {
         setTotalTravelTimeNormalized(solution.getTotalTravelTimeNormalized());
         setTotalWaintingTimeNormalized(solution.getTotalWaintingTimeNormalized());
         setDeliveryTimeWindowAntecipationNormalized(solution.getDeliveryTimeWindowAntecipationNormalized());
-        setTotalOccupationRateNormalized(solution.getTotalOccupationRateNormalized());        
-        
+        setTotalOccupationRateNormalized(solution.getTotalOccupationRateNormalized());
+
         setAggregatedObjective1(solution.getAggregatedObjective1());
         setAggregatedObjective2(solution.getAggregatedObjective2());
         setAggregatedObjective1Normalized(solution.getAggregatedObjective1Normalized());
         setAggregatedObjective2Normalized(solution.getAggregatedObjective2Normalized());
         setFitness(solution.getFitness());
-        
+
         setR(solution.getR());
         setS(solution.getS());
         setNonAttendedRequestsList(solution.getNonAttendedRequestsList());
@@ -170,7 +170,7 @@ public class Solution implements Comparable<Solution> {
         setOfRoutes.clear();
         listOfSolutionsDominatedByThisSolution.clear();
         objectiveFunction = FO;
-        
+
         totalDistance = FO1;
         totalDeliveryDelay = FO2;
         totalRouteTimeChargeBanlance = FO3;
@@ -180,7 +180,7 @@ public class Solution implements Comparable<Solution> {
         totalWaintingTime = FO7;
         deliveryTimeWindowAntecipation = FO8;
         totalOccupationRate = F9;
-        
+
         aggregatedObjective1 = 99999999;
         aggregatedObjective2 = 99999999;
         aggregatedObjective1Normalized = 99999999;
@@ -243,7 +243,7 @@ public class Solution implements Comparable<Solution> {
     public void setCrowdDistance(double crowdDistance) {
         this.crowdDistance = crowdDistance;
     }
-    
+
     public void setSetOfRoutes(Set<Route> conjRotas) {
         this.setOfRoutes.clear();
         this.setOfRoutes.addAll(new HashSet<Route>(conjRotas));
@@ -389,7 +389,7 @@ public class Solution implements Comparable<Solution> {
     public double getCrowdDistance() {
         return crowdDistance;
     }
-        
+
     public void setTempoExtraTotal(int tempo) {
         this.tempoExtraTotal = tempo;
     }
@@ -535,6 +535,56 @@ public class Solution implements Comparable<Solution> {
         nonAttendedRequestsList.remove(request);
     }
 
+    public void normalizeTotalDistance(long minDistance, long maxDistance) {
+        //System.out.println("TotalDistance = " + this.getTotalDistance());
+        double normalizedValue = (double)(this.getTotalDistance() - minDistance) / (maxDistance - minDistance);
+        this.setTotalDistanceNormalized(normalizedValue);
+    }
+
+    public void normalizeTotalDeliveryDelay(long minDeliveryDelay, long maxDeliveryDelay) {
+        this.setTotalDeliveryDelayNormalized((double)(this.getTotalDeliveryDelay() - minDeliveryDelay)
+                / (maxDeliveryDelay - minDeliveryDelay));
+    }
+
+    public void normalizeTotalRouteTimeChargeBanlance(long minChargeBalance, long maxChargeBalance) {
+        this.setTotalRouteTimeChargeBanlanceNormalized((double)(this.getTotalRouteTimeChargeBanlance() - minChargeBalance)
+                / (maxChargeBalance - minChargeBalance));
+    }
+
+    public void normalizeNumberOfNonAttendedRequests(long minNumberOfNonAttendedRequests, long maxNumberOfNonAttendedRequests) {
+        if (minNumberOfNonAttendedRequests != maxNumberOfNonAttendedRequests) {
+            this.setNumberOfNonAttendedRequestsNormalized((double)(this.getNumberOfNonAttendedRequests() - minNumberOfNonAttendedRequests)
+                    / (maxNumberOfNonAttendedRequests - minNumberOfNonAttendedRequests));
+        } else {
+            this.setNumberOfNonAttendedRequestsNormalized(1.0);
+        }
+    }
+
+    public void normalizeNumberOfVehicles(long minNumberOfVehicles, long maxNumberOfVehicles) {
+        this.setNumberOfVehiclesNormalized((double)(this.getNumberOfVehicles() - minNumberOfVehicles)
+                / (maxNumberOfVehicles - minNumberOfVehicles));
+    }
+
+    public void normalizeTotalTravelTime(long minTravelTime, long maxTravelTime) {
+        this.setTotalTravelTimeNormalized((double)(this.getTotalTravelTime() - minTravelTime)
+                / (maxTravelTime - minTravelTime));
+    }
+
+    public void normalizeTotalWaintingTime(long minWaintingTime, long maxWaitingTime) {
+        this.setTotalWaintingTimeNormalized((double)(this.getTotalWaintingTime() - minWaintingTime)
+                / (maxWaitingTime - minWaintingTime));
+    }
+
+    public void normalizeDeliveryTimeWindowAntecipation(long minAntecipation, long maxAntecipation) {
+        this.setDeliveryTimeWindowAntecipationNormalized((double)(this.getDeliveryTimeWindowAntecipation() - minAntecipation)
+                / (maxAntecipation - minAntecipation));
+    }
+
+    public void normalizeTotalOccupationRate(double minOccupationRate, double maxOccupationRate) {
+        this.setTotalOccupationRateNormalized((double)(maxOccupationRate - this.getTotalOccupationRate())
+                / (maxOccupationRate - minOccupationRate));
+    }
+
     public String getStringWithObjectives() {
         String stringWithObjectives = totalDistance + "\t" + totalDeliveryDelay + "\t" + totalRouteTimeChargeBanlance
                 + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles + "\t" + totalTravelTime + "\t"
@@ -546,11 +596,16 @@ public class Solution implements Comparable<Solution> {
     public String toString() {
         DecimalFormat df = new DecimalFormat("0.000");
 
-        String s = aggregatedObjective1 + "\t" + aggregatedObjective2 + "\t" + crowdDistance + "\t" +/*aggregatedObjective1Normalized + "\t"+ 
-                aggregatedObjective2Normalized + "\t"+*/ totalDistance + "\t" + totalDeliveryDelay
+        String s = aggregatedObjective1 + "\t" + aggregatedObjective2 + "\t" + aggregatedObjective1Normalized + "\t"+ 
+                aggregatedObjective2Normalized + "\t"+ totalDistance + "\t" + totalDeliveryDelay
                 + "\t" + totalRouteTimeChargeBanlance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles
                 + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t"
                 + "\t" + totalOccupationRate + "\t";
+//        String s = aggregatedObjective1Normalized + "\t" + aggregatedObjective2Normalized + "\t" + crowdDistance + "\t" +/*aggregatedObjective1Normalized + "\t"+ 
+//                aggregatedObjective2Normalized + "\t"+*/ totalDistanceNormalized + "\t" + totalDeliveryDelayNormalized
+//                + "\t" + totalRouteTimeChargeBanlanceNormalized + "\t" + numberOfNonAttendedRequestsNormalized + "\t" + numberOfVehiclesNormalized
+//                + "\t" + totalTravelTimeNormalized + "\t" + totalWaintingTimeNormalized + "\t" + deliveryTimeWindowAntecipationNormalized + "\t"
+//                + "\t" + totalOccupationRateNormalized + "\t";
 
         int indice = 1;
         String listaAtendimento = " ";

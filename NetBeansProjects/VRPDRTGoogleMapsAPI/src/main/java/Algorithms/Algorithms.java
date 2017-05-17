@@ -225,9 +225,91 @@ public class Algorithms {
     }
 
     public static void normalizeObjectiveFunctions(List<Solution> solutions) {
-//        minTimeWindowUpper = data.getRequests().stream()
-//                .mapToInt(Request::getDeliveryTimeWindowUpperInMinutes)
-//                .min().getAsInt();
+        long minDistance = solutions.stream()
+                .mapToLong(Solution::getTotalDistance)
+                .min().getAsLong();
+        long maxDistance = solutions.stream()
+                .mapToLong(Solution::getTotalDistance)
+                .max().getAsLong();
+
+        long minDeliveryDelay = solutions.stream()
+                .mapToLong(Solution::getTotalDeliveryDelay)
+                .min().getAsLong();
+        long maxDeliveryDelay = solutions.stream()
+                .mapToLong(Solution::getTotalDeliveryDelay)
+                .max().getAsLong();
+
+        long minChargeBalance = solutions.stream()
+                .mapToLong(Solution::getTotalRouteTimeChargeBanlance)
+                .min().getAsLong();
+        long maxChargeBalance = solutions.stream()
+                .mapToLong(Solution::getTotalRouteTimeChargeBanlance)
+                .max().getAsLong();
+
+        int minNumberOfNonAttendedRequests = solutions.stream()
+                .mapToInt(Solution::getNumberOfNonAttendedRequests)
+                .min().getAsInt();
+        int maxNumberOfNonAttendedRequests = solutions.stream()
+                .mapToInt(Solution::getNumberOfNonAttendedRequests)
+                .max().getAsInt();
+
+        int minNumberOfVehicles = solutions.stream()
+                .mapToInt(Solution::getNumberOfVehicles)
+                .min().getAsInt();
+        int maxNumberOfVehicles = solutions.stream()
+                .mapToInt(Solution::getNumberOfVehicles)
+                .max().getAsInt();
+
+        long minTravelTime = solutions.stream()
+                .mapToLong(Solution::getTotalTravelTime)
+                .min().getAsLong();
+        long maxTravelTime = solutions.stream()
+                .mapToLong(Solution::getTotalTravelTime)
+                .max().getAsLong();
+
+        long minWaitingTime = solutions.stream()
+                .mapToLong(Solution::getTotalWaintingTime)
+                .min().getAsLong();
+        long maxWaitingTime = solutions.stream()
+                .mapToLong(Solution::getTotalWaintingTime)
+                .max().getAsLong();
+
+        long minAntecipation = solutions.stream()
+                .mapToLong(Solution::getDeliveryTimeWindowAntecipation)
+                .min().getAsLong();
+        long maxAntecipation = solutions.stream()
+                .mapToLong(Solution::getDeliveryTimeWindowAntecipation)
+                .max().getAsLong();
+
+        double minOccupationRate = solutions.stream()
+                .mapToDouble(Solution::getTotalOccupationRate)
+                .min().getAsDouble();
+        double maxOccupationRate = solutions.stream()
+                .mapToDouble(Solution::getTotalOccupationRate)
+                .max().getAsDouble();
+
+//        solutions.forEach(solution -> {
+//            solution.normalizeTotalDistance(minDistance, maxDistance);
+//            solution.normalizeTotalDeliveryDelay(minDeliveryDelay, maxDeliveryDelay);
+//            solution.normalizeTotalRouteTimeChargeBanlance(minChargeBalance, maxChargeBalance);
+//            solution.normalizeNumberOfNonAttendedRequests(minNumberOfNonAttendedRequests, maxNumberOfNonAttendedRequests);
+//            solution.normalizeNumberOfVehicles(minNumberOfVehicles, maxNumberOfVehicles);
+//            solution.normalizeTotalTravelTime(minTravelTime, maxTravelTime);
+//            solution.normalizeTotalWaintingTime(minWaitingTime, maxWaitingTime);
+//            solution.normalizeDeliveryTimeWindowAntecipation(minAntecipation, maxAntecipation);
+//            solution.normalizeTotalOccupationRate(minOccupationRate, maxOccupationRate);
+//        });
+        for (Solution solution : solutions) {
+            solution.normalizeTotalDistance(minDistance, maxDistance);
+            solution.normalizeTotalDeliveryDelay(minDeliveryDelay, maxDeliveryDelay);
+            solution.normalizeTotalRouteTimeChargeBanlance(minChargeBalance, maxChargeBalance);
+            solution.normalizeNumberOfNonAttendedRequests(minNumberOfNonAttendedRequests, maxNumberOfNonAttendedRequests);
+            solution.normalizeNumberOfVehicles(minNumberOfVehicles, maxNumberOfVehicles);
+            solution.normalizeTotalTravelTime(minTravelTime, maxTravelTime);
+            solution.normalizeTotalWaintingTime(minWaitingTime, maxWaitingTime);
+            solution.normalizeDeliveryTimeWindowAntecipation(minAntecipation, maxAntecipation);
+            solution.normalizeTotalOccupationRate(minOccupationRate, maxOccupationRate);
+        }
     }
 
     public static void evaluateAggregatedObjectiveFunctions(Solution S, double alfa, double beta, double gama, double delta, double epslon) {
@@ -243,9 +325,25 @@ public class Algorithms {
 //        S.setAggregatedObjective2(S.getTotalDistance() + S.getTotalDeliveryDelay() + 20 * S.getTotalRouteTimeChargeBanlance());
 //        S.setF1(alfa * S.getfObjetivo2() + /*beta**/ 10 * S.getfObjetivo3() + /*delta**/ 50 * S.getfObjetivo4());
 //        S.setF2(gama * S.getfObjetivo1() +/*epslon*/ 800 * S.getfObjetivo5());
-        S.setAggregatedObjective1(S.getTotalDistance() + S.getTotalDeliveryDelay() + 20 * S.getTotalRouteTimeChargeBanlance()
-                + 800 * S.getNumberOfVehicles() + 500 * S.getNumberOfNonAttendedRequests() + S.getTotalTravelTime());
+//        S.setAggregatedObjective1(S.getTotalDistance() + S.getTotalDeliveryDelay() + 20 * S.getTotalRouteTimeChargeBanlance()
+//                + 800 * S.getNumberOfVehicles() + 500 * S.getNumberOfNonAttendedRequests() + S.getTotalTravelTime());
+//        S.setAggregatedObjective2(S.getTotalWaintingTime());
+        S.setAggregatedObjective1(S.getTotalDistance() + S.getTotalDeliveryDelay() + S.getTotalRouteTimeChargeBanlance()
+                + S.getNumberOfVehicles() + S.getNumberOfNonAttendedRequests() + S.getTotalTravelTime());
         S.setAggregatedObjective2(S.getTotalWaintingTime());
+    }
+
+    public static void evaluateAggregatedObjectiveFunctionsNormalized(Solution S) {
+        S.setAggregatedObjective1(S.getTotalDistanceNormalized() + S.getTotalDeliveryDelayNormalized() + S.getTotalRouteTimeChargeBanlanceNormalized()
+                + S.getNumberOfVehiclesNormalized() + S.getNumberOfNonAttendedRequestsNormalized() + S.getTotalTravelTimeNormalized());
+        S.setAggregatedObjective2(S.getTotalWaintingTimeNormalized());
+    }
+
+    public static void evaluateAggregatedObjectiveFunctionsNormalized(List<Solution> solutions) {
+        //solutions.forEach(solution -> evaluateAggregatedObjectiveFunctionsNormalized(solution));
+        for(Solution solution: solutions){
+            evaluateAggregatedObjectiveFunctionsNormalized(solution);
+        }
     }
 
     public static Solution greedyConstructive(Double alphaD, Double alphaP, Double alphaV, Double alphaT,
@@ -849,7 +947,6 @@ public class Algorithms {
                     }
                 }
             }
-
         }
         solution.setNonAttendedRequestsList(U);
         evaluateSolution(solution, c, Qmax, listRequests);
