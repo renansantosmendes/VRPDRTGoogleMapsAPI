@@ -112,6 +112,7 @@ public class AdjacenciesDAO {
             while (resultSet.next()) {
                 Integer originNode = resultSet.getInt("originNode");
                 Integer destinationNode = resultSet.getInt("destinationNode");
+                //System.out.println(resultSet.getLong("timeTo"));
                 long timeTo = Math.round((resultSet.getLong("timeTo")) / 60);
                 timeBetweenNodes.get(originNode).set(destinationNode, timeTo);
             }

@@ -7,6 +7,7 @@ package GoogleMapsApi;
 
 import InstanceReaderWithMySQL.AdjacenciesDAO;
 import ProblemRepresentation.Node;
+import ProblemRepresentation.Request;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,7 +52,8 @@ public class GoogleStaticMap {
     private StringBuilder pathGeneratedForAllRoutes = new StringBuilder();
     private static int totalOfRoutes = 0;
     private String staticMapsFolder = "StaticMaps";
-    private Set<List<Integer>> routes;
+    private Set<List<Integer>> routesOfStopPoints;
+    private Set<List<Request>> routesOfRequests;
     private List<Integer> route;
     private String adjacenciesTable;
     private String nodesTable;
@@ -71,7 +73,7 @@ public class GoogleStaticMap {
 
     public GoogleStaticMap(List<Node> nodesList, List<Integer> route, String adjacenciesTable, String nodesTable)
             throws IOException {
-        
+
         this.nodesList = nodesList;
         this.route = route;
         this.nodesTable = nodesTable;
@@ -93,11 +95,11 @@ public class GoogleStaticMap {
         this.buildMapInWindow();
     }
 
-    public GoogleStaticMap(List<Node> nodesList, Set<List<Integer>> routes, String adjacenciesTable, String nodesTable)
+    public GoogleStaticMap(List<Node> nodesList, Set<List<Integer>> routesOfStopPoints, String adjacenciesTable, String nodesTable)
             throws IOException {
         totalOfRoutes++;
         this.nodesList = nodesList;
-        this.routes = routes;
+        this.routesOfStopPoints = routesOfStopPoints;
         this.nodesTable = nodesTable;
         String folder;
         folder = "RouteDataForStaticMap";
@@ -110,6 +112,24 @@ public class GoogleStaticMap {
         this.buildPathForMapWithAllRoutes(adjacenciesTable, nodesTable);
         this.buildMapInWindow();
     }
+    
+//    public GoogleStaticMap(List<Node> nodesList, Set<List<Request>> routesOfRequests, String adjacenciesTable, String nodesTable)
+//            throws IOException {
+//        totalOfRoutes++;
+//        this.nodesList = nodesList;
+//        this.routesOfRequests = routesOfRequests;
+//        this.nodesTable = nodesTable;
+//        String folder;
+//        folder = "RouteDataForStaticMap";
+//
+//        boolean successForCreateDataFolder = (new File(folder)).mkdirs();
+//        boolean successForCreateStaticMapsFolder = (new File(staticMapsFolder)).mkdirs();
+//
+//        buildStringWithNodeMarkets();
+//
+//        this.buildPathForMapWithAllRoutes(adjacenciesTable, nodesTable);
+//        this.buildMapInWindow();
+//    }
 
     private void buildStringWithNodeMarkets() {
         for (int i = 0; i < this.nodesList.size(); i++) {
@@ -119,7 +139,6 @@ public class GoogleStaticMap {
 
     private URL buildURL() throws MalformedURLException, IOException {
         setStaticMapParameters();
-
         URL url = new URL(URLRoot + mapCenter + "," + city + "," + state + "," + country + "&zoom=" + zoom + "&scale=" + scale
                 + "&size=" + width + "x" + height + "&maptype=" + mapType + stringOfNodes.toString()
                 + pathGeneratedForAllRoutes + "&key=" + staticMapKey + "&format=jpg");
@@ -136,8 +155,10 @@ public class GoogleStaticMap {
 
     private void buildPathForMapWithOneRoute(String adjacenciesTable, String nodesTable) {
         String color = new ColorGenerator().generatesColor();
-        correctRouteAddingTheDepot(this.route);
-
+        color = "0xb30b47";
+        if (this.route.get(0) != 0) {
+            correctRouteAddingTheDepot(this.route);
+        }
         for (int i = 0; i < route.size() - 1; i++) {
             int origin = this.route.get(i);
             int destination = this.route.get(i + 1);
@@ -148,9 +169,11 @@ public class GoogleStaticMap {
     }
 
     private void buildPathForMapWithAllRoutes(String adjacenciesTable, String nodesTable) {
-        for (List<Integer> route : routes) {
+        for (List<Integer> route : routesOfStopPoints) {
             String color = new ColorGenerator().generatesColor();
-            correctRouteAddingTheDepot(route);
+            if (route.get(0) != 0) {
+                correctRouteAddingTheDepot(this.route);
+            }
             for (int i = 0; i < route.size() - 1; i++) {
                 int origin = route.get(i);
                 int destination = route.get(i + 1);
@@ -173,11 +196,9 @@ public class GoogleStaticMap {
 
     private void buildMapInWindow() throws IOException {
         JFrame frame = new JFrame("Google Maps");
-        //frame.setAlwaysOnTop(true);
-        //frame.setLocationRelativeTo(null);
 
         String destinationFile;
-        if (this.routes == null) {
+        if (this.routesOfStopPoints == null) {
             destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_" + this.route + ".jpg";
         } else {
             destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_" + ".jpg";
@@ -185,7 +206,6 @@ public class GoogleStaticMap {
 
         try {
             String imageUrl = this.buildURL().toString();
-            //System.out.println("URL");
             System.out.println(imageUrl);
 
             URL url = new URL(imageUrl);
@@ -205,7 +225,7 @@ public class GoogleStaticMap {
             System.exit(1);
         }
 
-        if (this.routes == null) {
+        if (this.routesOfStopPoints == null) {
             frame.add(new JLabel(new ImageIcon((new ImageIcon(destinationFile)).getImage()
                     .getScaledInstance(730, 700, java.awt.Image.SCALE_SMOOTH))));
             System.out.println(destinationFile);
@@ -216,20 +236,15 @@ public class GoogleStaticMap {
 
         frame.setVisible(true);
         frame.pack();
-        //frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     public void getStaticMapForInstance() {
         JFrame frame = new JFrame("Google Maps");
-        
-//        WaitScreen waitScreen = new WaitScreen();
-//        waitScreen.showScreen();
-        
-        //frame.setAlwaysOnTop(true);
-        //frame.setLocationRelativeTo(null);
 
         String destinationFile;
-        if (this.routes == null) {
+        if (this.routesOfStopPoints == null) {
             destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_" + this.route + ".jpg";
         } else {
             destinationFile = staticMapsFolder + "/Route_" + totalOfRoutes + "_" + ".jpg";
@@ -237,7 +252,6 @@ public class GoogleStaticMap {
 
         try {
             String imageUrl = this.buildURLForInstanceMap().toString();
-            //System.out.println("URL");
             System.out.println(imageUrl);
 
             URL url = new URL(imageUrl);
@@ -256,12 +270,10 @@ public class GoogleStaticMap {
             e.printStackTrace();
             System.exit(1);
         }
-        
+
         //waitScreen.hideScreen();
-        
         frame.add(new JLabel(new ImageIcon(new ImageIcon(destinationFile).getImage()
                 .getScaledInstance(730, 700, java.awt.Image.SCALE_SMOOTH))));
-
         frame.setVisible(true);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -269,7 +281,6 @@ public class GoogleStaticMap {
     }
 
     private void setStaticMapParameters() {
-
         if (this.nodesTable.charAt(this.nodesTable.length() - 1) == 's') {
             setParameterForSmallInstances();
         } else if (this.nodesTable.charAt(this.nodesTable.length() - 1) == 'm') {
