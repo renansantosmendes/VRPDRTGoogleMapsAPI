@@ -441,6 +441,7 @@ public class EvolutionaryAlgorithms {
         double minObjective1 = population.stream()
                 .mapToDouble(Solution::getAggregatedObjective1Normalized)
                 .min().getAsDouble();
+        
         double maxObjective2 = population.stream()
                 .mapToDouble(Solution::getAggregatedObjective2Normalized)
                 .max().getAsDouble();

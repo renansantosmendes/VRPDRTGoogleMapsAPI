@@ -53,7 +53,7 @@ public class VRPDRT {
         final Integer numberOfVehicles = 50;
         final Integer vehicleCapacity = 4;
         Integer populationSize = 100;
-        Integer maximumNumberOfGenerations = 50;
+        Integer maximumNumberOfGenerations = 100;
         Integer maximumNumberOfExecutions = 1;
         double probabilityOfMutation = 0.02;
         double probabilityOfCrossover = 0.7;
