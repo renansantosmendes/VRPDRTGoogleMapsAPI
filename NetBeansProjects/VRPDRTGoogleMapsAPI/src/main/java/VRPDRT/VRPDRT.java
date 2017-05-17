@@ -47,7 +47,7 @@ public class VRPDRT {
 
     public static void main(String[] args) throws ApiException, InterruptedException, IOException {
         String directionsApiKey = "AIzaSyD9W0em7H723uVOMD6QFe_1Mns71XAi5JU";
-        String instanceName = "r050n12tw10";
+        String instanceName = "r050n12tw05";
         String nodesData = "bh_n12s";
         String adjacenciesData = "bh_adj_n12s";
         final Integer numberOfVehicles = 50;

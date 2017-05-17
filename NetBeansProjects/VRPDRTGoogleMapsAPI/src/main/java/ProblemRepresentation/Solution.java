@@ -537,23 +537,23 @@ public class Solution implements Comparable<Solution> {
 
     public void normalizeTotalDistance(long minDistance, long maxDistance) {
         //System.out.println("TotalDistance = " + this.getTotalDistance());
-        double normalizedValue = (double)(this.getTotalDistance() - minDistance) / (maxDistance - minDistance);
+        double normalizedValue = (double) (this.getTotalDistance() - minDistance) / (maxDistance - minDistance);
         this.setTotalDistanceNormalized(normalizedValue);
     }
 
     public void normalizeTotalDeliveryDelay(long minDeliveryDelay, long maxDeliveryDelay) {
-        this.setTotalDeliveryDelayNormalized((double)(this.getTotalDeliveryDelay() - minDeliveryDelay)
+        this.setTotalDeliveryDelayNormalized((double) (this.getTotalDeliveryDelay() - minDeliveryDelay)
                 / (maxDeliveryDelay - minDeliveryDelay));
     }
 
     public void normalizeTotalRouteTimeChargeBanlance(long minChargeBalance, long maxChargeBalance) {
-        this.setTotalRouteTimeChargeBanlanceNormalized((double)(this.getTotalRouteTimeChargeBanlance() - minChargeBalance)
+        this.setTotalRouteTimeChargeBanlanceNormalized((double) (this.getTotalRouteTimeChargeBanlance() - minChargeBalance)
                 / (maxChargeBalance - minChargeBalance));
     }
 
     public void normalizeNumberOfNonAttendedRequests(long minNumberOfNonAttendedRequests, long maxNumberOfNonAttendedRequests) {
         if (minNumberOfNonAttendedRequests != maxNumberOfNonAttendedRequests) {
-            this.setNumberOfNonAttendedRequestsNormalized((double)(this.getNumberOfNonAttendedRequests() - minNumberOfNonAttendedRequests)
+            this.setNumberOfNonAttendedRequestsNormalized((double) (this.getNumberOfNonAttendedRequests() - minNumberOfNonAttendedRequests)
                     / (maxNumberOfNonAttendedRequests - minNumberOfNonAttendedRequests));
         } else {
             this.setNumberOfNonAttendedRequestsNormalized(1.0);
@@ -561,27 +561,27 @@ public class Solution implements Comparable<Solution> {
     }
 
     public void normalizeNumberOfVehicles(long minNumberOfVehicles, long maxNumberOfVehicles) {
-        this.setNumberOfVehiclesNormalized((double)(this.getNumberOfVehicles() - minNumberOfVehicles)
+        this.setNumberOfVehiclesNormalized((double) (this.getNumberOfVehicles() - minNumberOfVehicles)
                 / (maxNumberOfVehicles - minNumberOfVehicles));
     }
 
     public void normalizeTotalTravelTime(long minTravelTime, long maxTravelTime) {
-        this.setTotalTravelTimeNormalized((double)(this.getTotalTravelTime() - minTravelTime)
+        this.setTotalTravelTimeNormalized((double) (this.getTotalTravelTime() - minTravelTime)
                 / (maxTravelTime - minTravelTime));
     }
 
     public void normalizeTotalWaintingTime(long minWaintingTime, long maxWaitingTime) {
-        this.setTotalWaintingTimeNormalized((double)(this.getTotalWaintingTime() - minWaintingTime)
+        this.setTotalWaintingTimeNormalized((double) (this.getTotalWaintingTime() - minWaintingTime)
                 / (maxWaitingTime - minWaintingTime));
     }
 
     public void normalizeDeliveryTimeWindowAntecipation(long minAntecipation, long maxAntecipation) {
-        this.setDeliveryTimeWindowAntecipationNormalized((double)(this.getDeliveryTimeWindowAntecipation() - minAntecipation)
+        this.setDeliveryTimeWindowAntecipationNormalized((double) (this.getDeliveryTimeWindowAntecipation() - minAntecipation)
                 / (maxAntecipation - minAntecipation));
     }
 
     public void normalizeTotalOccupationRate(double minOccupationRate, double maxOccupationRate) {
-        this.setTotalOccupationRateNormalized((double)(maxOccupationRate - this.getTotalOccupationRate())
+        this.setTotalOccupationRateNormalized((double) (maxOccupationRate - this.getTotalOccupationRate())
                 / (maxOccupationRate - minOccupationRate));
     }
 
@@ -596,17 +596,20 @@ public class Solution implements Comparable<Solution> {
     public String toString() {
         DecimalFormat df = new DecimalFormat("0.000");
 
-        String s = aggregatedObjective1 + "\t" + aggregatedObjective2 + "\t" + aggregatedObjective1Normalized + "\t"+ 
-                aggregatedObjective2Normalized + "\t"+ totalDistance + "\t" + totalDeliveryDelay
-                + "\t" + totalRouteTimeChargeBanlance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles
-                + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t"
-                + "\t" + totalOccupationRate + "\t";
+//        String s = df.format(aggregatedObjective1) + "\t" + df.format(aggregatedObjective2) + "\t" +/*aggregatedObjective1Normalized + "\t"+ 
+//                aggregatedObjective2Normalized + "\t"+*/ totalDistance + "\t" + totalDeliveryDelay
+//                + "\t" + totalRouteTimeChargeBanlance + "\t" + numberOfNonAttendedRequests + "\t" + numberOfVehicles
+//                + "\t" + totalTravelTime + "\t" + totalWaintingTime + "\t" + deliveryTimeWindowAntecipation + "\t"
+//                + "\t" + df.format(totalOccupationRate) + "\t";
+        String s = df.format(aggregatedObjective1) + "\t" + df.format(aggregatedObjective2) + "\t" + totalDistance + "\t" 
+                + totalDeliveryDelay + "\t" + totalRouteTimeChargeBanlance + "\t" + numberOfNonAttendedRequests + "\t" 
+                + numberOfVehicles + "\t";
+
 //        String s = aggregatedObjective1Normalized + "\t" + aggregatedObjective2Normalized + "\t" + crowdDistance + "\t" +/*aggregatedObjective1Normalized + "\t"+ 
 //                aggregatedObjective2Normalized + "\t"+*/ totalDistanceNormalized + "\t" + totalDeliveryDelayNormalized
 //                + "\t" + totalRouteTimeChargeBanlanceNormalized + "\t" + numberOfNonAttendedRequestsNormalized + "\t" + numberOfVehiclesNormalized
 //                + "\t" + totalTravelTimeNormalized + "\t" + totalWaintingTimeNormalized + "\t" + deliveryTimeWindowAntecipationNormalized + "\t"
 //                + "\t" + totalOccupationRateNormalized + "\t";
-
         int indice = 1;
         String listaAtendimento = " ";
         for (Route r : setOfRoutes) {

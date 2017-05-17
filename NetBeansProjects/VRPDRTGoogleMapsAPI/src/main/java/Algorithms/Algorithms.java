@@ -346,9 +346,14 @@ public class Algorithms {
     }
 
     public static void evaluateAggregatedObjectiveFunctionsNormalized(Solution S) {
+//        S.setAggregatedObjective1(S.getTotalDistanceNormalized() + S.getTotalDeliveryDelayNormalized() + S.getTotalRouteTimeChargeBanlanceNormalized()
+//                + S.getNumberOfVehiclesNormalized() + S.getNumberOfNonAttendedRequestsNormalized() + S.getTotalTravelTimeNormalized());
+//        S.setAggregatedObjective2(S.getTotalWaintingTimeNormalized());
+
+
         S.setAggregatedObjective1(S.getTotalDistanceNormalized() + S.getTotalDeliveryDelayNormalized() + S.getTotalRouteTimeChargeBanlanceNormalized()
-                + S.getNumberOfVehiclesNormalized() + S.getNumberOfNonAttendedRequestsNormalized() + S.getTotalTravelTimeNormalized());
-        S.setAggregatedObjective2(S.getTotalWaintingTimeNormalized());
+                + S.getNumberOfVehiclesNormalized());
+        S.setAggregatedObjective2(S.getNumberOfNonAttendedRequestsNormalized());
     }
 
     public static void evaluateAggregatedObjectiveFunctionsNormalized(List<Solution> solutions) {
